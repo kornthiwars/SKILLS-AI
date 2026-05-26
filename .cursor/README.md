@@ -6,9 +6,9 @@ Minimal `.cursor/` scaffold for this repo.
 
 | Path | Purpose |
 |------|---------|
-| `rules/` | Project rules (`.mdc`) — loaded by Cursor Agent |
+| `rules/` | Project rules (`.mdc`) — e.g. `bilingual-th-en.mdc` (ไทย ~60% / EN ~40%) |
 | `skills/` | Project skills (`SKILL.md` per folder) |
-| `agents/` | Custom agent definitions (optional) |
+| `agents/` | Custom agent definitions (optional, unused) |
 | `hooks.json` | Agent hooks (optional) |
 | `hooks/` | Hook scripts referenced from `hooks.json` |
 
@@ -16,6 +16,7 @@ Minimal `.cursor/` scaffold for this repo.
 
 | Skill | Path | Invoke |
 |-------|------|--------|
+| debug | `skills/debug/` | `/debug` — four-mantra debugging (from 9arm `debug-mantra`) |
 | upgrade-ai | `skills/upgrade-ai/` | `/upgrade-ai` or ask to use **upgrade-ai** |
 | git-push | `skills/git-push/` | `/git-push` or ask to **push to GitHub** |
 

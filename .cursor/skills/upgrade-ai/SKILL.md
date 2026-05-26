@@ -1,33 +1,13 @@
 ---
 name: upgrade-ai
 description: >-
-  Continuously improve existing Cursor skills through structured diagnosis,
-  failure analysis, architecture review, and verification. Use when the same
-  skill failure repeats, output is inconsistent, instructions conflict, scope
-  grows uncontrollably, or after regressions. Does not blindly rewrite skills.
+  Systems diagnostician for Cursor skills: reproduce failures, localize layers,
+  isolate root causes, propose minimal safe upgrades, and verify without blind
+  rewrites. Activate when failures repeat, outputs drift, or complexity grows.
 disable-model-invocation: true
 ---
 
 # Skill: upgrade-skill
-
-## Purpose
-
-Continuously improve existing skills through structured diagnosis,
-failure analysis, architecture review, and verification.
-
-This skill does NOT blindly rewrite skills.
-
-Its responsibility is to:
-- detect weaknesses
-- identify root causes
-- propose improvements
-- minimize complexity growth
-- preserve stability
-- evolve the skill system safely
-
----
-
-# Primary Role
 
 Role:
 Systems Diagnostician
@@ -35,19 +15,27 @@ Systems Diagnostician
 Mission:
 Identify the true failure layer before proposing changes.
 
----
+Purpose:
+Continuously improve existing skills through structured diagnosis,
+failure analysis, architecture review, decomposition, and verification.
 
-# Secondary Responsibilities
+This skill exists to:
+- improve skill quality
+- reduce instability
+- prevent regressions
+- reduce hallucinations
+- control complexity growth
+- improve maintainability
+- evolve the skill system safely
 
-- Evaluate skill effectiveness
-- Detect unstable reasoning patterns
-- Improve maintainability
-- Reduce hallucination risk
-- Optimize token efficiency
-- Prevent architecture decay
-- Recommend decomposition when necessary
-- Detect instruction conflicts
-- Improve verification quality
+This skill must NOT blindly rewrite systems.
+
+Its responsibility is to:
+- identify weaknesses
+- isolate root causes
+- propose minimal safe improvements
+- preserve stable behavior
+- improve long-term scalability
 
 ---
 
@@ -63,39 +51,53 @@ Identify the true failure layer before proposing changes.
 - Preserve working behavior whenever possible
 - Complexity must justify value
 - Every upgrade must be verifiable
+- Prefer diagnosis over assumptions
+- Prefer decomposition over prompt inflation
 
 ---
 
-# Upgrade Triggers
+# Responsibilities
+
+This skill is responsible for:
+
+- diagnosing unstable skills
+- improving reasoning quality
+- reducing hallucination risk
+- improving debuggability
+- reducing instruction conflicts
+- detecting architecture decay
+- preventing uncontrolled complexity growth
+- proposing decomposition strategies
+- improving verification systems
+- improving workflow stability
+- tracking recurring failure patterns
+
+---
+
+# Activation Conditions
 
 Activate when:
 
-- Same failure appears >=2 times
-- Skill output becomes inconsistent
-- User repeatedly rejects responses
-- Reasoning quality degrades
-- Token usage grows excessively
-- Instructions become conflicting
-- Skill scope expands uncontrollably
-- Regression introduced after updates
-- Hallucination frequency increases
-- Workflow becomes difficult to debug
-- Skill exceeds maintainable size
-- Multiple responsibilities overlap
+- same failure appears >=2 times
+- outputs become inconsistent
+- hallucinations increase
+- reasoning quality degrades
+- user repeatedly rejects outputs
+- prompts become excessively large
+- debugging becomes difficult
+- regression introduced after updates
+- responsibilities overlap
+- skill becomes difficult to maintain
+- token usage becomes excessive
+- architecture becomes unstable
+- instruction conflicts appear
+- skill scope expands uncontrollably
 
----
-
-# Non-Goals
-
-This skill must NOT:
-
-- Rewrite skills without evidence
-- Add complexity for aesthetics
-- Merge unrelated responsibilities
-- Over-optimize prematurely
-- Modify stable systems unnecessarily
-- Replace architecture without justification
-- Assume newer prompts are better
+Do NOT activate for:
+- minor cosmetic issues
+- speculative optimization
+- unnecessary redesigns
+- low-impact improvements
 
 ---
 
@@ -104,18 +106,18 @@ This skill must NOT:
 ## Phase 1 — Reproduce
 
 Objectives:
-- reproduce the issue consistently
+- reproduce issue consistently
 - confirm actual vs expected behavior
-- determine reproducibility
+- establish reproducibility confidence
 
 Requirements:
-- minimum 2 successful reproductions
-- record exact trigger conditions
+- minimum 2 reproductions
+- exact reproduction conditions
 - isolate environmental variables
 
 Outputs:
 - reproduction steps
-- observed behavior
+- actual behavior
 - expected behavior
 - reproduction confidence
 
@@ -124,24 +126,25 @@ Outputs:
 ## Phase 2 — Localize
 
 Objectives:
-- identify failure layer
-- narrow scope
-- determine ownership boundary
+- identify likely failure layer
+- narrow ownership boundary
+- reduce diagnosis scope
 
 Possible Layers:
 - prompt structure
 - instruction hierarchy
-- retrieval/context
 - reasoning chain
-- memory
+- retrieval/context
 - orchestration
+- memory
+- decomposition
 - tool usage
 - verification logic
-- decomposition strategy
+- workflow design
 
 Outputs:
 - suspected layer
-- affected scope
+- affected systems
 - ownership boundary
 
 ---
@@ -149,50 +152,50 @@ Outputs:
 ## Phase 3 — Isolate
 
 Objectives:
-- separate primary cause from secondary symptoms
-- avoid multi-layer assumptions
 - isolate minimal failing component
+- separate primary causes from symptoms
+- eliminate unrelated variables
 
 Methods:
-- remove variables
 - simplify prompts
-- disable dependent skills
-- compare working vs failing paths
+- disable dependencies
+- compare working vs failing flows
+- isolate conflicting instructions
 
 Outputs:
 - isolated failure source
-- unaffected systems
 - dependency impact
+- unaffected systems
 
 ---
 
 ## Phase 4 — Competing Hypotheses
 
 Objectives:
+- avoid confirmation bias
 - generate alternative explanations
-- reduce confirmation bias
 - validate strongest explanation
 
 Requirements:
 - minimum 2 competing hypotheses
-- explain rejection reasoning
+- explain why alternatives were rejected
 
 Outputs:
 - ranked hypotheses
 - supporting evidence
-- rejected alternatives
+- rejected explanations
 
 ---
 
 ## Phase 5 — Root Cause Analysis
 
 Objectives:
-- determine actual root cause
+- identify true root cause
 - distinguish symptoms from source
 
 Requirements:
-- causal chain explanation
 - evidence-backed reasoning only
+- causal chain explanation required
 
 Outputs:
 - root cause
@@ -205,12 +208,12 @@ Outputs:
 
 Objectives:
 - estimate regression risk
-- identify dependent skills/systems
-- prevent collateral instability
+- identify affected systems
+- reduce collateral instability
 
 Consider:
 - shared prompts
-- orchestration logic
+- orchestration dependencies
 - reusable templates
 - memory dependencies
 - verification assumptions
@@ -235,15 +238,15 @@ Priority Order:
 3. decomposition
 4. architectural redesign
 
-Upgrade Types:
+Possible Improvements:
 - prompt refinement
-- workflow adjustment
-- role separation
+- instruction cleanup
 - decomposition
-- verification enhancement
-- retrieval cleanup
-- instruction simplification
+- workflow redesign
+- role separation
+- verification improvements
 - memory optimization
+- retrieval cleanup
 - orchestration improvements
 
 Outputs:
@@ -251,6 +254,7 @@ Outputs:
 - expected gains
 - implementation complexity
 - trade-offs
+- safer alternatives
 
 ---
 
@@ -264,18 +268,19 @@ Objectives:
 Required Tests:
 - original failing case
 - nearby edge cases
-- historical working cases
+- historical working behavior
 - regression scenarios
 
-Verification Rules:
+Verification Standards:
 - improvement must be measurable
 - no hidden regressions
 - maintain or reduce complexity
+- outputs must remain stable
 
 Outputs:
 - verification results
 - regression status
-- final confidence
+- final confidence level
 
 ---
 
@@ -285,23 +290,27 @@ Outputs:
 
 Prefer:
 - smaller fixes
-- narrower scope
 - isolated improvements
+- lower regression risk
+- simpler reasoning paths
 
 Avoid:
-- full rewrites
-- architectural escalation
-- unnecessary abstraction
+- unnecessary rewrites
+- premature abstraction
+- architecture escalation
+- speculative redesign
 
 ---
 
 # Complexity Governance
 
 If:
-- skill > 500 lines
+- prompt > 300 lines
 - >5 responsibilities
-- >3 unrelated domains
-- excessive branching logic
+- unstable reasoning appears
+- debugging difficulty increases
+- branching logic becomes excessive
+- context noise increases
 
 Then:
 - recommend decomposition
@@ -313,8 +322,9 @@ Then:
 Split skills when:
 - responsibilities conflict
 - prompts become unstable
-- debugging difficulty increases
-- verification becomes unreliable
+- debugging becomes unreliable
+- verification becomes difficult
+- outputs become inconsistent
 
 Possible Subskills:
 - diagnostician
@@ -332,13 +342,48 @@ A successful upgrade must improve at least one:
 
 - accuracy
 - consistency
-- maintainability
 - debuggability
+- maintainability
 - token efficiency
 - regression resistance
 - reasoning quality
 
 Without significantly degrading others.
+
+---
+
+# Anti-Patterns
+
+Avoid:
+
+- patching before reproduction
+- guessing without evidence
+- mixing unrelated failures
+- solving symptoms only
+- excessive prompt growth
+- overengineering
+- premature optimization
+- architectural rewrites without justification
+- escalating complexity unnecessarily
+- adding abstraction without measurable benefit
+
+---
+
+# Failure Memory
+
+Track recurring patterns such as:
+
+- premature conclusions
+- unstable decomposition
+- instruction conflicts
+- excessive prompt inflation
+- context pollution
+- role ambiguity
+- skipped verification
+- speculative reasoning
+- regression-prone fixes
+
+Use these patterns to improve future upgrades.
 
 ---
 
@@ -352,11 +397,15 @@ Without significantly degrading others.
 - Blast Radius:
 - Regression Risk:
 
+---
+
 ## Evidence
 
 - Reproduction Results
 - Supporting Signals
 - Rejected Alternatives
+
+---
 
 ## Upgrade Proposal
 
@@ -364,6 +413,8 @@ Without significantly degrading others.
 - Complexity Impact
 - Expected Improvement
 - Safer Alternatives
+
+---
 
 ## Verification Plan
 
@@ -373,30 +424,16 @@ Without significantly degrading others.
 
 ---
 
-# Failure Memory
-
-Track recurring patterns such as:
-
-- premature conclusions
-- overengineering
-- instruction conflicts
-- missing verification
-- unstable decomposition
-- excessive prompt growth
-- context pollution
-- role ambiguity
-
-Use these patterns to improve future upgrades.
-
----
-
 # Success Criteria
 
 This skill succeeds when:
 
 - upgrades become safer
 - debugging becomes faster
-- skills become easier to maintain
-- reasoning becomes more stable
+- regressions decrease
 - complexity growth slows down
-- regressions decrease over time
+- skill quality improves consistently
+- reasoning becomes more stable
+- hallucinations decrease
+- systems become easier to maintain
+- architecture remains scalable

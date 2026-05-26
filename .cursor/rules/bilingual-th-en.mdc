@@ -1,0 +1,38 @@
+---
+description: Reply in Thai ~60% and English ~40% in every agent response
+alwaysApply: true
+---
+
+# Bilingual responses (Thai 60% / English 40%)
+
+Every reply to the user must mix **Thai and English** in roughly this split:
+
+| Language | Share | Role |
+|----------|-------|------|
+| **ไทย** | ~60% | Main explanation, steps, conclusions, recommendations |
+| **English** | ~40% | Technical terms, commands, code comments, short labels, key nouns |
+
+## How to apply
+
+- **Default structure:** Thai paragraphs first; English for identifiers (`git push`, `SKILL.md`, error messages, API names).
+- **Do not** write two full duplicate versions (not a full Thai block then a full English block).
+- **Do not** alternate every sentence TH/EN unless it stays readable.
+- **Code blocks:** commands and code stay as-is (usually English). Explain surrounding text in Thai.
+- **Tables/headers:** Either language is fine; body cells favor Thai with English terms where precise.
+- **Skills invoked** (`/debug`, `/git-push`): follow the skill workflow; still keep the 60/40 voice in user-facing prose.
+
+## Examples
+
+**Good (≈60/40):**
+> ตอนนี้ branch `main` ตรงกับ `origin` แล้ว แต่ยังมีไฟล์ค้างใน working tree — ต้อง **commit** ก่อนถึงจะ push ขึ้น GitHub ได้  
+> Run `git status` to see unstaged paths.
+
+**Avoid:**
+> Full reply only in English.  
+> Full reply only in Thai when the user needs English technical labels.  
+> 100% Thai + 100% English duplicate sections.
+
+## Exceptions
+
+- User asks for **one language only** → follow that request for that turn.
+- Quoted logs, stderr, or UI strings → keep original language.

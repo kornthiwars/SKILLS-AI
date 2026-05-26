@@ -1,13 +1,17 @@
 ---
 name: git-push
 description: >-
-  Safely stage, commit (only when explicitly requested), and push to GitHub.
-  Use when the user asks to push, publish a branch, sync with origin, or run
-  git init/remote/push workflows. Handles SSH account mismatches and pre-push checks.
+  Safely inspect, commit (only when explicitly requested), and push to GitHub.
+  Use for push/publish/sync, failed pushes, or init→remote workflows. Handles
+  dirty trees, confirm-after-block, SSH identity, and multi-account remotes.
 disable-model-invocation: true
 ---
 
 # Skill: git-push
+
+Role: Release operator
+
+Mission: Inspect repo state, use the correct remote identity, push once, verify.
 
 ## Purpose
 
@@ -22,11 +26,13 @@ This skill does NOT:
 
 ---
 
-# Primary Role
+# Core Principles
 
-Role: Release operator
-
-Mission: Verify repo state, use the correct remote identity, push once, confirm success.
+- **Commit only on request** — `/git-push` alone is not permission to commit
+- **Read before write** — inspect status, diff, branch, remote first
+- **Decision before action** — use the push decision matrix below
+- **Correct identity** — SSH must match the account that owns the remote repo
+- **Verify after push** — confirm tracking and remote HEAD
 
 ---
 
@@ -35,17 +41,25 @@ Mission: Verify repo state, use the correct remote identity, push once, confirm 
 - User asks to push, publish, or sync to GitHub
 - User runs init → add → commit → push sequences
 - Push failed (auth, permission denied, wrong account, no upstream)
-- User wants a new repo on GitHub wired up
+- User confirms after a blocked push (e.g. ยืนยัน, confirm, yes commit and push)
+
+Do NOT activate for: general coding tasks unrelated to git remote sync.
 
 ---
 
-# Core Principles
+# Push Decision Matrix
 
-- **Commit only on request** — staging/pushing ≠ permission to commit
-- **Read before write** — always inspect status, diff, and branch first
-- **Minimal commands** — no destructive git unless explicitly requested
-- **Correct identity** — SSH must map to the account that owns the remote repo
-- **Verify after push** — confirm remote branch and tracking
+After Phase 1 inspect, choose **one** path:
+
+| Ahead of origin | Working tree | Action |
+|-----------------|--------------|--------|
+| 0 | clean | Report already up to date; done |
+| >0 | clean | Phase 3 → 4 → 5 (push only) |
+| 0 | dirty | **Blocked** — offer commit; wait for explicit commit consent |
+| >0 | dirty | **Blocked** — ask: push existing commits only, or commit first then push |
+| 0 | staged only | **Blocked** — need `git commit` consent before push |
+
+Never push uncommitted work. Never assume "confirm" means commit unless intent is explicit (see Commit Gate).
 
 ---
 
@@ -64,26 +78,31 @@ git remote -v
 git log -3 --oneline
 ```
 
-Determine:
-- clean vs dirty working tree
-- staged vs unstaged changes
-- current branch and upstream
-- whether commits exist that are not on remote
+Also derive:
+- commits ahead: `git rev-list --count @{u}..HEAD 2>/dev/null` or from `git status`
+- whether remote exists and URL scheme (HTTPS vs SSH)
 
 ---
 
 ## Phase 2 — Commit Gate
 
-**If the user did not explicitly ask to commit:**
+### Explicit commit consent (any of these)
 
-- Do NOT run `git commit`
-- If there are uncommitted changes needed for push, stop and ask what to commit
+- User asked to commit (commit, commit and push, สร้าง commit)
+- User confirmed after blocked push with clear intent: **ยืนยัน**, **confirm**, **yes commit and push**, **commit แล้ว push**
+- User listed files/message to include in the commit
 
-**If the user asked to commit:**
+### NOT sufficient alone
 
-1. Never commit secrets (`.env`, credentials, keys, tokens)
-2. Draft a 1–2 sentence message focused on **why**
-3. Use HEREDOC for the message:
+- `/git-push` only
+- vague "ok" without commit context after a dirty-tree block
+
+### When committing
+
+1. Never commit secrets (`.env`, credentials, `*.pem`, `id_*` private keys, tokens)
+2. If expected files are untracked, run `git check-ignore -v <path>` — fix `.gitignore` if wrongly ignored
+3. Draft a 1–2 sentence message focused on **why**
+4. Use HEREDOC:
 
 ```bash
 git add <paths>
@@ -94,11 +113,38 @@ EOF
 )"
 ```
 
-4. If commit fails due to a hook that modified files, fix and make a **new** commit (do not amend unless amend rules are satisfied)
+5. Hook modified files after commit → fix and **new** commit (no careless amend)
+
+### When blocked (dirty, ahead = 0)
+
+1. Summarize changed/untracked paths
+2. Propose a commit message draft
+3. Ask user to confirm commit (and then push)
+4. Do not run `git commit` until consent
 
 ---
 
 ## Phase 3 — Remote & Identity
+
+### SSH remotes (`git@...`)
+
+Before push, verify account matches repo owner when push failed before OR alias remote is used:
+
+```bash
+# Default host
+ssh -T git@github.com 2>&1 || true
+# If remote uses Host alias (e.g. git@github.com-kornthiwars:owner/repo.git)
+ssh -T git@github.com-<alias> 2>&1 || true
+```
+
+`Hi <user>!` must be an account with push access to that repository.
+
+| Account setup | Remote URL pattern |
+|---------------|-------------------|
+| Default | `git@github.com:OWNER/REPO.git` |
+| Multi-account SSH alias | `git@github.com-ALIAS:OWNER/REPO.git` |
+
+Fix wrong account: `git remote set-url origin <correct-url>` — do not reuse a pubkey already on another GitHub account; generate a new key per account.
 
 ### Remote missing
 
@@ -106,47 +152,20 @@ EOF
 git remote add origin <url>
 ```
 
-Prefer SSH when the user uses SSH keys. Example patterns:
-
-| Account setup | Remote URL pattern |
-|---------------|-------------------|
-| Default `github.com` host | `git@github.com:OWNER/REPO.git` |
-| Multi-account SSH alias | `git@github.com-ALIAS:OWNER/REPO.git` |
-
-### Wrong GitHub account on push
-
-Symptoms: `Permission denied`, `denied to <other-user>`
-
-1. Test identity:
-   ```bash
-   ssh -T git@github.com
-   ssh -T git@github.com-<alias>   # if using ~/.ssh/config Host alias
-   ```
-2. Fix: use the SSH key / Host alias for the account that owns the repo
-3. Update remote: `git remote set-url origin <correct-url>`
-
-Do not reuse a public key already registered on another GitHub account — generate a new key for the second account.
-
 ---
 
 ## Phase 4 — Push
 
-### First push (no upstream)
-
 ```bash
-git branch -M main   # only if user wants main and branch differs
+# First push / no upstream
 git push -u origin <branch>
-```
 
-### Subsequent pushes
-
-```bash
+# Tracked branch
 git push
 ```
 
-### If remote has unrelated history
-
-Stop. Do not force-push unless the user explicitly requests it. Explain options (pull/rebase, merge, or force with consent).
+- `git branch -M main` only if user wants `main` and branch name differs
+- Remote has unrelated history → stop; no force-push without explicit user request
 
 ---
 
@@ -157,23 +176,7 @@ git status
 git log origin/<branch> -1 --oneline
 ```
 
-Confirm:
-- branch tracks `origin/<branch>`
-- push reported success
-- provide repo URL if known (`https://github.com/OWNER/REPO`)
-
----
-
-# GitHub CLI (optional)
-
-If `gh` is available and user needs PR/issue work:
-
-```bash
-gh auth status
-gh pr create ...
-```
-
-Use `gh` for GitHub tasks; use `git` for local repo operations.
+Confirm tracking, success, and repo URL (`https://github.com/OWNER/REPO` when derivable from remote).
 
 ---
 
@@ -182,10 +185,24 @@ Use `gh` for GitHub tasks; use `git` for local repo operations.
 | Action | Rule |
 |--------|------|
 | `git push --force` | Never on `main`/`master` unless user explicitly asks; warn about impact |
-| `git commit --amend` | Only if user requested amend OR hook auto-fixed files AND HEAD commit is yours unpushed |
+| `git commit --amend` | Only if user requested amend OR hook auto-fixed files AND HEAD is unpushed |
 | `git config` | Never modify |
 | Hooks | Never bypass unless user explicitly asks |
 | Empty commit | Never if nothing to commit |
+
+---
+
+# Common Failures
+
+| Error | Likely cause | Fix |
+|-------|--------------|-----|
+| `could not read Username` | HTTPS without credentials | SSH, PAT, or `gh auth login` |
+| `Permission denied (publickey)` | No/wrong SSH key | Add key; check `~/.ssh/config` |
+| `denied to USER` | Wrong GitHub account | Fix Host alias / `set-url` |
+| `Key is already in use` | Pubkey on two accounts | New key for second account |
+| `failed to push some refs` | Remote ahead | `git pull --rebase` then push (ask if unclear) |
+| `repository not found` | Repo missing / no access | Create repo or fix URL |
+| Push "succeeds" but files missing on GitHub | Never committed | Re-run matrix; commit first |
 
 ---
 
@@ -196,37 +213,26 @@ Use `gh` for GitHub tasks; use `git` for local repo operations.
 - **Branch:**
 - **Remote:**
 - **Commits pushed:** (range or count)
-- **Result:** success / blocked
+- **Result:** success / blocked / up to date
 
 ## Pre-push State
 
 - Uncommitted changes: yes/no
 - Commits ahead of origin: N
+- Path taken: (matrix row)
 
 ## If Blocked
 
 - **Cause:**
-- **Evidence:** (command output snippet)
-- **Recommended fix:** (concrete next command or user action)
-
----
-
-# Common Failures
-
-| Error | Likely cause | Fix |
-|-------|--------------|-----|
-| `could not read Username` | HTTPS without credentials | Use SSH, PAT, or `gh auth login` |
-| `Permission denied (publickey)` | No SSH key or wrong key | Add key to GitHub; check `~/.ssh/config` |
-| `denied to USER` | Wrong GitHub account for repo | Switch SSH Host / key or add collaborator |
-| `Key is already in use` | Same pubkey on two accounts | New key for second account |
-| `failed to push some refs` | Remote ahead | `git pull --rebase` then push (ask user if unclear) |
-| `repository not found` | Repo missing or no access | Create repo on GitHub or fix remote URL |
+- **Evidence:** (command snippet)
+- **Proposed commit message:** (if dirty)
+- **Recommended fix:** (what user should say or run)
 
 ---
 
 # Success Criteria
 
-- Correct branch pushed to intended remote
-- Upstream tracking set when needed
+- Correct branch on intended remote
+- Upstream set when needed
 - No unintended commits or force pushes
-- User receives repo link and clear status
+- User gets repo link and clear final status
