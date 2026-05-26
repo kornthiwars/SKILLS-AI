@@ -18,6 +18,7 @@ Minimal `.cursor/` scaffold for this repo.
 |-------|------|--------|
 | debug | `skills/debug/` | `/debug` — four-mantra debugging (from 9arm `debug-mantra`) |
 | scrutinize | `skills/scrutinize/` | `/scrutinize` — end-to-end review before merge |
+| sql | `skills/sql/` | `/sql` — READ / MIGRATE / WRITE with safety gates |
 | fix-record | `skills/fix-record/` | `/fix-record` — RCA after validated fix |
 | upgrade-ai | `skills/upgrade-ai/` | `/upgrade-ai` or ask to use **upgrade-ai** |
 | git-push | `skills/git-push/` | `/git-push` or ask to **push to GitHub** |
