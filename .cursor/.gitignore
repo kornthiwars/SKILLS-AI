@@ -1,0 +1,3 @@
+# Local symlinks or machine-specific skill links (optional)
+skills/*
+!skills/.gitkeep
