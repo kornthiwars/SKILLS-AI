@@ -7,11 +7,12 @@ Minimal `.cursor/` scaffold for this repo.
 
 | Path         | Purpose                                                                  |
 | ------------ | ------------------------------------------------------------------------ |
-| `rules/`     | Project rules (`.mdc`) — e.g. `bilingual-th-en.mdc` (ไทย ~60% / EN ~40%) |
+| `rules/`     | Project rules (`.mdc`) — e.g. `bilingual-th-en.mdc`, `vault-issues.mdc` |
 | `skills/`    | Project skills (`SKILL.md` per folder)                                   |
 | `agents/`    | Custom agent definitions (optional, unused)                              |
 | `hooks.json` | Agent hooks (optional)                                                   |
 | `hooks/`     | Hook scripts referenced from `hooks.json`                                |
+| `../vault/`  | Daily issues log (`vault/issues/YYYY-MM-DD.md`) — rule `vault-issues`   |
 
 
 ## Skills
@@ -30,7 +31,6 @@ Minimal `.cursor/` scaffold for this repo.
 | fix-record             | `skills/fix-record/`             | `/fix-record` — RCA after validated fix                                 |
 | upgrade-ai             | `skills/upgrade-ai/`             | `/upgrade-ai` or ask to use **upgrade-ai**                              |
 | git-push               | `skills/git-push/`               | `/git-push` or ask to **push to GitHub**                                |
-
 
 ## Next steps
 

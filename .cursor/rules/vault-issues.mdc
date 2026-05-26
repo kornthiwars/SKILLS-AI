@@ -1,0 +1,45 @@
+---
+description: Append daily Q&A, problems, solutions to vault/issues/YYYY-MM-DD.md
+alwaysApply: true
+---
+
+# Vault issues — daily log
+
+**One local calendar day = one file:** `vault/issues/YYYY-MM-DD.md`
+
+If missing, create from `vault/issues/_template.md` (set date in title).
+
+## When to write
+
+- User says: เก็บลง vault, บันทึกปัญหาวันนี้, save to vault, log this issue
+- User explicitly asks to record question/problem/solution for today
+- After resolving a non-trivial problem, you may offer once: *"เก็บลง vault/issues วันนี้ไหม?"* — only if helpful
+
+Do **not** vault routine chat. Do **not** replace `/fix-record` for RCA.
+
+## Sections (append under the right heading)
+
+| Section | Use for |
+|---------|---------|
+| **คำถาม** | questions, unknowns |
+| **ปัญหา** | errors, symptoms, blockers |
+| **วิธีแก้** | what worked (short commands/links) |
+| **อื่นๆ** | notes, ideas, follow-ups |
+
+## Entry format (append only — never delete history)
+
+```markdown
+### HH:MM — short title
+
+- **ประเภท:** คำถาม | ปัญหา | วิธีแก้ | อื่นๆ
+- **บริบท:** optional
+- **รายละเอียด:**
+- **สถานะ:** open | resolved | wontfix
+- **วิธีแก้:** when applicable
+```
+
+## Rules
+
+- **Append only** — no wiping the day's file
+- **No secrets** — no passwords, tokens, full connection strings, private keys
+- Confirm after write: file path + section + one-line summary
