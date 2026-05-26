@@ -23,6 +23,7 @@ Minimal `.cursor/` scaffold for this repo.
 | builder-api | `skills/builder-api/` | `/builder-api` — contract-first API architecture and reliability |
 | builder-schema | `skills/builder-schema/` | `/builder-schema` — data modeling, integrity, indexing, safe migrations |
 | builder-infrastructure | `skills/builder-infrastructure/` | `/builder-infrastructure` — IaC, CI/CD, observability, DR |
+| builder-feature | `skills/builder-feature/` | `/builder-feature` — orchestrate UI/API/schema/infra for a feature |
 | fix-record | `skills/fix-record/` | `/fix-record` — RCA after validated fix |
 | upgrade-ai | `skills/upgrade-ai/` | `/upgrade-ai` or ask to use **upgrade-ai** |
 | git-push | `skills/git-push/` | `/git-push` or ask to **push to GitHub** |
