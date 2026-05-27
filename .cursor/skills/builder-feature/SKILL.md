@@ -5,7 +5,9 @@ metadata:
 description: >-
   Orchestrate multi-layer feature design by analyzing workflows, reusing
   existing systems, and delegating to builder-ui, builder-api,
-  builder-schema, and builder-infrastructure. Trigger on /builder-feature.
+  builder-schema, and builder-infrastructure. Trigger on /builder-feature. Use when planning a cross-layer feature that spans UI, API, schema, and infrastructure decisions.
+paths:
+  - "**/*"
 disable-model-invocation: true
 ---
 
@@ -35,9 +37,9 @@ Do NOT:
 
 ## Scope Guardrails
 
-- Confirm exact target scope/files and constraints from the user before proposing changes.
-- State non-goals explicitly (what this skill will **not** change in this run).
-- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ---
 

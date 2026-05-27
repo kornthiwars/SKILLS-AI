@@ -7,7 +7,7 @@ description: >-
   hypothesis, cross-reference every breadcrumb. Recite the mantra verbatim at the
   start of any debugging session, then apply the four steps in order before proposing
   any fix. Trigger on /debug and when the user reports a bug, broken/failing behavior,
-  asks to debug/diagnose/investigate, or pastes a stack trace or error log.
+  asks to debug/diagnose/investigate, or pastes a stack trace or error log. Use when investigating bugs, failing behavior, stack traces, or unclear runtime symptoms that need systematic diagnosis.
 ---
 
 # Debug Mantra
@@ -26,9 +26,9 @@ Then begin work.
 
 ## Scope Guardrails
 
-- Confirm exact target scope/files and constraints from the user before proposing changes.
-- State non-goals explicitly (what this skill will **not** change in this run).
-- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ---
 

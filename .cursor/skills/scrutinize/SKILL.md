@@ -9,7 +9,7 @@ description: >-
   change does what it claims. Output is concise, actionable, and every call
   carries its rationale. Trigger on /scrutinize and proactively whenever the user
   asks to review, audit, sanity-check, or get a second opinion on a plan, PR,
-  diff, design doc, or proposed code change.
+  diff, design doc, or proposed code change. Use when reviewing a plan, PR, or diff for simpler alternatives, behavioral correctness, and risk.
 ---
 
 # Scrutinize
@@ -18,9 +18,9 @@ Stand outside the change and ask whether it should exist at all, then verify it 
 
 ## Scope Guardrails
 
-- Confirm exact artifact scope (plan/PR/diff/files) and constraints before reviewing.
-- State non-goals explicitly (what this review will **not** attempt to redesign).
-- Prefer minimal, high-signal findings tied to traced evidence instead of broad speculative rewrites.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ## Operating stance
 

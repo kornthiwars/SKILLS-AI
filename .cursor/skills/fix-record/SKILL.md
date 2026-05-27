@@ -6,7 +6,7 @@ description: >-
   Write the canonical engineering record of a fixed bug — root cause, mechanism,
   fix, validation, and how it slipped through. Use after /debug lands a validated fix,
   before closing the ticket. Trigger on /fix-record, RCA, root cause analysis,
-  document this fix, or close out this bug with a writeup.
+  document this fix, or close out this bug with a writeup. Use when a bug is fixed and validated, and you need a canonical engineering root-cause record.
 disable-model-invocation: true
 ---
 
@@ -18,9 +18,9 @@ For a leadership-facing summary of the same facts, reframe this record in plain 
 
 ## Scope Guardrails
 
-- Confirm exact target bug/ticket/PR scope and required audience before drafting the record.
-- State non-goals explicitly (what this writeup will **not** cover, e.g. full incident timeline if out of scope).
-- Prefer minimal factual claims tied to validated evidence; do not speculate beyond proven mechanism.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ## When to invoke
 

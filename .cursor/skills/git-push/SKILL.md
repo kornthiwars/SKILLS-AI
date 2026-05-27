@@ -5,7 +5,7 @@ metadata:
 description: >-
   Safely inspect, commit (only when explicitly requested), and push to GitHub.
   Use for push/publish/sync, failed pushes, or init→remote workflows. Handles
-  dirty trees, confirm-after-block, SSH identity, and multi-account remotes.
+  dirty trees, confirm-after-block, SSH identity, and multi-account remotes. Use when pushing to remote, resolving blocked pushes, or safely committing and publishing git changes.
 disable-model-invocation: true
 ---
 
@@ -28,9 +28,9 @@ This skill does NOT:
 
 ## Scope Guardrails
 
-- Confirm exact target scope/files and constraints from the user before proposing changes.
-- State non-goals explicitly (what this skill will **not** change in this run).
-- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ---
 

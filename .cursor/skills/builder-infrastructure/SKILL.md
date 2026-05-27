@@ -5,7 +5,12 @@ metadata:
 description: >-
   Design scalable, reliable, secure, observable infrastructure through workload
   analysis, environment design, CI/CD, networking, security, observability,
-  and disaster recovery planning. Trigger on /builder-infrastructure.
+  and disaster recovery planning. Trigger on /builder-infrastructure. Use when designing deployment, runtime, networking, observability, security, or environment architecture.
+paths:
+  - "**/*.{tf,hcl,yml,yaml,json}"
+  - "**/Dockerfile*"
+  - "**/docker-compose*.yml"
+  - "**/.github/workflows/**"
 disable-model-invocation: true
 ---
 
@@ -37,9 +42,9 @@ Do NOT:
 
 ## Scope Guardrails
 
-- Confirm exact target scope/files and constraints from the user before proposing changes.
-- State non-goals explicitly (what this skill will **not** change in this run).
-- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ---
 

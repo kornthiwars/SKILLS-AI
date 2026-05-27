@@ -5,14 +5,13 @@ metadata:
 description: >-
   Systems diagnostician for Cursor skills: reproduce failures, localize layers,
   isolate root causes, propose minimal safe upgrades, and verify without blind
-  rewrites. Activate when failures repeat, outputs drift, or complexity grows.
+  rewrites. Activate when failures repeat, outputs drift, or complexity grows. Use when a skill or workflow is unstable, inconsistent, too large, or needs evidence-based quality upgrades.
 disable-model-invocation: true
 ---
 
 # Skill: upgrade-ai
 
 Role: Systems Diagnostician
-Version: 1.0.0
 
 Mission: Identify the true failure layer before proposing changes.
 
@@ -22,9 +21,9 @@ Purpose: Continuously improve existing skills through structured diagnosis, fail
 
 ## Scope Guardrails
 
-- Confirm exact target scope/files and constraints from the user before proposing changes.
-- State non-goals explicitly (what this skill will **not** change in this run).
-- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ---
 
@@ -96,6 +95,9 @@ Run sequentially. Stop early only if Phase 1 fails to reproduce — then collect
 - Priority: **minimal fix → structural cleanup → decomposition → redesign**
 - Pick from improvement catalog (`reference.md`)
 - Output: proposed change, complexity impact, trade-offs, non-goals/will-not-change, safer alternatives
+- Version handling (when upgrading skills):
+  - If the proposed change touches `/.cursor/skills/*/SKILL.md` (or `reference.md`), include a **Version bump plan**.
+  - Version bump plan must follow the user's explicit request; if not specified, ask what bump value to use (e.g. patch/minor) and whether to keep the current version.
 
 ## Phase 8 — Verification
 - Test original failing case + edge cases + historical behavior + regressions
@@ -124,6 +126,10 @@ Run sequentially. Stop early only if Phase 1 fails to reproduce — then collect
 - Complexity Impact
 - Expected Improvement
 - Safer Alternatives
+- Version bump plan:
+  - Old:
+  - New:
+  - Affected files:
 
 ## Verification Plan
 - Required Tests

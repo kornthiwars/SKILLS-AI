@@ -5,7 +5,11 @@ metadata:
 description: >-
   Design scalable, secure, contract-first APIs with clear validation,
   auth boundaries, error systems, versioning, and observability.
-  Trigger on /builder-api.
+  Trigger on /builder-api. Use when designing or refactoring API contracts, endpoints, validation, auth, versioning, or backend service boundaries.
+paths:
+  - "**/*.{ts,tsx,js,jsx,py,go,java,kt,rb,php,cs,rs}"
+  - "**/openapi*.{yml,yaml,json}"
+  - "**/*api*.*"
 disable-model-invocation: true
 ---
 
@@ -34,9 +38,9 @@ Do NOT:
 
 ## Scope Guardrails
 
-- Confirm exact target scope/files and constraints from the user before proposing changes.
-- State non-goals explicitly (what this skill will **not** change in this run).
-- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ---
 

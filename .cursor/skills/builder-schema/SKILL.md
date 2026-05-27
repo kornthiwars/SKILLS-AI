@@ -5,7 +5,11 @@ metadata:
 description: >-
   Design scalable, integrity-safe schemas through domain modeling,
   relationship architecture, indexing, migration safety, and evolution planning.
-  Trigger on /builder-schema.
+  Trigger on /builder-schema. Use when modeling data entities, relationships, indexing, migration strategy, or schema evolution.
+paths:
+  - "**/*.{sql,prisma,dbml}"
+  - "**/migrations/**"
+  - "**/*schema*.{ts,js,py,json,yml,yaml}"
 disable-model-invocation: true
 ---
 
@@ -34,9 +38,9 @@ Do NOT:
 
 ## Scope Guardrails
 
-- Confirm exact target scope/files and constraints from the user before proposing changes.
-- State non-goals explicitly (what this skill will **not** change in this run).
-- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ---
 

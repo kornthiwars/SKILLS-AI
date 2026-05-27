@@ -7,7 +7,7 @@ description: >-
   executing. Read queries with EXPLAIN/LIMIT discipline; migrations via the
   project's migrate toolchain only; guarded writes with blocklist and prod
   confirmation. Trigger on /sql, "run this query", "migrate the database", or
-  "check rows in".
+  "check rows in". Use when handling SQL read, write, or migration requests that require safe classification and verification.
 disable-model-invocation: true
 ---
 
@@ -36,9 +36,9 @@ This skill does NOT:
 
 ## Scope Guardrails
 
-- Confirm exact target scope/files and constraints from the user before proposing changes.
-- State non-goals explicitly (what this skill will **not** change in this run).
-- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ---
 

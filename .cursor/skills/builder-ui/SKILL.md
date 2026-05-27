@@ -5,7 +5,9 @@ metadata:
 description: >-
   Design scalable, accessible frontend UI systems from visual references and
   requirements. Prioritize layout architecture, reusable components, responsive
-  behavior, and maintainability. Trigger on /builder-ui.
+  behavior, and maintainability. Trigger on /builder-ui. Use when designing UI architecture, reusable components, responsive behavior, or accessibility-focused frontend structure.
+paths:
+  - "**/*.{tsx,jsx,css,scss,sass,less,html,vue,svelte}"
 disable-model-invocation: true
 ---
 
@@ -33,9 +35,9 @@ Do NOT:
 
 ## Scope Guardrails
 
-- Confirm exact target scope/files and constraints from the user before proposing changes.
-- State non-goals explicitly (what this skill will **not** change in this run).
-- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
+- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
+- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
 ---
 
