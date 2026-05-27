@@ -1,7 +1,7 @@
 ---
 name: sql
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Single SQL skill: classify every request as READ, MIGRATE, or WRITE before
   executing. Read queries with EXPLAIN/LIMIT discipline; migrations via the
@@ -188,6 +188,18 @@ Run the **deploy** command for the detected toolchain — not ad-hoc DDL on prod
 ## WRITE
 
 Run inside a transaction when the client supports it. Report rows affected.
+
+---
+
+## Response shape
+
+Mid-session updates (classification, precheck, blocked) — **section headers only**:
+
+- **Summary** — mode (READ | MIGRATE | WRITE), environment, result
+- **Details** — matrix row, precheck finding, or redacted statement preview
+- **Next step** — execute, safer alternative, or user confirmation gate
+
+After execution, use **# Phase 5 — Report** for the full report.
 
 ---
 

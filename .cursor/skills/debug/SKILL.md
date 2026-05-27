@@ -1,7 +1,7 @@
 ---
 name: debug
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Four-mantra debugging discipline — reproduce, trace the fail path, falsify the
   hypothesis, cross-reference every breadcrumb. Recite the mantra verbatim at the
@@ -29,6 +29,16 @@ Then begin work.
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Response shape
+
+Light skeleton for every user-facing turn (bilingual prose per workspace rule; **section headers only** — not duplicate Thai/English blocks):
+
+- **Summary** — repro status, current hypothesis or finding, one-line verdict
+- **Details** — ledger entry, trace step, or evidence (commands/logs in code blocks)
+- **Next step** — single experiment or minimal fix proposal; return to step 1 if no reliable repro exists
+
+First response in a session: still recite the mantra verbatim per **Operating rules**, then use this shape for the rest of the turn.
 
 ---
 

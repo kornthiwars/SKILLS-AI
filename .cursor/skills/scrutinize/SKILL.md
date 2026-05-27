@@ -1,7 +1,7 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Outsider-perspective end-to-end review of a plan, PR, or code change. First
   questions intent and whether a simpler/more elegant approach would achieve the
@@ -27,6 +27,16 @@ Stand outside the change and ask whether it should exist at all, then verify it 
 - **Outsider.** Forget who wrote it and why they think it's right. Read the artifact cold.
 - **End-to-end, not diff-local.** The diff is the entry point, not the scope. Follow the call graph through real code paths.
 - **Actionable, concise, with rationale.** Every finding states *what to change*, *why*, and *what evidence* led you there. No filler, no restating the diff back.
+
+## Response shape
+
+Light skeleton for every user-facing turn (**section headers only** — not duplicate Thai/English blocks):
+
+- **Summary** — stated goal in one sentence; verdict preview (ship / fix-then-ship / rework / reject)
+- **Details** — intent check, trace notes, or per-finding bullets with `file:line` when applicable
+- **Next step** — single biggest change, simpler alternative, or what to trace next
+
+When the review is complete, expand **### 4. Report** instead of stopping at three bullets.
 
 ## Workflow
 

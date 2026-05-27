@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Safely inspect, commit (only when explicitly requested), and push to GitHub.
   Use for push/publish/sync, failed pushes, or init→remote workflows. Handles
@@ -211,6 +211,18 @@ Confirm tracking, success, and repo URL (`https://github.com/OWNER/REPO` when de
 | `failed to push some refs` | Remote ahead | `git pull --rebase` then push (ask if unclear) |
 | `repository not found` | Repo missing / no access | Create repo or fix URL |
 | Push "succeeds" but files missing on GitHub | Never committed | Re-run matrix; commit first |
+
+---
+
+## Response shape
+
+Default for short turns (up to date, blocked, or awaiting **ยืนยัน**) — **section headers only**:
+
+- **Summary** — branch, remote, result in one line
+- **Details** — matrix row taken, ahead/behind count, or block cause
+- **Next step** — exact user phrase or command to unblock
+
+After a successful push or when reporting full pre-push state, use **# Output Format** below.
 
 ---
 

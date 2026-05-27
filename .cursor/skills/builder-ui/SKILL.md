@@ -1,7 +1,7 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Design scalable, accessible frontend UI systems from visual references and
   requirements. Prioritize layout architecture, reusable components, responsive
@@ -190,6 +190,8 @@ Reject if:
 ---
 
 # Output format
+
+Short turns: use **Summary / Details / Next step** section headers; expand the full Output format below when delivering the final artifact.
 
 ## UI Analysis
 - Primary Goal:

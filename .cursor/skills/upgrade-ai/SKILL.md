@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.0.1"
+  version: "1.0.3"
 description: >-
   Systems diagnostician for Cursor skills: reproduce failures, localize layers,
   isolate root causes, propose minimal safe upgrades, and verify without blind
@@ -107,6 +107,18 @@ Run sequentially. Stop early only if Phase 1 fails to reproduce — then collect
 - Test original failing case + edge cases + historical behavior + regressions
 - Standards in `reference.md`
 - Output: verification results, regression status, final confidence
+
+---
+
+## Response shape
+
+Default for short turns and mid-session updates (**section headers only**):
+
+- **Summary** — current phase, suspected layer, confidence
+- **Details** — key evidence or diagnosis excerpt
+- **Next step** — one action (repro, test, patch plan, or read `reference.md`)
+
+When closing a diagnosis run or proposing skill edits, use the full **# Output Format** below instead of collapsing into three bullets.
 
 ---
 

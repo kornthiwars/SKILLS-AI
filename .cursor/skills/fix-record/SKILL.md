@@ -1,7 +1,7 @@
 ---
 name: fix-record
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Write the canonical engineering record of a fixed bug — root cause, mechanism,
   fix, validation, and how it slipped through. Use after /debug lands a validated fix,
@@ -45,6 +45,16 @@ Before writing a single line, confirm all four. If any are missing, list what's 
 - [ ] **Fix is validated** (the original repro now passes; the customer workload / failing test now succeeds).
 
 These map directly to the `debug` skill steps 1–4. If you came in via `/debug`, the breadcrumb ledger from step 4 is your raw material — pull from it.
+
+## Response shape
+
+Before all required inputs are satisfied — **section headers only**:
+
+- **Summary** — what is missing or what will be drafted
+- **Details** — checklist against the four required inputs
+- **Next step** — what the user must provide
+
+After inputs are satisfied, follow **## Structure** and **## Output flow** for the full draft (not the three-bullet skeleton).
 
 ## Structure
 

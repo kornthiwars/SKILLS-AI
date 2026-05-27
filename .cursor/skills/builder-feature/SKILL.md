@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Orchestrate multi-layer feature design by analyzing workflows, reusing
   existing systems, and delegating to builder-ui, builder-api,
@@ -218,6 +218,8 @@ Reject if:
 ---
 
 # Output format
+
+Short turns: use **Summary / Details / Next step** section headers; expand the full Output format below when delivering the final artifact.
 
 ## Feature Analysis
 - Primary Goal:

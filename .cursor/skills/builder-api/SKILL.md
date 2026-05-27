@@ -1,7 +1,7 @@
 ---
 name: builder-api
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Design scalable, secure, contract-first APIs with clear validation,
   auth boundaries, error systems, versioning, and observability.
@@ -227,6 +227,8 @@ Reject if:
 ---
 
 # Output format
+
+Short turns: use **Summary / Details / Next step** section headers; expand the full Output format below when delivering the final artifact.
 
 ## API Analysis
 - Primary Domain:

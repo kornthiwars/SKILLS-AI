@@ -1,7 +1,7 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Design scalable, reliable, secure, observable infrastructure through workload
   analysis, environment design, CI/CD, networking, security, observability,
@@ -208,6 +208,8 @@ Reject if:
 ---
 
 # Output format
+
+Short turns: use **Summary / Details / Next step** section headers; expand the full Output format below when delivering the final artifact.
 
 ## Infrastructure Analysis
 - Workload Profile:

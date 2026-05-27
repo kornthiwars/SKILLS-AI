@@ -1,4 +1,6 @@
-# upgrade-ai — reference depth (v1.0.1)
+# upgrade-ai — reference depth
+
+Version: see `metadata.version` in [`SKILL.md`](./SKILL.md).
 
 This file keeps detailed checklists, governance, and patterns so `SKILL.md` stays focused and token-efficient. Load on demand during Phase 6–8 or when a workflow signal triggers governance.
 
@@ -59,6 +61,15 @@ Possible improvements:
 - **Do not** ship content edits at the same version number.
 - **Do not** duplicate version in the markdown body; use `metadata.version` only.
 - When upgrading multiple skills in one session, bump **each** touched skill independently.
+
+---
+
+## Response shape governance
+
+- Core and operator skills use `## Response shape` (**Summary** / **Details** / **Next step**) for short and mid-session turns.
+- Use the full `# Output Format` in `SKILL.md` (or `# Phase 5 — Report` for `sql`) when closing a diagnosis, push, SQL run, or review.
+- Workspace rule `.cursor/rules/bilingual-th-en.mdc`: Response shape labels are **section headers only** — do not duplicate the same content in full Thai and full English blocks.
+- Builder skills may keep `# Output format` as the canonical long form; a one-line pointer to the three labels under that heading is enough for consistency without prompt inflation.
 
 ---
 

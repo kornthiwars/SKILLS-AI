@@ -1,7 +1,7 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Design scalable, integrity-safe schemas through domain modeling,
   relationship architecture, indexing, migration safety, and evolution planning.
@@ -235,6 +235,8 @@ Reject if:
 ---
 
 # Output format
+
+Short turns: use **Summary / Details / Next step** section headers; expand the full Output format below when delivering the final artifact.
 
 ## Domain Analysis
 - Core Entities:

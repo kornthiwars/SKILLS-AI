@@ -20,6 +20,7 @@ Every reply to the user must mix **Thai and English** in roughly this split:
 - **Code blocks:** commands and code stay as-is (usually English). Explain surrounding text in Thai.
 - **Tables/headers:** Either language is fine; body cells favor Thai with English terms where precise.
 - **Skills invoked** (`/debug`, `/git-push`): follow the skill workflow; still keep the 60/40 voice in user-facing prose.
+- **Skill `## Response shape`:** use those labels as section headers only (Summary / Details / Next step). Do **not** write two full duplicate versions of the same content in Thai and English.
 
 ## Examples
 
