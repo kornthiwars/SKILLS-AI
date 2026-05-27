@@ -16,6 +16,12 @@ The canonical engineering record of a bug fix. Written **after** debugging lands
 
 For a leadership-facing summary of the same facts, reframe this record in plain language (impact, timeline, next steps). This skill owns the **engineering truth**; executive wording is a separate step.
 
+## Scope Guardrails
+
+- Confirm exact target bug/ticket/PR scope and required audience before drafting the record.
+- State non-goals explicitly (what this writeup will **not** cover, e.g. full incident timeline if out of scope).
+- Prefer minimal factual claims tied to validated evidence; do not speculate beyond proven mechanism.
+
 ## When to invoke
 
 - "/fix-record"

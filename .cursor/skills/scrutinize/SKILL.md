@@ -16,6 +16,12 @@ description: >-
 
 Stand outside the change and ask whether it should exist at all, then verify it actually does what it claims end-to-end.
 
+## Scope Guardrails
+
+- Confirm exact artifact scope (plan/PR/diff/files) and constraints before reviewing.
+- State non-goals explicitly (what this review will **not** attempt to redesign).
+- Prefer minimal, high-signal findings tied to traced evidence instead of broad speculative rewrites.
+
 ## Operating stance
 
 - **Outsider.** Forget who wrote it and why they think it's right. Read the artifact cold.

@@ -34,6 +34,12 @@ This skill does NOT:
 - run `migrate dev`, `db:reset`, or destructive rollback on **prod**
 - invent migration SQL when the project already has a migrate command
 
+## Scope Guardrails
+
+- Confirm exact target scope/files and constraints from the user before proposing changes.
+- State non-goals explicitly (what this skill will **not** change in this run).
+- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+
 ---
 
 # Core principles

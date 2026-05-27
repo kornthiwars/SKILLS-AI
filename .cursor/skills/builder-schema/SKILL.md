@@ -32,6 +32,12 @@ Do NOT:
 - over-index or optimize prematurely
 - mix unrelated responsibilities in one entity
 
+## Scope Guardrails
+
+- Confirm exact target scope/files and constraints from the user before proposing changes.
+- State non-goals explicitly (what this skill will **not** change in this run).
+- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+
 ---
 
 # Core philosophy

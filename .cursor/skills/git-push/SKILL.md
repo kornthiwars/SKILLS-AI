@@ -26,6 +26,12 @@ This skill does NOT:
 - skip hooks (`--no-verify`) unless the user explicitly asks
 - amend commits unless all amend safety conditions are met
 
+## Scope Guardrails
+
+- Confirm exact target scope/files and constraints from the user before proposing changes.
+- State non-goals explicitly (what this skill will **not** change in this run).
+- Prefer minimal safe changes and preserve working behavior unless the user requests redesign.
+
 ---
 
 # Core Principles
