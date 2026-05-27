@@ -1,0 +1,25 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets & credentials (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# Editor / local IDE
+.idea/
+*.swp
+*~
+
+# Cursor — machine-local skill symlinks (not shared)
+.cursor/skills/.local/
+
+# Vault — daily issue logs (local only; keep README + template in repo)
+vault/issues/*.md
+!vault/issues/README.md
+!vault/issues/_template.md

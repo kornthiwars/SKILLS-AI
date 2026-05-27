@@ -1,2 +1,2 @@
-# Optional: machine-local symlinks under skills/ (not committed)
+# Canonical patterns: repo root `.gitignore` (`.cursor/skills/.local/`)
 skills/.local/

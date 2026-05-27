@@ -8,8 +8,10 @@
 vault/issues/
 ├── README.md
 ├── _template.md      # คัดลอกเมื่อสร้างวันใหม่
-└── 2026-05-26.md     # ตัวอย่างวันนี้
+└── YYYY-MM-DD.md     # บันทึกรายวัน (local — ไม่ commit ขึ้น GitHub)
 ```
+
+ไฟล์ `YYYY-MM-DD.md` อยู่ใน `.gitignore` — เก็บเฉพาะเครื่องคุณ ไม่ sync กับ remote
 
 ## หมวดในแต่ละไฟล์
 
