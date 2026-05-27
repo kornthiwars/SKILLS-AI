@@ -5,14 +5,14 @@ tags: [issues]
 
 # Issues — {{YYYY-MM-DD}}
 
-<!-- หนึ่งเรื่อง = ## N. title · บรรทัด #topic · ### คำถาม / ### คำตอบ -->
+<!-- One topic = ## N. title · #topic line · ### Question / ### Answer / status -->
 
 ## 1. 
 
 #vault
 
-### คำถาม
+### Question
 
 
-### คำตอบ / สถานะ
+### Answer / status
 

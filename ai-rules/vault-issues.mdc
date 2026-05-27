@@ -9,143 +9,139 @@ Design detail: [vault/README.md](../vault/README.md)
 
 ## Goals
 
-- **ใช้งานจริง** — เก็บเฉพาะงาน dev/repo/skills ไม่เก็บคุยเล่น
-- **แยกไฟล์** — รายวัน `issues/` · บทเรียน `learnings/YYYY-MM-DD-HHmm.md`
-- **Obsidian** — frontmatter `tags`, topic `#hashtags`, graph สีตามโฟลเดอร์
+- **Practical use** — log dev/repo/skills work only; skip casual chat
+- **Separate files** — daily `issues/` · lessons `learnings/YYYY-MM-DD-HHmm.md`
+- **Obsidian** — frontmatter `tags`, topic `#hashtags`, graph color by folder
 
-Do **not** replace `/fix-record` (RCA ยาวหลัง fix แล้ว).
+Do **not** replace `/fix-record` (long RCA after a validated fix).
 
 ## Language
 
 | Where | Language |
 |-------|----------|
-| **Vault files** | หัวข้อ/เนื้อหา **ไทยได้** · `tags` / `skill:` / `symptoms:` / `files:` เป็น **English** (ค้นหา + graph) |
-| **Chat to user** | ตาม `bilingual-th-en.mdc` (~60% ไทย) |
+| **Vault files** | Body may be Thai or English · `tags` / `skill:` / `symptoms:` / `files:` / `title:` stay **English** (search + graph) |
+| **Chat to user** | Follow `bilingual-th-en.mdc` (~60% Thai) |
 
-## Resolve vault root (ทุกครั้งก่อนเขียน)
+## Resolve vault root (before every write)
 
 | Step | If true → vault root |
 |------|----------------------|
-| 1 | อ่าน `<workspace>/.cursor/ai-skills-vault.json` → ใช้ `issuesRelative` / `learningsRelative` |
-| 2 | `<workspace>/.cursor/vault/issues/` มีอยู่ | workspace ผ่าน junction |
+| 1 | Read `<workspace>/.cursor/ai-skills-vault.json` → use `issuesRelative` / `learningsRelative` |
+| 2 | `<workspace>/.cursor/vault/issues/` exists | workspace via junction |
 | 3 | `<workspace>/vault/issues/` | workspace root |
-| 4 | โฟลเดอร์ลูกมี `ai-skills/`, `scripts/setup-macos-linux.sh` | นั่นคือ SKILLS-AI clone |
+| 4 | Folder contains `ai-skills/` and `scripts/setup-macos-linux.sh` | SKILLS-AI clone |
 
-สร้าง `issues/`, `learnings/` ถ้ายังไม่มี.
+Create `issues/` and `learnings/` if missing.
 
-**Multi-project:** รัน setup ด้วย `-InstallRoot` = โฟลเดอร์ที่เปิดใน Cursor → เขียนที่ `.cursor/vault/issues/` (ไฟล์เดียวกับ `SKILLS-AI/vault/issues/`).
+**Multi-project:** run setup with `-InstallRoot` = the folder open in Cursor → writes to `.cursor/vault/issues/` (same files as `SKILLS-AI/vault/issues/` when linked).
 
-## When to write — issues (ไม่ถามก่อน)
+## When to write — issues (no ask-first)
 
-เขียน **หลังตอบ user** เสร็จ **เฉพาะ turn ที่เป็นงาน** — **ไม่ใช่ทุกข้อความ**
+Write **after** finishing the user reply, **only on work turns** — **not every message**.
 
 | Write | Skip |
 |-------|------|
-| code, repo, skills, git, SQL, debug, infra, vault, workflow | ทักทาย, chitchat, trivia, weather, ขอคะแนน/ความเห็นทั่วไปที่ไม่เกี่ยวงาน |
-| skill invoke ที่เกี่ยวงาน (`/debug`, `/git-push`, `/upgrade-ai`, …) | post-mortem ยาว → `/fix-record` · lesson → `learnings/` |
-| user พูด **เก็บลง vault** / **save to vault** | |
+| code, repo, skills, git, SQL, debug, infra, vault, workflow | greetings, chitchat, trivia, weather, generic opinions unrelated to work |
+| work-related skill invokes (`/debug`, `/git-push`, `/upgrade-ai`, …) | long post-mortem → `/fix-record` · lesson → `learnings/` |
+| user says **save to vault** / **เก็บลง vault** | |
 
-**ห้าม** default “ทุกคำถามลง คำถาม” อีกต่อไป.
+Do **not** default to logging every question.
 
-## When to write — learnings (แยกไฟล์)
+## When to write — learnings (separate file)
 
-**ไม่นับ “กี่รอบแชท”** — นับว่า **เรื่องนี้ควรถูกค้นหาซ้ำได้ไหม** (lesson ไม่ใช่ log รายวัน)
+Do **not** count chat rounds — ask whether **this topic should be findable again** (lesson, not a daily log).
 
-Path: `vault/learnings/YYYY-MM-DD-HHmm.md` จาก [templates/template.learning.md](../templates/template.learning.md).
+Path: `vault/learnings/YYYY-MM-DD-HHmm.md` from [templates/template.learning.md](../templates/template.learning.md).
 
-Plain Q&A → `issues/` เท่านั้น · **ห้าม** คัดลอกรูปแบบ issues → ใช้ **lesson card** ด้านล่าง
+Plain Q&A → `issues/` only · **do not** copy the issues format — use the **lesson card** below.
 
-### ต้องครบทั้งคู่ (AND)
+### Both required (AND)
 
-| # | เงื่อนไข |
-|---|----------|
-| A | **จบเรื่องแล้ว** — `fixed` · `decided` · `wontfix` · `deferred` (มีเหตุผล) — **ไม่**เขียนตอนยังสืบอยู่ |
-| B | **คุ้มเปิดซ้ำ** — เดือนหน้าจะ Grep `symptoms:` / `skill:` / คำใน **อาการ** เพื่อหา note นี้ |
+| # | Condition |
+|---|-----------|
+| A | **Closed** — `fixed` · `decided` · `wontfix` · `deferred` (with reason) — **do not** write while still investigating |
+| B | **Worth reopening** — next month you would Grep `symptoms:` / `skill:` / words in **symptoms** to find this note |
 
-### ต้องมีอย่างน้อยหนึ่งข้อ (OR) — ทำไมไม่เก็บแค่ issues
+### At least one (OR) — why not issues only
 
-| # | สัญญาณ |
+| # | Signal |
 |---|--------|
-| 1 | **Mechanism ไม่ trivial** — สาเหตุหรือ workaround อธิบายยาวกว่าหนึ่งบรรทัดใน issues ไม่ได้ |
-| 2 | **สืบหลายทาง** — ลอง **≥2 แนวทางต่างกัน** เรื่องเดียวกัน (คำสั่ง / hypothesis / ทางแก้) ไม่ว่ากี่ข้อความ user |
-| 3 | **ซ้ำ** — อาการเดียวกันเคยอยู่ใน `issues/` ภายใน ~7 วัน หรือ user บอกเคยเจอ |
-| 4 | **Friction ระบบ** — git, skill, vault, Obsidian, SSH, setup ที่จะชนอีก |
-| 5 | **User ขอ** — เก็บเป็นบทเรียน / save learning / จำไว้ |
+| 1 | **Non-trivial mechanism** — root cause or workaround needs more than one line in issues |
+| 2 | **Multiple approaches** — tried **≥2 distinct paths** on the same problem (commands / hypotheses / fixes), regardless of message count |
+| 3 | **Repeat** — same symptom in `issues/` within ~7 days, or user says they have seen it before |
+| 4 | **System friction** — git, skill, vault, Obsidian, SSH, setup likely to recur |
+| 5 | **User asks** — save as lesson / save learning / remember this |
 
-### ไม่เขียน learning
+### Do not write a learning
 
-| กรณี | ใช้แทน |
-|------|--------|
-| ถาม–ตอบความรู้ครั้งเดียว (เมื่อไหร่สร้าง issues, คะแนน, อธิบาย rule) | `issues/` |
-| แก้ typo / คำสั่งเดียวจบ ไม่มี lesson | `issues/` |
-| ยังไม่รู้สาเหตุ / ยังไม่ fix | รอจบก่อน |
-| RCA ยาวหลัง ship, ticket closure | `/fix-record` |
-| แชทเล่น | ไม่เขียน |
+| Case | Use instead |
+|------|-------------|
+| one-off knowledge Q&A (when to create issues, scores, rule explanation) | `issues/` |
+| typo / single command fix, no lesson | `issues/` |
+| unknown root cause / not fixed yet | wait until closed |
+| long RCA after ship, ticket closure | `/fix-record` |
+| casual chat | do not write |
 
-### หลังเขียน learning
+### After writing a learning
 
-- ใน `issues/` วันนั้น (ถ้ามี turn งาน) — append สั้นๆ ว่าสร้าง learning แล้ว + path
-- Grep `learnings/` ก่อน — ถ้ามี note เก่าใกล้เคียง → **อัปเดต** ไฟล์เดิม แทนสร้างซ้ำ (เว้น topic คนละเรื่อง)
+- Same day in `issues/` (if there was a work turn) — short append that a learning was created + path
+- Grep `learnings/` first — if a close match exists → **update** that file instead of duplicating (unless a different topic)
 
 ## Issues file format (daily log only)
 
-Path: `vault/issues/YYYY-MM-DD.md` — สร้างจาก [templates/template.issue.md](../templates/template.issue.md) ถ้ายังไม่มี.
+Path: `vault/issues/YYYY-MM-DD.md` — create from [templates/template.issue.md](../templates/template.issue.md) if missing.
 
-**โครงสร้างใหม่ (Obsidian-friendly):** แต่ละเรื่อง = `## N. title` (ไม่ใช่แยก section ยาว คำถาม/ปัญหา ทั้งวัน)
+**Current structure (Obsidian-friendly):** each topic = `## N. title` (not one long `## Questions` section for the whole day)
 
 ```markdown
 ## 3. short title
 
 #vault #git
 
-### คำถาม
+### Question
 ...
 
-### คำตอบ / สถานะ
+### Answer / status
 resolved — one line outcome
 ```
 
-- เพิ่มเลข `N` ต่อเนื่องในวันนั้น
-- บรรทัด `#topic` ใต้หัวข้อ: 1–3 จาก `vault`, `git`, `skills`, `sql`, `debug`, `research`, `ui`, `api`, `infrastructure`
-- อัปเดต frontmatter `tags: [issues, …]` รวม topic ของวัน
-- **Append only** — ไม่ลบประวัติ
-- **ไม่ซ้ำ** topic เดียวกันในวันเดียว (อัปเดต entry เดิมแทน)
+- Increment `N` sequentially that day
+- `#topic` line under the heading: 1–3 from `vault`, `git`, `skills`, `sql`, `debug`, `research`, `ui`, `api`, `infrastructure`
+- Update frontmatter `tags: [issues, …]` with the day’s topics
+- **Append only** — do not delete history
+- **No duplicate** same topic same day (update the existing entry)
 - **No secrets**
-- **ห้าม append** ลง section เก่า `## คำถาม` / `## ปัญหา` / `ประเภท:` — ระบบเก่าเลิกใช้
+- **Do not append** to legacy sections `## คำถาม` / `## ปัญหา` / `ประเภท:` — deprecated
 
-## Learnings file format (lesson card — ไม่ใช่ issues)
+## Learnings file format (lesson card — not issues)
 
-Path: `vault/learnings/YYYY-MM-DD-HHmm.md` — จาก [templates/template.learning.md](../templates/template.learning.md).
+Path: `vault/learnings/YYYY-MM-DD-HHmm.md` — from [templates/template.learning.md](../templates/template.learning.md).
 
-**คนละแบบกับ issues โดยสิ้นเชิง** — ไม่มี `## N.` รายวัน · ไม่มี `### คำถาม` / `### คำตอบ`
+**Entirely different from issues** — no daily `## N.` · no `### Question` / `### Answer`
 
-| Section | เนื้อหา |
+| Section | Content |
 |---------|---------|
-| **บริบท** | งาน / repo / skill |
-| **อาการ** | สิ่งที่เห็น |
-| **สาเหตุ** | mechanism |
-| **วิธีแก้** | คำสั่ง ไฟล์ ที่ work |
-| **ใช้เมื่อไหร่** | เปิด note นี้ซ้ำเมื่อไหร่ |
-| **หลีกเลี่ยง** | อย่าทำซ้ำ |
-| **อ้างอิง** | `related_issue: YYYY-MM-DD` (optional) |
+| **Context** | work / repo / skill |
+| **Symptoms** | what you observed |
+| **Root cause** | mechanism |
+| **Fix** | commands, files that worked |
+| **When to use** | reopen this note when… |
+| **Avoid** | do not repeat |
+| **References** | `related_issue: YYYY-MM-DD` (optional) |
 
-Frontmatter บังคับ: `tags: [learning, <skill>]`, `skill:`, `title:` (English), `time:`, `status: resolved|wontfix`  
-Optional สำหรับ grep: `symptoms: []`, `files: []`, `related_issue: ""`
+New notes should match [templates/template.learning.md](../templates/template.learning.md) (English section headings).
 
-Graph: `title:` ผ่าน plugin **Property Over File Name** — [vault/README.md](../vault/README.md).
+Required frontmatter: `tags: [learning, <skill>]`, `skill:`, `title:` (English), `time:`, `status: resolved|wontfix`  
+Optional for grep: `symptoms: []`, `files: []`, `related_issue: ""`
 
-## Search before debug / git friction (token-efficient)
+Graph: `title:` via **Property Over File Name** — [vault/README.md](../vault/README.md).
 
-| Step | Action |
-|------|--------|
-| 1 | **Grep** `vault/learnings/` — symptom, error, `skill:`, `symptoms:`, `files:` |
-| 2 | จำกัด ~15 บรรทัด · อ่าน **≤3** ไฟล์ที่ตรงสุด |
-| 3 | ยังไม่พอ → grep `issues/YYYY-MM-DD.md` วันนี้/เมื่อวาน |
+## Search before debug / git friction
 
-โฟลเดอร์ learnings ว่าง (มีแค่ README) → ข้าม search.
+Follow [`ai-skills/vault-recall/reference.md`](../ai-skills/vault-recall/reference.md) (single source of truth). Invoke `/vault-recall` when the user wants search only; `debug` and `git-push` call the same steps inline.
 
 ## Precedence
 
-- Vault append **once per turn** ก่อน reply สุดท้าย (หลังงานหลัก)
-- ถ้า turn ไม่เข้าเกณฑ์ Write → **ไม่เขียน** และ **ไม่** ยืนยัน “บันทึก vault”
-- ถ้าเขียน → บรรทัดเดียวใน chat: `บันทึกแล้ว → path` (+ section/topic สั้นๆ)
+- Vault append **once per turn** before the final reply (after main work)
+- If the turn does not match Write → **do not write** and **do not** claim “logged to vault”
+- If written → one line in chat: `Logged → <path>` (+ short section/topic); Thai OK per bilingual rule

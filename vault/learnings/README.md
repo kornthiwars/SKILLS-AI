@@ -1,58 +1,58 @@
-# learnings — บทเรียน (ออกแบบแยกจาก issues)
+# learnings — reusable lessons (separate from issues)
 
-**หนึ่งปัญหาที่แก้จบ = หนึ่งไฟล์** — ไม่ยัดลง `issues/YYYY-MM-DD.md`
+**One closed lesson = one file** — not stuffed into `issues/YYYY-MM-DD.md`
 
-## เมื่อไหร่สร้าง
+## When to create
 
-**ไม่ใช้กฎ “≥2 รอบแชท”** — ใช้กฎ **lesson ค้นหาซ้ำได้**
+**Not “≥2 chat rounds”** — use **worth finding again**.
 
-### ต้องครบ (AND)
+### Both required (AND)
 
-1. **จบเรื่องแล้ว** (fixed / decided / wontfix / deferred)
-2. **คุ้มเก็บถาวร** — เดือนหน้าอยาก Grep หา note นี้ได้
+1. **Closed** (fixed / decided / wontfix / deferred)
+2. **Worth keeping** — you would Grep for this next month
 
-### อย่างน้อยหนึ่งข้อ (OR)
+### At least one (OR)
 
-- mechanism ไม่ trivial  
-- ลอง **≥2 แนวทางต่างกัน** เรื่องเดียวกัน (ไม่นับแค่จำนวนข้อความ)  
-- อาการซ้ำใน issues ~7 วัน หรือ user บอกเคยเจอ  
-- friction ระบบ (git / skill / vault / setup)  
-- user ขอเก็บเป็นบทเรียน  
+- non-trivial mechanism  
+- **≥2 distinct approaches** on the same problem  
+- repeat in issues within ~7 days, or user says they have seen it  
+- system friction (git / skill / vault / setup)  
+- user asks to save a lesson  
 
-| ใช้ **issues** แทน | ไม่ใช่ learning |
-|---------------------|-----------------|
-| Q&A งานสั้น, อธิบาย rule | chitchat |
-| ถามครั้งเดียวจบ | ยังสืบไม่จบ |
-| บันทึกว่าทำอะไรวันนี้ | `/fix-record` (RCA ยาว) |
+| Use **issues** instead | Not a learning |
+|------------------------|----------------|
+| short work Q&A, rule explanation | chitchat |
+| one-off fix, no lesson | still investigating |
+| daily log | `/fix-record` (long RCA) |
 
-## ชื่อไฟล์
+## Filename
 
-`YYYY-MM-DD-HHmm.md` — เวลา local ตอนจบ lesson
+`YYYY-MM-DD-HHmm.md` — local time when the lesson closed
 
-## โครงสร้าง (lesson card)
+## Structure (lesson card)
 
-ดู [templates/template.learning.md](../../templates/template.learning.md)
+See [templates/template.learning.md](../../templates/template.learning.md)
 
-| Section | เก็บอะไร |
-|---------|----------|
-| **บริบท** | งาน / repo / skill ที่เกี่ยว |
-| **อาการ** | เห็นอะไร |
-| **สาเหตุ** | mechanism สั้นๆ |
-| **วิธีแก้** | คำสั่ง ไฟล์ ที่ work |
-| **ใช้เมื่อไหร่** | trigger เปิด note นี้ซ้ำ |
-| **หลีกเลี่ยง** | anti-pattern |
-| **อ้างอิง** | ลิงก์ไป `issues/YYYY-MM-DD` (ข้อความ ไม่บังคับ wikilink) |
+| Section | Content |
+|---------|---------|
+| **Context** | work / repo / skill |
+| **Symptoms** | what you saw |
+| **Root cause** | mechanism |
+| **Fix** | commands / files that worked |
+| **When to use** | reopen when… |
+| **Avoid** | anti-pattern |
+| **References** | `related_issue: YYYY-MM-DD` (optional) |
 
-**ห้าม** ใช้ `### คำถาม` · `ประเภท:` · `สถานะ: open` แบบ issues เก่า
+**Do not** use `### Question` · `ประเภท:` · old issues layout.
 
 ## Obsidian
 
-- frontmatter `tags: [learning, <skill>]` + `skill:` ตรงกับ topic
-- `title:` ภาษาอังกฤษ — graph แสดงชื่ออ่านง่าย (plugin Property Over File Name)
-- สีโฟลเดอร์: `path:learnings` ใน `vault/.obsidian/graph.json`
+- frontmatter `tags: [learning, <skill>]` + `skill:` for topics
+- `title:` in English — graph label via Property Over File Name
+- folder color: `path:learnings` in `vault/.obsidian/graph.json`
 
-## ค้นหา (agent)
+## Search (agent)
 
-Grep `symptoms:`, `skill:`, `files:`, คำใน **อาการ** — อ่าน ≤3 ไฟล์
+Follow [`ai-skills/vault-recall/reference.md`](../../ai-skills/vault-recall/reference.md) — Grep `symptoms:`, `skill:`, `files:`, symptom text · read ≤3 files.
 
-Rule: `ai-rules/vault-issues.mdc`
+Write rules: `ai-rules/vault-issues.mdc`

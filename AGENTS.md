@@ -46,7 +46,7 @@ Edit **`ai-skills/`**, **`ai-rules/`**, **`vault/`** in the clone — not inside
 | [fix-record](ai-skills/fix-record/SKILL.md) | RCA after validated fix |
 | [upgrade-ai](ai-skills/upgrade-ai/SKILL.md) | Improve skills in this repo |
 | [git-push](ai-skills/git-push/SKILL.md) | Safe commit + push (sole git skill) |
-| [vault-recall](ai-skills/vault-recall/SKILL.md) | Grep learnings/issues before repeat work |
+| [vault-recall](ai-skills/vault-recall/SKILL.md) | **When:** `/vault-recall` or search vault · **Not:** logging (use `vault-issues.mdc`) · Search SSoT: [reference.md](ai-skills/vault-recall/reference.md) |
 
 Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Smoke: [docs/SKILL-SMOKE-CHECKLIST.md](docs/SKILL-SMOKE-CHECKLIST.md)
 

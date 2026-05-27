@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
 description: >-
   Safe inspect, commit (explicit request only), and push; dirty-tree matrix, SSH
   identity, multi-account remotes. Invoke with /git-push or ยืนยัน after blocked push.
@@ -68,11 +68,7 @@ Do NOT activate for: general coding tasks unrelated to git remote sync.
 
 ## Phase 0 — Vault recall (blocked push or git friction)
 
-When push is **blocked**, failed before, or symptoms match SSH/remote/dirty-tree:
-
-1. Grep `vault/learnings/` per `vault-issues.mdc` (≤3 files)
-2. Apply documented fixes before re-diagnosing from scratch
-3. Optional: `/vault-recall` for a dedicated search
+When push is **blocked**, failed before, or symptoms match SSH/remote/dirty-tree: run search per [`vault-recall/reference.md`](../vault-recall/reference.md), apply documented fixes, then continue Phase 1. Optional: `/vault-recall` for a user-facing summary.
 
 ## Phase 1 — Inspect
 

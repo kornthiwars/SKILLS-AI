@@ -1,60 +1,66 @@
 # vault
 
-Obsidian vault root = โฟลเดอร์ **`vault/`** นี้ (เปิด repo หรือเปิด `vault/` โดยตรง)
+Obsidian vault root = this **`vault/`** folder (open the repo or open `vault/` directly).
 
-## โครงสร้าง
+## Layout
 
 ```
 templates/                    ← repo root
 vault/
-├── .obsidian/                ← graph สี 2 โฟลเดอร์ (ใน git)
-├── issues/YYYY-MM-DD.md      ← งานรายวัน (local, gitignored)
-└── learnings/YYYY-MM-DD-HHmm.md  ← บทเรียนแยกไฟล์ (local)
+├── .obsidian/                ← graph colors for 2 folders (in git)
+├── issues/YYYY-MM-DD.md      ← daily work log (local, gitignored)
+└── learnings/YYYY-MM-DD-HHmm.md  ← reusable lessons (local)
 ```
 
 ## Flow
 
 ```
-งาน Q&A สั้น        → issues/YYYY-MM-DD.md     (## N. + คำถาม/คำตอบ)
-คุยเล่น             → ไม่เขียน
-lesson ค้นหาซ้ำได้  → learnings/YYYY-MM-DD-HHmm  (จบเรื่อง + OR สัญญาณ — ดู rule)
-RCA หลัง fix        → /fix-record
+Short work Q&A     → issues/YYYY-MM-DD.md     (## N. + Question / Answer)
+Casual chat        → do not write
+Reusable lesson    → learnings/YYYY-MM-DD-HHmm  (closed + OR signals — see rule)
+RCA after fix      → /fix-record
 ```
 
-**issues ≠ learnings** — อย่าใช้ bullet `ประเภท` / section เก่าร่วมกัน
+**issues ≠ learnings** — do not reuse legacy `ประเภท` / old section layouts.
 
 ## Tags (Obsidian)
 
-### Type (บังคับ)
+### Type (required)
 
-| Tag | โฟลเดอร์ |
-|-----|----------|
+| Tag | Folder |
+|-----|--------|
 | `issues` | `issues/` |
 | `learning` | `learnings/` |
 
-### Topic (เลือก 1–3 ต่อ entry)
+### Topic (pick 1–3 per entry)
 
 `vault` · `git` · `skills` · `sql` · `debug` · `research` · `ui` · `api` · `infrastructure`
 
-ใส่ใน frontmatter รายวัน + บรรทัด `#vault #git` ใต้ `## N. title`
+Put in daily frontmatter + `#vault #git` line under `## N. title`.
 
 ## Graph
 
-- ไฟล์: `vault/.obsidian/graph.json`
-- **Groups:** `path:issues` (ฟ้า) · `path:learnings` (ทอง)
+- Config: `vault/.obsidian/graph.json`
+- **Groups:** `path:issues` (blue) · `path:learnings` (gold)
 - **Filter:** `-path:templates -file:README`
-- เปิด **Tags** ใน Graph ได้ · **ไม่มี hub file** · ไม่บังคับ wikilink
+- Enable **Tags** in Graph · no hub file · wikilinks optional
 
-## Plugin (แนะนำ)
+## Plugin (recommended)
 
-**Property Over File Name** — แสดง `title:` แทนชื่อไฟล์ `2026-05-27-1545.md`  
-เปิด community plugins ใน Obsidian; repo มี config ใน `.obsidian/community-plugins.json`
+**Property Over File Name** — show `title:` instead of `2026-05-27-1545.md`  
+Enable community plugins in Obsidian; repo ships `.obsidian/community-plugins.json`.
 
-## Agent rule
+## Agent rules & search
 
-`ai-rules/vault-issues.mdc` → `.cursor/rules/` หลัง setup
+| Piece | Role |
+|-------|------|
+| `ai-rules/vault-issues.mdc` | When to write issues/learnings + formats |
+| `ai-skills/vault-recall/reference.md` | How to grep before debug/git (SSoT) |
+| `/vault-recall` | Read-only search on demand |
+
+Linked to `.cursor/rules/` after setup.
 
 ## Git
 
-**ใน git:** README, `.obsidian`, `templates/`  
-**local only:** `issues/*.md`, `learnings/*.md` (ยกเว้น `*/README.md`)
+**In git:** README, `.obsidian`, `templates/`  
+**Local only:** `issues/*.md`, `learnings/*.md` (except `*/README.md`)

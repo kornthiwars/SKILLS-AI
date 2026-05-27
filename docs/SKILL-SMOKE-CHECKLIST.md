@@ -17,7 +17,7 @@ Run after changing `ai-skills/`, `ai-rules/`, or setup scripts. Reload Cursor or
 | **sql** | `/sql` + SELECT | Classifies READ; adds LIMIT; loads `reference.md` for matrix if needed |
 | **git-push** | `/git-push` dirty tree | Blocked without commit; **ยืนยัน** → commit+push |
 | **upgrade-ai** | `/upgrade-ai` | Full diagnosis format when closing |
-| **vault-recall** | `/vault-recall` + keyword | ≤3 files; summary + paths |
+| **vault-recall** | `/vault-recall` + keyword | ≤3 files; uses `vault-recall/reference.md` SSoT |
 
 ## Vault rule
 

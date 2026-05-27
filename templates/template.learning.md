@@ -12,35 +12,35 @@ related_issue: ""
 
 # {{title}}
 
-<!-- Learning = lesson ค้นหาซ้ำได้ · ไม่ใช่ issues · ไม่ใช่กฎ "≥2 รอบแชท" -->
-<!-- เขียนเมื่อ: จบเรื่อง + (mechanism ลึก | หลายแนวทาง | ซ้ำ | friction | user ขอ) -->
-<!-- Graph label: property `title:` · ไฟล์: YYYY-MM-DD-HHmm.md -->
+<!-- Learning = reusable lesson · not issues · not "≥2 chat rounds" -->
+<!-- Write when: closed + (deep mechanism | multiple approaches | repeat | friction | user asks) -->
+<!-- Graph label: property `title:` · file: YYYY-MM-DD-HHmm.md -->
 
-## บริบท
+## Context
 
-งานอะไร · repo/branch · เกี่ยวข้อง skill/rule ไหน
+Work · repo/branch · related skill/rule
 
-## อาการ
+## Symptoms
 
-เห็นอะไร (error, พฤติกรรม agent, symptom สั้นๆ)
+What you saw (error, agent behavior, short symptom)
 
-## สาเหตุ
+## Root cause
 
-ทำไมถึงเกิด (หนึ่งย่อหน้า — mechanism)
+Why it happened (one paragraph — mechanism)
 
-## วิธีแก้
+## Fix
 
-คำสั่ง / ไฟล์ / เวอร์ชัน ที่ใช้แล้วได้ผล (copy-paste ได้)
+Commands / files / versions that worked (copy-paste ready)
 
-## ใช้เมื่อไหร่
+## When to use
 
-เจออาการแบบไหนอีกครั้งถึงจะเปิด note นี้
+Reopen this note when you see…
 
-## หลีกเลี่ยง
+## Avoid
 
-สิ่งที่ไม่ควรทำซ้ำ
+Do not repeat
 
-## อ้างอิง
+## References
 
-- `related_issue:` วันที่ daily log (ถ้ามี) เช่น `2026-05-27`
-- commit / PR / ticket (ถ้ามี)
+- `related_issue:` daily log date if any (e.g. `2026-05-27`)
+- commit / PR / ticket (optional)

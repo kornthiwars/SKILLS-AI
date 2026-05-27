@@ -5,42 +5,43 @@ tags: [learning, vault, skills]
 skill: vault
 title: Wire vault recall before debug and git-push
 status: resolved
-symptoms: [repeat SSH push failure, skills ignore learnings folder]
-files: [ai-skills/debug/SKILL.md, ai-skills/git-push/SKILL.md, ai-rules/vault-issues.mdc]
+symptoms: [repeat failures, skills ignore learnings, search duplicated in prompts]
+files: [ai-skills/vault-recall/reference.md, ai-skills/debug/SKILL.md, ai-skills/git-push/SKILL.md]
 related_issue: "2026-05-27"
 ---
 
 # Wire vault recall before debug and git-push
 
-## บริบท
+## Context
 
-SKILLS-AI repo — vault v2 แยก issues/learnings แต่ skills ยังไม่ Grep ก่อนทำงาน
+SKILLS-AI — vault v2 split issues/learnings; search steps were copy-pasted across skills.
 
-## อาการ
+## Symptoms
 
-- Agent debug ซ้ำคำสั่งที่เคยแก้ในแชทก่อนหน้า
-- `/git-push` ติด SSH/account โดยไม่ดู note เก่า
+- Agent repeats debug/git fixes
+- Long prompts with duplicate grep tables
 
-## สาเหตุ
+## Root cause
 
-Recall อยู่ใน `vault-issues.mdc` (alwaysApply) แต่ไม่ถูก bind เข้า workflow ของ `debug` / `git-push` — model ข้ามเมื่อ context ยาว
+No single source of truth for vault search; `vault-issues.mdc` and skills each defined grep differently.
 
-## วิธีแก้
+## Fix
 
-1. เพิ่มขั้น Grep `vault/learnings/` (≤3 ไฟล์) ใน `debug` ก่อน reproduce และ `git-push` Phase 0 เมื่อ blocked
-2. ใช้ `/vault-recall` สำหรับค้นโดยเฉพาะ
-3. ดู `docs/SKILL-SMOKE-CHECKLIST.md` หลัง deploy rule
+1. Add [`ai-skills/vault-recall/reference.md`](../../ai-skills/vault-recall/reference.md) — link from rule, debug, git-push
+2. Use `/vault-recall` for explicit search only
+3. Run `docs/SKILL-SMOKE-CHECKLIST.md` after rule/skill changes
 
-## ใช้เมื่อไหร่
+## When to use
 
-อาการซ้ำ, friction git/SSH/skills, หลัง restructure vault
+Repeat symptoms, git/SSH/skills friction, after vault or skill edits.
 
-## หลีกเลี่ยง
+## Avoid
 
-- อย่า copy issues format ไป learnings
-- อย่า commit `vault/issues/*.md`
+- Copy issues format into learnings
+- Commit `vault/issues/*.md`
+- Duplicate grep tables in new skills
 
-## อ้างอิง
+## References
 
 - `related_issue:` 2026-05-27
-- `docs/examples/sample-learning.md` (tracked copy for authors)
+- `docs/examples/sample-learning.md` (tracked author copy)

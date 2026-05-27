@@ -1,7 +1,7 @@
 ---
 name: debug
 metadata:
-  version: "1.0.4"
+  version: "1.0.5"
 description: >-
   Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
   breadcrumbs. Recite mantra verbatim on first response. Invoke with /debug for bugs,
@@ -31,14 +31,9 @@ Then begin work.
 
 ## Vault recall (before step 1)
 
-Per `ai-rules/vault-issues.mdc` — **before** building a repro:
+**Before** building a repro, run vault search per [`vault-recall/reference.md`](../vault-recall/reference.md) (same steps as `/vault-recall`). Fold hits into the ledger; do not re-run fixes already documented.
 
-1. **Grep** `vault/learnings/` for error text, symptoms, `skill:`, `files:`
-2. Cap ~15 lines; read **≤3** matching notes (skip if folder empty except README)
-3. If insufficient → grep `vault/issues/` today and yesterday
-4. Fold hits into the ledger; do not re-run failed fixes already documented
-
-Optional: user may run `/vault-recall` first.
+Optional: user may run `/vault-recall` first for a dedicated summary.
 
 ## Response shape
 

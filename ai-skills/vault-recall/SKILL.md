@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 description: >-
   Grep vault learnings and recent issues before debug, git, or skills work.
   Invoke with /vault-recall or when the user asks to search the vault.
@@ -14,13 +14,15 @@ Role: Vault librarian
 
 Mission: Find prior lessons and same-day context before repeating work.
 
+> Search steps (resolve root, grep order, limits): [`reference.md`](./reference.md).
+
 ## Purpose
 
-Search **local** vault (`learnings/` then `issues/`) and return a short, actionable summary. Does **not** write vault files — use `ai-rules/vault-issues.mdc` for that.
+Search **local** vault and return a short, actionable summary. Does **not** write vault files — use `ai-rules/vault-issues.mdc` for writes.
 
 ## Scope Guardrails
 
-- ALWAYS resolve vault root before grep (same rules as `vault-issues.mdc`).
+- ALWAYS follow [`reference.md`](./reference.md) for root resolution and grep limits.
 - NEVER read more than **3** learning files full-text per search.
 - NEVER echo secrets from vault notes.
 
@@ -33,37 +35,22 @@ Search **local** vault (`learnings/` then `issues/`) and return a short, actiona
 
 # Activate when
 
-- User runs `/vault-recall` or asks to search vault / ค้น vault / มีบทเรียนไหม
-- Before a long debug session when user mentions repeat symptoms
-- Optional pre-step when another skill says "grep learnings first"
+| Use | Do not use |
+|-----|------------|
+| `/vault-recall` or “search vault” / ค้น vault | Logging work (rule writes issues) |
+| Repeat symptoms before long debug | Every casual message |
+| User asks “any prior lesson?” | After you already grepped this turn |
+
+Other skills call the same search via `reference.md` — you do not need `/vault-recall` if `/debug` or `/git-push` already ran recall.
 
 ---
 
 # Workflow
 
-## 1 — Resolve root
+1. Load and run [`reference.md`](./reference.md) (resolve root → search learnings → issues if needed).
+2. Report using **Response shape** or **Output format** below.
 
-| Step | Vault root |
-|------|------------|
-| 1 | `<workspace>/.cursor/ai-skills-vault.json` paths |
-| 2 | `<workspace>/.cursor/vault/` exists |
-| 3 | `<workspace>/vault/` |
-| 4 | Folder with `ai-skills/` + `scripts/setup-macos-linux.sh` |
-
-If `learnings/` has only `README.md` → report empty; skip to issues.
-
-## 2 — Search learnings
-
-Grep `vault/learnings/` for user keywords, error text, `skill:`, `symptoms:`, `files:`.
-
-- Cap ~15 matching lines
-- Read **≤3** best-matching `.md` files (not README)
-
-## 3 — Search issues (if needed)
-
-Grep `vault/issues/YYYY-MM-DD.md` for **today** and **yesterday** (same keywords).
-
-## 4 — Report
+---
 
 ## Response shape
 
@@ -93,12 +80,12 @@ For each file (max 3):
 
 ## If empty
 
-- Suggest creating a learning after the issue is **resolved** (see `vault-issues.mdc` criteria).
+- Suggest creating a learning after the issue is **resolved** (see `vault-issues.mdc`).
 
 ---
 
 # Success criteria
 
 - Correct vault root
-- Token-bounded search (≤3 full files)
+- Token-bounded search per `reference.md`
 - Actionable summary without duplicating entire notes

@@ -1,8 +1,8 @@
-# issues — daily work log (รูปแบบใหม่เท่านั้น)
+# issues — daily work log (current format only)
 
-**หนึ่งวัน = หนึ่งไฟล์** `YYYY-MM-DD.md`
+**One day = one file** `YYYY-MM-DD.md`
 
-## โครงสร้าง
+## Structure
 
 ```markdown
 ---
@@ -12,28 +12,28 @@ tags: [issues, skills, vault]
 
 # Issues — YYYY-MM-DD
 
-## 1. หัวข้อสั้น
+## 1. Short title
 
 #vault #skills
 
-### คำถาม
+### Question
 ...
 
-### คำตอบ / สถานะ
-resolved — ผลลัพธ์หนึ่งบรรทัด
+### Answer / status
+resolved — one-line outcome
 ```
 
-- **ไม่เก็บทุกแชท** — เฉพาะงาน (ดู `vault-issues.mdc`)
-- หนึ่งเรื่อง = `## N.` เลขต่อเนื่อง
-- บทเรียนยาว → `learnings/` (รูปแบบคนละแบบ)
+- **Not every chat** — work turns only (see `vault-issues.mdc`)
+- One topic = `## N.` sequential numbering
+- Long lessons → `learnings/` (different format)
 
 Template: [templates/template.issue.md](../../templates/template.issue.md)
 
-## ไฟล์เก่า (อ่านอย่างเดียว)
+## Legacy files (read-only)
 
-ถ้ามี `## คำถาม` / `### HH:MM` / `ประเภท:` — เป็นระบบเก่า **อย่า append ต่อ**  
-วันใหม่เริ่มจาก template ใหม่ · หรือสร้างไฟล์วันใหม่แล้วอ้างใน Obsidian ว่า archive
+If you see `## คำถาม` / `### HH:MM` / `ประเภท:` — old system **do not append**  
+Start new days from the template above.
 
 ## Git
 
-`issues/*.md` gitignored — local only
+`issues/*.md` is gitignored — local only
