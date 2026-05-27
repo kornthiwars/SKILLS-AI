@@ -1,23 +1,20 @@
 ---
 name: builder-schema
 description: >-
-  Design scalable, maintainable, integrity-safe data schemas through domain
-  modeling, relationships, indexing, migrations, and evolution planning. Trigger
-  on /builder-schema.
+  Design scalable, integrity-safe schemas through domain modeling,
+  relationship architecture, indexing, migration safety, and evolution planning.
+  Trigger on /builder-schema.
 disable-model-invocation: true
 ---
 
 # Skill: builder-schema
 
-Role:
-Systems Schema Architect
+Role: Systems Schema Architect
 
-Mission:
-Design scalable, maintainable, consistent, and production-oriented
-data schemas through structured modeling, integrity enforcement,
-relationship design, and evolution planning.
+Mission: Design maintainable, predictable schemas with explicit ownership, integrity, and safe evolution.
 
-Purpose:
+## Purpose
+
 Create schemas that are:
 - normalized when appropriate
 - scalable
@@ -26,541 +23,239 @@ Create schemas that are:
 - versionable
 - integrity-safe
 - extensible
-- predictable
 
-This skill exists to:
-- design data models
-- enforce schema consistency
-- reduce data corruption risks
-- improve query reliability
-- support scalable systems
-- reduce coupling
-- improve migration safety
-- improve long-term maintainability
-
-This skill does NOT:
+Do NOT:
 - blindly create tables
-- optimize prematurely
 - ignore data integrity
-- tightly couple domains
-- sacrifice maintainability for short-term convenience
-- mix unrelated responsibilities into single entities
+- over-index or optimize prematurely
+- mix unrelated responsibilities in one entity
 
 ---
 
-# Core Philosophy
+# Core philosophy
 
 Do NOT start from tables.
 
-First:
-1. analyze domain
-2. identify entities
-3. identify ownership
-4. model relationships
-5. define lifecycle rules
-6. validate access/query patterns
-7. verify scalability
+Start with:
+1. domain and ownership
+2. entities and lifecycle
+3. relationships and constraints
+4. access/query patterns
+5. evolution and migration safety
 
-Treat schemas as:
-- system contracts
-- state models
-- ownership boundaries
-- long-term architecture
-
-NOT as storage containers.
+Treat schema as long-lived system contracts, not storage containers.
 
 ---
 
-# Core Principles
+# Core principles
 
 - Domain before tables
 - Integrity before convenience
 - Explicit ownership boundaries
-- Relationships must be intentional
+- Intentional relationships
 - Predictability before flexibility
-- Simplicity before abstraction
-- Scalability must be planned
-- Schema evolution must be safe
-- Minimize hidden coupling
-- Prefer explicit constraints
-- Avoid duplicated sources of truth
-- Optimize only after access patterns understood
-- Data consistency is mandatory
+- Single source of truth
+- Safe schema evolution
+- Query-driven indexing
+- Complexity must justify value
 
 ---
 
-# Responsibilities
+# Activation
 
-This skill is responsible for:
-
-- entity modeling
-- relationship design
-- normalization strategy
-- denormalization planning
-- indexing strategy
-- integrity constraints
-- migration planning
-- schema versioning
-- lifecycle modeling
-- query optimization awareness
-- scalability planning
-- data ownership boundaries
-- transactional boundary planning
-- schema evolution strategy
-
----
-
-# Subskills
-
-schema-architect
-├── domain-analyzer
-├── entity-modeler
-├── relationship-architect
-├── normalization-planner
-├── indexing-strategist
-├── migration-planner
-├── query-pattern-analyzer
-├── lifecycle-modeler
-├── integrity-enforcer
-├── scalability-planner
-├── evolution-strategist
-└── verifier
-
----
-
-# Activation Conditions
-
-Activate when:
-
+Use when:
 - designing databases
 - restructuring schemas
-- scaling backend systems
-- data duplication increases
+- scaling backend data systems
+- duplication/integrity issues appear
 - migrations become risky
 - query performance degrades
-- relationships become unstable
-- schema maintenance becomes difficult
-- integrity issues appear
-- transactional boundaries unclear
-- ownership conflicts appear
 
-Do NOT activate for:
+Do NOT use for:
 - frontend-only tasks
-- UI generation
-- unrelated infrastructure provisioning
+- infra-only tasks
 - cosmetic refactors
 
 ---
 
 # Workflow
 
-## Phase 1 — Domain Analysis
+## 1) Domain analysis
 
-Objectives:
-- understand business domain
-- identify core entities
-- identify ownership boundaries
-- identify lifecycle flows
-
-Analyze:
-- actors
-- workflows
-- state transitions
-- permissions
+Identify:
+- actors, workflows, permissions
+- entity ownership boundaries
+- lifecycle and state transitions
 - transactional boundaries
-- access patterns
 
-Outputs:
+Output:
 - domain map
 - ownership boundaries
-- lifecycle analysis
-- dependency analysis
 
----
+## 2) Entity modeling
 
-## Phase 2 — Entity Modeling
-
-Objectives:
-- define entities clearly
-- separate responsibilities
-- reduce ambiguity
-
-Model:
-- entities
-- attributes
-- identifiers
-- ownership rules
-- lifecycle states
-
-Requirements:
+Define:
+- entities and attributes
 - stable identifiers
-- explicit ownership
-- predictable naming
+- lifecycle states
+- ownership rules
 
-Outputs:
+Output:
 - entity definitions
-- attribute definitions
 - lifecycle rules
 
----
+## 3) Relationship architecture
 
-## Phase 3 — Relationship Architecture
-
-Objectives:
-- design stable relationships
-- reduce hidden coupling
-- preserve integrity
-
-Relationship Types:
+Model:
 - one-to-one
 - one-to-many
 - many-to-many
-- polymorphic relationships
-- hierarchical relationships
+- hierarchical/polymorphic where justified
 
-Requirements:
-- explicit foreign keys
-- ownership clarity
+Require:
+- explicit FKs
+- clear ownership
 - predictable cascade behavior
 
 Avoid:
-- ambiguous ownership
-- uncontrolled cascading
 - circular dependencies
+- ambiguous ownership
 
-Outputs:
+Output:
 - relationship map
-- ownership hierarchy
 - dependency structure
 
----
+## 4) Normalization strategy
 
-## Phase 4 — Normalization Strategy
-
-Objectives:
-- reduce duplication
-- preserve consistency
-- balance query efficiency
-
-Consider:
+Evaluate:
 - normalization level
 - denormalization trade-offs
-- read/write patterns
-- update frequency
-- aggregation patterns
+- read/write/update patterns
 
-Requirements:
-- single source of truth
+Require:
 - controlled denormalization only
+- duplicate source-of-truth avoidance
 
-Outputs:
-- normalization strategy
-- denormalization decisions
+Output:
+- normalization plan
 - duplication risk assessment
 
----
-
-## Phase 5 — Query Pattern Analysis
-
-Objectives:
-- understand access patterns
-- improve query efficiency
-- prevent scaling bottlenecks
+## 5) Query pattern analysis
 
 Analyze:
-- read-heavy paths
-- write-heavy paths
-- filtering patterns
-- sorting patterns
-- aggregation needs
-- pagination requirements
+- read-heavy/write-heavy paths
+- filters, sorts, aggregations
+- pagination needs
 
-Outputs:
+Output:
 - access pattern map
-- query optimization concerns
 - scaling risks
 
----
+## 6) Indexing strategy
 
-## Phase 6 — Indexing Strategy
+Design:
+- primary/unique/composite indexes
+- partial/full-text where justified
 
-Objectives:
-- improve query performance
-- reduce unnecessary scans
-- support scalability
+Rule:
+- index must map to real query patterns
+- avoid over-indexing write-heavy paths
 
-Index Types:
-- primary indexes
-- unique indexes
-- composite indexes
-- partial indexes
-- full-text indexes
-
-Requirements:
-- indexes justified by query patterns
-- avoid unnecessary indexes
-- balance write cost
-
-Outputs:
+Output:
 - indexing plan
-- performance considerations
-- indexing trade-offs
+- write/read trade-offs
 
----
+## 7) Integrity enforcement
 
-## Phase 7 — Integrity Enforcement
-
-Objectives:
-- prevent invalid state
-- protect data consistency
-- reduce corruption risks
-
-Integrity Rules:
-- foreign keys
+Require:
+- FK constraints
 - uniqueness constraints
 - check constraints
 - transactional guarantees
-- lifecycle validation
 
-Requirements:
-- invalid state must be difficult
-- constraints should be explicit
-
-Outputs:
+Output:
 - integrity rules
-- consistency guarantees
-- validation boundaries
+- consistency boundaries
 
----
+## 8) Scalability planning
 
-## Phase 8 — Scalability Planning
-
-Objectives:
-- support future growth
-- reduce scaling bottlenecks
-- improve operational stability
-
-Analyze:
-- data growth
-- query growth
+Assess:
+- data and query growth
 - concurrency risks
-- partitioning needs
-- archival strategies
+- partitioning/replica/caching needs
 
-Possible Strategies:
-- partitioning
-- sharding
-- read replicas
-- caching
-- event-driven flows
-
-Outputs:
-- scalability risks
-- scaling strategy
+Output:
+- scalability plan
 - operational concerns
 
----
+## 9) Evolution strategy
 
-## Phase 9 — Schema Evolution Strategy
-
-Objectives:
-- support safe schema changes
-- preserve compatibility
-- reduce migration risk
-
-Requirements:
-- backward compatibility awareness
+Plan:
+- backward compatibility
 - safe migration sequencing
-- rollback planning
+- rollback strategy
+- deprecation lifecycle
 
 Consider:
 - nullable transitions
-- dual-write strategies
-- migration windows
-- deprecation lifecycle
+- dual-write windows
 
-Outputs:
+Output:
 - migration strategy
 - compatibility risks
-- rollback plan
 
----
+## 10) Verification
 
-## Phase 10 — Verification
+Verify:
+- relationship stability
+- integrity constraints
+- migration safety
+- indexing validity
+- query performance profile
+- duplication/ownership clarity
 
-Objectives:
-- validate integrity
-- verify maintainability
-- confirm scalability readiness
-
-Required Verification:
-- relationship validation
-- integrity checks
-- migration safety checks
-- indexing validation
-- query performance review
-- scalability review
-- duplication review
-
-Reject solution if:
+Reject if:
 - ownership unclear
-- excessive duplication
 - relationships unstable
 - migrations unsafe
 - indexing unjustified
-- transactional boundaries ambiguous
-
-Outputs:
-- verification results
-- maintainability assessment
-- scalability assessment
-- integrity assessment
 
 ---
 
-# Schema Standards
-
-## Naming Rules
-
-Prefer:
-- predictable naming
-- singular entity names
-- explicit foreign keys
-- stable identifiers
-
-Avoid:
-- ambiguous names
-- inconsistent conventions
-- overloaded entities
-
----
-
-## Identifier Standards
-
-Prefer:
-- immutable identifiers
-- globally unique IDs when appropriate
-- explicit ownership references
-
-Avoid:
-- mutable identifiers
-- business logic encoded into IDs
-
----
-
-## Relationship Standards
-
-Relationships must:
-- define ownership clearly
-- specify cascade behavior
-- preserve integrity
-- minimize coupling
-
-Avoid:
-- hidden dependencies
-- implicit ownership
-- uncontrolled cascading deletes
-
----
-
-## Migration Standards
-
-Migrations must:
-- be reversible when possible
-- preserve integrity
-- avoid destructive changes without planning
-- minimize downtime risk
-
-Avoid:
-- unsafe breaking changes
-- schema rewrites without migration paths
-
----
-
-# Complexity Governance
-
-If:
-- entities exceed clear responsibility
-- relationships become cyclic
-- schema duplication increases
-- migrations become risky
-- queries become unpredictable
-- ownership becomes ambiguous
-
-Then:
-- recommend decomposition or redesign
-
----
-
-# Anti-Patterns
-
-Avoid:
-
-- giant entities
-- duplicated sources of truth
-- hidden relationships
-- implicit ownership
-- missing constraints
-- uncontrolled denormalization
-- premature optimization
-- over-indexing
-- business logic embedded into schema
-- unstable migrations
-- circular dependencies
-- inconsistent naming
-
----
-
-# Output Format
+# Output format
 
 ## Domain Analysis
-
 - Core Entities:
 - Ownership Boundaries:
 - Lifecycle Flows:
 - Transactional Boundaries:
 - Scalability Risks:
 
----
-
 ## Entity Architecture
-
 - Entities
 - Attributes
 - Identifiers
 - Lifecycle States
 
----
-
 ## Relationship Architecture
-
 - Relationship Map
 - Ownership Hierarchy
 - Cascade Rules
 - Dependency Structure
 
----
-
 ## Query & Indexing Plan
-
 - Query Patterns
 - Indexing Strategy
 - Optimization Concerns
 - Performance Risks
 
----
-
 ## Integrity & Evolution Plan
-
 - Constraints
 - Migration Strategy
 - Compatibility Risks
 - Rollback Plan
 
----
-
 ## Verification Plan
-
 - Integrity Checks
 - Query Validation
 - Migration Safety
@@ -568,17 +263,6 @@ Avoid:
 
 ---
 
-# Success Criteria
+# Reference
 
-This skill succeeds when:
-
-- schemas remain maintainable
-- integrity issues decrease
-- queries remain predictable
-- migrations become safer
-- scalability improves
-- ownership boundaries remain clear
-- duplication decreases
-- transactional behavior remains stable
-- schema evolution becomes manageable
-- long-term architecture remains extensible
+Use `.cursor/skills/builder-schema/reference.md` for extended checklists and anti-patterns.

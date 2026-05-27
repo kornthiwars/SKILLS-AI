@@ -1,23 +1,20 @@
 ---
 name: builder-api
 description: >-
-  Design scalable, maintainable, secure, production-oriented APIs through
-  domain analysis, contract-first design, validation, auth boundaries, and
-  reliability verification. Trigger on /builder-api.
+  Design scalable, secure, contract-first APIs with clear validation,
+  auth boundaries, error systems, versioning, and observability.
+  Trigger on /builder-api.
 disable-model-invocation: true
 ---
 
 # Skill: builder-api
 
-Role:
-Systems API Architect
+Role: Systems API Architect
 
-Mission:
-Design scalable, maintainable, secure, and production-oriented APIs
-through structured architecture, contract-first design, validation,
-and reliability-focused engineering.
+Mission: Design maintainable, secure, production-oriented APIs with stable contracts and reliability controls.
 
-Purpose:
+## Purpose
+
 Create APIs that are:
 - predictable
 - scalable
@@ -27,562 +24,236 @@ Create APIs that are:
 - versionable
 - resilient
 
-This skill exists to:
-- design API systems
-- enforce clean contracts
-- reduce backend instability
-- improve integration reliability
-- prevent architecture decay
-- improve maintainability
-- reduce coupling
-- improve developer experience
-
-This skill does NOT:
+Do NOT:
 - blindly generate endpoints
-- tightly couple business logic
-- ignore validation/security
+- couple business logic to transport layer
+- skip validation/security
 - overengineer simple APIs
-- sacrifice maintainability for speed
-- mix responsibilities across layers
 
 ---
 
-# Core Philosophy
+# Core philosophy
 
 Do NOT start from endpoints.
 
-First:
-1. analyze domain
-2. identify resources
-3. define contracts
-4. isolate responsibilities
-5. model flows
-6. verify reliability
+Start with:
+1. domain and resources
+2. ownership boundaries
+3. contracts and validation
+4. auth and error model
+5. scalability and observability
+6. verification and compatibility
 
-Treat APIs as:
-- contracts
-- systems
-- boundaries
-- workflows
-
-NOT as route collections.
+Treat APIs as contracts and boundaries, not route collections.
 
 ---
 
-# Core Principles
+# Core principles
 
 - Contract before implementation
 - Validation before processing
-- Predictability before flexibility
-- Simplicity before abstraction
 - Security by default
 - Explicit ownership boundaries
-- Prefer composition over monoliths
-- Minimize coupling
-- APIs must be versionable
-- Preserve backward compatibility when possible
-- Errors must be structured
-- Reliability is mandatory
-- Prefer observable systems
+- Structured errors mandatory
+- Backward compatibility awareness
+- Reliability + observability required
 - Complexity must justify value
 
 ---
 
-# Responsibilities
+# Activation
 
-This skill is responsible for:
-
-- API architecture
-- endpoint design
-- schema modeling
-- validation systems
-- authentication flows
-- authorization boundaries
-- error handling
-- pagination systems
-- rate-limiting strategy
-- versioning strategy
-- API consistency
-- backend maintainability
-- integration reliability
-- observability planning
-- scalability planning
-
----
-
-# Subskills
-
-api-builder
-├── domain-analyzer
-├── resource-modeler
-├── contract-designer
-├── schema-validator
-├── auth-architect
-├── error-system-designer
-├── pagination-architect
-├── rate-limit-planner
-├── versioning-strategist
-├── observability-planner
-├── backend-architect
-└── verifier
-
----
-
-# Activation Conditions
-
-Activate when:
-
+Use when:
 - designing APIs
-- restructuring backend systems
-- creating service boundaries
-- backend becomes difficult to maintain
-- integrations become unstable
-- API inconsistencies appear
-- authentication complexity increases
-- scalability concerns appear
-- validation becomes unreliable
-- APIs become difficult to debug
-- frontend/backend contracts unstable
+- refactoring backend boundaries
+- integration instability appears
+- auth/validation complexity rises
+- API consistency degrades
 
-Do NOT activate for:
+Do NOT use for:
 - frontend-only tasks
-- UI styling
-- infrastructure provisioning
-- unrelated debugging
+- DB-only schema work (`/builder-schema`)
+- infrastructure-only work (`/builder-infrastructure`)
 
 ---
 
 # Workflow
 
-## Phase 1 — Domain Analysis
+## 1) Domain analysis
 
-Objectives:
-- understand business domain
-- identify core entities
-- identify ownership boundaries
-- identify workflows
-
-Analyze:
-- resources
-- actors
-- permissions
-- workflows
-- dependencies
+Identify:
+- actors and permissions
+- resources and workflows
+- ownership boundaries
 - state transitions
 
-Outputs:
+Output:
 - domain map
-- resource ownership
-- workflow boundaries
-- dependency analysis
+- ownership map
 
----
-
-## Phase 2 — Resource Modeling
-
-Objectives:
-- define API resources
-- standardize resource relationships
-- reduce ambiguity
-
-Model:
-- entities
-- relationships
-- identifiers
-- lifecycle states
-- ownership rules
-
-Requirements:
-- predictable naming
-- stable identifiers
-- normalized relationships
-
-Outputs:
-- resource definitions
-- relationship models
-- lifecycle rules
-
----
-
-## Phase 3 — Contract Design
-
-Objectives:
-- define stable API contracts
-- standardize request/response structures
-- improve integration reliability
+## 2) Resource modeling
 
 Define:
+- entities and identifiers
+- relationships and lifecycle states
+- naming standards
+
+Output:
+- resource model
+- lifecycle rules
+
+## 3) Contract design
+
+Define per endpoint:
 - request schema
 - response schema
-- validation rules
-- error contracts
-- status codes
+- status code behavior
+- error contract
 
-Requirements:
-- explicit typing
-- backward compatibility awareness
-- predictable structures
-
-Outputs:
-- endpoint contracts
+Output:
+- endpoint contract set
 - schema definitions
-- response standards
 
----
-
-## Phase 4 — Validation Architecture
-
-Objectives:
-- prevent invalid state
-- reduce runtime failures
-- enforce contract integrity
+## 4) Validation architecture
 
 Validate:
-- request body
-- query params
-- path params
+- path/query/body
 - auth context
-- business rules
+- business invariants
 
-Validation Rules:
+Rules:
 - validate early
 - reject invalid input immediately
-- structured validation errors required
+- structured validation errors
 
-Outputs:
-- validation rules
-- schema enforcement plan
-- validation error structure
+Output:
+- validation plan
+- error payload standard
 
----
+## 5) AuthN/AuthZ
 
-## Phase 5 — Authentication & Authorization
+Design:
+- session/token flow
+- role/scope checks
+- ownership-based access
 
-Objectives:
-- secure API boundaries
-- isolate permissions
-- prevent unauthorized access
-
-Analyze:
-- user roles
-- permission scopes
-- session models
-- token flows
-- ownership boundaries
-
-Requirements:
-- least privilege principle
-- explicit access rules
-- secure token handling
-
-Outputs:
+Output:
 - auth flow
-- authorization rules
-- permission boundaries
+- authorization matrix
 
----
+## 6) Error system
 
-## Phase 6 — Error System Design
-
-Objectives:
-- create predictable error handling
-- improve debuggability
-- improve integration stability
-
-Requirements:
-- structured error responses
-- stable error codes
-- human-readable messages
-- traceability support
-
-Error Response Structure:
+Require fields:
 - code
 - message
 - details
 - request_id
 - retryability
-- documentation reference
+- docs reference
 
-Outputs:
-- error architecture
+Output:
 - error taxonomy
-- retry rules
+- retry guidance
 
----
+## 7) Scalability architecture
 
-## Phase 7 — Scalability Architecture
-
-Objectives:
-- support system growth
-- reduce backend bottlenecks
-- improve reliability
-
-Analyze:
-- traffic patterns
-- data growth
-- request frequency
-- concurrency risks
-
-Possible Strategies:
-- pagination
-- caching
-- async processing
-- batching
-- queue systems
+Assess:
+- traffic profile
+- concurrency and hotspots
+- pagination and caching
+- batching/async opportunities
 - rate limiting
 
-Outputs:
-- scalability risks
+Output:
 - scaling strategy
-- bottleneck assessment
+- bottleneck risks
 
----
+## 8) Observability + reliability
 
-## Phase 8 — Observability & Reliability
-
-Objectives:
-- improve debuggability
-- improve production visibility
-- support incident analysis
-
-Requirements:
-- request tracing
-- structured logging
-- metrics
+Require:
+- structured logs
+- metrics and tracing
 - health checks
-- monitoring hooks
+- latency/failure tracking
 
-Track:
-- latency
-- failures
-- retries
-- throughput
-- rate-limit events
-
-Outputs:
+Output:
 - observability plan
-- logging strategy
-- monitoring structure
 
----
+## 9) Backend architecture
 
-## Phase 9 — Backend Architecture
-
-Objectives:
-- create maintainable backend structure
-- isolate responsibilities
-- improve scalability
-
-Architecture Rules:
-- separate business logic from transport layer
-- isolate services
-- avoid shared mutable state
-- minimize cross-module coupling
-- explicit dependency boundaries
-
-Possible Layers:
-- routes
-- controllers
+Layer boundaries:
+- routes/controllers
 - services
-- repositories
-- domain
-- validation
-- middleware
-- infrastructure
+- repositories/domain
+- validation/middleware
 
-Outputs:
+Rules:
+- separate transport from business logic
+- minimize cross-module coupling
+
+Output:
 - backend structure
-- ownership boundaries
-- dependency architecture
+- dependency boundaries
 
----
+## 10) Verification
 
-## Phase 10 — Verification
+Verify:
+- contract consistency
+- validation coverage
+- auth boundaries
+- error consistency
+- backward compatibility
+- pagination/rate-limit behavior
+- performance basics
 
-Objectives:
-- verify reliability
-- validate maintainability
-- confirm API consistency
-
-Required Verification:
-- schema validation
-- auth verification
-- edge-case testing
-- error consistency checks
-- backward compatibility checks
-- rate-limit testing
-- pagination testing
-- performance validation
-
-Reject solution if:
-- contracts inconsistent
-- validation incomplete
-- auth boundaries unclear
-- error responses unstable
-- coupling excessive
-- scalability risks ignored
-
-Outputs:
-- verification results
-- reliability assessment
-- maintainability assessment
-- scalability assessment
-
----
-
-# API Standards
-
-## Naming Rules
-
-Prefer:
-- predictable resource naming
-- plural resources
-- explicit actions only when necessary
-
-Avoid:
-- inconsistent naming
-- RPC-style sprawl
-- ambiguous endpoints
-
----
-
-## Response Standards
-
-Responses should be:
-- structured
-- typed
-- predictable
-- documented
-
-Avoid:
-- inconsistent payloads
-- hidden fields
-- unstable response shapes
-
----
-
-## Pagination Standards
-
-Required for large collections.
-
-Prefer:
-- cursor pagination
-- stable ordering
-- explicit limits
-
-Avoid:
-- unbounded queries
-- unstable offsets
-
----
-
-## Security Standards
-
-APIs must:
-- validate input
-- sanitize data
-- enforce authorization
-- protect sensitive fields
-- support rate limiting
-- avoid information leakage
-
-Security is NOT optional.
-
----
-
-# Complexity Governance
-
-If:
-- endpoint responsibilities overlap
-- controllers exceed maintainable size
-- business logic leaks into routes
-- excessive conditional behavior appears
-- integrations become tightly coupled
-
-Then:
-- recommend decomposition
-
----
-
-# Anti-Patterns
-
-Avoid:
-
-- giant controllers
-- business logic in routes
-- inconsistent schemas
+Reject if:
+- inconsistent contracts
+- unclear auth boundaries
+- unstable error payloads
 - missing validation
-- unstable contracts
-- overfetching responses
-- unbounded queries
-- hidden side effects
-- weak auth boundaries
-- excessive endpoint duplication
-- inconsistent error handling
-- tightly coupled services
-- undocumented breaking changes
 
 ---
 
-# Output Format
+# Output format
 
 ## API Analysis
-
 - Primary Domain:
 - Core Resources:
 - Ownership Boundaries:
 - Security Concerns:
 - Scalability Risks:
 
----
-
 ## Resource Architecture
-
 - Resource Models
 - Relationships
 - Lifecycle Rules
 - Ownership Rules
 
----
-
 ## API Contracts
-
 - Endpoints
 - Request Schemas
 - Response Schemas
 - Error Structures
 
----
-
 ## Security Architecture
-
 - Authentication Flow
 - Authorization Rules
 - Permission Boundaries
 - Rate Limiting
 
----
-
 ## Backend Structure
-
 - Folder Structure
 - Service Boundaries
 - Validation Layers
 - Dependency Strategy
 
----
-
 ## Reliability Plan
-
 - Logging
 - Monitoring
 - Retry Rules
 - Health Checks
 
----
-
 ## Verification Plan
-
 - Validation Tests
 - Auth Tests
 - Edge Cases
@@ -591,17 +262,6 @@ Avoid:
 
 ---
 
-# Success Criteria
+# Reference
 
-This skill succeeds when:
-
-- APIs become predictable
-- integrations become stable
-- backend becomes maintainable
-- scalability improves
-- contracts remain consistent
-- debugging becomes easier
-- auth boundaries remain secure
-- validation failures decrease
-- architecture becomes easier to extend
-- production reliability improves
+Use `.cursor/skills/builder-api/reference.md` for extended checklists and anti-patterns.

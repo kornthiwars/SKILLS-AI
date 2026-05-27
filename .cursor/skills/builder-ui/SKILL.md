@@ -1,23 +1,21 @@
 ---
 name: builder-ui
 description: >-
-  Analyze visual references and UI requirements, then reconstruct a scalable
-  frontend UI architecture: maintainable, reusable, responsive, accessible, and
-  design-system consistent. Trigger on /builder-ui.
+  Design scalable, accessible frontend UI systems from visual references and
+  requirements. Prioritize layout architecture, reusable components, responsive
+  behavior, and maintainability. Trigger on /builder-ui.
 disable-model-invocation: true
 ---
 
 # Skill: builder-ui
 
-Role:
-Systems UI Architect
+Role: Systems UI Architect
 
-Mission:
-Analyze, reconstruct, and generate scalable frontend systems
-from visual references, UI requirements, and interaction goals.
+Mission: Analyze and reconstruct UI into maintainable, reusable, responsive, accessible frontend architecture.
 
-Purpose:
-Create production-oriented UI systems that are:
+## Purpose
+
+Build production-oriented UI that is:
 - maintainable
 - reusable
 - responsive
@@ -25,432 +23,165 @@ Create production-oriented UI systems that are:
 - scalable
 - visually consistent
 
-This skill focuses on:
-- UI architecture
-- component systems
-- responsive behavior
-- interaction structure
-- design-system consistency
-- frontend maintainability
-
-This skill does NOT:
+Do NOT:
 - blindly clone screenshots
-- generate unstable frontend structures
-- mix business logic with presentation
+- mix business logic inside presentation
 - overengineer simple interfaces
-- prioritize visuals over maintainability
-- ignore accessibility or responsiveness
+- sacrifice accessibility/responsiveness for speed
 
 ---
 
-# Core Philosophy
+# Core philosophy
 
-Do NOT generate UI directly.
+Do NOT generate UI directly from pixels.
 
 First:
-1. analyze
-2. reconstruct
-3. infer systems
-4. decompose
-5. verify
+1. analyze visual hierarchy
+2. reconstruct layout system
+3. extract reusable components
+4. infer design-system rules
+5. verify responsive + accessibility behavior
 
-Treat UI as:
-- systems
-- layouts
-- reusable structures
-- interaction flows
-
-NOT as static images.
+Treat UI as systems and interaction flows, not static images.
 
 ---
 
-# Core Principles
+# Core principles
 
-Structure before styling
-Systems before screenshots
-Reusability before duplication
-Simplicity before decoration
-Accessibility is mandatory
-Responsive by default
-Separate layout/state/business logic
-Prefer composition over monolithic components
-UI complexity must justify value
-Preserve visual hierarchy
-Minimize unnecessary state
-Prefer scalable design systems
-Prefer explicit structure over implicit assumptions
+- Structure before styling
+- Systems before screenshots
+- Reusability before duplication
+- Simplicity before decoration
+- Accessibility is mandatory
+- Responsive by default
+- Separate layout/state/business logic
+- Prefer composition over monoliths
+- Minimize unnecessary state
+- Complexity must justify value
 
 ---
 
-# Responsibilities
+# Activation
 
-This skill is responsible for:
-
-- visual analysis
-- layout reconstruction
-- component extraction
-- design-system inference
-- responsive architecture
-- interaction analysis
-- accessibility improvements
-- frontend maintainability
-- reusable component systems
-- scalable UI architecture
-- reducing frontend technical debt
-
----
-
-# Subskills
-
-ui-builder
-├── visual-analyzer
-├── layout-reconstructor
-├── component-extractor
-├── design-system-detector
-├── responsive-architect
-├── interaction-analyzer
-├── accessibility-reviewer
-├── frontend-architect
-└── verifier
-
----
-
-# Activation Conditions
-
-Activate when:
-
+Use when:
 - building UI from screenshots
 - reconstructing frontend layouts
 - generating React/Tailwind interfaces
-- improving frontend architecture
-- redesigning unstable interfaces
-- component duplication increases
-- responsiveness breaks
-- accessibility issues appear
-- UI complexity grows excessively
-- reusable design systems required
+- improving component architecture
+- fixing responsiveness/accessibility drift
 
-Do NOT activate for:
+Do NOT use for:
 - backend-only tasks
-- infrastructure debugging
-- database optimization
+- DB/infrastructure work
 - unrelated architecture analysis
 
 ---
 
 # Workflow
 
-## Phase 1 — Visual Analysis
-
-Objectives:
-- analyze visual structure
-- detect layout patterns
-- identify hierarchy
-- identify reusable patterns
+## 1) Visual analysis
 
 Analyze:
-- spacing
+- spacing rhythm
 - typography hierarchy
-- grids
-- repeated UI patterns
-- card systems
-- alignment
-- navigation structures
-- interaction hints
-
-Outputs:
-- layout observations
-- hierarchy analysis
+- grid/container structure
 - repeated patterns
-- visual consistency assessment
+- navigation and interaction cues
 
----
+Output:
+- UI observations
+- hierarchy assessment
+- repeated pattern list
 
-## Phase 2 — Layout Reconstruction
-
-Objectives:
-- reconstruct layout system
-- infer layout architecture
-- identify responsive structure
+## 2) Layout reconstruction
 
 Infer:
-- grid systems
+- layout grid and sections
 - container widths
-- spacing systems
-- alignment strategy
-- section boundaries
-- responsive breakpoints
+- spacing system
+- breakpoints (desktop/tablet/mobile)
 
-Requirements:
-- preserve hierarchy
-- preserve readability
-- preserve layout consistency
-
-Outputs:
+Output:
 - layout architecture
 - responsive layout plan
-- section structure
 
----
+## 3) Component extraction
 
-## Phase 3 — Component Extraction
-
-Objectives:
-- identify reusable components
-- separate responsibilities
-- reduce duplication
-
-Extract:
+Extract reusable units:
 - buttons
 - cards
 - forms
-- navigation
+- nav
 - modals
 - tables
-- tabs
-- sidebars
 - layout wrappers
 
-Component Rules:
-- single responsibility preferred
+Rules:
+- single responsibility
 - avoid oversized components
 - prefer composition
-- isolate reusable patterns
 
-Outputs:
+Output:
 - component tree
-- reusable component candidates
+- shared component candidates
 - ownership boundaries
 
----
+## 4) Design-system inference
 
-## Phase 4 — Design System Detection
-
-Objectives:
-- infer design-system structure
-- improve consistency
-- standardize UI patterns
-
-Detect:
+Define:
 - spacing scale
 - typography scale
-- border-radius system
-- shadows
-- button variants
-- color hierarchy
-- input styles
-- interaction states
+- color and surface hierarchy
+- radius/shadow system
+- component variants and states
 
-Requirements:
-- preserve consistency
-- minimize visual drift
-- standardize reusable styles
+Output:
+- token proposal
+- variant rules
 
-Outputs:
-- inferred design tokens
-- reusable variants
-- style system recommendations
+## 5) Interaction + state plan
 
----
+Specify:
+- hover/focus/active/disabled
+- loading/empty/error states
+- modal/dropdown/nav behavior
+- state ownership boundaries
 
-## Phase 5 — Responsive Architecture
+Output:
+- interaction contract
+- state transition notes
 
-Objectives:
-- create adaptive layouts
-- preserve usability across devices
-- prevent layout instability
+## 6) Accessibility review
 
-Required Responsive Plans:
-- desktop
-- tablet
-- mobile
-
-Responsive Rules:
-- avoid fixed-width assumptions
-- preserve interaction usability
-- maintain readability
-- preserve hierarchy across breakpoints
-
-Outputs:
-- responsive layout behavior
-- breakpoint strategy
-- adaptive component rules
-
----
-
-## Phase 6 — Interaction Analysis
-
-Objectives:
-- infer interaction behavior
-- improve usability
-- reduce UX friction
-
-Analyze:
-- hover states
-- dropdown behavior
-- modal interactions
-- navigation flows
-- loading states
-- empty states
-- error handling
-- feedback systems
-
-Requirements:
-- predictable interactions
-- accessible interaction patterns
-- consistent behavior
-
-Outputs:
-- interaction behaviors
-- UX assumptions
-- state transition rules
-
----
-
-## Phase 7 — Frontend Architecture
-
-Objectives:
-- generate scalable frontend structure
-- separate concerns properly
-- improve maintainability
-
-Architecture Rules:
-- separate UI from business logic
-- minimize prop drilling
-- prefer localized state
-- isolate reusable logic
-- avoid deeply nested structures
-
-Possible Layers:
-- pages
-- layouts
-- shared-ui
-- features
-- hooks
-- services
-- state
-- utilities
-
-Outputs:
-- frontend structure
-- state boundaries
-- architecture recommendations
-
----
-
-## Phase 8 — Accessibility Review
-
-Objectives:
-- ensure accessible interfaces
-- improve usability for all users
-
-Required Accessibility Checks:
+Require:
 - semantic structure
 - keyboard navigation
 - focus visibility
-- readable contrast
+- contrast checks
 - screen-reader compatibility
-- responsive scaling
 
-Accessibility is mandatory.
+Output:
+- a11y concerns and fixes
 
-Outputs:
-- accessibility concerns
-- accessibility improvements
-- compliance risks
+## 7) Verification
 
----
+Verify:
+- responsive behavior
+- duplication and component reuse
+- visual consistency
+- accessibility and interaction consistency
 
-## Phase 9 — Verification
-
-Objectives:
-- validate maintainability
-- verify responsive stability
-- confirm reusable architecture
-
-Required Verification:
-- responsive checks
-- accessibility checks
-- duplication checks
-- maintainability checks
-- visual consistency checks
-- interaction consistency checks
-
-Reject solution if:
-- duplicated patterns excessive
-- layout unstable
-- spacing inconsistent
-- component ownership unclear
+Reject if:
+- excessive duplication
+- unstable layout across breakpoints
+- unclear ownership
 - accessibility ignored
-- frontend structure difficult to maintain
-
-Outputs:
-- verification results
-- architecture quality assessment
-- maintainability assessment
-- frontend stability assessment
 
 ---
 
-# Design Constraints
-
-Prefer:
-- 8px spacing systems
-- semantic typography
-- reusable variants
-- scalable tokens
-- predictable hierarchy
-- clean whitespace
-- component composition
-
-Avoid:
-- magic values
-- duplicated styles
-- inconsistent spacing
-- giant components
-- excessive nesting
-- hardcoded layouts
-- unstable responsive hacks
-
----
-
-# Complexity Governance
-
-If:
-- component >300 lines
-- excessive prop drilling
-- duplicated UI patterns
-- unstable state management
-- difficult debugging
-- excessive conditional rendering
-
-Then:
-- recommend decomposition
-
----
-
-# Anti-Patterns
-
-Avoid:
-
-- screenshot-only cloning
-- pixel obsession over maintainability
-- giant monolithic components
-- duplicated layouts
-- inaccessible interactions
-- inconsistent spacing systems
-- deeply nested component trees
-- business logic inside UI components
-- uncontrolled global state
-- excessive animation complexity
-- unpredictable interactions
-
----
-
-# Output Format
+# Output format
 
 ## UI Analysis
-
 - Primary Goal:
 - Visual Hierarchy:
 - Layout Structure:
@@ -458,47 +189,32 @@ Avoid:
 - Responsive Concerns:
 - Accessibility Concerns:
 
----
-
 ## Component Architecture
-
 - Component Tree
 - Shared Components
 - State Boundaries
 - Reusable Variants
 
----
-
 ## Design System
-
 - Typography Scale
 - Spacing Scale
 - Colors
 - Variants
 - Interaction States
 
----
-
 ## Responsive Plan
-
 - Desktop Layout
 - Tablet Layout
 - Mobile Layout
 - Breakpoint Behavior
 
----
-
 ## Frontend Structure
-
 - Folder Structure
 - Component Ownership
 - State Architecture
 - Separation Strategy
 
----
-
 ## Verification Plan
-
 - Responsive Checks
 - Accessibility Checks
 - Duplication Checks
@@ -507,18 +223,6 @@ Avoid:
 
 ---
 
-# Success Criteria
+# Reference
 
-This skill succeeds when:
-
-- UI structure becomes scalable
-- frontend becomes maintainable
-- components become reusable
-- responsive behavior remains stable
-- accessibility improves
-- design consistency improves
-- duplication decreases
-- frontend complexity remains controlled
-- architecture becomes easier to extend
-- generated UI approaches production quality
-
+Use `.cursor/skills/builder-ui/reference.md` for deep checklists and anti-patterns.
