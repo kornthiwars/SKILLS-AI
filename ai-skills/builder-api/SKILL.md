@@ -1,7 +1,7 @@
 ---
 name: builder-api
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
 description: >-
   Design scalable, secure, contract-first APIs with validation, auth boundaries,
   error systems, versioning, and observability. Invoke with /builder-api when
@@ -87,6 +87,12 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 | 10 | Verification | pass/reject per checklist |
 
 ---
+
+## Response shape
+
+- **Summary** — current phase or verdict in one line
+- **Details** — artifact excerpt, trace, or checklist row
+- **Next step** — next phase or deliverable
 
 # Output format
 

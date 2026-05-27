@@ -1,7 +1,7 @@
 ---
 name: fix-record
 metadata:
-  version: "1.0.3"
+  version: "1.0.4"
 description: >-
   Canonical RCA after a validated fix — mechanism, fix, validation, how it slipped
   through. Invoke with /fix-record when closing a fixed bug (not before fix lands).
@@ -32,6 +32,17 @@ For a leadership-facing summary of the same facts, reframe this record in plain 
 - **Bug not fixed yet, or fix not validated.** A fix record of a hypothesis is misleading. Refuse and tell the user what's missing.
 - **Customer-visible outage / incident.** Those need a separate incident report (timeline, blast radius, paging history, comms). This skill is bug-fix scope. Flag and confirm before producing one.
 - **Trivial fix** (typo, obvious one-liner). The PR description is the record. Don't manufacture ceremony.
+
+## Vault (different artifacts)
+
+| Artifact | Use |
+|----------|-----|
+| **`vault/learnings/*.md`** | Short reusable lesson — [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) criteria |
+| **`/fix-record`** | Long engineering RCA **after** a validated fix |
+| **`vault/issues/`** | Daily work Q&A — not a substitute for RCA |
+
+- Do not paste a full fix record into a learning card, or a one-line lesson into fix-record.
+- Optional in fix-record frontmatter or body: `related_issue: YYYY-MM-DD` pointing at the daily note.
 
 ## Required inputs — refuse to draft without these
 

@@ -13,7 +13,8 @@ Run after changing `ai-skills/`, `ai-rules/`, or setup scripts. Reload Cursor or
 | Skill | Trigger | Pass criteria |
 |-------|---------|---------------|
 | **debug** | `/debug` + paste error | Mantra verbatim first; greps `vault/learnings/` when folder has notes |
-| **scrutinize** | `/scrutinize` on small diff | Review cites code path, not diff only |
+| **scrutinize** | `/scrutinize` on skill PR diff | Code path + version bump + `disable-model-invocation` + no duplicate vault grep |
+| **fix-record** | offer after `/debug` fix | Refuses if not validated; ≠ vault learning (see skill § Vault) |
 | **sql** | `/sql` + SELECT | Classifies READ; adds LIMIT; loads `reference.md` for matrix if needed |
 | **git-push** | `/git-push` dirty tree | Blocked without commit; **ยืนยัน** → commit+push |
 | **upgrade-ai** | `/upgrade-ai` | Full diagnosis format when closing |
@@ -30,6 +31,7 @@ Run after changing `ai-skills/`, `ai-rules/`, or setup scripts. Reload Cursor or
 
 - [ ] `debug`, `scrutinize`, `sql`, `git-push`, `upgrade-ai`, `vault-recall` have `disable-model-invocation: true`
 - [ ] Builder skills load `reference.md` only when executing phases
+- [ ] Builder skills expose `## Response shape` (Summary / Details / Next step)
 
 ## Git publish (SKILLS-AI repo)
 

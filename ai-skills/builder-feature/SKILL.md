@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
 description: >-
   Orchestrate cross-layer features — workflow analysis, reuse, delegation to
   builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
@@ -106,6 +106,12 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 | 7 | Cross-layer verification | pass/reject; `/scrutinize` before merge |
 
 ---
+
+## Response shape
+
+- **Summary** — current phase or verdict in one line
+- **Details** — artifact excerpt, trace, or checklist row
+- **Next step** — next phase or deliverable
 
 # Output format
 

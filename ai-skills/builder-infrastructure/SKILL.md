@@ -1,7 +1,7 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
 description: >-
   Design reliable infrastructure — workloads, environments, CI/CD, networking,
   security, observability, DR. Invoke with /builder-infrastructure for deployment
@@ -90,6 +90,12 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 | 9 | IaC + verification | pass/reject per checklist |
 
 ---
+
+## Response shape
+
+- **Summary** — current phase or verdict in one line
+- **Details** — artifact excerpt, trace, or checklist row
+- **Next step** — next phase or deliverable
 
 # Output format
 

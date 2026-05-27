@@ -75,4 +75,4 @@ Only [`git-push`](git-push/SKILL.md) runs git CLI in app repos. For **this** rep
 
 - **SKILL.md body:** English (technical clarity).
 - **User replies:** follow `ai-rules/bilingual-th-en.mdc` (~60% Thai / ~40% English).
-- **Vault entries:** Thai-primary OK.
+- **Vault files:** body may be Thai or English; frontmatter `tags`, `skill:`, `title:`, `symptoms:`, `files:` stay **English** (see `vault-issues.mdc`). New files: match [templates/template.issue.md](../templates/template.issue.md) and [template.learning.md](../templates/template.learning.md).

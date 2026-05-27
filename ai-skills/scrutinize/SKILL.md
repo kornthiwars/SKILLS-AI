@@ -1,7 +1,7 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.0.3"
+  version: "1.0.4"
 description: >-
   Outsider review of plans, PRs, or diffs — intent, simpler alternatives, end-to-end
   trace with evidence. Invoke with /scrutinize before merge or for a second opinion.
@@ -75,6 +75,16 @@ Output one tight section per finding. Order by severity (blocker → major → n
 - **Suggested change** — concrete, minimal.
 
 Close with a one-line verdict: ship / fix-then-ship / rework / reject — with the single biggest reason.
+
+## SKILLS-AI skill / rule PRs
+
+When the diff touches `ai-skills/*/SKILL.md`, `*/reference.md`, or `ai-rules/*.mdc`, also verify:
+
+- [ ] `metadata.version` bumped per [upgrade-ai/reference.md](../upgrade-ai/reference.md) (Version governance)
+- [ ] `disable-model-invocation: true` on manual skills (unless documented exception)
+- [ ] `SKILL.md` under ~300 lines; new phase prose → `reference.md`
+- [ ] Vault grep steps **link** [`vault-recall/reference.md`](../vault-recall/reference.md) — no duplicated search tables
+- [ ] Write vs RCA: daily Q&A → `vault-issues.mdc`; long RCA → `/fix-record`; reusable lesson → `learnings/` (not fix-record body)
 
 ## Operating rules
 

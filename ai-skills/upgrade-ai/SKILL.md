@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.0.8"
+  version: "1.0.9"
 description: >-
   Evidence-based skill diagnosis and minimal upgrades — no blind rewrites. Invoke
   with /upgrade-ai when skills drift, repeat failures, or exceed ~300 lines.
@@ -61,6 +61,7 @@ Run sequentially. Stop early only if Phase 1 fails to reproduce — then collect
 
 ## Phase 1 — Reproduce
 - Confirm target skill/rules files and constraints from the user request
+- When diagnosing **this** repo (SKILLS-AI): search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 learnings, then issues if needed)
 - Reproduce ≥ 2 times under controlled conditions
 - Capture actual vs expected behavior
 - Output: target paths, reproduction steps, confidence level

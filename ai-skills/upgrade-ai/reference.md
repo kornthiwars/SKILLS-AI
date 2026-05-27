@@ -203,6 +203,7 @@ When upgrading skills in SKILLS-AI:
 1. Run search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 learning files)
 2. Check `vault/issues/` last 2 days for repeat topics
 3. In other skills: **link** `reference.md` — do not duplicate the grep table; keep `/vault-recall` for explicit user search
+4. After `/scrutinize` on skill PRs: verify checklist in [`scrutinize/SKILL.md`](../scrutinize/SKILL.md) § SKILLS-AI skill / rule PRs
 
 ---
 
