@@ -11,11 +11,19 @@ If missing, create from `vault/issues/_template.md` (set date in title).
 
 ## When to write
 
-- User says: เก็บลง vault, บันทึกปัญหาวันนี้, save to vault, log this issue
-- User explicitly asks to record question/problem/solution for today
-- After resolving a non-trivial problem, you may offer once: *"เก็บลง vault/issues วันนี้ไหม?"* — only if helpful
+- **Default:** log every user question to today's file (`ประเภท: คำถาม`)
+- Skill-invocation messages (e.g. `/debug`, `/sql`, `/builder-*`, `/upgrade-ai`) also count and must be logged
+- If user reports breakage/error, also add entry under `ปัญหา`
+- If a fix is found, add entry under `วิธีแก้`
+- If user asks explicitly (เก็บลง vault / save to vault), force-write even if context is short
 
-Do **not** vault routine chat. Do **not** replace `/fix-record` for RCA.
+Do **not** replace `/fix-record` for RCA.
+
+## Precedence
+
+- Run vault append **once per user turn** before the final user-visible reply (after main work).
+- Does not replace `/fix-record` for RCA.
+- If both vault and a skill apply, log the user message first, then follow the skill.
 
 ## Sections (append under the right heading)
 
@@ -43,3 +51,4 @@ Do **not** vault routine chat. Do **not** replace `/fix-record` for RCA.
 - **Append only** — no wiping the day's file
 - **No secrets** — no passwords, tokens, full connection strings, private keys
 - Confirm after write: file path + section + one-line summary
+- If unsure whether text is a question, default to logging in `คำถาม`

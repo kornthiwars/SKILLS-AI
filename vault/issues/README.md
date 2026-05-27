@@ -40,4 +40,6 @@ vault/issues/
 ## เรียกใช้
 
 - Rule: `.cursor/rules/vault-issues.mdc` (`alwaysApply: true`)
-- พูด: **เก็บลง vault** / **บันทึกปัญหาวันนี้** / save to vault
+- ค่าเริ่มต้น: AI บันทึก **ทุกคำถาม** ลง `คำถาม` อัตโนมัติ
+- ข้อความที่เป็นการเรียก skill (เช่น `/debug`, `/sql`, `/builder-*`) ก็นับและต้องบันทึก
+- พูด: **เก็บลง vault** / **บันทึกปัญหาวันนี้** / save to vault (บังคับเขียนทันที)
