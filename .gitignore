@@ -16,10 +16,16 @@ secrets.json
 *.swp
 *~
 
-# Cursor — machine-local skill symlinks (not shared)
-.cursor/skills/.local/
+# Cursor local setup (junctions/symlinks from scripts — edit ai-skills/ ai-rules/ instead)
+.cursor/*
+!.cursor/README.md
+!.cursor/hooks.json
 
-# Vault — daily issue logs (local only; keep README + template in repo)
+# Machine-local skill overrides
+ai-skills/.local/
+
+# Vault — daily content local; README + templates in git
 vault/issues/*.md
 !vault/issues/README.md
-!vault/issues/_template.md
+vault/learnings/*
+!vault/learnings/README.md

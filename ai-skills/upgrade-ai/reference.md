@@ -68,8 +68,26 @@ Possible improvements:
 
 - Core and operator skills use `## Response shape` (**Summary** / **Details** / **Next step**) for short and mid-session turns.
 - Use the full `# Output Format` in `SKILL.md` (or `# Phase 5 — Report` for `sql`) when closing a diagnosis, push, SQL run, or review.
-- Workspace rule `.cursor/rules/bilingual-th-en.mdc`: Response shape labels are **section headers only** — do not duplicate the same content in full Thai and full English blocks.
+- Workspace rule `ai-rules/bilingual-th-en.mdc` (via `.cursor/rules` link): Response shape labels are **section headers only** — do not duplicate the same content in full Thai and full English blocks.
 - Builder skills may keep `# Output format` as the canonical long form; a one-line pointer to the three labels under that heading is enough for consistency without prompt inflation.
+
+---
+
+## Repo layout (SKILLS-AI)
+
+When diagnosing or upgrading **this** repository:
+
+| Canonical (edit in git) | Cursor sees (after setup) |
+|-------------------------|---------------------------|
+| `ai-skills/<name>/` | `.cursor/skills/<name>/` (symlink/junction) |
+| `ai-rules/*.mdc` | `.cursor/rules/` |
+| `vault/` | `.cursor/vault/` |
+| `templates/template.issue.md` | used by scripts + `vault-issues.mdc` |
+
+- **Do not** treat `.cursor/skills` as source of truth in the clone — it points at `ai-skills/`.
+- **Do not** commit `vault/issues/YYYY-MM-DD.md` (gitignored).
+- New clone: run `scripts/setup-macos-linux.sh` or Windows equivalent before testing skills in Cursor.
+- Authoring guide: [`../SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) · agent entry: [`../../AGENTS.md`](../../AGENTS.md).
 
 ---
 

@@ -1,15 +1,11 @@
 ---
 name: builder-api
 metadata:
-  version: "1.0.2"
+  version: "1.1.0"
 description: >-
-  Design scalable, secure, contract-first APIs with clear validation,
-  auth boundaries, error systems, versioning, and observability.
-  Trigger on /builder-api. Use when designing or refactoring API contracts, endpoints, validation, auth, versioning, or backend service boundaries.
-paths:
-  - "**/*.{ts,tsx,js,jsx,py,go,java,kt,rb,php,cs,rs}"
-  - "**/openapi*.{yml,yaml,json}"
-  - "**/*api*.*"
+  Design scalable, secure, contract-first APIs with validation, auth boundaries,
+  error systems, versioning, and observability. Invoke with /builder-api when
+  designing or refactoring API contracts, endpoints, or backend service boundaries.
 disable-model-invocation: true
 ---
 
@@ -91,138 +87,20 @@ Do NOT use for:
 
 # Workflow
 
-## 1) Domain analysis
+Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow (detail).
 
-Identify:
-- actors and permissions
-- resources and workflows
-- ownership boundaries
-- state transitions
-
-Output:
-- domain map
-- ownership map
-
-## 2) Resource modeling
-
-Define:
-- entities and identifiers
-- relationships and lifecycle states
-- naming standards
-
-Output:
-- resource model
-- lifecycle rules
-
-## 3) Contract design
-
-Define per endpoint:
-- request schema
-- response schema
-- status code behavior
-- error contract
-
-Output:
-- endpoint contract set
-- schema definitions
-
-## 4) Validation architecture
-
-Validate:
-- path/query/body
-- auth context
-- business invariants
-
-Rules:
-- validate early
-- reject invalid input immediately
-- structured validation errors
-
-Output:
-- validation plan
-- error payload standard
-
-## 5) AuthN/AuthZ
-
-Design:
-- session/token flow
-- role/scope checks
-- ownership-based access
-
-Output:
-- auth flow
-- authorization matrix
-
-## 6) Error system
-
-Require fields:
-- code
-- message
-- details
-- request_id
-- retryability
-- docs reference
-
-Output:
-- error taxonomy
-- retry guidance
-
-## 7) Scalability architecture
-
-Assess:
-- traffic profile
-- concurrency and hotspots
-- pagination and caching
-- batching/async opportunities
-- rate limiting
-
-Output:
-- scaling strategy
-- bottleneck risks
-
-## 8) Observability + reliability
-
-Require:
-- structured logs
-- metrics and tracing
-- health checks
-- latency/failure tracking
-
-Output:
-- observability plan
-
-## 9) Backend architecture
-
-Layer boundaries:
-- routes/controllers
-- services
-- repositories/domain
-- validation/middleware
-
-Rules:
-- separate transport from business logic
-- minimize cross-module coupling
-
-Output:
-- backend structure
-- dependency boundaries
-
-## 10) Verification
-
-Verify:
-- contract consistency
-- validation coverage
-- auth boundaries
-- error consistency
-- backward compatibility
-- pagination/rate-limit behavior
-- performance basics
-
-Reject if:
-- inconsistent contracts
-- unclear auth boundaries
-- unstable error payloads
-- missing validation
+| # | Phase | Deliver |
+|---|--------|---------|
+| 1 | Domain analysis | domain map, ownership map |
+| 2 | Resource modeling | resource model, lifecycle rules |
+| 3 | Contract design | endpoint contracts, schemas |
+| 4 | Validation architecture | validation plan, error standard |
+| 5 | AuthN/AuthZ | auth flow, authorization matrix |
+| 6 | Error system | error taxonomy, retry guidance |
+| 7 | Scalability architecture | scaling strategy, bottlenecks |
+| 8 | Observability + reliability | observability plan |
+| 9 | Backend architecture | structure, dependency boundaries |
+| 10 | Verification | pass/reject per checklist |
 
 ---
 
@@ -278,4 +156,4 @@ Short turns: use **Summary / Details / Next step** section headers; expand the f
 
 # Reference
 
-Use `.cursor/skills/builder-api/reference.md` for extended checklists and anti-patterns.
+See [reference.md](./reference.md) for workflow detail, checklists, and anti-patterns.

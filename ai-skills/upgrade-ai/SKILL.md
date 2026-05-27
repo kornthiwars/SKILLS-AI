@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.0.3"
+  version: "1.0.5"
 description: >-
   Systems diagnostician for Cursor skills: reproduce failures, localize layers,
   isolate root causes, propose minimal safe upgrades, and verify without blind

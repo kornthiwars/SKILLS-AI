@@ -7,9 +7,10 @@
 ```
 vault/issues/
 ├── README.md
-├── _template.md      # คัดลอกเมื่อสร้างวันใหม่
 └── YYYY-MM-DD.md     # บันทึกรายวัน (local — ไม่ commit ขึ้น GitHub)
 ```
+
+Template สำหรับวันใหม่: [templates/template.issue.md](../../templates/template.issue.md) (setup scripts สร้างให้อัตโนมัติ)
 
 ไฟล์ `YYYY-MM-DD.md` อยู่ใน `.gitignore` — เก็บเฉพาะเครื่องคุณ ไม่ sync กับ remote
 
@@ -37,11 +38,12 @@ vault/issues/
 
 - **append เท่านั้น** — อย่าลบประวัติเก่าในไฟล์วันนั้น (แก้ typo เล็กน้อยได้)
 - **ห้ามเก็บ secrets** — password, token, private key, connection string เต็มๆ
-- วันใหม่ → สร้างไฟล์จาก `_template.md` ถ้ายังไม่มี
+- วันใหม่ → สร้างจาก `templates/template.issue.md` ถ้ายังไม่มี (หรือรัน setup script)
 
 ## เรียกใช้
 
-- Rule: `.cursor/rules/vault-issues.mdc` (`alwaysApply: true`)
+- Rule: `ai-rules/vault-issues.mdc` → `.cursor/rules/` after setup (`alwaysApply: true`)
+- Template: `templates/template.issue.md`
 - ค่าเริ่มต้น: AI บันทึก **ทุกคำถาม** ลง `คำถาม` อัตโนมัติ
 - ข้อความที่เป็นการเรียก skill (เช่น `/debug`, `/sql`, `/builder-*`) ก็นับและต้องบันทึก
 - พูด: **เก็บลง vault** / **บันทึกปัญหาวันนี้** / save to vault (บังคับเขียนทันที)

@@ -1,16 +1,11 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.0.2"
+  version: "1.0.4"
 description: >-
-  Design scalable, reliable, secure, observable infrastructure through workload
-  analysis, environment design, CI/CD, networking, security, observability,
-  and disaster recovery planning. Trigger on /builder-infrastructure. Use when designing deployment, runtime, networking, observability, security, or environment architecture.
-paths:
-  - "**/*.{tf,hcl,yml,yaml,json}"
-  - "**/Dockerfile*"
-  - "**/docker-compose*.yml"
-  - "**/.github/workflows/**"
+  Design reliable infrastructure — workloads, environments, CI/CD, networking,
+  security, observability, DR. Invoke with /builder-infrastructure for deployment
+  and platform architecture.
 disable-model-invocation: true
 ---
 
@@ -259,5 +254,5 @@ Short turns: use **Summary / Details / Next step** section headers; expand the f
 
 # Reference
 
-Use `.cursor/skills/builder-infrastructure/reference.md` for extended checklists and deep anti-pattern coverage.
+See [reference.md](./reference.md) for extended checklists and deep anti-pattern coverage.
 

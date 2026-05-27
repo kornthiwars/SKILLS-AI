@@ -1,4 +1,4 @@
-# Issues — YYYY-MM-DD
+# Issues — {{YYYY-MM-DD}}
 
 > Daily log: คำถาม · ปัญหา · วิธีแก้ · อื่นๆ
 

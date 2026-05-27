@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.0.2"
+  version: "1.0.3"
 description: >-
   Safely inspect, commit (only when explicitly requested), and push to GitHub.
   Use for push/publish/sync, failed pushes, or init→remote workflows. Handles
@@ -25,6 +25,14 @@ This skill does NOT:
 - force-push to `main`/`master` without explicit user request
 - skip hooks (`--no-verify`) unless the user explicitly asks
 - amend commits unless all amend safety conditions are met
+
+## SKILLS-AI repo (this library)
+
+When pushing **this** repository:
+
+- Edit and commit **`ai-skills/`**, **`ai-rules/`**, **`scripts/`**, **`templates/`** — not files only under `.cursor/` junctions/symlinks.
+- After clone, run `./scripts/setup-macos-linux.sh .` (or [setup-windows.ps1](../../scripts/setup-windows.ps1)) so Cursor loads linked skills.
+- `vault/issues/*.md` is **gitignored** — daily logs stay local; do not expect them on GitHub.
 
 ## Scope Guardrails
 

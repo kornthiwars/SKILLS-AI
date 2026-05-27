@@ -7,7 +7,7 @@ alwaysApply: true
 
 **One local calendar day = one file:** `vault/issues/YYYY-MM-DD.md`
 
-If missing, create from `vault/issues/_template.md` (set date in title).
+If missing, create from `templates/template.issue.md` (replace `{{YYYY-MM-DD}}` with today).
 
 ## When to write
 

@@ -1,13 +1,11 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.0.2"
+  version: "1.0.4"
 description: >-
-  Design scalable, accessible frontend UI systems from visual references and
-  requirements. Prioritize layout architecture, reusable components, responsive
-  behavior, and maintainability. Trigger on /builder-ui. Use when designing UI architecture, reusable components, responsive behavior, or accessibility-focused frontend structure.
-paths:
-  - "**/*.{tsx,jsx,css,scss,sass,less,html,vue,svelte}"
+  Design scalable, accessible UI systems from visual references — layout,
+  components, responsive behavior, a11y. Invoke with /builder-ui for frontend
+  architecture and component structure.
 disable-model-invocation: true
 ---
 
@@ -237,4 +235,4 @@ Short turns: use **Summary / Details / Next step** section headers; expand the f
 
 # Reference
 
-Use `.cursor/skills/builder-ui/reference.md` for deep checklists and anti-patterns.
+See [reference.md](./reference.md) for deep checklists and anti-patterns.

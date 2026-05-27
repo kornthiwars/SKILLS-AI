@@ -1,13 +1,11 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.0.2"
+  version: "1.0.4"
 description: >-
-  Orchestrate multi-layer feature design by analyzing workflows, reusing
-  existing systems, and delegating to builder-ui, builder-api,
-  builder-schema, and builder-infrastructure. Trigger on /builder-feature. Use when planning a cross-layer feature that spans UI, API, schema, and infrastructure decisions.
-paths:
-  - "**/*"
+  Orchestrate cross-layer features — workflow analysis, reuse, delegation to
+  builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
+  /builder-feature for full-stack feature planning.
 disable-model-invocation: true
 ---
 
@@ -267,4 +265,4 @@ Short turns: use **Summary / Details / Next step** section headers; expand the f
 
 # Reference
 
-Use `.cursor/skills/builder-feature/reference.md` for deep orchestration checklists.
+See [reference.md](./reference.md) for deep orchestration checklists.

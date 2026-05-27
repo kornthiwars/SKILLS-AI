@@ -1,8 +1,59 @@
 # SKILLS-AI
 
-Cursor skills + rules for AI-assisted workflows.
+Repository สำหรับ **Cursor Agent Skills + Rules** (canonical อยู่ที่ `ai-skills/`, `ai-rules/`)
+
+Agent entry: [AGENTS.md](AGENTS.md)
+
+**Skills:** [ai-skills/](ai-skills/README.md) · **Rules:** [ai-rules/](ai-rules/README.md) · **Vault:** [vault/](vault/README.md)
+
+---
+
+## ติดตั้ง
+
+### สิ่งที่ต้องมี
+
+| รายการ | ใช้ทำอะไร |
+|--------|-----------|
+| [Git](https://git-scm.com/) | clone repo |
+| [Cursor](https://cursor.com/) | skills / rules |
+| `bash` (macOS/Linux) หรือ PowerShell 5.1+ (Windows) | setup script |
+| `python3` (macOS/Linux) | เขียน `ai-skills-vault.json` |
+
+### 1 — Clone
+
+```bash
+git clone git@github.com-kornthiwars:kornthiwars/SKILLS-AI.git
+cd SKILLS-AI
+```
+
+### 2 — Setup (ครั้งเดียวหลัง clone)
+
+สคริปต์สร้าง link ใต้ **โฟลเดอร์ที่เปิดใน Cursor** (install root): `.cursor/skills`, `.cursor/rules`, `.cursor/vault` + `ai-skills-vault.json`  
+เนื้อหาจริงอยู่ใน `ai-skills/`, `ai-rules/`, `vault/` ของ repo นี้
+
+**macOS / Linux:**
+
+```bash
+chmod +x scripts/setup-macos-linux.sh
+./scripts/setup-macos-linux.sh .    # workspace = SKILLS-AI
+./scripts/setup-macos-linux.sh ..   # workspace = parent project
+```
+
+**Windows** — double-click `scripts\setup-windows.bat` หรือดู [scripts/README.md](scripts/README.md)
+
+| ปัญหา | แก้ |
+|--------|-----|
+| Windows `mklink` ล้มเหลว | PowerShell **Run as administrator** แล้วรัน setup อีกครั้ง |
+| `.cursor/skills` มีอยู่แล้วแต่ไม่ใช่ link | ลบแล้วรัน setup ใหม่ |
+
+### 3 — Reload Cursor
+
+แก้ skills/rules ที่ `ai-skills/` / `ai-rules/` เท่านั้น — ไม่แก้ใน junction โดยตรง
+
+---
 
 ## Vault
 
-Daily notes: [`vault/issues/`](vault/issues/) — one file per day (`YYYY-MM-DD.md`, **local-only**, gitignored).  
-Rule: `.cursor/rules/vault-issues.mdc` (auto-log questions; say **เก็บลง vault** to force-write).
+Daily notes: `vault/issues/YYYY-MM-DD.md` (**local-only**, gitignored).  
+Template: [templates/template.issue.md](templates/template.issue.md)  
+Rule: `vault-issues.mdc` (via `.cursor/rules`) — say **เก็บลง vault** to force-write.
