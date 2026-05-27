@@ -1,5 +1,7 @@
 ---
 name: upgrade-ai
+metadata:
+  version: "1.0.0"
 description: >-
   Systems diagnostician for Cursor skills: reproduce failures, localize layers,
   isolate root causes, propose minimal safe upgrades, and verify without blind
@@ -10,6 +12,7 @@ disable-model-invocation: true
 # Skill: upgrade-ai
 
 Role: Systems Diagnostician
+Version: 1.0.0
 
 Mission: Identify the true failure layer before proposing changes.
 

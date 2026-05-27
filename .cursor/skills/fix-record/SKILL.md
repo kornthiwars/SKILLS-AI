@@ -1,5 +1,7 @@
 ---
 name: fix-record
+metadata:
+  version: "1.0.0"
 description: >-
   Write the canonical engineering record of a fixed bug — root cause, mechanism,
   fix, validation, and how it slipped through. Use after /debug lands a validated fix,

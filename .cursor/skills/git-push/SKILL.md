@@ -1,5 +1,7 @@
 ---
 name: git-push
+metadata:
+  version: "1.0.0"
 description: >-
   Safely inspect, commit (only when explicitly requested), and push to GitHub.
   Use for push/publish/sync, failed pushes, or init→remote workflows. Handles

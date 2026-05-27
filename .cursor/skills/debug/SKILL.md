@@ -1,5 +1,7 @@
 ---
 name: debug
+metadata:
+  version: "1.0.0"
 description: >-
   Four-mantra debugging discipline — reproduce, trace the fail path, falsify the
   hypothesis, cross-reference every breadcrumb. Recite the mantra verbatim at the

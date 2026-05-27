@@ -1,5 +1,7 @@
 ---
 name: builder-feature
+metadata:
+  version: "1.0.0"
 description: >-
   Orchestrate multi-layer feature design by analyzing workflows, reusing
   existing systems, and delegating to builder-ui, builder-api,

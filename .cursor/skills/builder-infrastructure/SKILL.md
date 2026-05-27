@@ -1,5 +1,7 @@
 ---
 name: builder-infrastructure
+metadata:
+  version: "1.0.0"
 description: >-
   Design scalable, reliable, secure, observable infrastructure through workload
   analysis, environment design, CI/CD, networking, security, observability,

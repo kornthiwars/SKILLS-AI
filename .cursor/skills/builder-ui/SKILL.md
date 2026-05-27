@@ -1,5 +1,7 @@
 ---
 name: builder-ui
+metadata:
+  version: "1.0.0"
 description: >-
   Design scalable, accessible frontend UI systems from visual references and
   requirements. Prioritize layout architecture, reusable components, responsive

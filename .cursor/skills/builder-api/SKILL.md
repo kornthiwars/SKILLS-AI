@@ -1,5 +1,7 @@
 ---
 name: builder-api
+metadata:
+  version: "1.0.0"
 description: >-
   Design scalable, secure, contract-first APIs with clear validation,
   auth boundaries, error systems, versioning, and observability.

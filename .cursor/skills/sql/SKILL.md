@@ -1,5 +1,7 @@
 ---
 name: sql
+metadata:
+  version: "1.0.0"
 description: >-
   Single SQL skill: classify every request as READ, MIGRATE, or WRITE before
   executing. Read queries with EXPLAIN/LIMIT discipline; migrations via the

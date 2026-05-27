@@ -1,4 +1,4 @@
-# upgrade-ai — reference depth
+# upgrade-ai — reference depth (v1.0.0)
 
 This file keeps detailed checklists, governance, and patterns so `SKILL.md` stays focused and token-efficient. Load on demand during Phase 6–8 or when a workflow signal triggers governance.
 

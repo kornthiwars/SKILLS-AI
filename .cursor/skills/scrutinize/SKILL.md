@@ -1,5 +1,7 @@
 ---
 name: scrutinize
+metadata:
+  version: "1.0.0"
 description: >-
   Outsider-perspective end-to-end review of a plan, PR, or code change. First
   questions intent and whether a simpler/more elegant approach would achieve the
