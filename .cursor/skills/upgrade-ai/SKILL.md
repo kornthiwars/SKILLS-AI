@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
 description: >-
   Systems diagnostician for Cursor skills: reproduce failures, localize layers,
   isolate root causes, propose minimal safe upgrades, and verify without blind
@@ -95,9 +95,13 @@ Run sequentially. Stop early only if Phase 1 fails to reproduce — then collect
 - Priority: **minimal fix → structural cleanup → decomposition → redesign**
 - Pick from improvement catalog (`reference.md`)
 - Output: proposed change, complexity impact, trade-offs, non-goals/will-not-change, safer alternatives
-- Version handling (when upgrading skills):
-  - If the proposed change touches `/.cursor/skills/*/SKILL.md` (or `reference.md`), include a **Version bump plan**.
-  - Version bump plan must follow the user's explicit request; if not specified, ask what bump value to use (e.g. patch/minor) and whether to keep the current version.
+- Version handling (when upgrading skills) — see `reference.md` **Version governance**:
+  - **Mandatory:** any change to `SKILL.md` or `reference.md` content must bump `metadata.version` in the same commit.
+  - Default: **patch** (`1.0.0` → `1.0.1`) for wording, guardrails, paths, triggers, small workflow tweaks.
+  - Use **minor** (`1.0.0` → `1.1.0`) for new phases, decomposition, or behavior that changes how the skill is invoked.
+  - Use **major** only when the user explicitly requests a breaking redesign.
+  - Single source of truth: `metadata.version` in frontmatter only (no duplicate `Version:` in body).
+  - Include a **Version bump plan** in the upgrade output (old → new per affected file).
 
 ## Phase 8 — Verification
 - Test original failing case + edge cases + historical behavior + regressions

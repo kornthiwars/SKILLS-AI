@@ -1,7 +1,7 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
 description: >-
   Design scalable, integrity-safe schemas through domain modeling,
   relationship architecture, indexing, migration safety, and evolution planning.

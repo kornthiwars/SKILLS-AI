@@ -1,4 +1,4 @@
-# upgrade-ai — reference depth (v1.0.0)
+# upgrade-ai — reference depth (v1.0.1)
 
 This file keeps detailed checklists, governance, and patterns so `SKILL.md` stays focused and token-efficient. Load on demand during Phase 6–8 or when a workflow signal triggers governance.
 
@@ -43,6 +43,22 @@ Possible improvements:
 - memory optimization
 - retrieval cleanup
 - orchestration improvements
+
+---
+
+## Version governance
+
+**Rule:** Every commit that changes skill content (`SKILL.md` or `reference.md`) must increment `metadata.version` in that skill's frontmatter.
+
+| Change type | Bump | Example |
+|-------------|------|---------|
+| Typos, guardrails, description, paths, output fields | **patch** | `1.0.0` → `1.0.1` |
+| New workflow phase, decomposition split, activation scope | **minor** | `1.0.2` → `1.1.0` |
+| Breaking redesign (user-approved) | **major** | `1.1.0` → `2.0.0` |
+
+- **Do not** ship content edits at the same version number.
+- **Do not** duplicate version in the markdown body; use `metadata.version` only.
+- When upgrading multiple skills in one session, bump **each** touched skill independently.
 
 ---
 
