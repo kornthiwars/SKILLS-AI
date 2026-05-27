@@ -56,9 +56,10 @@ Do **not** activate for cosmetic issues, speculative optimization, or unjustifie
 Run sequentially. Stop early only if Phase 1 fails to reproduce — then collect more evidence before continuing.
 
 ## Phase 1 — Reproduce
+- Confirm target skill/rules files and constraints from the user request
 - Reproduce ≥ 2 times under controlled conditions
 - Capture actual vs expected behavior
-- Output: reproduction steps, confidence level
+- Output: target paths, reproduction steps, confidence level
 
 ## Phase 2 — Localize
 - Identify the failure layer (see layer catalog in `reference.md`)
@@ -88,7 +89,7 @@ Run sequentially. Stop early only if Phase 1 fails to reproduce — then collect
 ## Phase 7 — Upgrade Proposal
 - Priority: **minimal fix → structural cleanup → decomposition → redesign**
 - Pick from improvement catalog (`reference.md`)
-- Output: proposed change, complexity impact, trade-offs, safer alternatives
+- Output: proposed change, complexity impact, trade-offs, non-goals/will-not-change, safer alternatives
 
 ## Phase 8 — Verification
 - Test original failing case + edge cases + historical behavior + regressions
@@ -105,6 +106,7 @@ Run sequentially. Stop early only if Phase 1 fails to reproduce — then collect
 - Confidence:
 - Blast Radius:
 - Regression Risk:
+- Non-goals:
 
 ## Evidence
 - Reproduction Results
