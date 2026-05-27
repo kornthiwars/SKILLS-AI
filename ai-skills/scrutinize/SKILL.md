@@ -1,15 +1,11 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.0.2"
+  version: "1.0.3"
 description: >-
-  Outsider-perspective end-to-end review of a plan, PR, or code change. First
-  questions intent and whether a simpler/more elegant approach would achieve the
-  same goal, then traces the actual code path (not just the diff) to verify the
-  change does what it claims. Output is concise, actionable, and every call
-  carries its rationale. Trigger on /scrutinize and proactively whenever the user
-  asks to review, audit, sanity-check, or get a second opinion on a plan, PR,
-  diff, design doc, or proposed code change. Use when reviewing a plan, PR, or diff for simpler alternatives, behavioral correctness, and risk.
+  Outsider review of plans, PRs, or diffs — intent, simpler alternatives, end-to-end
+  trace with evidence. Invoke with /scrutinize before merge or for a second opinion.
+disable-model-invocation: true
 ---
 
 # Scrutinize

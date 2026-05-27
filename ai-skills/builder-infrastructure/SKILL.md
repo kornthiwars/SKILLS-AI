@@ -1,7 +1,7 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.0.4"
+  version: "1.1.0"
 description: >-
   Design reliable infrastructure — workloads, environments, CI/CD, networking,
   security, observability, DR. Invoke with /builder-infrastructure for deployment
@@ -73,132 +73,21 @@ Treat infrastructure as reliability architecture, not a server list.
 
 ---
 
-# Activation
-
-Use when:
-- designing infrastructure
-- deployment reliability is poor
-- scaling bottlenecks appear
-- observability or DR gaps appear
-- environment drift increases
-- ops complexity grows
-
-Do NOT use for:
-- frontend-only tasks
-- UI styling
-- isolated app bug fixes
-- unrelated app logic
-
----
-
 # Workflow
 
-## 1) Workload & SLO analysis
+Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow (detail).
 
-Capture:
-- traffic/concurrency/latency profile
-- uptime targets and RTO/RPO
-- growth and failure tolerance
-
-Output: workload profile + reliability requirements.
-
-## 2) Boundaries & environments
-
-Define:
-- service and trust boundaries
-- ownership zones
-- local/dev/staging/prod/DR strategy
-- config isolation and parity intent
-
-Output: boundary map + environment strategy.
-
-## 3) Deployment architecture
-
-Design:
-- CI/CD flow and deployment gates
-- release strategy (rolling/blue-green/canary)
-- rollback mechanism
-- post-deploy verification
-
-Output: deploy and rollback plan.
-
-## 4) Compute + networking
-
-Choose compute model:
-- containers / k8s / serverless / VMs / managed
-
-Define networking:
-- ingress/egress
-- service routing/discovery
-- DNS/load-balancing
-- least-exposure boundaries
-
-Output: compute placement + network topology.
-
-## 5) Security + secrets
-
-Define:
-- IAM and permission boundaries
-- secret storage/rotation
-- encryption in transit/at rest
-- auditability
-
-Output: security model + secrets strategy.
-
-## 6) Observability
-
-Require:
-- metrics, logs, traces
-- dashboards and actionable alerts
-- health checks and deployment events
-
-Track minimum:
-- latency, throughput, failures, saturation
-- infra drift
-
-Output: observability and alerting plan.
-
-## 7) Reliability + recovery
-
-Plan for:
-- dependency/deployment/scale/regional failures
-- backup and restore
-- failover and graceful degradation
-
-Output: resilience and recovery plan.
-
-## 8) Scale + cost
-
-Analyze:
-- autoscaling behavior
-- storage and traffic growth
-- bottlenecks and waste
-
-Output: scalability + cost optimization plan.
-
-## 9) IaC + verification
-
-IaC requirements:
-- version-controlled
-- declarative
-- reusable modules
-- automated provisioning
-
-Verification:
-- deployment validation
-- rollback drill
-- backup-restore test
-- failover test
-- security validation
-- observability validation
-- scalability test
-
-Reject if:
-- rollback impossible
-- ownership unclear
-- observability incomplete
-- security boundaries weak
-- automation unreliable
+| # | Phase | Deliver |
+|---|--------|---------|
+| 1 | Workload & SLO | workload profile, reliability requirements |
+| 2 | Boundaries & environments | boundary map, environment strategy |
+| 3 | Deployment architecture | deploy and rollback plan |
+| 4 | Compute + networking | compute placement, network topology |
+| 5 | Security + secrets | security model, secrets strategy |
+| 6 | Observability | observability and alerting plan |
+| 7 | Reliability + recovery | resilience and recovery plan |
+| 8 | Scale + cost | scalability and cost plan |
+| 9 | IaC + verification | pass/reject per checklist |
 
 ---
 
@@ -254,5 +143,5 @@ Short turns: use **Summary / Details / Next step** section headers; expand the f
 
 # Reference
 
-See [reference.md](./reference.md) for extended checklists and deep anti-pattern coverage.
+See [reference.md](./reference.md) for workflow detail, checklists, and anti-patterns.
 

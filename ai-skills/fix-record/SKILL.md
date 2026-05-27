@@ -1,12 +1,10 @@
 ---
 name: fix-record
 metadata:
-  version: "1.0.2"
+  version: "1.0.3"
 description: >-
-  Write the canonical engineering record of a fixed bug — root cause, mechanism,
-  fix, validation, and how it slipped through. Use after /debug lands a validated fix,
-  before closing the ticket. Trigger on /fix-record, RCA, root cause analysis,
-  document this fix, or close out this bug with a writeup. Use when a bug is fixed and validated, and you need a canonical engineering root-cause record.
+  Canonical RCA after a validated fix — mechanism, fix, validation, how it slipped
+  through. Invoke with /fix-record when closing a fixed bug (not before fix lands).
 disable-model-invocation: true
 ---
 

@@ -1,13 +1,12 @@
 ---
 name: debug
 metadata:
-  version: "1.0.2"
+  version: "1.0.3"
 description: >-
-  Four-mantra debugging discipline — reproduce, trace the fail path, falsify the
-  hypothesis, cross-reference every breadcrumb. Recite the mantra verbatim at the
-  start of any debugging session, then apply the four steps in order before proposing
-  any fix. Trigger on /debug and when the user reports a bug, broken/failing behavior,
-  asks to debug/diagnose/investigate, or pastes a stack trace or error log. Use when investigating bugs, failing behavior, stack traces, or unclear runtime symptoms that need systematic diagnosis.
+  Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
+  breadcrumbs. Recite mantra verbatim on first response. Invoke with /debug for bugs,
+  stack traces, or failing behavior.
+disable-model-invocation: true
 ---
 
 # Debug Mantra

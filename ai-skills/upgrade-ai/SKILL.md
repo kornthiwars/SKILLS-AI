@@ -1,11 +1,10 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.0.5"
+  version: "1.0.6"
 description: >-
-  Systems diagnostician for Cursor skills: reproduce failures, localize layers,
-  isolate root causes, propose minimal safe upgrades, and verify without blind
-  rewrites. Activate when failures repeat, outputs drift, or complexity grows. Use when a skill or workflow is unstable, inconsistent, too large, or needs evidence-based quality upgrades.
+  Evidence-based skill diagnosis and minimal upgrades — no blind rewrites. Invoke
+  with /upgrade-ai when skills drift, repeat failures, or exceed ~300 lines.
 disable-model-invocation: true
 ---
 

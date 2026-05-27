@@ -30,12 +30,34 @@ After clone: `./scripts/setup-macos-linux.sh <install-root>` — see [scripts/RE
 | Topic | Rule |
 |-------|------|
 | **Version** | `metadata.version` only — bump on every `SKILL.md` / `reference.md` change ([upgrade-ai/reference.md](upgrade-ai/reference.md) § Version governance) |
-| **Invocation** | `disable-model-invocation: true` on manual skills (`/debug`, builders, `git-push`, …) |
-| **Description** | WHAT + when to use — avoid duplicating `Trigger on` + `Use when` |
+| **Invocation** | `disable-model-invocation: true` on **all** manual skills — prevents auto-loading full `SKILL.md` every chat |
+| **Description** | WHAT + invoke hint (one short block) — no duplicate `Trigger on` + `Use when` |
 | **paths** | Omit when `disable-model-invocation: true` (no auto-discovery benefit) |
 | **Response shape** | `Summary` / `Details` / `Next step` for short turns; full Output format when closing |
 | **Scope guardrails** | ALWAYS scope + non-goals; NEVER speculative rewrites |
 | **Large skills** | Keep `SKILL.md` under ~300 lines — move phase prose to `reference.md` § Workflow |
+
+## Token efficiency
+
+Skills load in three layers ([agentskills.io](https://agentskills.io/specification)):
+
+| Layer | When | Keep small |
+|-------|------|------------|
+| `description` | Discovery | 2–4 lines max; no workflow prose |
+| `SKILL.md` | User invokes `@skill` or `/command` | Quick-ref tables; gates; output shape |
+| `reference.md` | Agent reads on demand | Phase detail, checklists, anti-patterns |
+
+### Agent rules
+
+- **One skill per turn** — hand off (`@builder-api`) instead of stacking skills.
+- **Lazy reference** — add “Load [reference.md](./reference.md) § Workflow (detail)” at the phase you need, not in turn 1.
+- **No duplicate sections** — if `description` states when to use, do not repeat a full `# Activation` block in `SKILL.md`.
+
+### Author targets
+
+- `SKILL.md` **&lt; 300 lines** (hard watch at 250+).
+- Workflow phases as a **table** in `SKILL.md` + prose in `reference.md`.
+- Every new skill: `disable-model-invocation: true` unless you explicitly need auto-invoke (rare).
 
 ## Version bumps
 

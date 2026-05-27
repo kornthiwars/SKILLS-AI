@@ -1,11 +1,10 @@
 ---
 name: git-push
 metadata:
-  version: "1.0.3"
+  version: "1.0.4"
 description: >-
-  Safely inspect, commit (only when explicitly requested), and push to GitHub.
-  Use for push/publish/sync, failed pushes, or init→remote workflows. Handles
-  dirty trees, confirm-after-block, SSH identity, and multi-account remotes. Use when pushing to remote, resolving blocked pushes, or safely committing and publishing git changes.
+  Safe inspect, commit (explicit request only), and push; dirty-tree matrix, SSH
+  identity, multi-account remotes. Invoke with /git-push or ยืนยัน after blocked push.
 disable-model-invocation: true
 ---
 

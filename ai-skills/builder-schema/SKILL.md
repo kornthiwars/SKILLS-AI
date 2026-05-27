@@ -1,7 +1,7 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
 description: >-
   Design integrity-safe schemas via domain modeling, relationships, indexing,
   and safe evolution. Invoke with /builder-schema when modeling entities,
@@ -66,23 +66,6 @@ Treat schema as long-lived system contracts, not storage containers.
 - Safe schema evolution
 - Query-driven indexing
 - Complexity must justify value
-
----
-
-# Activation
-
-Use when:
-- designing databases
-- restructuring schemas
-- scaling backend data systems
-- duplication/integrity issues appear
-- migrations become risky
-- query performance degrades
-
-Do NOT use for:
-- frontend-only tasks
-- infra-only tasks
-- cosmetic refactors
 
 ---
 

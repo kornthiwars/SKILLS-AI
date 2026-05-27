@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.0.4"
+  version: "1.1.0"
 description: >-
   Orchestrate cross-layer features — workflow analysis, reuse, delegation to
   builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
@@ -91,127 +91,19 @@ Note: no `test-builder` in this repo yet; include testing plan in Phase 7.
 
 ---
 
-# Activation
-
-Use when:
-- designing new product features
-- coordinating multi-layer systems
-- feature spans frontend/backend/data/infra
-- duplication risk is rising
-- rollout risk increases
-
-Do NOT use for:
-- isolated UI/API/schema/infra-only tasks
-- isolated debugging
-
-Delegate those to specialists directly.
-
----
-
 # Workflow
 
-## 1) Workflow analysis
+Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow (detail).
 
-Analyze:
-- user actions and success path
-- async flows and retries
-- permission boundaries
-- rollback/failure scenarios
-- cross-system dependencies
-
-Output:
-- workflow map
-- failure scenarios
-- dependency analysis
-
-## 2) Existing system analysis
-
-Inspect:
-- current features/components/services
-- shared APIs and schemas
-- existing infra capabilities
-- reusable utilities/state patterns
-
-Questions:
-- does this already exist?
-- extend vs create?
-- ownership conflicts?
-- architectural drift risk?
-
-Output:
-- reuse opportunities
-- duplication risks
-- extension constraints
-
-## 3) Feature boundary design
-
-Define:
-- feature boundary
-- shared vs local modules
-- ownership zones
-- integration surfaces
-
-Output:
-- boundary map
-- ownership map
-
-## 4) Specialist delegation
-
-Delegate layer decisions to the relevant builder skills.
-
-Output:
-- delegated task map
-- specialist ownership matrix
-- sequencing plan
-
-## 5) State + integration coordination
-
-Coordinate:
-- frontend state vs server state ownership
-- async updates, retries, cache invalidation
-- optimistic updates and failure reconciliation
-
-Require:
-- predictable synchronization
-- isolated mutations
-- explicit contracts
-
-Output:
-- integration map
-- state ownership plan
-
-## 6) Rollout + reliability coordination
-
-Plan:
-- feature flags/staged rollout
-- rollback strategy
-- monitoring coverage
-- migration/deployment safety
-- incident response hooks
-
-Output:
-- rollout plan
-- operational readiness assessment
-
-## 7) Cross-layer verification
-
-Verify:
-- workflow continuity
-- reuse vs duplication
-- ownership clarity
-- integration consistency
-- permission correctness
-- async reliability
-- observability + rollback readiness
-
-Use specialist outputs + `/scrutinize` before merge.
-
-Reject if:
-- ownership unclear
-- duplicated systems
-- excessive coupling
-- rollback impossible
-- observability incomplete
+| # | Phase | Deliver |
+|---|--------|---------|
+| 1 | Workflow analysis | workflow map, failure scenarios |
+| 2 | Existing system analysis | reuse opportunities, duplication risks |
+| 3 | Feature boundary design | boundary map, ownership map |
+| 4 | Specialist delegation | task map, sequencing plan |
+| 5 | State + integration | integration map, state ownership |
+| 6 | Rollout + reliability | rollout plan, ops readiness |
+| 7 | Cross-layer verification | pass/reject; `/scrutinize` before merge |
 
 ---
 
@@ -265,4 +157,4 @@ Short turns: use **Summary / Details / Next step** section headers; expand the f
 
 # Reference
 
-See [reference.md](./reference.md) for deep orchestration checklists.
+See [reference.md](./reference.md) for workflow detail and orchestration checklists.

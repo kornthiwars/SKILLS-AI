@@ -1,13 +1,10 @@
 ---
 name: sql
 metadata:
-  version: "1.0.2"
+  version: "1.0.3"
 description: >-
-  Single SQL skill: classify every request as READ, MIGRATE, or WRITE before
-  executing. Read queries with EXPLAIN/LIMIT discipline; migrations via the
-  project's migrate toolchain only; guarded writes with blocklist and prod
-  confirmation. Trigger on /sql, "run this query", "migrate the database", or
-  "check rows in". Use when handling SQL read, write, or migration requests that require safe classification and verification.
+  Classify SQL as READ, MIGRATE, or WRITE before executing; EXPLAIN/LIMIT, migrate
+  toolchain, prod write gates. Invoke with /sql for queries, migrations, or writes.
 disable-model-invocation: true
 ---
 

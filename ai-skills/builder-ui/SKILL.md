@@ -1,7 +1,7 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.0.4"
+  version: "1.1.0"
 description: >-
   Design scalable, accessible UI systems from visual references — layout,
   components, responsive behavior, a11y. Invoke with /builder-ui for frontend
@@ -69,121 +69,19 @@ Treat UI as systems and interaction flows, not static images.
 
 ---
 
-# Activation
-
-Use when:
-- building UI from screenshots
-- reconstructing frontend layouts
-- generating React/Tailwind interfaces
-- improving component architecture
-- fixing responsiveness/accessibility drift
-
-Do NOT use for:
-- backend-only tasks
-- DB/infrastructure work
-- unrelated architecture analysis
-
----
-
 # Workflow
 
-## 1) Visual analysis
+Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow (detail).
 
-Analyze:
-- spacing rhythm
-- typography hierarchy
-- grid/container structure
-- repeated patterns
-- navigation and interaction cues
-
-Output:
-- UI observations
-- hierarchy assessment
-- repeated pattern list
-
-## 2) Layout reconstruction
-
-Infer:
-- layout grid and sections
-- container widths
-- spacing system
-- breakpoints (desktop/tablet/mobile)
-
-Output:
-- layout architecture
-- responsive layout plan
-
-## 3) Component extraction
-
-Extract reusable units:
-- buttons
-- cards
-- forms
-- nav
-- modals
-- tables
-- layout wrappers
-
-Rules:
-- single responsibility
-- avoid oversized components
-- prefer composition
-
-Output:
-- component tree
-- shared component candidates
-- ownership boundaries
-
-## 4) Design-system inference
-
-Define:
-- spacing scale
-- typography scale
-- color and surface hierarchy
-- radius/shadow system
-- component variants and states
-
-Output:
-- token proposal
-- variant rules
-
-## 5) Interaction + state plan
-
-Specify:
-- hover/focus/active/disabled
-- loading/empty/error states
-- modal/dropdown/nav behavior
-- state ownership boundaries
-
-Output:
-- interaction contract
-- state transition notes
-
-## 6) Accessibility review
-
-Require:
-- semantic structure
-- keyboard navigation
-- focus visibility
-- contrast checks
-- screen-reader compatibility
-
-Output:
-- a11y concerns and fixes
-
-## 7) Verification
-
-Verify:
-- responsive behavior
-- duplication and component reuse
-- visual consistency
-- accessibility and interaction consistency
-
-Reject if:
-- excessive duplication
-- unstable layout across breakpoints
-- unclear ownership
-- accessibility ignored
+| # | Phase | Deliver |
+|---|--------|---------|
+| 1 | Visual analysis | observations, hierarchy, patterns |
+| 2 | Layout reconstruction | layout architecture, responsive plan |
+| 3 | Component extraction | component tree, shared candidates |
+| 4 | Design-system inference | tokens, variant rules |
+| 5 | Interaction + state | interaction contract, state notes |
+| 6 | Accessibility review | a11y concerns and fixes |
+| 7 | Verification | pass/reject per checklist |
 
 ---
 
@@ -235,4 +133,4 @@ Short turns: use **Summary / Details / Next step** section headers; expand the f
 
 # Reference
 
-See [reference.md](./reference.md) for deep checklists and anti-patterns.
+See [reference.md](./reference.md) for workflow detail, checklists, and anti-patterns.

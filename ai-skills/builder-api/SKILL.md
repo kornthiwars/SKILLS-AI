@@ -1,7 +1,7 @@
 ---
 name: builder-api
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
 description: >-
   Design scalable, secure, contract-first APIs with validation, auth boundaries,
   error systems, versioning, and observability. Invoke with /builder-api when
@@ -66,22 +66,6 @@ Treat APIs as contracts and boundaries, not route collections.
 - Backward compatibility awareness
 - Reliability + observability required
 - Complexity must justify value
-
----
-
-# Activation
-
-Use when:
-- designing APIs
-- refactoring backend boundaries
-- integration instability appears
-- auth/validation complexity rises
-- API consistency degrades
-
-Do NOT use for:
-- frontend-only tasks
-- DB-only schema work (`/builder-schema`)
-- infrastructure-only work (`/builder-infrastructure`)
 
 ---
 
