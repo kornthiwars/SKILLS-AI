@@ -17,3 +17,4 @@ Authoring: [SKILL-AUTHORING.md](SKILL-AUTHORING.md) · Agents: [AGENTS.md](../AG
 | fix-record | `/fix-record` |
 | upgrade-ai | `/upgrade-ai` |
 | git-push | `/git-push` |
+| vault-recall | `/vault-recall` |

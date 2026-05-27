@@ -1,7 +1,7 @@
 ---
 name: debug
 metadata:
-  version: "1.0.3"
+  version: "1.0.4"
 description: >-
   Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
   breadcrumbs. Recite mantra verbatim on first response. Invoke with /debug for bugs,
@@ -28,6 +28,17 @@ Then begin work.
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Vault recall (before step 1)
+
+Per `ai-rules/vault-issues.mdc` — **before** building a repro:
+
+1. **Grep** `vault/learnings/` for error text, symptoms, `skill:`, `files:`
+2. Cap ~15 lines; read **≤3** matching notes (skip if folder empty except README)
+3. If insufficient → grep `vault/issues/` today and yesterday
+4. Fold hits into the ledger; do not re-run failed fixes already documented
+
+Optional: user may run `/vault-recall` first.
 
 ## Response shape
 

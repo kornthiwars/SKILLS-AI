@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.0.6"
+  version: "1.0.7"
 description: >-
   Evidence-based skill diagnosis and minimal upgrades — no blind rewrites. Invoke
   with /upgrade-ai when skills drift, repeat failures, or exceed ~300 lines.

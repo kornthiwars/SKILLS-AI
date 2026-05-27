@@ -54,6 +54,6 @@ chmod +x scripts/setup-macos-linux.sh
 
 ## Vault
 
-Daily notes: `vault/issues/YYYY-MM-DD.md` (**local-only**, gitignored).  
-Template: [templates/template.issue.md](templates/template.issue.md)  
-Rule: `vault-issues.mdc` (via `.cursor/rules`) — say **เก็บลง vault** to force-write.
+Daily work log: `vault/issues/YYYY-MM-DD.md` · Lessons: `vault/learnings/YYYY-MM-DD-HHmm.md` (**local-only**).  
+Obsidian: open `vault/` — see [vault/README.md](vault/README.md).  
+Rule: `vault-issues.mdc` — logs **work-related** turns only (not chitchat); say **เก็บลง vault** to force-write.

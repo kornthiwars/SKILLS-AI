@@ -1,7 +1,7 @@
 ---
 name: sql
 metadata:
-  version: "1.0.3"
+  version: "1.1.0"
 description: >-
   Classify SQL as READ, MIGRATE, or WRITE before executing; EXPLAIN/LIMIT, migrate
   toolchain, prod write gates. Invoke with /sql for queries, migrations, or writes.
@@ -14,14 +14,14 @@ Role: Database operator
 
 Mission: Classify the request, precheck, execute through the correct channel, report results. Never guess the environment or credentials.
 
-## Purpose
+> Precheck tables, decision matrix, execute examples, common failures: [`reference.md`](./reference.md).
 
-One entry point for database work in any project:
+## Purpose
 
 | Mode | What it covers |
 |------|----------------|
 | **READ** | `SELECT`, `WITH … SELECT`, `EXPLAIN`, `SHOW`, `DESCRIBE` |
-| **MIGRATE** | Apply or inspect **versioned migrations** via repo toolchain |
+| **MIGRATE** | Versioned migrations via repo toolchain |
 | **WRITE** | `INSERT`, `UPDATE`, `DELETE`, DDL — strict gates |
 | **BLOCKED** | Unsafe request or missing consent — stop and explain |
 
@@ -56,147 +56,49 @@ This skill does NOT:
 - User pastes SQL and asks to execute
 - Debugging data issues (after confirming READ is enough)
 
-Do NOT activate for: application-only bugs with no DB angle, or when user only wants ORM/code review (use `/scrutinize`).
+Do NOT activate for: application-only bugs with no DB angle, or ORM-only review (use `/scrutinize`).
 
 ---
 
 # Phase 1 — Context
 
-Establish before classification:
+1. **Engine** — Postgres, MySQL, SQL Server, SQLite, etc.
+2. **Environment** — `local` | `dev` | `staging` | `prod` (ask if unclear)
+3. **Connection path** — MCP, CLI, or project script
+4. **User intent** — explore data, change data, or apply migrations
 
-1. **Engine** — Postgres, MySQL, SQL Server, SQLite, etc. (from repo config, MCP server, or user)
-2. **Environment** — `local` | `dev` | `staging` | `prod` (ask if unclear; never assume prod is safe)
-3. **Connection path** — MCP database tool, `psql` / `mysql` CLI, or project script (`npm run db:…`)
-4. **User intent** — explore data, change data, or apply schema migrations
-
-Never print full connection URLs. Use env var names only (`DATABASE_URL`, `POSTGRES_URL`).
+Never print full connection URLs. Use env var names only (`DATABASE_URL`).
 
 ---
 
 # Phase 2 — Classify
 
-Parse the user request and any pasted SQL. Choose **one** mode:
+Choose **one** mode:
 
-## READ
-
-- Statements that only read metadata or data: `SELECT`, `EXPLAIN`, `SHOW`, `DESCRIBE`, `\\d` (psql meta-commands)
-- "How many rows…", "what's in table X", "why is this slow" (start with `EXPLAIN`)
-
-## MIGRATE
-
-- User asks to run / status / rollback **migrations**
-- User points at `migrations/`, `prisma/migrations`, Flyway/Liquibase paths
-- Schema change request → default to MIGRATE (create file + toolchain), not raw DDL in prod
-
-## WRITE
-
-- `INSERT`, `UPDATE`, `DELETE`, `MERGE`
-- DDL: `CREATE`, `ALTER`, `DROP`, `TRUNCATE`, indexes, constraints
-- Pasted SQL that mutates state when user explicitly wants it executed
-
-## BLOCKED
-
-- `DELETE` or `UPDATE` without `WHERE` (unless user explicitly confirms narrow table + reason)
-- `DROP DATABASE`, `TRUNCATE` on prod without explicit confirmation
-- Prod WRITE/MIGRATE without confirmation phrase (see Commit gate)
-- Credentials missing or connection refused with no fallback
+| Mode | When |
+|------|------|
+| **READ** | `SELECT`, `EXPLAIN`, metadata probes, "how many rows" |
+| **MIGRATE** | User asks run/status/rollback migrations; schema change → toolchain |
+| **WRITE** | DML/DDL that mutates state when user wants execution |
+| **BLOCKED** | No `WHERE` on bulk DELETE/UPDATE; prod without confirm; missing credentials |
 
 ---
 
-# SQL decision matrix
+# Phase 3–4 — Precheck & execute
 
-After classification, apply environment rules:
-
-| Mode | local / dev | staging | prod |
-|------|-------------|---------|------|
-| **READ** | Run (with `LIMIT` default) | Run (with `LIMIT`) | Run (with `LIMIT`; avoid wide `SELECT *` on huge tables) |
-| **MIGRATE** | Toolchain dev commands allowed if user asked | `deploy` / `upgrade` only | `deploy` / `upgrade` only + **confirm prod** |
-| **WRITE** | Run after summarizing impact | Summarize + confirm | **confirm prod** required |
-| **BLOCKED** | Stop | Stop | Stop |
-
----
-
-# Phase 3 — Precheck
-
-## READ precheck
-
-- Add `LIMIT` (default **100**) if missing and table size unknown
-- For heavy queries: run `EXPLAIN` (or `EXPLAIN ANALYZE` on dev only) before full execute
-- Reject `SELECT *` on prod without `LIMIT` when table is known to be large
-
-## MIGRATE precheck
-
-1. Detect toolchain from repo (first match wins):
-
-| Signals in repo | Dev (create) | Apply (deploy) | Status |
-|-----------------|--------------|----------------|--------|
-| `prisma/schema.prisma` | `npx prisma migrate dev` | `npx prisma migrate deploy` | `npx prisma migrate status` |
-| `knexfile.*` | `npx knex migrate:make` | `npx knex migrate:latest` | `npx knex migrate:status` |
-| `alembic.ini` | `alembic revision --autogenerate` | `alembic upgrade head` | `alembic current` |
-| `flyway.conf` / `db/migration` | — | `flyway migrate` | `flyway info` |
-| `bin/rails` + `db/migrate` | `bin/rails generate migration` | `bin/rails db:migrate` | — |
-| `Makefile` target `db-migrate` | use documented target | use documented target | — |
-
-2. Prefer `package.json` / `Makefile` scripts if defined (`npm run migrate`, etc.)
-3. Do **not** paste contents of migration files into CLI unless user explicitly wants manual SQL on dev
-
-## WRITE precheck
-
-- Show: statement type, tables touched, estimated scope (`WHERE` clause present?)
-- Blocklist unless user explicitly confirms with table name + reason:
-  - `DROP TABLE`, `DROP DATABASE`, `TRUNCATE`
-  - `DELETE FROM t` / `UPDATE t SET` with no `WHERE`
-- Prefer transaction: `BEGIN` → execute → show result → `COMMIT` only after user confirms on staging/prod
-
----
-
-# Commit gate (prod & destructive)
-
-### Explicit confirmation required
-
-- Any **prod** WRITE or MIGRATE deploy
-- Any blocklisted statement on any environment
-
-Accept phrases (examples): **ยืนยัน prod**, **confirm prod**, **yes run on production**
-
-### NOT sufficient
-
-- `/sql` alone
-- "ok" without environment context after a prod warning
-
----
-
-# Phase 4 — Execute
-
-Use the connection path from Phase 1. Prefer MCP or project-wrapped CLI over raw credentials in chat.
-
-## READ
-
-```bash
-# Example — adapt to engine; use env vars
-psql "$DATABASE_URL" -c "EXPLAIN …"
-psql "$DATABASE_URL" -c "SELECT … LIMIT 100;"
-```
-
-## MIGRATE
-
-Run the **deploy** command for the detected toolchain — not ad-hoc DDL on prod.
-
-## WRITE
-
-Run inside a transaction when the client supports it. Report rows affected.
+Load [`reference.md`](./reference.md): decision matrix, toolchain detection, commit gate, execute patterns.
 
 ---
 
 ## Response shape
 
-Mid-session updates (classification, precheck, blocked) — **section headers only**:
+Mid-session — **section headers only**:
 
-- **Summary** — mode (READ | MIGRATE | WRITE), environment, result
-- **Details** — matrix row, precheck finding, or redacted statement preview
-- **Next step** — execute, safer alternative, or user confirmation gate
+- **Summary** — mode, environment, result
+- **Details** — matrix row, precheck, or blocked reason
+- **Next step** — execute, safer alternative, or confirmation gate
 
-After execution, use **# Phase 5 — Report** for the full report.
+After execution, use **# Phase 5 — Report** below.
 
 ---
 
@@ -225,29 +127,17 @@ After execution, use **# Phase 5 — Report** for the full report.
 
 - **Cause:**
 - **Evidence:**
-- **Safer alternative:** (e.g. use READ, add WHERE, use `prisma migrate dev`)
-
----
-
-# Common failures
-
-| Error | Likely cause | Fix |
-|-------|--------------|-----|
-| connection refused | wrong env / VPN / service down | check `DATABASE_URL`, docker, MCP |
-| permission denied | read-only role | use READ or escalate credentials |
-| relation does not exist | wrong schema / migration not applied | MIGRATE status, check search_path |
-| timeout | missing index / no LIMIT | EXPLAIN, add LIMIT, fix query |
-| duplicate key | WRITE without checking | READ first, fix data or use UPSERT |
+- **Safer alternative:**
 
 ---
 
 # Operating rules
 
-- **One mode per turn** — if user mixes migrate + ad-hoc WRITE, split into ordered steps
-- **No secrets in output** — mask connection strings and PII columns when possible
-- **Distinguish claim vs result** — "user asked to delete rows" vs "DELETE returned 0 rows"
-- **When unsure, READ first** — `SELECT COUNT(*)`, sample rows, then WRITE
-- **Schema changes** → MIGRATE path on dev; never raw `ALTER` on prod without migration file + deploy
+- **One mode per turn** — split mixed migrate + WRITE into ordered steps
+- **No secrets in output** — mask connection strings and PII when possible
+- **Distinguish claim vs result**
+- **When unsure, READ first**
+- **Schema changes** → MIGRATE on dev; no raw `ALTER` on prod without migration file + deploy
 
 ---
 

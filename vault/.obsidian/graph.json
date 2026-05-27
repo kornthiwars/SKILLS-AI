@@ -1,0 +1,37 @@
+{
+  "collapse-filter": false,
+  "search": "-path:templates -file:README",
+  "showTags": true,
+  "showAttachments": false,
+  "hideUnresolved": true,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "path:issues",
+      "color": {
+        "a": 1,
+        "rgb": 7640240
+      }
+    },
+    {
+      "query": "path:learnings",
+      "color": {
+        "a": 1,
+        "rgb": 11911304
+      }
+    }
+  ],
+  "collapse-display": true,
+  "showArrow": false,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1,
+  "lineSizeMultiplier": 1,
+  "collapse-forces": true,
+  "centerStrength": 0.4,
+  "repelStrength": 12,
+  "linkStrength": 0.5,
+  "linkDistance": 200,
+  "scale": 1,
+  "close": false
+}

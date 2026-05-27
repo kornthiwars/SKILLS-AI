@@ -46,8 +46,9 @@ Edit **`ai-skills/`**, **`ai-rules/`**, **`vault/`** in the clone — not inside
 | [fix-record](ai-skills/fix-record/SKILL.md) | RCA after validated fix |
 | [upgrade-ai](ai-skills/upgrade-ai/SKILL.md) | Improve skills in this repo |
 | [git-push](ai-skills/git-push/SKILL.md) | Safe commit + push (sole git skill) |
+| [vault-recall](ai-skills/vault-recall/SKILL.md) | Grep learnings/issues before repeat work |
 
-Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md)
+Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Smoke: [docs/SKILL-SMOKE-CHECKLIST.md](docs/SKILL-SMOKE-CHECKLIST.md)
 
 ---
 
@@ -56,10 +57,10 @@ Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md)
 | Rule | Role |
 |------|------|
 | [bilingual-th-en.mdc](ai-rules/bilingual-th-en.mdc) | Thai ~60% / English ~40% replies |
-| [vault-issues.mdc](ai-rules/vault-issues.mdc) | Daily log under `vault/issues/` |
+| [vault-issues.mdc](ai-rules/vault-issues.mdc) | Work Q&A in `vault/issues/`; lesson cards in `vault/learnings/` |
 
 ---
 
 ## Git in this repo
 
-Ship changes with **`@git-push`** only. Commit canonical paths (`ai-skills/`, `ai-rules/`, `scripts/`, `templates/`) — not uncommitted daily vault notes (`vault/issues/*.md` is gitignored).
+Ship changes with **`@git-push`** only. Commit canonical paths (`ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `docs/`) — not daily vault content (`vault/issues/*.md`, `vault/learnings/*` except README are gitignored).

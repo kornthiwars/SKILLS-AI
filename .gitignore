@@ -24,8 +24,10 @@ secrets.json
 # Machine-local skill overrides
 ai-skills/.local/
 
-# Vault — daily content local; README + templates in git
+# Vault — daily content local; README + .obsidian + templates in git
 vault/issues/*.md
 !vault/issues/README.md
 vault/learnings/*
 !vault/learnings/README.md
+!vault/.obsidian/
+!vault/.obsidian/**

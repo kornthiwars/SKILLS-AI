@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.0.4"
+  version: "1.1.0"
 description: >-
   Safe inspect, commit (explicit request only), and push; dirty-tree matrix, SSH
   identity, multi-account remotes. Invoke with /git-push or ยืนยัน after blocked push.
@@ -13,6 +13,8 @@ disable-model-invocation: true
 Role: Release operator
 
 Mission: Inspect repo state, use the correct remote identity, push once, verify.
+
+> Matrix, commit gate detail, SSH, and failure table: [`reference.md`](./reference.md).
 
 ## Purpose
 
@@ -29,9 +31,9 @@ This skill does NOT:
 
 When pushing **this** repository:
 
-- Edit and commit **`ai-skills/`**, **`ai-rules/`**, **`scripts/`**, **`templates/`** — not files only under `.cursor/` junctions/symlinks.
-- After clone, run `./scripts/setup-macos-linux.sh .` (or [setup-windows.ps1](../../scripts/setup-windows.ps1)) so Cursor loads linked skills.
-- `vault/issues/*.md` is **gitignored** — daily logs stay local; do not expect them on GitHub.
+- Edit and commit **`ai-skills/`**, **`ai-rules/`**, **`scripts/`**, **`templates/`**, **`docs/`** — not files only under `.cursor/` junctions.
+- After clone, run `./scripts/setup-macos-linux.sh .` so Cursor loads linked skills.
+- `vault/issues/*.md` and `vault/learnings/*` (except README) are **gitignored** — local only.
 
 ## Scope Guardrails
 
@@ -45,7 +47,7 @@ When pushing **this** repository:
 
 - **Commit only on request** — `/git-push` alone is not permission to commit
 - **Read before write** — inspect status, diff, branch, remote first
-- **Decision before action** — use the push decision matrix below
+- **Decision before action** — use the push decision matrix in `reference.md`
 - **Correct identity** — SSH must match the account that owns the remote repo
 - **Verify after push** — confirm tracking and remote HEAD
 
@@ -62,23 +64,15 @@ Do NOT activate for: general coding tasks unrelated to git remote sync.
 
 ---
 
-# Push Decision Matrix
-
-After Phase 1 inspect, choose **one** path:
-
-| Ahead of origin | Working tree | Action |
-|-----------------|--------------|--------|
-| 0 | clean | Report already up to date; done |
-| >0 | clean | Phase 3 → 4 → 5 (push only) |
-| 0 | dirty | **Blocked** — offer commit; wait for explicit commit consent |
-| >0 | dirty | **Blocked** — ask: push existing commits only, or commit first then push |
-| 0 | staged only | **Blocked** — need `git commit` consent before push |
-
-Never push uncommitted work. Never assume "confirm" means commit unless intent is explicit (see Commit Gate).
-
----
-
 # Workflow
+
+## Phase 0 — Vault recall (blocked push or git friction)
+
+When push is **blocked**, failed before, or symptoms match SSH/remote/dirty-tree:
+
+1. Grep `vault/learnings/` per `vault-issues.mdc` (≤3 files)
+2. Apply documented fixes before re-diagnosing from scratch
+3. Optional: `/vault-recall` for a dedicated search
 
 ## Phase 1 — Inspect
 
@@ -93,143 +87,25 @@ git remote -v
 git log -3 --oneline
 ```
 
-Also derive:
-- commits ahead: `git rev-list --count @{u}..HEAD 2>/dev/null` or from `git status`
-- whether remote exists and URL scheme (HTTPS vs SSH)
+Also: commits ahead (`git rev-list --count @{u}..HEAD 2>/dev/null` or status), remote URL scheme.
 
----
+## Phase 2–5
 
-## Phase 2 — Commit Gate
+Follow [`reference.md`](./reference.md): **Commit gate** → **Remote & identity** → **Push** → **Verify**.
 
-### Explicit commit consent (any of these)
-
-- User asked to commit (commit, commit and push, สร้าง commit)
-- User confirmed after blocked push with clear intent: **ยืนยัน**, **confirm**, **yes commit and push**, **commit แล้ว push**
-- User listed files/message to include in the commit
-
-### NOT sufficient alone
-
-- `/git-push` only
-- vague "ok" without commit context after a dirty-tree block
-
-### When committing
-
-1. Never commit secrets (`.env`, credentials, `*.pem`, `id_*` private keys, tokens)
-2. If expected files are untracked, run `git check-ignore -v <path>` — fix `.gitignore` if wrongly ignored
-3. Draft a 1–2 sentence message focused on **why**
-4. Use HEREDOC:
-
-```bash
-git add <paths>
-git commit -m "$(cat <<'EOF'
-Your message here.
-
-EOF
-)"
-```
-
-5. Hook modified files after commit → fix and **new** commit (no careless amend)
-
-### When blocked (dirty, ahead = 0)
-
-1. Summarize changed/untracked paths
-2. Propose a commit message draft
-3. Ask user to confirm commit (and then push)
-4. Do not run `git commit` until consent
-
----
-
-## Phase 3 — Remote & Identity
-
-### SSH remotes (`git@...`)
-
-Before push, verify account matches repo owner when push failed before OR alias remote is used:
-
-```bash
-# Default host
-ssh -T git@github.com 2>&1 || true
-# If remote uses Host alias (e.g. git@github.com-kornthiwars:owner/repo.git)
-ssh -T git@github.com-<alias> 2>&1 || true
-```
-
-`Hi <user>!` must be an account with push access to that repository.
-
-| Account setup | Remote URL pattern |
-|---------------|-------------------|
-| Default | `git@github.com:OWNER/REPO.git` |
-| Multi-account SSH alias | `git@github.com-ALIAS:OWNER/REPO.git` |
-
-Fix wrong account: `git remote set-url origin <correct-url>` — do not reuse a pubkey already on another GitHub account; generate a new key per account.
-
-### Remote missing
-
-```bash
-git remote add origin <url>
-```
-
----
-
-## Phase 4 — Push
-
-```bash
-# First push / no upstream
-git push -u origin <branch>
-
-# Tracked branch
-git push
-```
-
-- `git branch -M main` only if user wants `main` and branch name differs
-- Remote has unrelated history → stop; no force-push without explicit user request
-
----
-
-## Phase 5 — Verify
-
-```bash
-git status
-git log origin/<branch> -1 --oneline
-```
-
-Confirm tracking, success, and repo URL (`https://github.com/OWNER/REPO` when derivable from remote).
-
----
-
-# Safety Rules
-
-| Action | Rule |
-|--------|------|
-| `git push --force` | Never on `main`/`master` unless user explicitly asks; warn about impact |
-| `git commit --amend` | Only if user requested amend OR hook auto-fixed files AND HEAD is unpushed |
-| `git config` | Never modify |
-| Hooks | Never bypass unless user explicitly asks |
-| Empty commit | Never if nothing to commit |
-
----
-
-# Common Failures
-
-| Error | Likely cause | Fix |
-|-------|--------------|-----|
-| `could not read Username` | HTTPS without credentials | SSH, PAT, or `gh auth login` |
-| `Permission denied (publickey)` | No/wrong SSH key | Add key; check `~/.ssh/config` |
-| `denied to USER` | Wrong GitHub account | Fix Host alias / `set-url` |
-| `Key is already in use` | Pubkey on two accounts | New key for second account |
-| `failed to push some refs` | Remote ahead | `git pull --rebase` then push (ask if unclear) |
-| `repository not found` | Repo missing / no access | Create repo or fix URL |
-| Push "succeeds" but files missing on GitHub | Never committed | Re-run matrix; commit first |
+Apply the **push decision matrix** after Phase 1.
 
 ---
 
 ## Response shape
 
-Default for short turns (up to date, blocked, or awaiting **ยืนยัน**) — **section headers only**:
+Default for short turns — **section headers only**:
 
 - **Summary** — branch, remote, result in one line
 - **Details** — matrix row taken, ahead/behind count, or block cause
 - **Next step** — exact user phrase or command to unblock
 
-After a successful push or when reporting full pre-push state, use **# Output Format** below.
+After a successful push or full pre-push state, use **# Output Format** below.
 
 ---
 

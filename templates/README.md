@@ -2,6 +2,7 @@
 
 | File | Use |
 |------|-----|
-| `template.issue.md` | Daily vault log — `{{YYYY-MM-DD}}` replaced by setup scripts |
+| `template.issue.md` | Daily work log — `vault/issues/YYYY-MM-DD.md` |
+| `template.learning.md` | Lesson card (บริบท→อาการ→สาเหตุ→วิธีแก้) — **not** issues format |
 
-Canonical template for new daily issue files. Setup scripts and `vault-issues.mdc` use this path only.
+Setup scripts replace `{{YYYY-MM-DD}}` / `{{HHmm}}` / `{{title}}` when creating files.

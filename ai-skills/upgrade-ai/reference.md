@@ -191,8 +191,18 @@ Recurring patterns to watch for:
 - skipped verification
 - speculative reasoning
 - regression-prone fixes
+- **vault recall not wired** — `vault-issues.mdc` defines Grep learnings but skills skip it until Phase 0/ pre-debug steps exist in `debug`, `git-push`, or `/vault-recall`
+- **issues vs learnings confusion** — copying daily Q&A format into `learnings/` (use lesson card in `templates/template.learning.md`)
 
 Use these patterns to bias future diagnoses toward known traps.
+
+### Vault recall (diagnosis aid)
+
+When upgrading skills in SKILLS-AI:
+
+1. Grep `vault/learnings/` for skill name + symptom (≤3 files)
+2. Check `vault/issues/` last 2 days for repeat topics
+3. Prefer **minimal wire** (5–15 lines in SKILL) before new skills; add `vault-recall` only when search is a standalone user intent
 
 ---
 
