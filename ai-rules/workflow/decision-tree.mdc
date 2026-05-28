@@ -1,0 +1,18 @@
+---
+description: Route work to the right skill before acting
+alwaysApply: false
+---
+
+# Decision tree
+
+| User intent | First action |
+|-------------|--------------|
+| bug, error, stack trace | `/debug` |
+| review PR / plan | `/scrutinize` |
+| database / SQL | `/sql` |
+| push / commit | `/git-push` |
+| search past vault notes | `/vault-recall` |
+| improve skills in this repo | `/upgrade-ai` |
+| RCA after validated fix | `/fix-record` |
+
+If multiple apply, run in order: recall → diagnose → patch → verify → git-push.

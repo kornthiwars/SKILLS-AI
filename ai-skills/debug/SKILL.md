@@ -1,7 +1,7 @@
 ---
 name: debug
 metadata:
-  version: "1.0.5"
+  version: "1.0.6"
 description: >-
   Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
   breadcrumbs. Recite mantra verbatim on first response. Invoke with /debug for bugs,
@@ -28,6 +28,10 @@ Then begin work.
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Change-control (application code)
+
+When editing app/source code, follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) (patch budget, confidence, no patch before diagnosis). This skill owns steps 1–4 of that sequence.
 
 ## Vault recall (before step 1)
 

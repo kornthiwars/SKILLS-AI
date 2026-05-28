@@ -205,6 +205,15 @@ When upgrading skills in SKILLS-AI:
 3. In other skills: **link** `reference.md` — do not duplicate the grep table; keep `/vault-recall` for explicit user search
 4. After `/scrutinize` on skill PRs: verify checklist in [`scrutinize/SKILL.md`](../scrutinize/SKILL.md) § SKILLS-AI skill / rule PRs
 
+### Production change-control (rules)
+
+When upgrading governance in SKILLS-AI:
+
+- Prefer [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) as the always-on parent — do not duplicate its gates across many `alwaysApply` files
+- Add scoped rules under `ai-rules/{core,patching,architecture,testing,risk,workflow}/` with `globs` or intelligent activation
+- Wire skills to the manifest (1–3 lines); keep deep workflow in `SKILL.md`
+- Extend `scripts/smoke-skills.sh` and `scripts/change-control-check.sh`; add CI in `.github/workflows/`
+
 ---
 
 ## Blast Radius Considerations (Phase 6)

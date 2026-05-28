@@ -1,0 +1,17 @@
+---
+description: Stop and escalate instead of guessing or over-patching
+alwaysApply: false
+---
+
+# Stop conditions
+
+Stop and escalate (ask user) if:
+
+- root cause cannot be proven
+- patch requires architecture rewrite
+- issue spans multiple domains without scope agreement
+- runtime behavior conflicts with code assumptions
+- regression risk is unknown
+- patch budget would be exceeded without approval
+
+Do not proceed silently.

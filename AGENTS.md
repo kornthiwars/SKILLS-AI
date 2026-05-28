@@ -48,7 +48,7 @@ Edit **`ai-skills/`**, **`ai-rules/`**, **`vault/`** in the clone — not inside
 | [git-push](ai-skills/git-push/SKILL.md) | Safe commit + push (sole git skill) |
 | [vault-recall](ai-skills/vault-recall/SKILL.md) | **When:** `/vault-recall` or search vault · **Not:** logging (use `vault-issues.mdc`) · Search SSoT: [reference.md](ai-skills/vault-recall/reference.md) |
 
-Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Smoke: [docs/SKILL-SMOKE-CHECKLIST.md](docs/SKILL-SMOKE-CHECKLIST.md)
+Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Change-control: [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) · Smoke: [docs/SKILL-SMOKE-CHECKLIST.md](docs/SKILL-SMOKE-CHECKLIST.md)
 
 ---
 
@@ -56,9 +56,11 @@ Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Smoke
 
 | Rule | Role |
 |------|------|
+| [change-control-manifest.mdc](ai-rules/change-control-manifest.mdc) | **Production AI** — observe→verify, patch budget, confidence gates |
 | [bilingual-th-en.mdc](ai-rules/bilingual-th-en.mdc) | Thai ~60% / English ~40% replies |
 | [vault-issues.mdc](ai-rules/vault-issues.mdc) | Work Q&A in `vault/issues/`; lesson cards in `vault/learnings/` |
-| [clean-code.mdc](ai-rules/clean-code.mdc) | Baseline clean code constraints for AI-generated code |
+| [clean-code.mdc](ai-rules/clean-code.mdc) | Code style for generated application code |
+| `ai-rules/{core,debugging,patching,architecture,testing,risk,workflow}/` | Scoped production rules — see [CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) |
 
 ---
 

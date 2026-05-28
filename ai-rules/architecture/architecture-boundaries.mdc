@@ -1,0 +1,14 @@
+---
+description: Respect layer boundaries — do not leak concerns across UI, API, domain, infra
+globs: "**/*.{ts,tsx,js,jsx,py,go}"
+alwaysApply: false
+---
+
+# Architecture boundaries
+
+- UI: presentation and interaction — no business rules hidden only in components
+- API: transport, validation, mapping — no core domain logic only in handlers
+- Domain: business rules — no framework imports where avoidable
+- Infra: I/O, config, external systems
+
+New code must live in the correct layer. Cross-layer fixes need justification.

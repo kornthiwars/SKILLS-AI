@@ -1,0 +1,14 @@
+---
+description: Validation required before claiming a fix or feature works
+globs: "**/*"
+alwaysApply: false
+---
+
+# Mandatory validation
+
+Never claim complete without:
+
+- expected outcome stated
+- verification run or explicit manual steps
+- unchanged flows considered
+- gaps listed if tests were not run

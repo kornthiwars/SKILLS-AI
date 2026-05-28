@@ -1,6 +1,6 @@
 # Skill authoring (SKILLS-AI)
 
-Read before creating or editing a skill. Gold examples: [`upgrade-ai/`](upgrade-ai/SKILL.md), [`debug/`](debug/SKILL.md), [`git-push/`](git-push/SKILL.md). Core structure baseline: [`../docs/SKILL-PATTERN.md`](../docs/SKILL-PATTERN.md).
+Read before creating or editing a skill. Gold examples: [`upgrade-ai/`](upgrade-ai/SKILL.md), [`debug/`](debug/SKILL.md), [`git-push/`](git-push/SKILL.md). Structure: [`../docs/SKILL-PATTERN.md`](../docs/SKILL-PATTERN.md). Production gates: [`../docs/CHANGE-CONTROL.md`](../docs/CHANGE-CONTROL.md).
 
 ## Repo layout
 
@@ -77,9 +77,10 @@ Run:
 
 ```bash
 ./scripts/smoke-skills.sh
+./scripts/change-control-check.sh
 ```
 
-This script is the fast baseline gate for pattern consistency across skills/rules/templates.
+Smoke = skills/rules structure. Change-control = patch budget on current diff.
 
 ## Language
 

@@ -38,3 +38,13 @@ chmod +x scripts/setup-macos-linux.sh
 Requires `python3` (for `ai-skills-vault.json`).
 
 Edit canonical folders in the **SKILLS-AI** repo only — not inside the target project's `.cursor/` symlinks/junctions.
+
+## Quality scripts
+
+```bash
+chmod +x scripts/smoke-skills.sh scripts/change-control-check.sh
+./scripts/smoke-skills.sh           # rules + skills structure
+./scripts/change-control-check.sh   # patch budget (5 files / 120 lines)
+```
+
+See [docs/CHANGE-CONTROL.md](../docs/CHANGE-CONTROL.md).

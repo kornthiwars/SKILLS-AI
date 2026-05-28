@@ -1,0 +1,14 @@
+---
+description: Classify change risk LOW / MEDIUM / HIGH before patching
+alwaysApply: false
+---
+
+# Risk classification
+
+| Level | Examples |
+|-------|----------|
+| **LOW** | typo, copy, logging, comment, narrow null guard with proof |
+| **MEDIUM** | validation, query logic, mapping, state handling, config |
+| **HIGH** | auth, payments, concurrency, infra, schema, security behavior, public API break |
+
+State the level in chat before patching. HIGH defaults to approval gate.

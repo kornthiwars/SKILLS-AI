@@ -1,0 +1,14 @@
+---
+description: Prefer smallest patch that fixes the proven root cause
+globs: "**/*"
+alwaysApply: false
+---
+
+# Minimal change
+
+- Change only what the proven root cause requires.
+- Do not combine bugfixes with refactors, cleanup, optimizations, or new features.
+- Prefer localized fixes over cross-cutting rewrites.
+- Align with `clean-code.mdc` for style; this rule governs **scope**.
+
+See patch budget in `change-control-manifest.mdc`.

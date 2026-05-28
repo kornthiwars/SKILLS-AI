@@ -1,0 +1,14 @@
+---
+description: Extra caution for production-facing config, deploy, and secrets
+globs: "**/.env*,**/deploy/**,**/infra/**,**/*prod*,**/k8s/**,**/terraform/**"
+alwaysApply: false
+---
+
+# Production safety
+
+- never commit secrets or paste credentials in chat
+- no prod writes without explicit environment confirmation
+- no destructive ops without approval
+- prefer read-only investigation first
+
+Invoke `/sql` with prod gates; use `/builder-infrastructure` for IaC changes.

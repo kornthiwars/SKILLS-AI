@@ -1,7 +1,7 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.0.4"
+  version: "1.0.5"
 description: >-
   Outsider review of plans, PRs, or diffs — intent, simpler alternatives, end-to-end
   trace with evidence. Invoke with /scrutinize before merge or for a second opinion.
@@ -17,6 +17,10 @@ Stand outside the change and ask whether it should exist at all, then verify it 
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Change-control
+
+Apply [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) and [`workflow/response-format.mdc`](../../ai-rules/workflow/response-format.mdc) when recommending code changes. Classify risk per [`risk/risk-classification.mdc`](../../ai-rules/risk/risk-classification.mdc).
 
 ## Operating stance
 

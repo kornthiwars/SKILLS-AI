@@ -1,0 +1,15 @@
+---
+description: Prefer safe order — tests/repro first, then minimal fix, then verify
+globs: "**/*"
+alwaysApply: false
+---
+
+# Safe edit order
+
+1. Establish repro or failing test
+2. Apply smallest proven fix
+3. Verify repro passes
+4. Run targeted regression checks
+5. Only then optional cleanup (separate patch)
+
+Do not reorder to "clean up first" during incident fixes.

@@ -1,0 +1,35 @@
+name: Skills quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Smoke skills and rules
+        run: |
+          chmod +x scripts/smoke-skills.sh scripts/change-control-check.sh
+          ./scripts/smoke-skills.sh
+
+      - name: Change-control budget (diff vs base)
+        run: |
+          git fetch origin main --depth=1 2>/dev/null || true
+          if git rev-parse origin/main >/dev/null 2>&1; then
+            git diff --numstat origin/main...HEAD > /tmp/numstat.txt || true
+            if [ -s /tmp/numstat.txt ]; then
+              files=$(wc -l < /tmp/numstat.txt | tr -d ' ')
+              lines=$(awk '{s+=$1+$2} END {print s+0}' /tmp/numstat.txt)
+              echo "PR diff: $files files, $lines lines"
+              if [ "$files" -gt 5 ] || [ "$lines" -gt 120 ]; then
+                echo "WARN: exceeds default patch budget (5 files / 120 lines)"
+                echo "OK if intentional — use [BUDGET-OVERRIDE] in commit message"
+              fi
+            fi
+          fi
+          ./scripts/change-control-check.sh || true

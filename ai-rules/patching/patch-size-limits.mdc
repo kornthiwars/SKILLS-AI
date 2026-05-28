@@ -1,0 +1,17 @@
+---
+description: Keep debug/fix patches small — no drive-by refactors
+globs: "**/*"
+alwaysApply: false
+---
+
+# Patch size limits
+
+During bugfixes prefer:
+
+- localized condition fixes
+- narrow guards
+- wrapper mitigations
+
+Do not combine refactor, cleanup, optimization, or feature work with the same patch.
+
+Default budget: see `change-control-manifest.mdc` (≤120 lines, ≤5 files).

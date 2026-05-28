@@ -1,0 +1,17 @@
+---
+description: Require failing vs expected behavior and evidence before modifying code
+globs: "**/*.{ts,tsx,js,jsx,py,go,rs,java,kt,cs,php,rb,sql}"
+alwaysApply: false
+---
+
+# Diagnosis first
+
+Before modifying code, state:
+
+- failing behavior
+- expected behavior
+- affected layer (UI, API, DB, infra, config)
+- execution path (entry → failure)
+- root-cause evidence (logs, stack, trace, state)
+
+Do not patch speculative causes. If evidence is missing, gather it or ask.

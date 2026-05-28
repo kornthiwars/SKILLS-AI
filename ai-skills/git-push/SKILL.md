@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
 description: >-
   Safe inspect, commit (explicit request only), and push; dirty-tree matrix, SSH
   identity, multi-account remotes. Invoke with /git-push or ยืนยัน after blocked push.
@@ -40,6 +40,10 @@ When pushing **this** repository:
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Change-control
+
+Before commit: run `./scripts/change-control-check.sh` when available. Respect patch budget and [`approval-gates`](../../ai-rules/risk/approval-gates.mdc) in [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc).
 
 ---
 

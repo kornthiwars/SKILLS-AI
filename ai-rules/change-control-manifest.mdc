@@ -1,0 +1,72 @@
+---
+description: AI change-control system — observe before patch, scope, confidence, verification
+alwaysApply: true
+---
+
+# Change-control manifest
+
+SKILLS-AI treats the agent as a **change-control system**, not only a coding assistant.
+
+## Execution sequence (do not skip)
+
+1. Observe
+2. Reproduce (or prove not reproducible)
+3. Isolate
+4. Diagnose with evidence
+5. Disprove alternatives
+6. Assess impact and risk
+7. Propose minimal patch
+8. Verify
+9. Regression check
+
+**Never patch before diagnosis.** For bugs, invoke `/debug` (mantra + ledger).
+
+## Patch budget (default)
+
+| Limit | Value |
+|-------|-------|
+| Max files | 5 |
+| Max lines changed (add+del) | 120 |
+
+If exceeded: justify each file/region in chat, or stop and split work.  
+Commit may include `[BUDGET-OVERRIDE]` only with explicit user approval.
+
+Run `./scripts/change-control-check.sh` before commit when available.
+
+## Confidence-weighted permissions
+
+| Confidence | Risk | Action |
+|------------|------|--------|
+| ≥ 0.9 | LOW | May apply localized patch |
+| 0.7 – 0.89 | any | Propose patch; prefer user review |
+| < 0.7 | any | Diagnose only — no patch |
+
+Stop and ask if runtime behavior is unknown, multiple root causes remain plausible, or impact cannot be estimated.
+
+## Skill orchestration (Layer 2)
+
+| Situation | Skill |
+|-----------|--------|
+| Bug / stack trace | `/debug` |
+| Review plan or PR | `/scrutinize` |
+| Database | `/sql` |
+| Git publish | `/git-push` |
+| Prior vault notes | `/vault-recall` |
+| Skill/rule upgrades | `/upgrade-ai` |
+| Long RCA after fix | `/fix-record` |
+
+## Production prohibitions
+
+- speculative fixes without evidence
+- broad refactors mixed with bugfixes
+- hidden behavior or silent fallback changes
+- implicit API/contract changes
+- destructive schema changes without plan + approval
+- rewriting unrelated modules
+
+## Rule layers
+
+- **This file** — always-on gates
+- **`ai-rules/{core,patching,architecture,testing,risk,workflow}/`** — scoped rules (globs / intelligent)
+- **Skills** — deep workflows on invoke
+- **Scripts** — `smoke-skills.sh`, `change-control-check.sh`, CI

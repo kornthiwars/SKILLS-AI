@@ -1,0 +1,16 @@
+---
+description: Database schema changes require migration plan and approval — use /sql
+globs: "**/migrations/**,**/schema/**,**/prisma/**,**/*migration*.{sql,py,ts,js}"
+alwaysApply: false
+---
+
+# Schema change protection
+
+Schema changes require:
+
+- migration plan (toolchain, not ad-hoc prod DDL)
+- rollback strategy
+- compatibility analysis
+- data safety assessment
+
+Never auto-run destructive schema changes. Invoke `/sql` (MIGRATE mode) and get explicit prod confirmation when needed.

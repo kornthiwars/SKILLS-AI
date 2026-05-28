@@ -1,0 +1,11 @@
+---
+description: Require reliable reproduction before bugfix patches
+globs: "**/*"
+alwaysApply: false
+---
+
+# Reproduce before fix
+
+No bugfix patch until reproduction is reliable or you document why repro is impossible and what artifact is needed.
+
+Invoke `/debug` for systematic repro, fail-path trace, and breadcrumb ledger.

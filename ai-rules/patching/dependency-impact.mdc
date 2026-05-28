@@ -1,0 +1,15 @@
+---
+description: Consider downstream impact before editing shared or imported modules
+globs: "**/*"
+alwaysApply: false
+---
+
+# Dependency impact
+
+Before editing a module others import:
+
+- list likely dependents (grep or trace)
+- note public exports/contracts used
+- prefer local fix over changing shared behavior
+
+If shared behavior must change, call out regression risk explicitly.

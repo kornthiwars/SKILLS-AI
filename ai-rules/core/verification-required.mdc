@@ -1,0 +1,16 @@
+---
+description: Never claim fixed without validation evidence
+globs: "**/*"
+alwaysApply: false
+---
+
+# Verification required
+
+Before claiming success:
+
+- state expected outcome after the patch
+- run or describe verification (test, repro, lint) for the affected flow
+- note what was **not** run and why
+- list regression risks for adjacent behavior
+
+If verification cannot run, say so explicitly — do not imply the fix is proven.

@@ -1,0 +1,16 @@
+---
+description: Stop when confidence is low or context is missing — do not guess
+alwaysApply: false
+---
+
+# Uncertainty control
+
+Stop immediately and request clarification if:
+
+- multiple root causes remain equally plausible
+- runtime behavior cannot be observed or inferred safely
+- critical context is missing (env, version, repro steps)
+- estimated confidence is below 0.7 for the proposed fix
+- blast radius cannot be estimated
+
+Prefer diagnosis-only turns over risky patches.

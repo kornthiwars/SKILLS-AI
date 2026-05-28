@@ -1,0 +1,17 @@
+---
+description: Human approval required for HIGH-risk and destructive changes
+alwaysApply: false
+---
+
+# Approval gates
+
+Require explicit user approval before:
+
+- HIGH risk changes (see `risk-classification.mdc`)
+- schema migrations on production
+- auth / security behavior changes
+- destructive operations (delete, truncate, force push)
+- infrastructure / IAM changes
+- public API contract breaks
+
+Use `/git-push` with **ยืนยัน** for commits; never assume `/git-push` alone is consent.

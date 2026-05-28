@@ -1,0 +1,16 @@
+---
+description: Preserve API request/response semantics unless explicitly approved
+globs: "**/api/**,**/routes/**,**/controllers/**,**/handlers/**,**/*route*.{ts,js,py,go}"
+alwaysApply: false
+---
+
+# API contract safety
+
+Do not change without explicit approval:
+
+- request shape
+- response shape
+- status code semantics
+- field meaning or required/optional status
+
+Preserve backward compatibility. Use `/builder-api` for intentional contract design.

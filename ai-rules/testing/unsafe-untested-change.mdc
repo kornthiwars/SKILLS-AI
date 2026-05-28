@@ -1,0 +1,14 @@
+---
+description: Mark high-risk changes unsafe when neither automated nor manual validation exists
+globs: "**/*"
+alwaysApply: false
+---
+
+# Unsafe untested change
+
+HIGH-risk changes (see `risk-classification.mdc`) require:
+
+- automated test coverage for the change, **or**
+- explicit manual validation steps the user can run
+
+If neither exists, label the change **unsafe** and do not claim production-ready.

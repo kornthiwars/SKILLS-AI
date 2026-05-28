@@ -1,0 +1,13 @@
+---
+description: Debugging decisions must cite observable evidence
+globs: "**/*"
+alwaysApply: false
+---
+
+# Evidence-based debugging
+
+Prefer: logs, stack traces, debugger steps, minimal repro scripts.
+
+Avoid: "probably", "might be", "usually" without a matching observation from this session.
+
+Update the debug ledger after each experiment.

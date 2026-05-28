@@ -1,0 +1,16 @@
+---
+description: After a fix, analyze regression exposure on dependents and shared behavior
+globs: "**/*"
+alwaysApply: false
+---
+
+# Regression analysis
+
+After patching, identify:
+
+- affected dependencies and callers
+- shared modules touched
+- edge cases and state transitions
+- failure propagation if the fix is wrong
+
+Document in the session before closing as "fixed".

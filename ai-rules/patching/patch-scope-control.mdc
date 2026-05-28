@@ -1,0 +1,15 @@
+---
+description: Limit edits to files on the failing path or dependency chain
+globs: "**/*.{ts,tsx,js,jsx,py,go,rs,java,kt,cs,php,rb,vue,svelte}"
+alwaysApply: false
+---
+
+# Patch scope control
+
+Modify only files directly related to:
+
+- failing execution path
+- proven dependency chain
+- affected contract (types, API, schema)
+
+Avoid unrelated edits. If more than 5 files: justify each in chat or split the change.

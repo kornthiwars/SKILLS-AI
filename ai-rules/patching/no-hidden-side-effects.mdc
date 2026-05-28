@@ -1,0 +1,16 @@
+---
+description: No silent behavior changes, fallbacks, or broad try/catch without disclosure
+globs: "**/*"
+alwaysApply: false
+---
+
+# No hidden side effects
+
+Forbidden without explicit user approval:
+
+- silent fallback paths that mask errors
+- broad catch-all that swallows failures
+- changed defaults or feature flags
+- logging-only "fixes" that hide user-visible errors
+
+Disclose every behavior change in the summary.

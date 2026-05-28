@@ -7,6 +7,8 @@ alwaysApply: true
 
 Apply these rules when creating or editing application/source code.
 
+Process gates (sequence, budget, risk): [`change-control-manifest.mdc`](./change-control-manifest.mdc) and scoped rules under `ai-rules/*/`.
+
 ## Goals
 
 - keep code readable and maintainable

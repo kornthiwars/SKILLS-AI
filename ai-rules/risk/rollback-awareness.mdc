@@ -1,0 +1,14 @@
+---
+description: Prefer reversible changes; state rollback before risky patches
+alwaysApply: false
+---
+
+# Rollback awareness
+
+Before MEDIUM/HIGH patches, note:
+
+- how to revert (git revert, feature flag, migration down)
+- partial-failure risk
+- data impact on rollback
+
+Prefer reversible, incremental changes.

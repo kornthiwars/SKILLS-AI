@@ -1,0 +1,17 @@
+---
+description: High caution when editing shared modules used by many callers
+globs: "**/shared/**,**/common/**,**/lib/**,**/utils/**,**/core/**"
+alwaysApply: false
+---
+
+# Shared module protection
+
+Treat shared modules as **high risk**.
+
+Before editing:
+
+- identify dependents
+- identify public contracts
+- assess regression exposure
+
+Prefer local mitigation at the call site over changing shared behavior.

@@ -1,0 +1,15 @@
+---
+description: List and reject alternative root causes before committing to a fix
+globs: "**/*"
+alwaysApply: false
+---
+
+# Disprove alternatives
+
+For each candidate root cause:
+
+1. List at least one alternative explanation
+2. State why it is less likely (with evidence)
+3. Note what would disprove the leading hypothesis
+
+Never treat the first plausible idea as confirmed.

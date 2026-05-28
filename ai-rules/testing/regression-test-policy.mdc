@@ -1,0 +1,14 @@
+---
+description: Add or run regression coverage for behavior-changing fixes
+globs: "**/*.{test,spec}.{ts,tsx,js,jsx,py,go}"
+alwaysApply: false
+---
+
+# Regression test policy
+
+When behavior changes:
+
+- add or update automated test when the project has a test harness
+- or document manual regression steps
+
+Prefer tests that lock the fixed repro, not implementation details.

@@ -1,0 +1,16 @@
+---
+description: When automation is missing, provide concrete manual verification steps
+globs: "**/*"
+alwaysApply: false
+---
+
+# Manual test flows
+
+If CI/tests are unavailable, provide numbered manual steps:
+
+1. setup / seed
+2. action
+3. expected result
+4. negative case
+
+Keep steps copy-pasteable (commands, URLs, inputs).

@@ -1,0 +1,13 @@
+---
+description: Root cause must be evidenced end-to-end, not assumed
+globs: "**/*"
+alwaysApply: false
+---
+
+# Root cause proof
+
+Root cause must explain the symptom end-to-end on the traced path.
+
+Required: cite evidence (log line, stack frame, code branch, state value).
+
+If only a hypothesis exists, label it and run disproof first.
