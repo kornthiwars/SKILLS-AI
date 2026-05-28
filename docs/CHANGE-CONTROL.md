@@ -55,3 +55,4 @@ Most sub-rules use **globs** or intelligent activation — not `alwaysApply`, to
 
 - [SKILL-PATTERN.md](./SKILL-PATTERN.md) — skill file structure
 - [SKILL-SMOKE-CHECKLIST.md](./SKILL-SMOKE-CHECKLIST.md) — manual smoke
+- [th/README.md](./th/README.md) — Thai guides for all skills and rules

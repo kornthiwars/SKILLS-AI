@@ -48,7 +48,7 @@ Edit **`ai-skills/`**, **`ai-rules/`**, **`vault/`** in the clone — not inside
 | [git-push](ai-skills/git-push/SKILL.md) | Safe commit + push (sole git skill) |
 | [vault-recall](ai-skills/vault-recall/SKILL.md) | **When:** `/vault-recall` or search vault · **Not:** logging (use `vault-issues.mdc`) · Search SSoT: [reference.md](ai-skills/vault-recall/reference.md) |
 
-Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Change-control: [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) · Smoke: [docs/SKILL-SMOKE-CHECKLIST.md](docs/SKILL-SMOKE-CHECKLIST.md)
+Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Change-control: [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) · Smoke: [docs/SKILL-SMOKE-CHECKLIST.md](docs/SKILL-SMOKE-CHECKLIST.md) · **Thai:** [docs/th/README.md](docs/th/README.md) ([APPENDIX](docs/th/APPENDIX-TH.md))
 
 ---
 

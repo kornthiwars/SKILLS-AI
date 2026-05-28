@@ -29,6 +29,7 @@ Most sub-rules use `globs` or intelligent activation — **not** `alwaysApply`.
 
 - [docs/CHANGE-CONTROL.md](../docs/CHANGE-CONTROL.md)
 - [docs/SKILL-PATTERN.md](../docs/SKILL-PATTERN.md)
+- **Thai:** [docs/th/RULES-TH.md](../docs/th/RULES-TH.md) · [docs/th/README.md](../docs/th/README.md)
 
 ## Verify
 

@@ -2,7 +2,7 @@
 
 Canonical Cursor skills for SKILLS-AI. After clone, run [scripts/setup-macos-linux.sh](../scripts/setup-macos-linux.sh) (or Windows equivalent) so `.cursor/skills` points here.
 
-Authoring: [SKILL-AUTHORING.md](SKILL-AUTHORING.md) · Agents: [AGENTS.md](../AGENTS.md)
+Authoring: [SKILL-AUTHORING.md](SKILL-AUTHORING.md) · Agents: [AGENTS.md](../AGENTS.md) · **คู่มือไทย:** [docs/th/SKILLS-TH.md](../docs/th/SKILLS-TH.md)
 
 | Skill | Invoke |
 |-------|--------|
