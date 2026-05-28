@@ -58,6 +58,7 @@ Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Smoke
 |------|------|
 | [bilingual-th-en.mdc](ai-rules/bilingual-th-en.mdc) | Thai ~60% / English ~40% replies |
 | [vault-issues.mdc](ai-rules/vault-issues.mdc) | Work Q&A in `vault/issues/`; lesson cards in `vault/learnings/` |
+| [clean-code.mdc](ai-rules/clean-code.mdc) | Baseline clean code constraints for AI-generated code |
 
 ---
 

@@ -1,6 +1,6 @@
 # Skill authoring (SKILLS-AI)
 
-Read before creating or editing a skill. Gold examples: [`upgrade-ai/`](upgrade-ai/SKILL.md), [`debug/`](debug/SKILL.md), [`git-push/`](git-push/SKILL.md).
+Read before creating or editing a skill. Gold examples: [`upgrade-ai/`](upgrade-ai/SKILL.md), [`debug/`](debug/SKILL.md), [`git-push/`](git-push/SKILL.md). Core structure baseline: [`../docs/SKILL-PATTERN.md`](../docs/SKILL-PATTERN.md).
 
 ## Repo layout
 
@@ -70,6 +70,16 @@ Skills load in three layers ([agentskills.io](https://agentskills.io/specificati
 ## Git
 
 Only [`git-push`](git-push/SKILL.md) runs git CLI in app repos. For **this** repo: edit `ai-skills/` then `@git-push` with explicit commit consent (**ยืนยัน**).
+
+## Pre-merge check
+
+Run:
+
+```bash
+./scripts/smoke-skills.sh
+```
+
+This script is the fast baseline gate for pattern consistency across skills/rules/templates.
 
 ## Language
 
