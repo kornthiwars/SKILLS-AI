@@ -223,7 +223,6 @@ Template: `templates/template.issue.md`, `templates/template.learning.md`
 | SKILL-AUTHORING / SKILL-PATTERN (EN) | ลิงก์ใน README — ยังไม่แปลทั้งไฟล์ |
 | แปล `reference.md` ทีละไฟล์ | ดัชนีไทย → [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md) (ลิงก์ EN) |
 | Dynamic agent smoke | [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) |
-| examples/ RiskPro mock | [examples/riskpro-risk-register/](../../examples/riskpro-risk-register/) |
 
 ---
 

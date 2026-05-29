@@ -85,18 +85,16 @@ Reject if: excessive duplication, unstable layout across breakpoints, unclear ow
 
 ---
 
-## Static HTML mock (examples/)
+## Static HTML mock (optional, out of repo)
 
-For **standalone demos** (no framework build), ship under `examples/<name>/`:
+For **standalone demos** (no framework build), the consumer project may keep mocks locally — not in the agent-skills repo.
 
 | File | Role |
 |------|------|
 | `index.html` | Semantic layout, form labels, Thai/EN copy |
-| `styles.css` | Tokens (`--orange`, spacing), components, responsive |
+| `styles.css` | Tokens, components, responsive |
 | `README.md` | How to open locally |
 
-**Workflow:** Run phases 1–4 on the reference (screenshot/mock) → implement HTML/CSS → phase 6–7 checklist.
-
-**Reference implementation:** [examples/riskpro-risk-register/](../../examples/riskpro-risk-register/) (RiskPro Risk Register).
+**Workflow:** Run phases 1–4 on the reference (screenshot/mock) → implement HTML/CSS in the target app → phase 6–7 checklist.
 
 **Non-goals for mocks:** backend, auth, framework migration — unless user requests next step.

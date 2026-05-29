@@ -12,7 +12,6 @@
 | [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md) | ลิงก์ไป `reference.md` ภาษาอังกฤษทุก skill |
 | [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | ภาษาอังกฤษ — สถาปัตยกรรม 3 ชั้น (rules + skills + scripts) |
 | [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) | สคริปต์ทดสอบ agent มือ (8 scenarios) |
-| [examples/README.md](../../examples/README.md) | UI mock — RiskPro Risk Register |
 
 ## agent-skills คืออะไร
 

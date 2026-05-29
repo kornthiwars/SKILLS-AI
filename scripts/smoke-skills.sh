@@ -50,8 +50,6 @@ check_file "docs/CHANGE-CONTROL.md"
 check_file "docs/DYNAMIC-AGENT-SMOKE.md"
 check_file "docs/th/README.md"
 check_file "docs/th/SKILLS-TH.md"
-check_file "examples/README.md"
-check_file "examples/riskpro-risk-register/index.html"
 check_file "scripts/change-control-check.sh"
 
 # Production rule tree (minimum set)

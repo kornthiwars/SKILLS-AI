@@ -64,18 +64,6 @@ Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Chang
 
 ---
 
-## Examples (`examples/`)
-
-Static HTML/UI mocks — not linked into `.cursor/`. See [examples/README.md](examples/README.md).
-
-| Demo | Open |
-|------|------|
-| [riskpro-risk-register](examples/riskpro-risk-register/) | `open examples/riskpro-risk-register/index.html` |
-
-Use with `/builder-ui` for layout and component structure review.
-
----
-
 ## Git in this repo
 
-Ship changes with **`@git-push`** only. Commit canonical paths (`ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `docs/`, `examples/`) — not daily vault content (`vault/issues/*.md`, `vault/learnings/*` except README are gitignored).
+Ship changes with **`@git-push`** only. Commit canonical paths (`ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `docs/`) — not daily vault content (`vault/issues/*.md`, `vault/learnings/*` except README are gitignored).

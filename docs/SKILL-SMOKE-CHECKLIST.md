@@ -31,10 +31,9 @@ Reload Cursor after rule changes.
 | sql | Prod gate |
 | vault-recall | ≤3 learning files |
 
-## Docs & examples
+## Docs
 
 - [ ] `docs/th/README.md` present (Thai guides)
-- [ ] `examples/` demo opens in browser if UI work shipped
 
 ## CI
 
