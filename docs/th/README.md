@@ -9,7 +9,10 @@
 | [SKILLS-TH.md](./SKILLS-TH.md) | 12 skills — เรียกด้วย `/ชื่อ-skill` |
 | [RULES-TH.md](./RULES-TH.md) | 34 rules — โหลดอัตโนมัติตาม Cursor |
 | [APPENDIX-TH.md](./APPENDIX-TH.md) | เติมรายละเอียด — versions, reference.md, vault, globs, smoke/CI, mantra |
+| [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md) | ลิงก์ไป `reference.md` ภาษาอังกฤษทุก skill |
 | [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | ภาษาอังกฤษ — สถาปัตยกรรม 3 ชั้น (rules + skills + scripts) |
+| [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) | สคริปต์ทดสอบ agent มือ (8 scenarios) |
+| [examples/README.md](../../examples/README.md) | UI mock — RiskPro Risk Register |
 
 ## SKILLS-AI คืออะไร
 

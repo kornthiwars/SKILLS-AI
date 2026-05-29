@@ -1,7 +1,7 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
 description: >-
   Design scalable, accessible UI systems from visual references — layout,
   components, responsive behavior, a11y. Invoke with /builder-ui for frontend

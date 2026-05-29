@@ -45,6 +45,7 @@ Edit canonical folders in the **SKILLS-AI** repo only — not inside the target 
 chmod +x scripts/smoke-skills.sh scripts/change-control-check.sh
 ./scripts/smoke-skills.sh           # rules + skills structure
 ./scripts/change-control-check.sh   # patch budget (5 files / 120 lines)
+# CI/PR: DIFF_BASE=origin/main...HEAD ./scripts/change-control-check.sh
 ```
 
-See [docs/CHANGE-CONTROL.md](../docs/CHANGE-CONTROL.md).
+See [docs/CHANGE-CONTROL.md](../docs/CHANGE-CONTROL.md) · Dynamic scenarios: [docs/DYNAMIC-AGENT-SMOKE.md](../docs/DYNAMIC-AGENT-SMOKE.md).

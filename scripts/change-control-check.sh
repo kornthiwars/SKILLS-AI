@@ -2,6 +2,7 @@
 # Enforce patch budget from change-control-manifest.mdc on working tree diff
 # Usage: ./scripts/change-control-check.sh
 # Env: MAX_FILES=5 MAX_LINES=120 SKIP_CHANGE_CONTROL=1 to bypass
+# Env: DIFF_BASE=origin/main...HEAD  (CI/PR — diff range instead of working tree)
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -20,6 +21,12 @@ if ! git rev-parse --git-dir >/dev/null 2>&1; then
   exit 0
 fi
 
+if [ -n "${DIFF_BASE:-}" ]; then
+  diff_source="$DIFF_BASE"
+else
+  diff_source="HEAD"
+fi
+
 file_count=0
 line_total=0
 while IFS=$'\t' read -r add del file; do
@@ -34,7 +41,7 @@ while IFS=$'\t' read -r add del file; do
   if [ "$add" -eq "$add" ] 2>/dev/null && [ "$del" -eq "$del" ] 2>/dev/null; then
     line_total=$((line_total + add + del))
   fi
-done < <(git diff --numstat HEAD 2>/dev/null || git diff --numstat 2>/dev/null || true)
+done < <(git diff --numstat "$diff_source" 2>/dev/null || true)
 
 if [ "$file_count" -eq 0 ]; then
   printf 'PASS no diff — change-control-check\n'
@@ -52,6 +59,16 @@ fi
 if git log -1 --format=%B 2>/dev/null | grep -q '\[BUDGET-OVERRIDE\]'; then
   printf 'PASS change-control-check ([BUDGET-OVERRIDE] in HEAD commit message)\n'
   exit 0
+fi
+
+if [ -n "${DIFF_BASE:-}" ]; then
+  base_ref="${DIFF_BASE%%...*}"
+  if git rev-parse "$base_ref" >/dev/null 2>&1; then
+    if git log "${base_ref}..HEAD" --format=%B 2>/dev/null | grep -q '\[BUDGET-OVERRIDE\]'; then
+      printf 'PASS change-control-check ([BUDGET-OVERRIDE] in PR commit range)\n'
+      exit 0
+    fi
+  fi
 fi
 
 printf 'FAIL change-control-check — budget exceeded\n'

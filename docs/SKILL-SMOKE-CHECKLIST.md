@@ -16,9 +16,10 @@ Reload Cursor after rule changes.
 ## Change-control
 
 - [ ] Agent does not patch before diagnosis on bugs
-- [ ] Patch >5 files → justify or stop
+- [ ] Patch >5 files → justify, stop, or `[BUDGET-OVERRIDE]` in commit
 - [ ] HIGH risk → asks approval
-- [ ] `/debug` used for stack traces
+- [ ] `/debug` used for stack traces — **mantra** on first reply (or user skips)
+- [ ] `./scripts/change-control-check.sh` PASS before commit (or intentional override)
 
 ## Core skills
 
@@ -28,8 +29,18 @@ Reload Cursor after rule changes.
 | scrutinize | Skill PR checklist + manifest |
 | git-push | Blocked without ยืนยัน |
 | sql | Prod gate |
-| vault-recall | ≤3 files |
+| vault-recall | ≤3 learning files |
+
+## Docs & examples
+
+- [ ] `docs/th/README.md` present (Thai guides)
+- [ ] `examples/` demo opens in browser if UI work shipped
 
 ## CI
 
 - [ ] `.github/workflows/skills-quality.yml` green on PR
+- [ ] PR over patch budget fails CI unless `[BUDGET-OVERRIDE]` in a commit on the branch
+
+## Dynamic (manual)
+
+Run scenarios in [DYNAMIC-AGENT-SMOKE.md](./DYNAMIC-AGENT-SMOKE.md) after major rule/skill changes.

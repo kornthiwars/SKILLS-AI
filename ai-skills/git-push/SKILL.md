@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.1.2"
+  version: "1.1.3"
 description: >-
   Safe inspect, commit (explicit request only), and push; dirty-tree matrix, SSH
   identity, multi-account remotes. Invoke with /git-push or ยืนยัน after blocked push.
@@ -31,7 +31,7 @@ This skill does NOT:
 
 When pushing **this** repository:
 
-- Edit and commit **`ai-skills/`**, **`ai-rules/`**, **`scripts/`**, **`templates/`**, **`docs/`** — not files only under `.cursor/` junctions.
+- Edit and commit **`ai-skills/`**, **`ai-rules/`**, **`scripts/`**, **`templates/`**, **`docs/`**, **`examples/`** — not files only under `.cursor/` junctions.
 - After clone, run `./scripts/setup-macos-linux.sh .` so Cursor loads linked skills.
 - `vault/issues/*.md` and `vault/learnings/*` (except README) are **gitignored** — local only.
 

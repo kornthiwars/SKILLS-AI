@@ -82,3 +82,21 @@ Reject if: excessive duplication, unstable layout across breakpoints, unclear ow
 - Any component >300 lines?
 - Prop drilling hotspots?
 - Reusable variants extracted?
+
+---
+
+## Static HTML mock (examples/)
+
+For **standalone demos** (no framework build), ship under `examples/<name>/`:
+
+| File | Role |
+|------|------|
+| `index.html` | Semantic layout, form labels, Thai/EN copy |
+| `styles.css` | Tokens (`--orange`, spacing), components, responsive |
+| `README.md` | How to open locally |
+
+**Workflow:** Run phases 1–4 on the reference (screenshot/mock) → implement HTML/CSS → phase 6–7 checklist.
+
+**Reference implementation:** [examples/riskpro-risk-register/](../../examples/riskpro-risk-register/) (RiskPro Risk Register).
+
+**Non-goals for mocks:** backend, auth, framework migration — unless user requests next step.

@@ -221,7 +221,9 @@ Template: `templates/template.issue.md`, `templates/template.learning.md`
 | smoke / budget / CI | ครบ (§8) |
 | globs ทุก rule | ครบ (§9) |
 | SKILL-AUTHORING / SKILL-PATTERN (EN) | ลิงก์ใน README — ยังไม่แปลทั้งไฟล์ |
-| แปล `reference.md` ทีละไฟล์ | ยังไม่ทำ (ยาวมาก — อ่าน EN + คู่มือหลักไทย) |
+| แปล `reference.md` ทีละไฟล์ | ดัชนีไทย → [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md) (ลิงก์ EN) |
+| Dynamic agent smoke | [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) |
+| examples/ RiskPro mock | [examples/riskpro-risk-register/](../../examples/riskpro-risk-register/) |
 
 ---
 

@@ -34,8 +34,11 @@ Most sub-rules use **globs** or intelligent activation — not `alwaysApply`, to
 
 ```bash
 ./scripts/smoke-skills.sh          # static baseline
-./scripts/change-control-check.sh  # patch budget on current diff
+./scripts/change-control-check.sh  # patch budget on working tree (HEAD)
+DIFF_BASE=origin/main...HEAD ./scripts/change-control-check.sh  # PR range (CI)
 ```
+
+**CI** (`.github/workflows/skills-quality.yml`): smoke hard-fails; PR budget fails unless `[BUDGET-OVERRIDE]` appears in a commit on the branch.
 
 ## Patch budget (default)
 
@@ -56,3 +59,4 @@ Most sub-rules use **globs** or intelligent activation — not `alwaysApply`, to
 - [SKILL-PATTERN.md](./SKILL-PATTERN.md) — skill file structure
 - [SKILL-SMOKE-CHECKLIST.md](./SKILL-SMOKE-CHECKLIST.md) — manual smoke
 - [th/README.md](./th/README.md) — Thai guides for all skills and rules
+- [DYNAMIC-AGENT-SMOKE.md](./DYNAMIC-AGENT-SMOKE.md) — manual agent scenarios
