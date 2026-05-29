@@ -1,18 +1,27 @@
 #!/usr/bin/env bash
 # Symlink .cursor/skills, .cursor/rules, .cursor/vault + ai-skills-vault.json
-# Usage: ./scripts/setup-macos-linux.sh <install-root>
-# Example (workspace = parent): ./scripts/setup-macos-linux.sh ..
+# Usage: ./scripts/setup-macos-linux.sh [install-root]
+# Default (no arg): parent of agent-skills — typical when Cursor opens the project folder.
+# Use "." or "--here" when Cursor opens agent-skills/ itself.
 set -euo pipefail
 
-if [ "${1:-}" = '' ]; then
-  echo "Usage: $0 <install-root>" >&2
-  echo "Example: $0 ..    # Cursor opens parent folder containing agent-skills" >&2
-  echo "Example: $0 .     # from repo root when Cursor opens agent-skills" >&2
-  exit 1
-fi
-
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-INSTALL_ROOT="$(cd "$1" && pwd)"
+
+resolve_install_root() {
+  case "${1:-}" in
+    '' | --parent | parent)
+      cd "$REPO_ROOT/.." && pwd
+      ;;
+    --here | here | .)
+      printf '%s\n' "$REPO_ROOT"
+      ;;
+    *)
+      cd "$1" && pwd
+      ;;
+  esac
+}
+
+INSTALL_ROOT="$(resolve_install_root "${1:-}")"
 
 SKILLS="$REPO_ROOT/ai-skills"
 RULES="$REPO_ROOT/ai-rules"
@@ -100,8 +109,24 @@ bootstrap_daily_issues() {
   printf 'OK  created vault/issues/%s.md\n' "$today"
 }
 
+cleanup_in_repo_cursor() {
+  local skills_link="$REPO_ROOT/.cursor/skills"
+  local skills_target
+
+  [ "$INSTALL_ROOT" = "$REPO_ROOT" ] && return 0
+  [ ! -L "$skills_link" ] && return 0
+
+  skills_target="$(python3 -c 'import os, sys; print(os.path.realpath(sys.argv[1]))' "$skills_link")"
+  [ "$skills_target" = "$(cd "$SKILLS" && pwd)" ] || return 0
+
+  rm -rf "$REPO_ROOT/.cursor"
+  printf 'OK  removed in-repo .cursor (links now at parent)\n'
+}
+
 printf 'Install: %s\n' "$INSTALL_ROOT"
 printf 'Repo:    %s\n\n' "$REPO_ROOT"
+
+cleanup_in_repo_cursor
 
 link_dir "$INSTALL_ROOT/.cursor/skills" "$SKILLS"
 link_dir "$INSTALL_ROOT/.cursor/rules" "$RULES"

@@ -35,8 +35,8 @@ cd agent-skills
 
 ```bash
 chmod +x scripts/setup-macos-linux.sh
-./scripts/setup-macos-linux.sh .    # workspace = agent-skills
-./scripts/setup-macos-linux.sh ..   # workspace = parent project
+./scripts/setup-macos-linux.sh      # default: parent project (e.g. exat/)
+./scripts/setup-macos-linux.sh .    # workspace = agent-skills only
 ```
 
 **Windows** — double-click `scripts\setup-windows.bat` หรือดู [scripts/README.md](scripts/README.md)

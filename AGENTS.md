@@ -13,12 +13,12 @@ Pass **install root** = the folder you open in Cursor (workspace root). See [scr
 | OS | Command |
 |----|---------|
 | Windows | `.\scripts\setup-windows.ps1 -InstallRoot <workspace>` |
-| macOS / Linux | `./scripts/setup-macos-linux.sh <workspace>` (requires `python3`) |
+| macOS / Linux | `./scripts/setup-macos-linux.sh` (requires `python3`; default = parent folder) |
 
 | Cursor workspace | From inside agent-skills clone |
 |------------------|-------------------------------|
-| Repo root | `-InstallRoot .` |
-| Parent project | `-InstallRoot ..` |
+| Parent project (default) | `./scripts/setup-macos-linux.sh` |
+| Repo root only | `./scripts/setup-macos-linux.sh .` |
 
 Creates under `<workspace>/.cursor/`:
 

@@ -1,15 +1,25 @@
 #Requires -Version 5.1
 # Junction .cursor/skills, .cursor/rules, .cursor/vault + ai-skills-vault.json
 param(
-    [Parameter(Mandatory)]
-    [string]$InstallRoot
+    [string]$InstallRoot = ''
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-$InstallRoot = (Resolve-Path -LiteralPath $InstallRoot).Path
+
+switch ($InstallRoot) {
+    { $_ -in '', '--parent', 'parent' } {
+        $InstallRoot = (Resolve-Path (Join-Path $RepoRoot '..')).Path
+    }
+    { $_ -in '--here', 'here', '.' } {
+        $InstallRoot = $RepoRoot
+    }
+    default {
+        $InstallRoot = (Resolve-Path -LiteralPath $InstallRoot).Path
+    }
+}
 
 $Skills = Join-Path $RepoRoot 'ai-skills'
 $Rules = Join-Path $RepoRoot 'ai-rules'
@@ -94,9 +104,25 @@ function Bootstrap-DailyIssues {
     Write-Host "OK  created vault/issues/$today.md"
 }
 
+function Remove-InRepoCursorIfNeeded {
+    if ($InstallRoot -eq $RepoRoot) { return }
+    $skillsLink = Join-Path $RepoRoot '.cursor\skills'
+    if (-not (Test-Path -LiteralPath $skillsLink)) { return }
+    $item = Get-Item -LiteralPath $skillsLink -Force
+    if ($item.LinkType -ne 'Junction') { return }
+    $current = $item.Target
+    if ($current -is [array]) { $current = $current[0] }
+    $skillsAbs = (Resolve-Path -LiteralPath $Skills).Path
+    if ($current -ne $skillsAbs) { return }
+    Remove-Item -LiteralPath (Join-Path $RepoRoot '.cursor') -Force -Recurse
+    Write-Host 'OK  removed in-repo .cursor (links now at parent)'
+}
+
 Write-Host "Install: $InstallRoot"
 Write-Host "Repo:    $RepoRoot"
 Write-Host ""
+
+Remove-InRepoCursorIfNeeded
 
 Set-Junction (Join-Path $InstallRoot '.cursor\skills') $Skills
 Set-Junction (Join-Path $InstallRoot '.cursor\rules')  $Rules
