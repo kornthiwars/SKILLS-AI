@@ -61,6 +61,7 @@ Possible improvements:
 - **Do not** ship content edits at the same version number.
 - **Do not** duplicate version in the markdown body; use `metadata.version` only.
 - When upgrading multiple skills in one session, bump **each** touched skill independently.
+- Phase 7 output must include a **Version bump plan** (old → new per touched file).
 
 ---
 
@@ -91,27 +92,24 @@ When diagnosing or upgrading **this** repository:
 
 ---
 
-## Decision Rules
+## Decision rules
 
-### Minimal Change Bias
+Production gates (observe → verify, patch budget, confidence): [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) — link, do not copy the full sequence into skills.
 
-Prefer:
-- smaller fixes
-- isolated improvements
-- lower regression risk
-- simpler reasoning paths
+**Minimal change bias** for skill edits:
 
-Avoid:
-- unnecessary rewrites
-- premature abstraction
-- architecture escalation
-- speculative redesign
+| Prefer | Avoid |
+|--------|--------|
+| smaller fixes, isolated improvements | unnecessary rewrites |
+| lower regression risk | premature abstraction |
+| simpler reasoning paths | architecture escalation without evidence |
 
 ---
 
-## Complexity Governance
+## Complexity governance
 
-Trigger decomposition when ANY of:
+Trigger decomposition when **any** of (also listed under **Activate When** in `SKILL.md`):
+
 - prompt > 300 lines
 - > 5 responsibilities
 - unstable reasoning appears
@@ -121,7 +119,7 @@ Trigger decomposition when ANY of:
 
 ---
 
-## Decomposition Rules
+## Decomposition rules
 
 Split skills when:
 - responsibilities conflict
@@ -130,19 +128,11 @@ Split skills when:
 - verification becomes difficult
 - outputs become inconsistent
 
-Possible subskills (only if single-file split is insufficient):
-- diagnostician
-- architect
-- verifier
-- critic
-- optimizer
-- orchestrator
-
-Prefer **core + reference** before splitting into multiple skill files.
+**Order:** prefer **core + `reference.md`** before creating multiple skill files. Only split into separate skills when a single skill folder cannot hold stable responsibilities.
 
 ---
 
-## Verification Standards
+## Verification standards
 
 A successful upgrade must improve at least one:
 - accuracy
@@ -155,46 +145,35 @@ A successful upgrade must improve at least one:
 
 Without significantly degrading others.
 
-Required tests (Phase 8):
+**Success criteria (long-term):** upgrades become safer and faster; regressions and complexity growth decrease; reasoning stays stable; skills stay maintainable.
+
+**Required tests (Phase 8):**
 - original failing case
 - nearby edge cases
 - historical working behavior
 - regression scenarios
+- structural audit path: smoke/authoring checks when no runtime repro exists
 
 ---
 
-## Anti-Patterns
+## Anti-patterns and failure memory
 
-Avoid:
-- patching before reproduction
-- guessing without evidence
-- mixing unrelated failures
-- solving symptoms only
-- excessive prompt growth
-- overengineering
-- premature optimization
-- architectural rewrites without justification
-- escalating complexity unnecessarily
-- adding abstraction without measurable benefit
+Avoid and watch for these recurring traps:
 
----
+| Anti-pattern | Related failure memory |
+|--------------|-------------------------|
+| patching before reproduction | premature conclusions |
+| guessing without evidence | speculative reasoning |
+| mixing unrelated failures | instruction conflicts |
+| solving symptoms only | regression-prone fixes |
+| excessive prompt growth | prompt inflation, context pollution |
+| overengineering / unjustified redesign | unstable decomposition |
+| skipped verification | role ambiguity |
+| adding abstraction without measurable benefit | — |
+| **vault search drift** — grep tables copied outside [`vault-recall/reference.md`](../vault-recall/reference.md) | link instead of copy-paste |
+| **issues vs learnings confusion** — daily Q&A format in `learnings/` | use [`templates/template.learning.md`](../../templates/template.learning.md) lesson card |
 
-## Failure Memory
-
-Recurring patterns to watch for:
-- premature conclusions
-- unstable decomposition
-- instruction conflicts
-- excessive prompt inflation
-- context pollution
-- role ambiguity
-- skipped verification
-- speculative reasoning
-- regression-prone fixes
-- **vault search drift** — grep steps duplicated outside [`vault-recall/reference.md`](../vault-recall/reference.md); link instead of copy-paste
-- **issues vs learnings confusion** — copying daily Q&A format into `learnings/` (use lesson card in `templates/template.learning.md`)
-
-Use these patterns to bias future diagnoses toward known traps.
+Use this table to bias diagnoses toward known traps.
 
 ### Vault recall (diagnosis aid)
 
@@ -216,7 +195,7 @@ When upgrading governance in agent-skills:
 
 ---
 
-## Blast Radius Considerations (Phase 6)
+## Blast radius considerations (Phase 6)
 
 Always check before proposing change:
 - shared prompts

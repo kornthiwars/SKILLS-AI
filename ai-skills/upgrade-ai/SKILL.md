@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.0.11"
+  version: "1.0.12"
 description: >-
   Evidence-based skill diagnosis and minimal upgrades — no blind rewrites. Invoke
   with /upgrade-ai when skills drift, repeat failures, or exceed ~300 lines.
@@ -16,7 +16,7 @@ Mission: Identify the true failure layer before proposing changes.
 
 Purpose: Continuously improve existing skills through structured diagnosis, failure analysis, architecture review, decomposition, and verification — without blind rewrites.
 
-> Depth (catalogs, governance, anti-patterns, failure memory): see [`reference.md`](./reference.md). Load only when needed in Phase 6–8 or when a governance trigger fires.
+> Depth (catalogs, governance, anti-patterns): see [`reference.md`](./reference.md). Load in Phase 6–8 or when a governance trigger fires.
 
 ## Scope Guardrails
 
@@ -26,18 +26,31 @@ Purpose: Continuously improve existing skills through structured diagnosis, fail
 
 ---
 
+# Skill routing
+
+Use this skill only for **skills and rules** in agent-skills (or the user's skill pack). For other work, hand off:
+
+| Situation | Skill |
+|-----------|--------|
+| App bug, stack trace, failing behavior | [`/debug`](../debug/SKILL.md) |
+| Review plan, PR, or diff before merge | [`/scrutinize`](../scrutinize/SKILL.md) |
+| Long RCA after a validated production fix | [`/fix-record`](../fix-record/SKILL.md) |
+| Search vault only (no upgrade) | [`/vault-recall`](../vault-recall/SKILL.md) |
+| Improve skills/rules (this repo or skill pack) | **`/upgrade-ai`** |
+
+Application-code patches: follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) — do not duplicate its full gate list here.
+
+---
+
 # Core Principles
 
-- Evidence before patch
-- Reproduce before conclusion
-- One root cause at a time
-- Disprove alternatives
-- Prefer minimal-change explanations first
-- Isolate ownership before escalation
-- Preserve working behavior whenever possible
-- Complexity must justify value
-- Every upgrade must be verifiable
-- Prefer decomposition over prompt inflation
+Skill-upgrade specifics (general observe→verify gates live in the manifest above):
+
+- Identify the **failure layer** before editing prompts (see layer catalog in `reference.md`).
+- **Prefer decomposition** (`SKILL.md` + `reference.md`) over prompt inflation; split files only when core + reference is insufficient (`reference.md` § Decomposition Rules).
+- **Complexity must justify value** — no redesign without evidence and user scope.
+- **Every upgrade must be verifiable** (Phase 8; standards in `reference.md` § Verification Standards).
+- **Disprove alternatives** before closing root cause (Phase 4–5).
 
 ---
 
@@ -46,7 +59,7 @@ Purpose: Continuously improve existing skills through structured diagnosis, fail
 - Same failure appears ≥ 2 times
 - Outputs become inconsistent or hallucinations rise
 - User repeatedly rejects outputs
-- Prompts grow excessively (> 300 lines, > 5 responsibilities)
+- Prompts grow excessively (> 300 lines, > 5 responsibilities) — see `reference.md` § Complexity governance
 - Debugging or maintenance becomes difficult
 - Regression introduced after updates
 - Responsibilities overlap; instruction conflicts appear
@@ -57,56 +70,43 @@ Do **not** activate for cosmetic issues, speculative optimization, or unjustifie
 
 # Workflow (8 phases)
 
-Run sequentially. Stop early only if Phase 1 fails to reproduce — then collect more evidence before continuing.
+Run sequentially. Stop early only if Phase 1 **failure diagnosis** cannot reproduce — then collect more evidence before continuing.
 
-## Phase 1 — Reproduce
-- Confirm target skill/rules files and constraints from the user request
-- When diagnosing **this** repo (agent-skills): search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 learnings, then issues if needed)
-- Reproduce ≥ 2 times under controlled conditions
-- Capture actual vs expected behavior
-- Output: target paths, reproduction steps, confidence level
+| Phase | Goal | Output |
+|-------|------|--------|
+| 1 Reproduce | Confirm scope; reproduce or audit | paths, steps, confidence |
+| 2 Localize | Find failure layer | layer, affected systems |
+| 3 Isolate | Minimal failing component | source, dependency impact |
+| 4 Hypotheses | ≥ 2 alternatives, reject with evidence | ranked hypotheses |
+| 5 Root cause | Causal chain, evidence only | root cause, confidence |
+| 6 Blast radius | Regression risk | components, safety concerns |
+| 7 Upgrade proposal | Minimal → redesign priority | change, trade-offs, version plan |
+| 8 Verification | Original + edge + regression | results, final confidence |
 
-## Phase 2 — Localize
-- Identify the failure layer (see layer catalog in `reference.md`)
-- Narrow ownership boundary
-- Output: suspected layer, affected systems
+### Phase 1 — Reproduce
 
-## Phase 3 — Isolate
-- Reduce to minimal failing component
-- Separate primary cause from symptoms
-- Output: isolated source, dependency impact
+- Confirm target skill/rules files and constraints from the user request.
+- When diagnosing **this** repo (agent-skills): search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 learnings, then issues if needed).
+- **Failure diagnosis:** reproduce ≥ 2 times under controlled conditions; capture actual vs expected behavior.
+- **Structural / meta audit** (no repeat failure — e.g. “wrong structure?”, token review): scope + static file analysis only; use Response shape; cap confidence ~0.85; do **not** force artificial repro.
 
-## Phase 4 — Competing Hypotheses
-- Generate ≥ 2 alternatives
-- Explain why each rejected one was rejected
-- Output: ranked hypotheses + evidence
+### Phases 2–6
 
-## Phase 5 — Root Cause Analysis
-- Evidence-backed only; no speculation
-- Provide causal chain
-- Output: root cause + confidence
+- Phase 2: layer catalog in `reference.md` § Layer catalog.
+- Phase 3: isolation methods in `reference.md` § Isolation methods.
+- Phase 6: blast radius in `reference.md` § Blast radius considerations.
 
-## Phase 6 — Blast Radius
-- Estimate regression risk and affected systems
-- See blast-radius considerations in `reference.md`
-- Output: affected components, safety concerns
+### Phase 7 — Upgrade Proposal
 
-## Phase 7 — Upgrade Proposal
 - Priority: **minimal fix → structural cleanup → decomposition → redesign**
-- Pick from improvement catalog (`reference.md`)
-- Output: proposed change, complexity impact, trade-offs, non-goals/will-not-change, safer alternatives
-- Version handling (when upgrading skills) — see `reference.md` **Version governance**:
-  - **Mandatory:** any change to `SKILL.md` or `reference.md` content must bump `metadata.version` in the same commit.
-  - Default: **patch** (`1.0.0` → `1.0.1`) for wording, guardrails, paths, triggers, small workflow tweaks.
-  - Use **minor** (`1.0.0` → `1.1.0`) for new phases, decomposition, or behavior that changes how the skill is invoked.
-  - Use **major** only when the user explicitly requests a breaking redesign.
-  - Single source of truth: `metadata.version` in frontmatter only (no duplicate `Version:` in body).
-  - Include a **Version bump plan** in the upgrade output (old → new per affected file).
+- Pick from `reference.md` § Improvement catalog
+- Output: proposed change, complexity impact, trade-offs, non-goals, safer alternatives
+- **Version bumps:** follow [`reference.md`](./reference.md) § Version governance only; include a **Version bump plan** in the upgrade output (old → new per affected file)
 
-## Phase 8 — Verification
+### Phase 8 — Verification
+
 - Test original failing case + edge cases + historical behavior + regressions
-- Standards in `reference.md`
-- Output: verification results, regression status, final confidence
+- Standards: `reference.md` § Verification Standards and success criteria there
 
 ---
 
@@ -156,9 +156,4 @@ When closing a diagnosis run or proposing skill edits, use the full **# Output F
 
 # Success Criteria
 
-This skill succeeds when, over time:
-- upgrades become safer and faster to apply
-- regressions decrease
-- complexity growth slows
-- reasoning becomes more stable
-- skills remain maintainable and scalable
+Over time, upgrades should improve safety, speed, and maintainability without increasing regressions — measurable criteria and Phase 8 tests: [`reference.md`](./reference.md) § Verification Standards.
