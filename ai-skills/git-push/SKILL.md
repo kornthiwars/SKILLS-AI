@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.1.5"
+  version: "1.1.6"
 description: >-
   Safe inspect, commit (explicit request only), and push; dirty-tree matrix, SSH
   identity, multi-account remotes. Invoke with /git-push or ยืนยัน after blocked push.
@@ -88,6 +88,8 @@ git log -3 --oneline
 ```
 
 Also: commits ahead (`git rev-list --count @{u}..HEAD 2>/dev/null` or status), remote URL scheme.
+
+**Secrets / local config:** If `git diff --name-only` or `git diff --staged --name-only` matches `.env`, `.env.*`, or other local-only config — **warn** in Pre-push State; **exclude from commit** unless the user explicitly asks to include them (see [`reference.md`](./reference.md) Phase 2).
 
 ## Phase 2–5
 

@@ -1,19 +1,32 @@
 ---
 name: debug
 metadata:
-  version: "1.0.6"
+  version: "1.0.7"
 description: >-
   Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
-  breadcrumbs. Recite mantra verbatim on first response. Invoke with /debug for bugs,
-  stack traces, or failing behavior.
+  breadcrumbs. User may attach /debug for full mantra; for unknown behavior without
+  /debug, apply the four steps silently. Not for known copy/label-only changes.
 disable-model-invocation: true
 ---
 
 # Debug Mantra
 
-Four-step discipline for any debug session. Recite verbatim, then apply in order.
+Four-step discipline for any debug session.
 
-## Recite this — verbatim, as the first thing in your first response
+## When to use
+
+- User attaches **`/debug`**
+- Wrong behavior, stack trace, flaky failure, data mismatch — root cause not yet known
+- After [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) routes “unknown behavior”
+
+## When NOT to invoke (user does not need `/debug`)
+
+- **Known change** with clear outcome: rename label, fix typo, change `ปี (ค.ศ.)` → `ปี (พ.ศ.)`, remove required `*`, small layout/CSS in an existing component
+- User only asks to implement specified copy/UI — use change-control observe → patch → verify
+
+Still apply steps 1–4 **silently** when behavior is unknown; skip mantra recital unless `/debug` is attached.
+
+## Recite this — verbatim, as the first thing in your first response (only when `/debug` attached)
 
 > **Mantra:**
 > 1. **First is reproducibility.** Can the issue be reproduced reliably?
@@ -47,7 +60,7 @@ Light skeleton for every user-facing turn (bilingual prose per workspace rule; *
 - **Details** — ledger entry, trace step, or evidence (commands/logs in code blocks)
 - **Next step** — single experiment or minimal fix proposal; return to step 1 if no reliable repro exists
 
-First response in a session: still recite the mantra verbatim per **Operating rules**, then use this shape for the rest of the turn.
+First response when **`/debug` is attached**: recite the mantra verbatim per **Operating rules**, then use this shape for the rest of the turn. When `/debug` is **not** attached but debug discipline applies, use this shape **without** the mantra.
 
 ---
 
@@ -95,7 +108,7 @@ Maintain a running **ledger** of every experiment in this session. Each entry: w
 
 ## Operating rules
 
-- Recite the mantra block **once** per debug session, in your first response. Do not re-recite mid-session.
+- Recite the mantra block **once** per debug session, in your first response, **only if** the user attached `/debug`. Do not re-recite mid-session.
 - Recite **verbatim**. Never paraphrase, shorten, or skip lines of the recital.
 - If the user says "skip the mantra" → skip the recital but still apply the four steps silently.
 - Apply the four steps **in order**:

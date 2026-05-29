@@ -19,7 +19,13 @@ agent-skills treats the agent as a **change-control system**, not only a coding 
 8. Verify
 9. Regression check
 
-**Never patch before diagnosis.** For bugs, invoke `/debug` (mantra + ledger).
+**Never patch before diagnosis for unknown behavior.** Follow debug steps 1–4 (reproduce → trace → falsify → ledger). Use full **`/debug`** (mantra + ledger) when the user attaches it or the failure is non-trivial. For **known changes** (copy, labels, styling, remove `*`, small UX) — patch directly after observe; do not recite the debug mantra.
+
+| Work type | Agent route |
+|-----------|-------------|
+| Known text/UI change (outcome specified) | Observe → minimal patch → verify — no `/debug` |
+| Wrong data, flaky, submit/API fail, unknown why | Debug discipline; `/debug` optional accelerator |
+| Unsure | One question: behavior bug vs known copy/UX change? |
 
 ## Patch budget (default)
 
@@ -45,15 +51,19 @@ Stop and ask if runtime behavior is unknown, multiple root causes remain plausib
 
 ## Skill orchestration (Layer 2)
 
+See also [`workflow/decision-tree.mdc`](workflow/decision-tree.mdc) (always-on routing). Skills are **read and followed** when the row applies — user does not have to type `/skill` unless they want the full ritual (e.g. debug mantra).
+
 | Situation | Skill |
 |-----------|--------|
-| Bug / stack trace | `/debug` |
+| Unknown behavior / stack trace | Debug discipline; `/debug` for full mantra |
+| Known copy / label / small UI | Direct edit — no `/debug` |
+| New UI from mock / component system | `/builder-ui` |
 | Review plan or PR | `/scrutinize` |
 | Database | `/sql` |
 | Git publish | `/git-push` |
 | Prior vault notes | `/vault-recall` |
 | Skill/rule upgrades | `/upgrade-ai` |
-| Long RCA after fix | `/fix-record` |
+| Long RCA after validated fix (one root cause) | `/fix-record` |
 
 ## Production prohibitions
 

@@ -33,6 +33,7 @@ Never push uncommitted work. Never assume "confirm" means commit unless intent i
 
 ### When committing
 
+0. **Phase 1 env check** — after `git status` / `git diff`, run `git diff --name-only` and `git diff --staged --name-only`. If any path matches `.env`, `.env.*`, `credentials`, `*.pem`, or `*secret*` → list in **If Blocked** / Pre-push State and recommend `git restore <path>` or omit from `git add` unless the user explicitly includes them.
 1. Never commit secrets (`.env`, credentials, `*.pem`, private keys, tokens)
 2. Untracked expected files → `git check-ignore -v <path>`
 3. Draft 1–2 sentence message focused on **why**

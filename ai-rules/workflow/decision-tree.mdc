@@ -1,18 +1,24 @@
 ---
 description: Route work to the right skill before acting
-alwaysApply: false
+alwaysApply: true
 ---
 
 # Decision tree
 
+Agent routes from user intent **without requiring** a slash command unless the user wants the full skill ritual.
+
 | User intent | First action |
 |-------------|--------------|
-| bug, error, stack trace | `/debug` |
+| bug, error, stack trace, wrong data, flaky | Debug discipline ([`change-control-manifest.mdc`](../change-control-manifest.mdc) steps 1–4); `/debug` if user attached or non-trivial |
+| copy, label, known small UI (outcome clear) | Direct minimal patch — **no** `/debug` mantra |
+| new screen / mock / component architecture | `/builder-ui` |
 | review PR / plan | `/scrutinize` |
 | database / SQL | `/sql` |
 | push / commit | `/git-push` |
 | search past vault notes | `/vault-recall` |
 | improve skills in this repo | `/upgrade-ai` |
-| RCA after validated fix | `/fix-record` |
+| RCA after **one** validated fix | `/fix-record` |
+| one commit, multiple unrelated fixes | PR description or **one fix-record per root cause** — ask scope |
+| unsure bug vs copy | One clarifying question, then row above |
 
 If multiple apply, run in order: recall → diagnose → patch → verify → git-push.

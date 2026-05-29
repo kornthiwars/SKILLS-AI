@@ -1,7 +1,7 @@
 ---
 name: fix-record
 metadata:
-  version: "1.0.4"
+  version: "1.0.5"
 description: >-
   Canonical RCA after a validated fix — mechanism, fix, validation, how it slipped
   through. Invoke with /fix-record when closing a fixed bug (not before fix lands).
@@ -32,6 +32,15 @@ For a leadership-facing summary of the same facts, reframe this record in plain 
 - **Bug not fixed yet, or fix not validated.** A fix record of a hypothesis is misleading. Refuse and tell the user what's missing.
 - **Customer-visible outage / incident.** Those need a separate incident report (timeline, blast radius, paging history, comms). This skill is bug-fix scope. Flag and confirm before producing one.
 - **Trivial fix** (typo, obvious one-liner). The PR description is the record. Don't manufacture ceremony.
+- **One commit, multiple unrelated root causes.** Do not merge into one RCA — see **Multi-fix commits** below.
+
+## Multi-fix commits
+
+When a single commit or PR bundles several independent changes (e.g. label copy + modal bug + validation rule):
+
+1. **Ask scope** — which root cause should this fix-record cover? Or offer one record per cause.
+2. **Default** — PR description lists each change; `/fix-record` only for the **one** bug the user names.
+3. **Refuse** a single monolithic RCA that invents one “root cause” for unrelated fixes.
 
 ## Vault (different artifacts)
 
