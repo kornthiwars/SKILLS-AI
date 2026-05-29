@@ -14,7 +14,7 @@ related_issue: "2026-05-28"
 
 ## Context
 
-SKILLS-AI needed production mindset: risk, scope, verification — not only skill file patterns.
+agent-skills needed production mindset: risk, scope, verification — not only skill file patterns.
 
 ## Symptoms
 

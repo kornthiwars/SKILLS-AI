@@ -73,7 +73,7 @@ Possible improvements:
 
 ---
 
-## Repo layout (SKILLS-AI)
+## Repo layout (agent-skills)
 
 When diagnosing or upgrading **this** repository:
 
@@ -198,16 +198,16 @@ Use these patterns to bias future diagnoses toward known traps.
 
 ### Vault recall (diagnosis aid)
 
-When upgrading skills in SKILLS-AI:
+When upgrading skills in agent-skills:
 
 1. Run search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 learning files)
 2. Check `vault/issues/` last 2 days for repeat topics
 3. In other skills: **link** `reference.md` — do not duplicate the grep table; keep `/vault-recall` for explicit user search
-4. After `/scrutinize` on skill PRs: verify checklist in [`scrutinize/SKILL.md`](../scrutinize/SKILL.md) § SKILLS-AI skill / rule PRs
+4. After `/scrutinize` on skill PRs: verify checklist in [`scrutinize/SKILL.md`](../scrutinize/SKILL.md) § agent-skills skill / rule PRs
 
 ### Production change-control (rules)
 
-When upgrading governance in SKILLS-AI:
+When upgrading governance in agent-skills:
 
 - Prefer [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) as the always-on parent — do not duplicate its gates across many `alwaysApply` files
 - Add scoped rules under `ai-rules/{core,patching,architecture,testing,risk,workflow}/` with `globs` or intelligent activation

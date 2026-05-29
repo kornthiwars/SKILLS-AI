@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.1.3"
+  version: "1.1.4"
 description: >-
   Safe inspect, commit (explicit request only), and push; dirty-tree matrix, SSH
   identity, multi-account remotes. Invoke with /git-push or ยืนยัน after blocked push.
@@ -27,7 +27,7 @@ This skill does NOT:
 - skip hooks (`--no-verify`) unless the user explicitly asks
 - amend commits unless all amend safety conditions are met
 
-## SKILLS-AI repo (this library)
+## agent-skills repo (this library)
 
 When pushing **this** repository:
 

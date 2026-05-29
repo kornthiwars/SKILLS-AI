@@ -1,7 +1,7 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.0.5"
+  version: "1.0.6"
 description: >-
   Outsider review of plans, PRs, or diffs — intent, simpler alternatives, end-to-end
   trace with evidence. Invoke with /scrutinize before merge or for a second opinion.
@@ -80,7 +80,7 @@ Output one tight section per finding. Order by severity (blocker → major → n
 
 Close with a one-line verdict: ship / fix-then-ship / rework / reject — with the single biggest reason.
 
-## SKILLS-AI skill / rule PRs
+## agent-skills skill / rule PRs
 
 When the diff touches `ai-skills/*/SKILL.md`, `*/reference.md`, or `ai-rules/*.mdc`, also verify:
 

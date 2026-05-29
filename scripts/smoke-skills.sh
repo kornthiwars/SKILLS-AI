@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Quick static smoke checks for SKILLS-AI
+# Quick static smoke checks for agent-skills
 # Usage: ./scripts/smoke-skills.sh
 set -euo pipefail
 
@@ -37,7 +37,7 @@ check_contains() {
   fi
 }
 
-printf 'Running SKILLS-AI smoke checks in %s\n\n' "$REPO_ROOT"
+printf 'Running agent-skills smoke checks in %s\n\n' "$REPO_ROOT"
 
 # Critical paths
 check_file "ai-skills/README.md"

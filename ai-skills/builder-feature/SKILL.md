@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
 description: >-
   Orchestrate cross-layer features — workflow analysis, reuse, delegation to
   builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
@@ -75,7 +75,7 @@ Prefer:
 
 ---
 
-# Specialist delegation (SKILLS-AI)
+# Specialist delegation (agent-skills)
 
 | Layer | Skill | Responsibility |
 |---|---|---|

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Universal agent entry point for **SKILLS-AI**
+Universal agent entry point for **agent-skills**
 
 Canonical: [`ai-skills/`](ai-skills/README.md) · [`ai-rules/`](ai-rules/README.md) · [`vault/`](vault/README.md)
 
@@ -15,7 +15,7 @@ Pass **install root** = the folder you open in Cursor (workspace root). See [scr
 | Windows | `.\scripts\setup-windows.ps1 -InstallRoot <workspace>` |
 | macOS / Linux | `./scripts/setup-macos-linux.sh <workspace>` (requires `python3`) |
 
-| Cursor workspace | From inside SKILLS-AI clone |
+| Cursor workspace | From inside agent-skills clone |
 |------------------|-------------------------------|
 | Repo root | `-InstallRoot .` |
 | Parent project | `-InstallRoot ..` |

@@ -2,7 +2,7 @@
 
 Links under `.cursor/` (Windows: NTFS junction · macOS/Linux: symlink):
 
-| Link | Target (in SKILLS-AI repo) |
+| Link | Target (in agent-skills repo) |
 |------|----------------------------|
 | `.cursor/skills` | `ai-skills/` |
 | `.cursor/rules` | `ai-rules/` |
@@ -14,16 +14,16 @@ Pass **install root** = the folder you open in Cursor (workspace root).
 
 ## Windows
 
-**Cursor opens `SKILLS-AI/`** — double-click [setup-windows.bat](setup-windows.bat)
+**Cursor opens `agent-skills/`** — double-click [setup-windows.bat](setup-windows.bat)
 
 ```powershell
 .\scripts\setup-windows.ps1 -InstallRoot C:\path\to\workspace
 ```
 
-**Cursor opens parent folder** (clone SKILLS-AI inside the project):
+**Cursor opens parent folder** (clone agent-skills inside the project):
 
 ```powershell
-cd SKILLS-AI
+cd agent-skills
 .\scripts\setup-windows.ps1 -InstallRoot ..
 ```
 
@@ -31,13 +31,13 @@ cd SKILLS-AI
 
 ```bash
 chmod +x scripts/setup-macos-linux.sh
-./scripts/setup-macos-linux.sh .          # workspace = SKILLS-AI
+./scripts/setup-macos-linux.sh .          # workspace = agent-skills
 ./scripts/setup-macos-linux.sh ..         # workspace = parent project
 ```
 
 Requires `python3` (for `ai-skills-vault.json`).
 
-Edit canonical folders in the **SKILLS-AI** repo only — not inside the target project's `.cursor/` symlinks/junctions.
+Edit canonical folders in the **agent-skills** repo only — not inside the target project's `.cursor/` symlinks/junctions.
 
 ## Quality scripts
 

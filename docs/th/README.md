@@ -1,4 +1,4 @@
-# คู่มือภาษาไทย — SKILLS-AI
+# คู่มือภาษาไทย — agent-skills
 
 เอกสารนี้อธิบาย **ทุก skill** และ **ทุก rule** ใน repo นี้อย่างละเอียดเป็นภาษาไทย
 
@@ -14,9 +14,9 @@
 | [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) | สคริปต์ทดสอบ agent มือ (8 scenarios) |
 | [examples/README.md](../../examples/README.md) | UI mock — RiskPro Risk Register |
 
-## SKILLS-AI คืออะไร
+## agent-skills คืออะไร
 
-**SKILLS-AI** เป็นชุด **Cursor skills** (คำสั่งเชิงลึกเมื่อ invoke) และ **rules** (กฎที่ agent ต้องปฏิบัติ) สำหรับทำงานแบบ production:
+**agent-skills** เป็นชุด **Cursor skills** (คำสั่งเชิงลึกเมื่อ invoke) และ **rules** (กฎที่ agent ต้องปฏิบัติ) สำหรับทำงานแบบ production:
 
 1. **สังเกตก่อนแก้** — มี repro, หลักฐาน, ไม่เดา
 2. **patch เล็ก** — งบไฟล์/บรรทัดจำกัด

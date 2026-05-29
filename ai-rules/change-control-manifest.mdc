@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Change-control manifest
 
-SKILLS-AI treats the agent as a **change-control system**, not only a coding assistant.
+agent-skills treats the agent as a **change-control system**, not only a coding assistant.
 
 ## Execution sequence (do not skip)
 

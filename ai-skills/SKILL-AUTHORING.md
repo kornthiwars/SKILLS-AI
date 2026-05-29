@@ -1,11 +1,11 @@
-# Skill authoring (SKILLS-AI)
+# Skill authoring (agent-skills)
 
 Read before creating or editing a skill. Gold examples: [`upgrade-ai/`](upgrade-ai/SKILL.md), [`debug/`](debug/SKILL.md), [`git-push/`](git-push/SKILL.md). Structure: [`../docs/SKILL-PATTERN.md`](../docs/SKILL-PATTERN.md). Production gates: [`../docs/CHANGE-CONTROL.md`](../docs/CHANGE-CONTROL.md).
 
 ## Repo layout
 
 ```
-SKILLS-AI/
+agent-skills/
 ├── ai-skills/          # canonical skills (edit here)
 ├── ai-rules/           # canonical rules (.mdc)
 ├── vault/              # daily issues + learnings

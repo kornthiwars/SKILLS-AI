@@ -11,7 +11,7 @@ Canonical search steps for **`/vault-recall`**, **`debug`**, **`git-push` Phase 
 | 1 | Read `<workspace>/.cursor/ai-skills-vault.json` → `issuesRelative` / `learningsRelative` |
 | 2 | `<workspace>/.cursor/vault/issues/` exists | workspace via junction |
 | 3 | `<workspace>/vault/issues/` | workspace root |
-| 4 | Folder has `ai-skills/` + `scripts/setup-macos-linux.sh` | SKILLS-AI clone |
+| 4 | Folder has `ai-skills/` + `scripts/setup-macos-linux.sh` | agent-skills repo clone |
 
 Create `issues/` and `learnings/` if missing.
 

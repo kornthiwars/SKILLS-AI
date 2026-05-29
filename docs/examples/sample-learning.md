@@ -14,7 +14,7 @@ related_issue: "2026-05-27"
 
 ## Context
 
-SKILLS-AI — vault v2 split issues/learnings; search steps were copy-pasted across skills.
+agent-skills — vault v2 split issues/learnings; search steps were copy-pasted across skills.
 
 ## Symptoms
 

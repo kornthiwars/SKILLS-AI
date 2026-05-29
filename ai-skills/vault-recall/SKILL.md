@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
 description: >-
   Grep vault learnings and recent issues before debug, git, or skills work.
   Invoke with /vault-recall or when the user asks to search the vault.

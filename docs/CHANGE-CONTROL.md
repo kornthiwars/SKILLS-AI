@@ -1,6 +1,6 @@
 # AI change-control system (3 layers)
 
-SKILLS-AI uses **change-control**, not “fast coding only.”
+agent-skills uses **change-control**, not “fast coding only.”
 
 ## Layers
 

@@ -29,11 +29,11 @@ Do **not** replace `/fix-record` (long RCA after a validated fix).
 | 1 | Read `<workspace>/.cursor/ai-skills-vault.json` → use `issuesRelative` / `learningsRelative` |
 | 2 | `<workspace>/.cursor/vault/issues/` exists | workspace via junction |
 | 3 | `<workspace>/vault/issues/` | workspace root |
-| 4 | Folder contains `ai-skills/` and `scripts/setup-macos-linux.sh` | SKILLS-AI clone |
+| 4 | Folder contains `ai-skills/` and `scripts/setup-macos-linux.sh` | agent-skills clone |
 
 Create `issues/` and `learnings/` if missing.
 
-**Multi-project:** run setup with `-InstallRoot` = the folder open in Cursor → writes to `.cursor/vault/issues/` (same files as `SKILLS-AI/vault/issues/` when linked).
+**Multi-project:** run setup with `-InstallRoot` = the folder open in Cursor → writes to `.cursor/vault/issues/` (same files as `agent-skills/vault/issues/` when linked).
 
 ## When to write — issues (no ask-first)
 

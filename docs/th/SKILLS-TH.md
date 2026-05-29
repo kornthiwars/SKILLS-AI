@@ -102,7 +102,7 @@
 
 - ก่อน **merge PR**
 - ต้องการ **second opinion** บนแผน, diff, หรือสถาปัตยกรรม
-- review skill/rule ใน SKILLS-AI เอง (version bump, guardrails, vault links)
+- review skill/rule ใน agent-skills เอง (version bump, guardrails, vault links)
 
 ### ไม่ใช้เมื่อไหร่
 
@@ -129,7 +129,7 @@
 ### ผลลัพธ์
 
 - แต่ละ finding: ปัญหา, ทำไมสำคัญ, **หลักฐาน file:line**, แนวแก้
-- **PR ของ SKILLS-AI** (เมื่อแตะ skill/rule): bump `metadata.version`, `disable-model-invocation`, SKILL.md ≤~300 บรรทัด, ลิงก์ `vault-recall/reference.md` (ไม่ copy ตารางค้น), แยก issues / fix-record / learnings — ดู checklist เต็มใน [APPENDIX-TH.md](./APPENDIX-TH.md) §5
+- **PR ของ agent-skills** (เมื่อแตะ skill/rule): bump `metadata.version`, `disable-model-invocation`, SKILL.md ≤~300 บรรทัด, ลิงก์ `vault-recall/reference.md` (ไม่ copy ตารางค้น), แยก issues / fix-record / learnings — ดู checklist เต็มใน [APPENDIX-TH.md](./APPENDIX-TH.md) §5
 
 ### ตัวอย่าง
 
@@ -395,7 +395,7 @@ Workload & SLO → Boundaries → Deploy → Compute/network → Secrets → Obs
 
 ### ขั้นตอน (8 phase)
 
-1. Reproduce (รวม vault search ถ้าเป็น SKILLS-AI)  
+1. Reproduce (รวม vault search ถ้าเป็น agent-skills)  
 2. Localize layer  
 3. Isolate component  
 4. Competing hypotheses (≥2)  
@@ -450,7 +450,7 @@ Workload & SLO → Boundaries → Deploy → Compute/network → Secrets → Obs
 | 0 | dirty | **block** — ต้อง consent commit |
 | >0 | dirty | **block** — เลือก push เก่าหรือ commit ก่อน |
 
-### SKILLS-AI repo เฉพาะ
+### agent-skills repo เฉพาะ
 
 commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `docs/` — **ไม่** commit แค่ junction ใต้ `.cursor/`
 

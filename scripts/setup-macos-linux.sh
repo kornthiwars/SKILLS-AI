@@ -6,8 +6,8 @@ set -euo pipefail
 
 if [ "${1:-}" = '' ]; then
   echo "Usage: $0 <install-root>" >&2
-  echo "Example: $0 ..    # Cursor opens parent folder containing SKILLS-AI" >&2
-  echo "Example: $0 .     # from repo root when Cursor opens SKILLS-AI" >&2
+  echo "Example: $0 ..    # Cursor opens parent folder containing agent-skills" >&2
+  echo "Example: $0 .     # from repo root when Cursor opens agent-skills" >&2
   exit 1
 fi
 

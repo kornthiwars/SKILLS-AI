@@ -74,7 +74,7 @@
 
 ---
 
-## 5. `/scrutinize` — เช็ค PR ของ SKILLS-AI เพิ่ม
+## 5. `/scrutinize` — เช็ค PR ของ agent-skills เพิ่ม
 
 เมื่อ diff แตะ `ai-skills/*/SKILL.md`, `reference.md`, หรือ `ai-rules/*.mdc`:
 
@@ -107,7 +107,7 @@
 
 | ขั้น | การทำ |
 |------|--------|
-| resolve root | `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → SKILLS-AI clone |
+| resolve root | `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → agent-skills clone |
 | 1 | grep `learnings/` (keywords, `symptoms:`, `skill:`) |
 | 2 | อ่านเต็ม ≤ **3** ไฟล์ |
 | 3 | ถ้าไม่พอ → grep `issues/` วันนี้ + เมื่อวาน |
@@ -204,7 +204,7 @@ Template: `templates/template.issue.md`, `templates/template.learning.md`
 | รายการ | หมายเหตุ |
 |--------|----------|
 | `test-builder` skill | ยังไม่มี — `builder-feature` วางแผน test ใน phase 7 เอง |
-| Cursor Automations | แยกจาก SKILLS-AI |
+| Cursor Automations | แยกจาก agent-skills |
 | เนื้อหา `vault/issues/*.md` | gitignore — เป็นของ local |
 
 ---

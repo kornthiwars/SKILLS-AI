@@ -1,4 +1,4 @@
-# SKILLS-AI
+# agent-skills
 
 Repository สำหรับ **Cursor Agent Skills + Rules** (canonical อยู่ที่ `ai-skills/`, `ai-rules/`)
 
@@ -22,8 +22,8 @@ Agent entry: [AGENTS.md](AGENTS.md)
 ### 1 — Clone
 
 ```bash
-git clone git@github.com-kornthiwars:kornthiwars/SKILLS-AI.git
-cd SKILLS-AI
+git clone git@github.com-kornthiwars:kornthiwars/agent-skills.git
+cd agent-skills
 ```
 
 ### 2 — Setup (ครั้งเดียวหลัง clone)
@@ -35,7 +35,7 @@ cd SKILLS-AI
 
 ```bash
 chmod +x scripts/setup-macos-linux.sh
-./scripts/setup-macos-linux.sh .    # workspace = SKILLS-AI
+./scripts/setup-macos-linux.sh .    # workspace = agent-skills
 ./scripts/setup-macos-linux.sh ..   # workspace = parent project
 ```
 
