@@ -203,9 +203,11 @@ Template: `templates/template.issue.md`, `templates/template.learning.md`
 
 | รายการ | หมายเหตุ |
 |--------|----------|
+| `examples/` UI mock (RiskPro HTML) | **ถอดออกจาก repo แล้ว** — mock อยู่ที่ consumer project ถ้าต้องการ |
 | `test-builder` skill | ยังไม่มี — `builder-feature` วางแผน test ใน phase 7 เอง |
 | Cursor Automations | แยกจาก agent-skills |
 | เนื้อหา `vault/issues/*.md` | gitignore — เป็นของ local |
+| พฤติกรรม agent จริงใน Cursor | ทดมือตาม [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md); preflight ไฟล์ → `./scripts/verify-dynamic-smoke-static.sh` |
 
 ---
 
@@ -222,7 +224,7 @@ Template: `templates/template.issue.md`, `templates/template.learning.md`
 | globs ทุก rule | ครบ (§9) |
 | SKILL-AUTHORING / SKILL-PATTERN (EN) | ลิงก์ใน README — ยังไม่แปลทั้งไฟล์ |
 | แปล `reference.md` ทีละไฟล์ | ดัชนีไทย → [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md) (ลิงก์ EN) |
-| Dynamic agent smoke | [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) |
+| Dynamic agent smoke | [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) + `./scripts/verify-dynamic-smoke-static.sh` |
 
 ---
 

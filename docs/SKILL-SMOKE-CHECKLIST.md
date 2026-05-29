@@ -1,8 +1,9 @@
 # SKILL smoke checklist
 
 ```bash
-./scripts/smoke-skills.sh
+./scripts/smoke-skills.sh              # includes verify-dynamic-smoke-static.sh
 ./scripts/change-control-check.sh
+./scripts/verify-dynamic-smoke-static.sh   # optional standalone
 ```
 
 Reload Cursor after rule changes.
@@ -40,6 +41,7 @@ Reload Cursor after rule changes.
 - [ ] `.github/workflows/skills-quality.yml` green on PR
 - [ ] PR over patch budget fails CI unless `[BUDGET-OVERRIDE]` in a commit on the branch
 
-## Dynamic (manual)
+## Dynamic
 
-Run scenarios in [DYNAMIC-AGENT-SMOKE.md](./DYNAMIC-AGENT-SMOKE.md) after major rule/skill changes.
+- [ ] `./scripts/verify-dynamic-smoke-static.sh` PASS (or via smoke-skills.sh)
+- [ ] Run behavioral scenarios in [DYNAMIC-AGENT-SMOKE.md](./DYNAMIC-AGENT-SMOKE.md) in Cursor after major rule/skill changes

@@ -97,11 +97,20 @@ check_contains "ai-skills/debug/SKILL.md" 'change-control-manifest' "debug refer
 check_contains "ai-skills/git-push/SKILL.md" 'change-control-manifest' "git-push references change-control manifest"
 check_contains "ai-rules/change-control-manifest.mdc" 'Patch budget' "manifest defines patch budget"
 check_contains "AGENTS.md" 'change-control-manifest' "AGENTS.md lists change-control"
+check_file "docs/DYNAMIC-AGENT-SMOKE.md"
+check_file "scripts/verify-dynamic-smoke-static.sh"
 
 printf '\n'
 if [ "$failures" -eq 0 ]; then
   printf 'Smoke checks passed.\n'
-  exit 0
+  if [ -x "scripts/verify-dynamic-smoke-static.sh" ]; then
+    if ! ./scripts/verify-dynamic-smoke-static.sh; then
+      failures=1
+    fi
+  fi
+  if [ "$failures" -eq 0 ]; then
+    exit 0
+  fi
 fi
 
 printf 'Smoke checks failed: %d\n' "$failures"

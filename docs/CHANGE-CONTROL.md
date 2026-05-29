@@ -33,7 +33,8 @@ Most sub-rules use **globs** or intelligent activation — not `alwaysApply`, to
 ## Commands
 
 ```bash
-./scripts/smoke-skills.sh          # static baseline
+./scripts/smoke-skills.sh          # static baseline (+ dynamic-smoke preflight)
+./scripts/verify-dynamic-smoke-static.sh  # optional standalone
 ./scripts/change-control-check.sh  # patch budget on working tree (HEAD)
 DIFF_BASE=origin/main...HEAD ./scripts/change-control-check.sh  # PR range (CI)
 ```

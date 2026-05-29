@@ -45,6 +45,7 @@ Edit canonical folders in the **agent-skills** repo only — not inside the targ
 chmod +x scripts/smoke-skills.sh scripts/change-control-check.sh
 ./scripts/smoke-skills.sh           # rules + skills structure
 ./scripts/change-control-check.sh   # patch budget (5 files / 120 lines)
+./scripts/verify-dynamic-smoke-static.sh  # static preflight for dynamic smoke scenarios
 # CI/PR: DIFF_BASE=origin/main...HEAD ./scripts/change-control-check.sh
 ```
 
