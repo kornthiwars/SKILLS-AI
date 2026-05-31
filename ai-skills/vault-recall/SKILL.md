@@ -1,10 +1,10 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.1.1"
+  version: "1.2.0"
 description: >-
-  Grep vault learnings and recent issues before debug, git, or skills work.
-  Invoke with /vault-recall or when the user asks to search the vault.
+  Grep vault learnings and recent issues; keyword strategy, recall verification gate,
+  empty vault playbook. Invoke with /vault-recall or when user asks to search vault.
 disable-model-invocation: true
 ---
 
@@ -19,6 +19,24 @@ Mission: Find prior lessons and same-day context before repeating work.
 ## Purpose
 
 Search **local** vault and return a short, actionable summary. Does **not** write vault files — use `ai-rules/vault-issues.mdc` for writes.
+
+## Quick cheat sheet
+
+| Step | Limit |
+|------|-------|
+| Resolve vault root | `reference.md` § Resolve vault root |
+| Grep learnings | ≤3 files full read |
+| Then issues | today + yesterday only |
+| Empty | suggest learning after close |
+
+## Handoffs (other skills in this pack)
+
+| After recall | Skill |
+|--------------|--------|
+| Bug with prior art | [`/debug`](../debug/SKILL.md) — fold hits into ledger |
+| Git push blocked | [`/git-push`](../git-push/SKILL.md) Phase 0 |
+| Write RCA after fix | [`/fix-record`](../fix-record/SKILL.md) |
+| Upgrade skill from vault gap | [`/upgrade-ai`](../upgrade-ai/SKILL.md) |
 
 ## Scope Guardrails
 
@@ -89,3 +107,4 @@ For each file (max 3):
 - Correct vault root
 - Token-bounded search per `reference.md`
 - Actionable summary without duplicating entire notes
+- Pass [reference.md](./reference.md) § Recall verification gate before closing

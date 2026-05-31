@@ -168,3 +168,17 @@ Reject if:
 - Timeouts/retries policy defined?
 - Idempotency for safe retries?
 - Request IDs propagated end-to-end?
+
+---
+
+## Close-out verification gate (phase 10)
+
+| # | Proof |
+|---|--------|
+| 1 | Contract tests or OpenAPI diff reviewed |
+| 2 | Auth matrix covers every mutating route |
+| 3 | Error payload shape consistent |
+| 4 | Pagination/rate limits specified |
+| 5 | `/scrutinize` + optional integration test RUN output cited |
+
+Pass/reject only after IDENTIFY→RUN→READ on highest-risk endpoint.

@@ -93,3 +93,42 @@ Run in a transaction when supported. Report rows affected.
 | relation does not exist | wrong schema / migration not applied | MIGRATE status, check search_path |
 | timeout | missing index / no LIMIT | EXPLAIN, add LIMIT, fix query |
 | duplicate key | WRITE without checking | READ first, fix data or use UPSERT |
+
+---
+
+## Execution verification (before "query succeeded")
+
+| Claim | Required evidence |
+|-------|-------------------|
+| READ returned data | Row count + sample (truncated); exit 0 |
+| WRITE/MIGRATE applied | Rows affected or migration version from tool output |
+| BLOCKED | State why; do not imply execution |
+
+Run the command fresh; cite output — no "should return N rows" without execution ([verification-before-completion](https://github.com/obra/superpowers) pattern).
+
+---
+
+## Engine quick probes
+
+| Engine | READ probe | Notes |
+|--------|------------|-------|
+| Postgres | `SELECT 1;` · `\dt` / `information_schema` | `EXPLAIN` before heavy SELECT |
+| MySQL | `SELECT 1;` · `SHOW TABLES` | watch `ONLY_FULL_GROUP_BY` |
+| SQLite | `SELECT 1;` · `.schema` | file path + WAL mode |
+| SQL Server | `SELECT 1;` · `INFORMATION_SCHEMA` | transaction isolation |
+
+Always `LIMIT` on exploratory READ unless user confirms full scan.
+
+---
+
+## WRITE safety
+
+| Pattern | When |
+|---------|------|
+| `BEGIN` → execute → show → `COMMIT` | staging/prod WRITE when supported |
+| Dry-run / `EXPLAIN` | estimate impact before destructive WRITE |
+| Rollback plan | state how to undo or restore backup before prod WRITE |
+
+Never claim rows affected without tool output citing the count.
+
+---

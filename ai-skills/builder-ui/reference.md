@@ -98,3 +98,17 @@ For **standalone demos** (no framework build), the consumer project may keep moc
 **Workflow:** Run phases 1–4 on the reference (screenshot/mock) → implement HTML/CSS in the target app → phase 6–7 checklist.
 
 **Non-goals for mocks:** backend, auth, framework migration — unless user requests next step.
+
+---
+
+## Close-out verification gate (phase 7)
+
+| # | Proof |
+|---|--------|
+| 1 | Component tree + tokens documented |
+| 2 | a11y checklist passed (keyboard, focus, contrast) |
+| 3 | Responsive breakpoints defined — not one width only |
+| 4 | Browser/runtime check on critical path if UI behavior claimed |
+| 5 | `/scrutinize` before merge |
+
+IDENTIFY → RUN (snapshot/test/story) → READ output → then pass/reject.

@@ -1,11 +1,13 @@
 ---
 name: debug
 metadata:
-  version: "1.0.7"
+  version: "1.3.1"
 description: >-
   Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
-  breadcrumbs. User may attach /debug for full mantra; for unknown behavior without
-  /debug, apply the four steps silently. Not for known copy/label-only changes.
+  breadcrumbs. Stop-the-line, reduce, bisection, Prove-It, verification gate, untrusted
+  errors. Phase exit criteria, hypothesis table, instrumentation lifecycle.
+  Read errors and recent changes first. User may attach /debug for mantra; apply four
+  steps silently otherwise. Not for known copy/label-only changes.
 disable-model-invocation: true
 ---
 
@@ -13,11 +15,26 @@ disable-model-invocation: true
 
 Four-step discipline for any debug session.
 
+**Iron law:** no fix before root-cause investigation — repro (or documented impossibility) → fail path → disproof → ledger confirmation.
+
+## Quick cheat sheet
+
+| Step | Goal | Minimum evidence | Red flag |
+|------|------|------------------|----------|
+| **1 Reproduce** | Stable pass/fail signal | Error output read fully; repro artifact or documented impossibility | Fix before repro; skip git/env drift |
+| **2 Fail path** | Know where it breaks | Boundary log, debugger stop, or working-vs-broken diff | Log spam before pattern diff |
+| **3 Falsify** | Test one cause at a time | 3–5 ranked hypotheses with disproof run | Bundle multiple fixes |
+| **4 Ledger** | Cross-reference all runs | Each run ruled in/out; hypothesis table updated | New theory ignores prior runs |
+
+Detail: [reference.md](./reference.md) — exit criteria, hypothesis ledger, stop-the-line, Prove-It, verification gate.
+
 ## When to use
 
 - User attaches **`/debug`**
 - Wrong behavior, stack trace, flaky failure, data mismatch — root cause not yet known
+- **Performance regression**, **build/CI failure**, **integration timeout**, prod vs local divergence
 - After [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) routes “unknown behavior”
+- **Especially** under time pressure, after a failed fix attempt, or when the issue spans multiple components
 
 ## When NOT to invoke (user does not need `/debug`)
 
@@ -52,13 +69,34 @@ When editing app/source code, follow [`change-control-manifest.mdc`](../../ai-ru
 
 Optional: user may run `/vault-recall` first for a dedicated summary.
 
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Fix validated — write RCA for engineers | [`/fix-record`](../fix-record/SKILL.md) |
+| Review debug patch or skill/rule PR before merge | [`/scrutinize`](../scrutinize/SKILL.md) |
+| Bug involves SQL / schema / prod data | [`/sql`](../sql/SKILL.md) |
+| Search prior fixes only (no full debug) | [`/vault-recall`](../vault-recall/SKILL.md) |
+
+After verification passes, **offer** `/fix-record` when the fix is non-trivial.
+
+## Reference depth (load on demand)
+
+[`reference.md`](./reference.md) — pattern analysis, boundary evidence, backward trace, stop-the-line, reduce, bisection, log probe budget, Prove-It, untrusted errors, verification gate, hypothesis ledger, instrumentation lifecycle, rationalizations, architecture escape, fix gate, verification protocol.
+
 ## Response shape
 
 Light skeleton for every user-facing turn (bilingual prose per workspace rule; **section headers only** — not duplicate Thai/English blocks):
 
-- **Summary** — repro status, current hypothesis or finding, one-line verdict
-- **Details** — ledger entry, trace step, or evidence (commands/logs in code blocks)
-- **Next step** — single experiment or minimal fix proposal; return to step 1 if no reliable repro exists
+- **Summary** — repro status, leading hypothesis status, one-line verdict
+- **Details** — ledger entry, trace step, or evidence (commands/logs in code blocks); include **hypothesis table** when testing (see below)
+- **Next step** — single experiment or minimal fix proposal; return to step 1 if phase 1 exit criteria not met
+
+**Hypothesis table** (in **Details** whenever step 3+ is active):
+
+| ID | Hypothesis | Status | Evidence |
+|----|------------|--------|----------|
+| H1 | I think X because Y | CONFIRMED / REJECTED / INCONCLUSIVE | cite log line, command output, or ledger run |
 
 First response when **`/debug` is attached**: recite the mantra verbatim per **Operating rules**, then use this shape for the rest of the turn. When `/debug` is **not** attached but debug discipline applies, use this shape **without** the mantra.
 
@@ -68,23 +106,36 @@ First response when **`/debug` is attached**: recite the mantra verbatim per **O
 
 Build a runnable repro before anything else.
 
-- **Reliable repro** → capture the exact steps, inputs, and environment as a runnable artifact: failing test, curl script, CLI invocation, replay harness.
-- **Flaky repro** → the bug is not yet debuggable. Raise the rate first: loop the trigger, parallelise, add stress, narrow timing windows, inject sleeps. 50% flake is debuggable; 1% is not.
+- **Read errors fully** — complete stack traces, line numbers, error codes; don't skim warnings that sit above the throw site.
+- **Check recent changes** — when a repro exists, scan `git log` / diff, new dependencies, config or env drift, deploy vs local differences.
+- **Who runs the repro** ([reference.md](./reference.md) § Reproduction routing):
+  - Existing failing test → run it yourself
+  - Simple CLI/curl/script repro → write and run it yourself
+  - UI, manual steps, or bundled/HMR cache → numbered steps for user; offer to write a script
+- **Reliable repro** → capture exact steps, inputs, and environment as a runnable artifact: failing test, curl script, CLI invocation, replay harness.
+- **Flaky repro** → the bug is not yet debuggable. Raise the rate first: loop the trigger, parallelise, add stress, narrow timing windows, replace blind sleeps with condition polls ([reference.md](./reference.md) § Condition-based waiting). 50% flake is debuggable; 1% is not.
 - **No repro at all** → stop. Say so explicitly. Ask the user for env access, captured artifacts (HAR, log dump, core), or permission to instrument. Do **not** proceed to hypothesise.
 
 Target: a fast (1–5 s), deterministic pass/fail signal. Pin time, seed the RNG, freeze network, isolate filesystem.
 
+**Exit step 1** only when [reference.md](./reference.md) § Phase 1 exit criteria are satisfied (artifacts, not intuition).
+
 ## 2. Know the fail path
 
-Once reproducible, find *where* the code breaks and *what stops it from breaking*. The differential narrows the search. Try in this order — escalate only when the prior tactic fails.
+Once reproducible, find *where* the code breaks and *what stops it from breaking*. The differential narrows the search.
 
+0. **Working vs broken** — if similar working code exists, diff every behavioral difference before heavy tooling ([reference.md](./reference.md) § Pattern analysis).
 1. **Attach a debugger.** If the env supports it, attach and step to the failure site. One breakpoint beats ten logs. Do this **before** turning any knobs.
 2. **Source trace + knob enumeration.** If no debugger (or it can't reach the bug), trace the code path end-to-end and list every knob that can influence the outcome:
    - config flags, env vars, feature toggles
    - branch conditions, input shape
    - timing, concurrency, build options
    Each knob is a candidate axis to flip in the differential. Flip one at a time.
-3. **In-code instrumentation.** If outside knobs can't move the failure, go inside: `printf` / log statements at the suspected fail site, dump the relevant internal state. Tag every probe with a unique prefix (e.g. `[DBG-a4f2]`) so cleanup is a single grep. Let the trace show where reality diverges from your model.
+3. **In-code instrumentation.** If outside knobs can't move the failure, go inside: tagged logs at the suspected fail site ([reference.md](./reference.md) § Instrumentation lifecycle). Let the trace show where reality diverges from your model.
+4. **Multi-component boundaries** — when failure crosses layers, one boundary logging pass to see **which** component diverges first ([reference.md](./reference.md) § Boundary evidence). Then narrow to that layer.
+5. **Deep stack / bad value far from origin** — trace backward to the first bad input ([reference.md](./reference.md) § Root-cause backward tracing). Fix at source, not at the symptom handler.
+
+Try tactics in order — escalate only when the prior tactic fails.
 
 ## 3. Falsify the hypothesis
 
@@ -94,6 +145,8 @@ When a candidate root cause surfaces, scrutinise it **before** testing it.
 - What is the simplest **proof**? What is the cleanest **disproof**?
 - Run the **disproof first**. If the hypothesis survives, it's real. If it dies, you saved yourself from chasing a phantom.
 - Generate 3–5 ranked hypotheses, not one. Single-hypothesis thinking anchors on the first plausible idea.
+- Write the leading hypothesis explicitly: "I think X because Y" — vague theories are untestable.
+- Update the **hypothesis table** after each run; cite evidence ([reference.md](./reference.md) § Hypothesis ledger).
 
 ## 4. Every run is a breadcrumb
 
@@ -112,9 +165,15 @@ Maintain a running **ledger** of every experiment in this session. Each entry: w
 - Recite **verbatim**. Never paraphrase, shorten, or skip lines of the recital.
 - If the user says "skip the mantra" → skip the recital but still apply the four steps silently.
 - Apply the four steps **in order**:
-  - Do not propose a fix before #1 is satisfied (reliable repro exists).
+  - Do not propose a fix before #1 exit criteria are met ([reference.md](./reference.md) § Phase 1 exit criteria).
   - Do not start testing hypotheses before #2 has narrowed the fail path.
   - Do not commit to a hypothesis before #3 has tried to disprove it.
   - Do not declare a hypothesis correct until #4 confirms it against every prior breadcrumb.
+- **Fix gate:** before the first patch, pin a failing repro artifact (test or script) unless the user explicitly waives — see [reference.md](./reference.md) § Fix gate.
+- **Instrumentation:** do not remove probes until fix is log-verified — see [reference.md](./reference.md) § Instrumentation lifecycle.
+- **3+ failed fix attempts:** stop patching; revisit step 1 or discuss architecture — see [reference.md](./reference.md) § Architecture escape.
 - If you catch yourself proposing a fix without a reliable repro, stop and return to step 1.
+- If you catch red-flag thinking, stop — see [reference.md](./reference.md) § Red flags and § Rationalizations.
+- **Stop-the-line:** on unexpected failure — no new features until verification passes ([reference.md](./reference.md) § Stop-the-line rule).
+- **Close-out:** pass verification gate + verification protocol; then offer `/fix-record` when appropriate.
 - The mantra is a constraint **you** carry through the session — not advice to deliver back to the user.

@@ -1,7 +1,7 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.1.2"
+  version: "1.2.0"
 description: >-
   Design integrity-safe schemas via domain modeling, relationships, indexing,
   and safe evolution. Invoke with /builder-schema when modeling entities,
@@ -37,6 +37,26 @@ Do NOT:
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Full-stack feature | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Run migrations / prod SQL | [`/sql`](../sql/SKILL.md) |
+| API layer impact | [`/builder-api`](../builder-api/SKILL.md) |
+| Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
+
+Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
+
+## Quick cheat sheet
+
+| # | Phase | Gate |
+|---|--------|------|
+| 1–3 | Domain + entities + relations | ER map |
+| 4–6 | Normalization + queries + indexes | access patterns |
+| 7–8 | Integrity + scale | constraints + rollout |
+| 9–10 | Evolution + verify | migration plan · [reference.md](./reference.md) § Close-out gate |
 
 ---
 

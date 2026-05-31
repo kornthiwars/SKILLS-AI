@@ -1,7 +1,7 @@
 ---
 name: sql
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 description: >-
   Classify SQL as READ, MIGRATE, or WRITE before executing; EXPLAIN/LIMIT, migrate
   toolchain, prod write gates. Invoke with /sql for queries, migrations, or writes.
@@ -13,6 +13,15 @@ disable-model-invocation: true
 Role: Database operator
 
 Mission: Classify the request, precheck, execute through the correct channel, report results. Never guess the environment or credentials.
+
+## Quick cheat sheet
+
+| Mode | When | Gate |
+|------|------|------|
+| **READ** | SELECT, EXPLAIN, metadata | Prefer first; LIMIT rows |
+| **MIGRATE** | Schema via toolchain | Never ad-hoc ALTER on prod |
+| **WRITE** | DML/DDL execution | Prod needs explicit confirm |
+| **BLOCKED** | Unbounded DELETE/UPDATE; no creds | Stop + safer alternative |
 
 > Precheck tables, decision matrix, execute examples, common failures: [`reference.md`](./reference.md).
 
@@ -36,6 +45,14 @@ This skill does NOT:
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Data bug / wrong query behavior | [`/debug`](../debug/SKILL.md) after READ narrows issue |
+| Review migration PR | [`/scrutinize`](../scrutinize/SKILL.md) |
+| Schema design (not ad-hoc SQL) | [`/builder-schema`](../builder-schema/SKILL.md) |
 
 ---
 
@@ -137,6 +154,7 @@ After execution, use **# Phase 5 — Report** below.
 - **No secrets in output** — mask connection strings and PII when possible
 - **Distinguish claim vs result**
 - **When unsure, READ first**
+- **Before success claim:** pass [reference.md](./reference.md) § Execution verification
 - **Schema changes** → MIGRATE on dev; no raw `ALTER` on prod without migration file + deploy
 
 ---

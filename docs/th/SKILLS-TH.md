@@ -28,14 +28,14 @@
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/debug` |
-| **เวอร์ชัน** | 1.0.6 (ดูใน `SKILL.md`) |
+| **เวอร์ชัน** | 1.3.1 (ดูใน `SKILL.md`) |
 | **บทบาท** | วิศวกร debug แบบมีวินัย — repro → trace → หักล้างสมมติฐาน → breadcrumb |
 
 ### ใช้เมื่อไหร่
 
-- มี **bug**, **stack trace**, หรือพฤติกรรมที่ผิดจากที่คาด
-- ต้องการ **repro ที่ทำซ้ำได้**, ไล่ **fail path**, และ **ledger** การทดลอง
-- ยังไม่ควรเสนอ fix จนกว่าขั้นตอนต้นๆ จะครบ
+- มี **bug**, **stack trace**, พฤติกรรมผิด, **performance regression**, **build/CI fail**, หรือ integration timeout
+- ต้องการ **repro ที่ทำซ้ำได้**, ไล่ **fail path**, **ตารางสมมติฐาน CONF/REJ**, และ **ledger** การทดลอง
+- ยังไม่ควรเสนอ fix จนกว่า **phase 1 exit criteria** จะครบ (มี artifact ไม่ใช่แค่เดา)
 
 ### ไม่ใช้เมื่อไหร่
 
@@ -64,7 +64,10 @@
 | 1 | Reproduce reliably | สร้างสัญญาณ pass/fail ที่ทำซ้ำได้เร็ว (สคริปต์, test, ขั้นตอนมือ) |
 | 2 | Know the fail path | debugger / trace / instrumentation ในโค้ด — รู้ว่า execution ไปทางไหนจนล้ม |
 | 3 | Falsify hypothesis | สมมติฐาน 3–5 อันจัดอันดับ — **พยายามพิสูจน์ว่าผิด** ก่อนเชื่ออันใดอันหนึ่ง |
-| 4 | Breadcrumb ledger | ทุกการรัน = บันทึก: เปลี่ยนอะไร → เห็นอะไร → ตัดสิน in/out |
+| 4 | Breadcrumb ledger | ทุกการรัน = บันทึก + **ตาราง H1/H2… CONFIRMED/REJECTED/INCONCLUSIVE** พร้อม cite evidence |
+
+**Handoffs:** fix ยืนยันแล้ว → `/fix-record` · review patch → `/scrutinize` · SQL → `/sql`  
+**Cheatsheet + รายละเอียด:** `debug/reference.md` (exit criteria, instrumentation lifecycle, verification protocol)
 
 ### สิ่งที่ skill ห้ามทำ
 
@@ -75,10 +78,10 @@
 
 ### ผลลัพธ์ที่คาดหวัง
 
-- **Debug ledger** ต่อเนื่องในแชท
-- Repro artifact, trace notes, สมมติฐานที่ถูกตัดออก
+- **Debug ledger** + **hypothesis table** ต่อเนื่องในแชท
+- Repro artifact, trace notes, สมมติฐานที่ถูกตัดออก (REJECTED พร้อม evidence)
 - รูปแบบตอบ: **Summary / Details / Next step**
-- ข้อเสนอ fix **เล็กที่สุด** หลัง root cause มีหลักฐาน
+- ข้อเสนอ fix **เล็กที่สุด** หลัง verification protocol ผ่าน — แล้วเสนอ `/fix-record` ถ้าไม่ trivial
 
 ### ความสัมพันธ์กับ rules
 

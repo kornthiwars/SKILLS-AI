@@ -1,7 +1,7 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.1.1"
+  version: "1.2.0"
 description: >-
   Design reliable infrastructure — workloads, environments, CI/CD, networking,
   security, observability, DR. Invoke with /builder-infrastructure for deployment
@@ -40,6 +40,27 @@ Do NOT:
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Full-stack feature | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Deploy/runtime bug | [`/debug`](../debug/SKILL.md) |
+| Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
+| Ship infra changes | [`/git-push`](../git-push/SKILL.md) |
+
+Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
+
+## Quick cheat sheet
+
+| # | Phase | Gate |
+|---|--------|------|
+| 1–2 | Workload + environments | SLO + env map |
+| 3–4 | Deploy + network | rollback plan |
+| 5–6 | Security + observability | secrets + alerts |
+| 7–8 | Reliability + cost | DR + budget |
+| 9 | IaC + verify | [reference.md](./reference.md) § Close-out gate |
 
 ---
 

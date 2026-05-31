@@ -1,10 +1,10 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.0.6"
+  version: "1.2.0"
 description: >-
-  Outsider review of plans, PRs, or diffs — intent, simpler alternatives, end-to-end
-  trace with evidence. Invoke with /scrutinize before merge or for a second opinion.
+  Outsider review — intent, simpler alternatives, end-to-end trace, five-axis and
+  browser UI checks, verification gate before ship. Invoke with /scrutinize.
 disable-model-invocation: true
 ---
 
@@ -12,11 +12,32 @@ disable-model-invocation: true
 
 Stand outside the change and ask whether it should exist at all, then verify it actually does what it claims end-to-end.
 
+## Quick cheat sheet
+
+| Step | Goal | Minimum evidence | Red flag |
+|------|------|------------------|----------|
+| **1 Intent** | One-sentence goal + simpler alternative | Stated goal; one alternative considered | Diff-only review |
+| **2 Trace** | Walk real code path | Entry → state → exit with seams | Unchanged code ignored |
+| **3 Verify** | Claims vs behavior | Per-claim trace verdict | "PR says X" without trace |
+| **4 Report** | Actionable findings | `file:line` + severity + verdict | LGTM without trace |
+
+PR checklist + five-axis + verification: [reference.md](./reference.md).
+
 ## Scope Guardrails
 
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Runtime bug while reviewing | [`/debug`](../debug/SKILL.md) |
+| RCA after validated fix | [`/fix-record`](../fix-record/SKILL.md) |
+| Skill/rule upgrade in diff | [`/upgrade-ai`](../upgrade-ai/SKILL.md) |
+| SQL or schema in diff | [`/sql`](../sql/SKILL.md) |
+| Ship approved changes | [`/git-push`](../git-push/SKILL.md) |
 
 ## Change-control
 
@@ -36,7 +57,7 @@ Light skeleton for every user-facing turn (**section headers only** — not dupl
 - **Details** — intent check, trace notes, or per-finding bullets with `file:line` when applicable
 - **Next step** — single biggest change, simpler alternative, or what to trace next
 
-When the review is complete, expand **### 4. Report** instead of stopping at three bullets.
+When the review is complete, expand **### 4. Report** instead of stopping at three bullets. Pass [reference.md](./reference.md) § Verification protocol before **ship**.
 
 ## Workflow
 
@@ -80,15 +101,7 @@ Output one tight section per finding. Order by severity (blocker → major → n
 
 Close with a one-line verdict: ship / fix-then-ship / rework / reject — with the single biggest reason.
 
-## agent-skills skill / rule PRs
-
-When the diff touches `ai-skills/*/SKILL.md`, `*/reference.md`, or `ai-rules/*.mdc`, also verify:
-
-- [ ] `metadata.version` bumped per [upgrade-ai/reference.md](../upgrade-ai/reference.md) (Version governance)
-- [ ] `disable-model-invocation: true` on manual skills (unless documented exception)
-- [ ] `SKILL.md` under ~300 lines; new phase prose → `reference.md`
-- [ ] Vault grep steps **link** [`vault-recall/reference.md`](../vault-recall/reference.md) — no duplicated search tables
-- [ ] Write vs RCA: daily Q&A → `vault-issues.mdc`; long RCA → `/fix-record`; reusable lesson → `learnings/` (not fix-record body)
+**agent-skills skill / rule PRs:** run [reference.md](./reference.md) § agent-skills skill / rule PR checklist (`metadata.version`, handoffs, vault links).
 
 ## Operating rules
 

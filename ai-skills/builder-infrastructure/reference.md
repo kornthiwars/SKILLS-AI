@@ -146,3 +146,17 @@ Reject if: rollback impossible, ownership unclear, observability incomplete, wea
 | failover drill | quarterly | traffic recovers within target |
 | alert quality review | bi-weekly | low noise + actionable routing |
 | autoscaling test | release or monthly | stable p95 under load profile |
+
+---
+
+## Close-out verification gate (phase 9)
+
+| # | Proof |
+|---|--------|
+| 1 | Rollback procedure documented + tested or drill scheduled |
+| 2 | Observability: metrics/alerts map to SLOs |
+| 3 | Secrets strategy — not in repo |
+| 4 | Cost/scale limits stated |
+| 5 | `/scrutinize` before merge · `/git-push` for ship |
+
+Cite `terraform plan`, health check, or drill output — IDENTIFY→RUN→READ.

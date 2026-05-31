@@ -1,7 +1,7 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.1.3"
+  version: "1.2.0"
 description: >-
   Design scalable, accessible UI systems from visual references — layout,
   components, responsive behavior, a11y. Invoke with /builder-ui for frontend
@@ -36,6 +36,29 @@ Do NOT:
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Full-stack feature | [`/builder-feature`](../builder-feature/SKILL.md) |
+| API contract for UI | [`/builder-api`](../builder-api/SKILL.md) |
+| Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
+| Runtime UI bug | [`/debug`](../debug/SKILL.md) |
+
+Deliver in **vertical slices** — [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
+
+## Quick cheat sheet
+
+| # | Phase | Gate |
+|---|--------|------|
+| 1 | Visual analysis | hierarchy map |
+| 2 | Layout | responsive plan |
+| 3 | Components | reuse tree |
+| 4 | Design system | tokens + variants |
+| 5 | Interaction | state contract |
+| 6 | a11y | keyboard + contrast |
+| 7 | Verification | [reference.md](./reference.md) § Close-out gate |
 
 ---
 

@@ -1,10 +1,10 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.0.12"
+  version: "1.2.0"
 description: >-
-  Evidence-based skill diagnosis and minimal upgrades — no blind rewrites. Invoke
-  with /upgrade-ai when skills drift, repeat failures, or exceed ~300 lines.
+  Evidence-based skill diagnosis and minimal upgrades — 8 phases, cheat sheet, handoffs,
+  pack consistency checklist, score audit template. Invoke with /upgrade-ai or /upgrade.
 disable-model-invocation: true
 ---
 
@@ -18,15 +18,22 @@ Purpose: Continuously improve existing skills through structured diagnosis, fail
 
 > Depth (catalogs, governance, anti-patterns): see [`reference.md`](./reference.md). Load in Phase 6–8 or when a governance trigger fires.
 
+## Quick cheat sheet
+
+| Trigger | Action |
+|---------|--------|
+| Repeat failure ≥2× | Phase 1 reproduce (or structural audit if meta-only) |
+| Meta audit (`/upgrade`) | Static pack checklist + score template — cap confidence ~0.85 |
+| Phase 7 | Minimal fix first · version bump plan per touched skill |
+| Phase 8 | Smoke + fill audit · pass [reference.md](./reference.md) § Close-out verification gate |
+
 ## Scope Guardrails
 
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
 
----
-
-# Skill routing
+## Handoffs (other skills in this pack)
 
 Use this skill only for **skills and rules** in agent-skills (or the user's skill pack). For other work, hand off:
 
@@ -36,9 +43,11 @@ Use this skill only for **skills and rules** in agent-skills (or the user's skil
 | Review plan, PR, or diff before merge | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Long RCA after a validated production fix | [`/fix-record`](../fix-record/SKILL.md) |
 | Search vault only (no upgrade) | [`/vault-recall`](../vault-recall/SKILL.md) |
-| Improve skills/rules (this repo or skill pack) | **`/upgrade-ai`** |
+| Ship skill changes | [`/git-push`](../git-push/SKILL.md) |
 
 Application-code patches: follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) — do not duplicate its full gate list here.
+
+---
 
 ---
 
@@ -107,6 +116,7 @@ Run sequentially. Stop early only if Phase 1 **failure diagnosis** cannot reprod
 
 - Test original failing case + edge cases + historical behavior + regressions
 - Standards: `reference.md` § Verification Standards and success criteria there
+- **Pack-wide audit:** fill [`templates/template.skill-pack-score.md`](../../templates/template.skill-pack-score.md) with before/after scores + bar chart
 
 ---
 

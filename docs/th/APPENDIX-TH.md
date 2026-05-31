@@ -8,18 +8,18 @@
 
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
-| debug | `/debug` | 1.0.6 | ไม่ (เนื้อหาอยู่ใน SKILL.md) |
-| scrutinize | `/scrutinize` | 1.0.5 | ไม่ |
-| sql | `/sql` | 1.1.0 | ใช่ |
-| builder-ui | `/builder-ui` | 1.1.1 | ใช่ |
-| builder-api | `/builder-api` | 1.1.2 | ใช่ |
-| builder-schema | `/builder-schema` | 1.1.2 | ใช่ |
-| builder-infrastructure | `/builder-infrastructure` | 1.1.1 | ใช่ |
-| builder-feature | `/builder-feature` | 1.1.1 | ใช่ |
-| fix-record | `/fix-record` | 1.0.4 | ไม่ |
-| upgrade-ai | `/upgrade-ai` | 1.0.10 | ใช่ |
-| git-push | `/git-push` | 1.1.2 | ใช่ |
-| vault-recall | `/vault-recall` | 1.1.0 | ใช่ (SSoT การค้น) |
+| debug | `/debug` | 1.3.1 | ใช่ |
+| scrutinize | `/scrutinize` | 1.2.0 | ใช่ |
+| sql | `/sql` | 1.2.0 | ใช่ |
+| builder-ui | `/builder-ui` | 1.2.0 | ใช่ |
+| builder-api | `/builder-api` | 1.2.0 | ใช่ |
+| builder-schema | `/builder-schema` | 1.2.0 | ใช่ |
+| builder-infrastructure | `/builder-infrastructure` | 1.2.0 | ใช่ |
+| builder-feature | `/builder-feature` | 1.2.0 | ใช่ |
+| fix-record | `/fix-record` | 1.2.0 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.2.0 | ใช่ |
+| git-push | `/git-push` | 1.2.0 | ใช่ |
+| vault-recall | `/vault-recall` | 1.2.0 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
 
@@ -30,9 +30,11 @@
 | ไฟล์ | เนื้อหาลึก |
 |------|------------|
 | `vault-recall/reference.md` | resolve vault root, ลำดับ grep, จำกัด ≤3 learnings, ใครเรียกเมื่อไหร่ |
+| `debug/reference.md` | phase 1 exit criteria, hypothesis CONF/REJ table, instrumentation lifecycle, verification protocol |
 | `git-push/reference.md` | push matrix, commit gate, SSH multi-account, ตาราง error |
 | `sql/reference.md` | decision matrix, toolchain migrate, prod WRITE gate |
-| `upgrade-ai/reference.md` | catalog skill, version governance, anti-patterns |
+| `scrutinize/reference.md` | agent-skills PR checklist, verification protocol, review red flags |
+| `fix-record/reference.md` | section guide, worked example, publish verification |
 | `builder-*/reference.md` | phase ละเอียด, checklist, anti-patterns ต่อ layer |
 
 **หลัก:** `SKILL.md` = workflow + guardrails · `reference.md` = ตาราง/ตัวอย่างยาว (อย่า copy ซ้ำใน rule อื่น)

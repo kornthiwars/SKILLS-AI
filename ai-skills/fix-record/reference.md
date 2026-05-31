@@ -1,0 +1,132 @@
+# fix-record — reference depth
+
+Version: see `metadata.version` in [`SKILL.md`](./SKILL.md).
+
+Load when drafting sections 2–9, posting to JIRA, or validating input completeness.
+
+---
+
+## Required inputs (detail)
+
+| Input | Pass criteria |
+|-------|---------------|
+| Reliable repro | Deterministic or high-rate flake; next person can run it |
+| Root cause known | Mechanism identified — not open hypothesis |
+| Fix identified | PR / commit / branch pointer |
+| Fix validated | Original repro passes; failing test green |
+
+Maps to [`debug`](../debug/SKILL.md) steps 1–4 and hypothesis **CONFIRMED** in debug ledger.
+
+---
+
+## Structure (section guide)
+
+| # | Section | Required | Content |
+|---|---------|----------|---------|
+| 1 | Summary | yes | What broke (user terms); fix in one sentence; ticket/PR/owner |
+| 2 | Symptom | usual | Concrete errors, logs, metrics — not paraphrase |
+| 3 | Root cause | yes | Mechanism with code identifiers; cause chain |
+| 4 | Why symptom | usual | Link mechanism → visible failure |
+| 5 | Fix | yes | Why fix addresses root; prior wrong fixes named |
+| 6 | How found | usual | Repro, tools, rejected hypotheses, confirming experiment |
+| 7 | Why slipped | usual | CI/latent/workload/review gap — blameless |
+| 8 | Validation | yes | Tests/workloads/numbers; state coverage limits |
+| 9 | Action items | usual | Owner + artifact each; or explicit "None" |
+
+---
+
+## Verification protocol (before publish)
+
+| # | Check |
+|---|--------|
+| 1 | All four required inputs satisfied |
+| 2 | No invented owners, runs, or root causes |
+| 3 | Validation coverage stated honestly |
+| 4 | Code identifiers preserved in Root cause + Fix |
+| 5 | User sign-off before JIRA POST (print-only exempt) |
+
+After publish: suggest vault **learning** if reusable per `vault-issues.mdc`.
+
+---
+
+## Prove-It guard (regression)
+
+Section **Validation** should cite a test or repro that:
+
+- **Failed** before the fix (or documents waiver)
+- **Passes** after the fix
+- Ideally: red-green verified ([debug/reference.md](../debug/reference.md) § Prove-It pattern)
+
+Action items should include a regression test when the gap was missing CI coverage.
+
+---
+
+## Section skeletons (copy-paste)
+
+```markdown
+## Summary
+{user impact} · {fix one line} · {ticket/PR/owner}
+
+## Symptom
+{exact error / metric / log line}
+
+## Root cause
+{mechanism with `file`, `function`, branch — cause chain}
+
+## Why it produced the symptom
+{non-obvious link symptom → cause}
+
+## Fix
+{what changed + why it addresses root — not symptom}
+
+## How it was found
+{repro · tools · rejected hypotheses · confirming experiment}
+
+## Why it slipped through
+{CI / latent / workload / review gap — blameless}
+
+## Validation
+{test names · workloads · numbers · coverage limits stated}
+
+## Action items
+- {owner + artifact} OR "None — sufficient."
+```
+
+---
+
+## Learning export
+
+When reusable, offer lesson card from [`templates/template.learning.md`](../../templates/template.learning.md) — **not** a pasted fix-record body.
+
+| fix-record section | learning section |
+|--------------------|------------------|
+| Symptom + Root cause | Symptoms + Root cause |
+| Fix | Fix |
+| When to use | When to use |
+| Why slipped | Avoid |
+
+---
+
+## Worked example — Tada hang (JIRA-12345)
+
+> **Summary.** Tada's single-stream fast-path skipped a required cross-stream synchronization, causing kernels to launch before scratch-buffer writes were visible. Triggered reliably by dumbModel on LLM-7B fine-tuning, hanging the workload at every eval step. Fixed by removing the unsafe fast-path and tightening a device-side check. JIRA-12345, PR org/platform#5751, owner Alex (Tada team).
+>
+> **Symptom.** 8-GPU LLM-7B fine-tuning under dumbModel hung indefinitely at the first eval step. No error, no timeout — busy-spin in `tadaKernel_AllReduce_f32_RING`. Reproduced on every run.
+>
+> **Root cause.** The single-stream fast-path in `tadaLaunchPrepare` / `tadaLaunchKernel` / `tadaLaunchFinish` (gated on `scheduler->numStreams == 1 && !plan->persistent`) skipped the cross-stream event between `launchStream` and `handle->shared->deviceStream`. dumbModel hits this gate exactly. The kernel was launched before the IPC publish / scratch-buffer writes on `deviceStream` (which populate `scratchBuf`) were visible to `launchStream`. In the kernel: `scratchBuf == NULL` → stray pointer dereference → ring ready-flag read from garbage memory → thread spins forever waiting for a ready signal that will never arrive.
+>
+> **Why it produced the symptom.** The hang lives in the all-reduce ring waitloop, which is the last visible thing in the call stack — but the actual bug is at launch-prep, several frames earlier. The skipped sync is silent until a workload triggers the exact gate (single-stream, non-persistent), and dumbModel's reduce-scatter pattern hits it at every eval step.
+>
+> **Fix.** PR #5751 removes the single-stream fast-path entirely (the saving was negligible vs. the safety it bypassed) and adds a device-side null check on `scratchBuf` before dereference, so the same class of bug fails loudly instead of silently spinning. A previous attempt (PR #5612) added a host-side defensive check after IPC publish that hid the symptom in some paths but left the underlying race in place — that change is also reverted.
+>
+> **How it was found.** Reproducer narrowed from "8-GPU LLM-7B hangs sometimes" to a deterministic 30s repro by pinning to a single eval step on a 2-GPU subset. Initial hypothesis: kernel launch ordering on `launchStream`. Disproved by the debugger — the kernel was correctly enqueued. Second hypothesis: scratch-buffer init race. Confirmed by adding `[DBG-7af3]` instrumentation in `tadaLaunchPrepare` printing `scratchBuf` and a `deviceStream` event-record timestamp; the launch happened before the publish completed. Single experiment that nailed it: forcing `numStreams = 2` made the bug disappear, isolating the gate.
+>
+> **Why it slipped through.** Latent code path. The single-stream fast-path was added in March under the assumption that dumbModel paths always took the multi-stream route. That assumption was true at the time. A May change to dumbModel's launcher began collapsing eval steps to a single stream — at which point the gate flipped. Tada's CI did not exercise the single-stream + IPC + scratch-buffer combination; the customer workload was the first to hit it.
+>
+> **Validation.** Original LLM-7B / 8-GPU / dumbModel workload now completes a full eval pass cleanly (3 consecutive 2-hour runs). `tada-tests` `all_reduce_perf` regression suite green. Soak run: 6 hours on 8 GPUs, no hang. Not retested on other model sizes or non-dumbModel workloads — both go through the multi-stream path and were never affected.
+>
+> **Action items.**
+> - Regression test added: `tests/single_stream_ipc_publish_test.cpp` exercising the previously-uncovered gate. (Alex, merged in PR #5751.)
+> - CI gap: add a single-stream + IPC matrix entry to nightly. (Alex, JIRA-12346.)
+> - Doc update: Tada launch-fast-path invariants documented in `docs/launch_synchronization.md`. (Alex, PR #5752.)
+> - Related: audit other `numStreams == 1` fast-paths for the same class of bug. (Filed as JIRA-12347.)

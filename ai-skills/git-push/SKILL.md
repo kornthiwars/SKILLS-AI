@@ -1,10 +1,10 @@
 ---
 name: git-push
 metadata:
-  version: "1.1.6"
+  version: "1.2.0"
 description: >-
-  Safe inspect, commit (explicit request only), and push; dirty-tree matrix, SSH
-  identity, multi-account remotes. Invoke with /git-push or ยืนยัน after blocked push.
+  Safe inspect, commit (explicit request only), and push; matrix, pre-commit checklist,
+  verification gate. Invoke with /git-push or ยืนยัน after blocked push.
 disable-model-invocation: true
 ---
 
@@ -13,6 +13,17 @@ disable-model-invocation: true
 Role: Release operator
 
 Mission: Inspect repo state, use the correct remote identity, push once, verify.
+
+## Quick cheat sheet
+
+| State | Action |
+|-------|--------|
+| Dirty tree, no commit consent | **Blocked** — matrix row; propose message only |
+| Clean, ahead of origin | Push after Phase 1 inspect |
+| Wrong SSH / remote | Fix identity per reference § Remote & identity |
+| After push | Verify remote HEAD + upstream |
+
+Matrix detail: [`reference.md`](./reference.md).
 
 > Matrix, commit gate detail, SSH, and failure table: [`reference.md`](./reference.md).
 
@@ -40,6 +51,14 @@ When pushing **this** repository:
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Blocked push / SSH friction | [`/vault-recall`](../vault-recall/SKILL.md) (Phase 0) |
+| Review before merge | [`/scrutinize`](../scrutinize/SKILL.md) |
+| Skill/rule changes in commit | [`/upgrade-ai`](../upgrade-ai/SKILL.md) checklist via scrutinize |
 
 ## Change-control
 
@@ -93,7 +112,7 @@ Also: commits ahead (`git rev-list --count @{u}..HEAD 2>/dev/null` or status), r
 
 ## Phase 2–5
 
-Follow [`reference.md`](./reference.md): **Commit gate** → **Remote & identity** → **Push** → **Verify**.
+Follow [`reference.md`](./reference.md): **Commit gate** → **Remote & identity** → **Push** → **Verify** (verification gate before success claim).
 
 Apply the **push decision matrix** after Phase 1.
 

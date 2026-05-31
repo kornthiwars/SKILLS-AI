@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.1.2"
+  version: "1.2.0"
 description: >-
   Orchestrate cross-layer features — workflow analysis, reuse, delegation to
   builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
@@ -38,6 +38,28 @@ Do NOT:
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Quick cheat sheet
+
+| # | Phase | Deliver |
+|---|--------|---------|
+| 1 | Workflow analysis | workflow map |
+| 2 | Existing systems | reuse vs duplicate |
+| 3 | Boundaries | ownership map |
+| 4 | Delegation | specialist task map |
+| 5 | State + integration | integration map |
+| 6 | Rollout + reliability | rollout plan |
+| 7 | Verification | pass/reject · `/scrutinize` |
+
+Detail: [reference.md](./reference.md) § Incremental vertical slices · § Close-out verification gate.
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Prior lessons before design | [`/vault-recall`](../vault-recall/SKILL.md) |
+| Ship coordinated changes | [`/git-push`](../git-push/SKILL.md) |
+| Post-incident RCA | [`/fix-record`](../fix-record/SKILL.md) |
 
 ---
 

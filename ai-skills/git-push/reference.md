@@ -94,6 +94,30 @@ git status
 git log origin/<branch> -1 --oneline
 ```
 
+### Verification gate (before "push succeeded")
+
+| Step | Action |
+|------|--------|
+| 1 | `git status` — clean or expected dirty only |
+| 2 | `git log origin/<branch> -1` — HEAD matches pushed commit |
+| 3 | If user expected files on remote — confirm they were **committed** before push |
+
+No "push succeeded" claim without fresh command output in this session ([superpowers verification-before-completion](https://github.com/obra/superpowers) pattern).
+
+---
+
+## Pre-commit checklist (agent-skills repo)
+
+Before `git commit` on this library:
+
+| # | Check |
+|---|--------|
+| 1 | `./scripts/change-control-check.sh` PASS or documented `[BUDGET-OVERRIDE]` |
+| 2 | Only canonical paths: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `docs/` |
+| 3 | Each touched skill: `metadata.version` bumped |
+| 4 | No secrets in diff (`.env`, keys, tokens) |
+| 5 | Optional: `./scripts/smoke-skills.sh` when skill/rules content changed |
+
 ---
 
 ## Safety rules

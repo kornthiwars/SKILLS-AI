@@ -1,7 +1,7 @@
 ---
 name: builder-api
 metadata:
-  version: "1.1.2"
+  version: "1.2.0"
 description: >-
   Design scalable, secure, contract-first APIs with validation, auth boundaries,
   error systems, versioning, and observability. Invoke with /builder-api when
@@ -37,6 +37,28 @@ Do NOT:
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Full-stack feature | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Data model / migrations | [`/builder-schema`](../builder-schema/SKILL.md) |
+| Execute SQL / migrations | [`/sql`](../sql/SKILL.md) |
+| Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
+| API runtime bug | [`/debug`](../debug/SKILL.md) |
+
+Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
+
+## Quick cheat sheet
+
+| # | Phase | Gate |
+|---|--------|------|
+| 1–2 | Domain + resources | ownership map |
+| 3–4 | Contracts + validation | OpenAPI/schema draft |
+| 5–6 | Auth + errors | auth matrix + error taxonomy |
+| 7–8 | Scale + observability | SLO + metrics plan |
+| 9–10 | Structure + verify | [reference.md](./reference.md) § Close-out gate |
 
 ---
 

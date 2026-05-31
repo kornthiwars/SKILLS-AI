@@ -168,3 +168,17 @@ Reject if:
 ### Evolution
 - Can you roll forward and back safely?
 - Is dual-write window bounded and monitored?
+
+---
+
+## Close-out verification gate (phase 10)
+
+| # | Proof |
+|---|--------|
+| 1 | Migration up/down tested or dry-run cited |
+| 2 | Hot queries have EXPLAIN or index justification |
+| 3 | Integrity rules documented per relationship |
+| 4 | Rollback/compatibility plan for prod |
+| 5 | `/sql` migrate path identified — not ad-hoc DDL |
+
+Hand off execution to [`/sql`](../sql/SKILL.md). Pass/reject after cited tool output.
