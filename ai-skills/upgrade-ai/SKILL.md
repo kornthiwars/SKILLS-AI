@@ -1,10 +1,10 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
 description: >-
   Evidence-based skill diagnosis and minimal upgrades — 8 phases, cheat sheet, handoffs,
-  pack consistency checklist, score audit template, SKILL REPORT output. Invoke with /upgrade-ai or /upgrade.
+  pack consistency checklist, SKILL REPORT output. Invoke with /upgrade-ai or /upgrade.
 disable-model-invocation: true
 ---
 
@@ -23,9 +23,9 @@ Purpose: Continuously improve existing skills through structured diagnosis, fail
 | Trigger | Action |
 |---------|--------|
 | Repeat failure ≥2× | Phase 1 reproduce (or structural audit if meta-only) |
-| Meta audit (`/upgrade`) | Static pack checklist + score template — cap confidence ~0.85 |
+| Meta audit (`/upgrade`) | Static pack checklist — cap confidence ~0.85 |
 | Phase 7 | Minimal fix first · version bump plan per touched skill |
-| Phase 8 | Smoke + fill audit · pass [reference.md](./reference.md) § Close-out verification gate |
+| Phase 8 | Smoke + pass [reference.md](./reference.md) § Close-out verification gate |
 
 ## Scope Guardrails
 
@@ -116,7 +116,7 @@ Run sequentially. Stop early only if Phase 1 **failure diagnosis** cannot reprod
 
 - Test original failing case + edge cases + historical behavior + regressions
 - Standards: `reference.md` § Verification Standards and success criteria there
-- **Pack-wide audit:** fill [`templates/template.skill-pack-score.md`](../../templates/template.skill-pack-score.md) with before/after scores + bar chart
+- **Pack-wide audit:** static checklist + inline scores in SKILL REPORT `ARTIFACTS`
 
 ---
 

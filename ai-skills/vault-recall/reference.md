@@ -102,7 +102,6 @@ Before "recall complete":
 1. Report empty with query tried
 2. Proceed without inventing history
 3. After issue **closed** → offer [`templates/template.learning.md`](../../templates/template.learning.md)
-4. Optional: offer [`templates/template.skill-pack-score.md`](../../templates/template.skill-pack-score.md) after pack upgrade session
 
 ---
 

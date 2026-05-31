@@ -79,7 +79,7 @@ When diagnosing or upgrading **this** repository:
 | `ai-rules/*.mdc` | `.cursor/rules/` |
 | `vault/` | `.cursor/vault/` |
 | `templates/template.issue.md` | used by scripts + `vault-issues.mdc` |
-| `templates/template.skill-pack-score.md` | pack audit score table + bar chart after `/upgrade-ai` |
+| `templates/template.learning.md` | lesson card for `vault/learnings/` |
 
 - **Do not** treat `.cursor/skills` as source of truth in the clone — it points at `ai-skills/`.
 - **Do not** commit `vault/issues/YYYY-MM-DD.md` (gitignored).
@@ -206,21 +206,18 @@ When upgrading **any** skill in this repo, verify peer skills stay aligned:
 | Version | `metadata.version` bumped on every content edit |
 | Smoke | `./scripts/smoke-skills.sh` + dynamic preflight strings preserved |
 | Thai docs | `docs/th/APPENDIX-TH.md` §1 version row updated when shipping |
-| Audit report | Optional [`templates/template.skill-pack-score.md`](../../templates/template.skill-pack-score.md) for score table + bar chart |
 
 Patterns to import from external repos (link, do not copy wholesale): [superpowers verification-before-completion](https://github.com/obra/superpowers), [addyosmani incremental-implementation](https://github.com/addyosmani/agent-skills), [millionco debug-agent](https://github.com/millionco/debug-agent) runtime log discipline.
 
 ---
 
-## Score audit workflow (target 9/10)
+## Meta audit rubric (target 9/10)
 
-After upgrading one or more skills:
+After upgrading one or more skills, score in **SKILL REPORT** `ARTIFACTS` (inline — no repo audit file):
 
-1. Score each skill before/after (see template dimensions)
-2. Copy [`templates/template.skill-pack-score.md`](../../templates/template.skill-pack-score.md) → `docs/audits/skill-pack-YYYY-MM-DD.md`
-3. Fill bar chart — 20 chars = 10.0 (`round(score × 2)` blocks `█`)
-4. List blockers still below 9 with next action
-5. Re-run `./scripts/smoke-skills.sh` when bash available
+1. Score each skill before/after using dimensions below
+2. List blockers still below 9 with next action
+3. Re-run `./scripts/smoke-skills.sh` when bash available
 
 | Dimension (/10) | Question |
 |-----------------|----------|
@@ -242,10 +239,9 @@ Before claiming pack or skill upgrade **complete** ([verification-before-complet
 |------|--------|
 | 1 IDENTIFY | Which skills changed · smoke strings · pack checklist rows |
 | 2 RUN | `./scripts/smoke-skills.sh` when bash available; else grep `scripts/verify-dynamic-smoke-static.sh` patterns |
-| 3 READ | Cite output in session · list skills still below 9.0 with next action |
+| 3 READ | Cite output in session · list skills still below 9.0 with next action in SKILL REPORT |
 
-- Fill or update `docs/audits/skill-pack-YYYY-MM-DD.md` from [`templates/template.skill-pack-score.md`](../../templates/template.skill-pack-score.md).
-- Do not claim "all skills at 9.0" without audit row or explicit blocker table.
+Do not claim "all skills at 9.0" without inline score table or explicit blocker list in the session.
 
 ---
 

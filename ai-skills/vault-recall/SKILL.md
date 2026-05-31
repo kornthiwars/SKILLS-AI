@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
 description: >-
   Grep vault learnings and recent issues; keyword strategy, recall verification gate,
   empty vault playbook. Invoke with /vault-recall or when user asks to search vault.
