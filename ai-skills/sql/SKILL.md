@@ -1,7 +1,7 @@
 ---
 name: sql
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Classify SQL as READ, MIGRATE, or WRITE before executing; EXPLAIN/LIMIT, migrate
   toolchain, prod write gates. Invoke with /sql for queries, migrations, or writes.
@@ -107,44 +107,23 @@ Load [`reference.md`](./reference.md): decision matrix, toolchain detection, com
 
 ---
 
-## Response shape
+## SKILL REPORT
 
-Mid-session — **section headers only**:
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
-- **Summary** — mode, environment, result
-- **Details** — matrix row, precheck, or blocked reason
-- **Next step** — execute, safer alternative, or confirmation gate
+| Section | `/sql` |
+|---------|--------|
+| STATUS | IN_PROGRESS = precheck; READY = executed; BLOCKED = prod WRITE / missing confirm |
+| OBJECTIVE | Run correct READ / MIGRATE / WRITE with evidence |
+| DISCOVERIES | Matrix row, engine, toolchain, precheck results |
+| ANALYSIS | Mode choice rationale, blocked cause |
+| RISKS | Prod mutation, secrets in output, wrong engine, raw ALTER on prod |
+| ARTIFACTS | Executed SQL (redacted), rows returned/affected, duration |
+| NEXT ACTIONS | Execute, safer alternative, or confirmation gate |
+| HANDOFF | `/debug` on query errors · `/scrutinize` on migration PR · `none` |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Execution verification before READY |
 
-After execution, use **# Phase 5 — Report** below.
-
----
-
-# Phase 5 — Report
-
-## SQL Summary
-
-- **Environment:**
-- **Mode:** READ | MIGRATE | WRITE
-- **Engine:**
-- **Result:** success | blocked | error
-
-## Statement
-
-```sql
--- as executed (redact literals if sensitive)
-```
-
-## Outcome
-
-- Rows returned / rows affected / migration version reached
-- Duration if available
-- For READ: cap displayed rows (e.g. 50); note truncation
-
-## If blocked
-
-- **Cause:**
-- **Evidence:**
-- **Safer alternative:**
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE. After execution: close-out all sections.
 
 ---
 

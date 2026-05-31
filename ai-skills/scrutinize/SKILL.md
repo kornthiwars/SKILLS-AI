@@ -1,7 +1,7 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Outsider review — intent, simpler alternatives, end-to-end trace, five-axis and
   browser UI checks, verification gate before ship. Invoke with /scrutinize.
@@ -49,15 +49,23 @@ Apply [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc
 - **End-to-end, not diff-local.** The diff is the entry point, not the scope. Follow the call graph through real code paths.
 - **Actionable, concise, with rationale.** Every finding states *what to change*, *why*, and *what evidence* led you there. No filler, no restating the diff back.
 
-## Response shape
+## SKILL REPORT
 
-Light skeleton for every user-facing turn (**section headers only** — not duplicate Thai/English blocks):
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
-- **Summary** — stated goal in one sentence; verdict preview (ship / fix-then-ship / rework / reject)
-- **Details** — intent check, trace notes, or per-finding bullets with `file:line` when applicable
-- **Next step** — single biggest change, simpler alternative, or what to trace next
+| Section | `/scrutinize` |
+|---------|---------------|
+| STATUS | IN_PROGRESS during trace; READY = verdict issued; BLOCKED = artifact underspecified |
+| OBJECTIVE | Cold read — verify intent, trace paths, report actionable findings |
+| DISCOVERIES | Trace surprises, per-finding bullets with `file:line`, simpler alternative |
+| ANALYSIS | Verdict (ship / fix-then-ship / rework / reject) + single biggest reason |
+| RISKS | Untested paths, contract breaks, missing tests, scope creep |
+| ARTIFACTS | Ordered findings (severity), evidence, suggested minimal change |
+| NEXT ACTIONS | Single biggest fix or next trace target |
+| HANDOFF | `/debug` if bug found · `/fix-record` for RCA · `/git-push` to ship · `none` |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Verification protocol before READY |
 
-When the review is complete, expand **### 4. Report** instead of stopping at three bullets. Pass [reference.md](./reference.md) § Verification protocol before **ship**.
+When review complete (step 4), close-out SKILL REPORT — not three bullets only. **agent-skills PRs:** run reference § agent-skills skill / rule PR checklist.
 
 ## Workflow
 

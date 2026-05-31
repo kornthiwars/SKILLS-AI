@@ -1,10 +1,10 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Evidence-based skill diagnosis and minimal upgrades — 8 phases, cheat sheet, handoffs,
-  pack consistency checklist, score audit template. Invoke with /upgrade-ai or /upgrade.
+  pack consistency checklist, score audit template, SKILL REPORT output. Invoke with /upgrade-ai or /upgrade.
 disable-model-invocation: true
 ---
 
@@ -97,7 +97,7 @@ Run sequentially. Stop early only if Phase 1 **failure diagnosis** cannot reprod
 - Confirm target skill/rules files and constraints from the user request.
 - When diagnosing **this** repo (agent-skills): search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 learnings, then issues if needed).
 - **Failure diagnosis:** reproduce ≥ 2 times under controlled conditions; capture actual vs expected behavior.
-- **Structural / meta audit** (no repeat failure — e.g. “wrong structure?”, token review): scope + static file analysis only; use Response shape; cap confidence ~0.85; do **not** force artificial repro.
+- **Structural / meta audit** (no repeat failure — e.g. “wrong structure?”, token review): scope + static file analysis only; use SKILL REPORT; cap CONFIDENCE ~85; do **not** force artificial repro.
 
 ### Phases 2–6
 
@@ -120,47 +120,23 @@ Run sequentially. Stop early only if Phase 1 **failure diagnosis** cannot reprod
 
 ---
 
-## Response shape
+## SKILL REPORT
 
-Default for short turns and mid-session updates (**section headers only**):
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
-- **Summary** — current phase, suspected layer, confidence
-- **Details** — key evidence or diagnosis excerpt
-- **Next step** — one action (repro, test, patch plan, or read `reference.md`)
+| Section | `/upgrade-ai` |
+|---------|---------------|
+| STATUS | IN_PROGRESS = phase N; READY = verified upgrade; BLOCKED = insufficient evidence |
+| OBJECTIVE | Diagnose failure layer and propose minimal skill/rule upgrade |
+| DISCOVERIES | Repro steps, layer signals, vault hits, rejected hypotheses |
+| ANALYSIS | Root cause, blast radius, regression risk, non-goals |
+| RISKS | Prompt inflation, skipped verification, wrong layer, pack drift |
+| ARTIFACTS | Upgrade proposal, version bump plan, audit scores if pack-wide |
+| NEXT ACTIONS | Repro, patch plan, smoke, or read `reference.md` |
+| HANDOFF | `/scrutinize` before merge · `/git-push` to ship · `none` |
+| CONFIDENCE | 0–100; cap ~85 for structural audit only; pass close-out gate before READY |
 
-When closing a diagnosis run or proposing skill edits, use the full **# Output Format** below instead of collapsing into three bullets.
-
----
-
-# Output Format
-
-## Diagnosis Summary
-- Suspected Layer:
-- Root Cause:
-- Confidence:
-- Blast Radius:
-- Regression Risk:
-- Non-goals:
-
-## Evidence
-- Reproduction Results
-- Supporting Signals
-- Rejected Alternatives
-
-## Upgrade Proposal
-- Recommended Change
-- Complexity Impact
-- Expected Improvement
-- Safer Alternatives
-- Version bump plan:
-  - Old:
-  - New:
-  - Affected files:
-
-## Verification Plan
-- Required Tests
-- Edge Cases
-- Regression Checks
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES or ANALYSIS, NEXT ACTIONS, CONFIDENCE. Close-out: all sections + version bump plan in ARTIFACTS.
 
 ---
 

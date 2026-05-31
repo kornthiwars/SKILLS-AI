@@ -8,18 +8,18 @@
 
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
-| debug | `/debug` | 1.3.1 | ใช่ |
-| scrutinize | `/scrutinize` | 1.2.0 | ใช่ |
-| sql | `/sql` | 1.2.0 | ใช่ |
-| builder-ui | `/builder-ui` | 1.2.0 | ใช่ |
-| builder-api | `/builder-api` | 1.2.0 | ใช่ |
-| builder-schema | `/builder-schema` | 1.2.0 | ใช่ |
-| builder-infrastructure | `/builder-infrastructure` | 1.2.0 | ใช่ |
-| builder-feature | `/builder-feature` | 1.2.0 | ใช่ |
-| fix-record | `/fix-record` | 1.2.0 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.2.0 | ใช่ |
-| git-push | `/git-push` | 1.2.0 | ใช่ |
-| vault-recall | `/vault-recall` | 1.2.0 | ใช่ |
+| debug | `/debug` | 1.3.2 | ใช่ |
+| scrutinize | `/scrutinize` | 1.2.1 | ใช่ |
+| sql | `/sql` | 1.2.1 | ใช่ |
+| builder-ui | `/builder-ui` | 1.2.1 | ใช่ |
+| builder-api | `/builder-api` | 1.2.1 | ใช่ |
+| builder-schema | `/builder-schema` | 1.2.1 | ใช่ |
+| builder-infrastructure | `/builder-infrastructure` | 1.2.1 | ใช่ |
+| builder-feature | `/builder-feature` | 1.2.1 | ใช่ |
+| fix-record | `/fix-record` | 1.2.1 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.2.1 | ใช่ |
+| git-push | `/git-push` | 1.2.1 | ใช่ |
+| vault-recall | `/vault-recall` | 1.2.1 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
 
@@ -53,15 +53,23 @@
 
 ---
 
-## 4. ส่วนร่วม — Response shape
+## 4. ส่วนร่วม — SKILL REPORT
 
-หลาย skill ใช้หัวข้อเดียวกัน (ไม่ใช่สองภาษาซ้ำทั้งบล็อก):
+ทุก skill ใช้ output contract เดียว — [`templates/template.skill-report.md`](../../templates/template.skill-report.md):
 
-- **Summary** — หนึ่งบรรทัด
-- **Details** — ledger, evidence, checklist
-- **Next step** — การทดลองหรือคำสั่งถัดไป
+```
+SKILL REPORT
+══════════════════════
+STATUS | OBJECTIVE | DISCOVERIES | ANALYSIS | RISKS
+ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
+```
 
-`/debug` ครั้งแรก: ยังต้อง **ท่อง Mantra ตามต้นฉบับ** ก่อน แล้วค่อยใช้ Response shape
+- **ป้ายหัวข้อ:** English (คงที่)
+- **เนื้อหา:** ไทย ~60% / English ~40% — ห้ามซ้ำสองภาษาทั้งบล็อก
+- **Mid-session:** STATUS, OBJECTIVE, DISCOVERIES หรือ ANALYSIS, NEXT ACTIONS, CONFIDENCE
+- **Close-out:** ครบทุก section
+
+`/debug` ครั้งแรก: ยังต้อง **ท่อง Mantra ตามต้นฉบับ** ก่อน แล้วค่อยใช้ SKILL REPORT
 
 ### Mantra เต็ม (จาก `debug/SKILL.md`)
 

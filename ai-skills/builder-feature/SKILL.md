@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Orchestrate cross-layer features — workflow analysis, reuse, delegation to
   builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
@@ -129,57 +129,23 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 ---
 
-## Response shape
+## SKILL REPORT
 
-- **Summary** — current phase or verdict in one line
-- **Details** — artifact excerpt, trace, or checklist row
-- **Next step** — next phase or deliverable
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
-# Output format
+| Section | `/builder-feature` |
+|---------|---------------------|
+| STATUS | IN_PROGRESS = phase N; READY = close-out gate passed; BLOCKED = scope unclear |
+| OBJECTIVE | Cross-layer feature orchestration in vertical slices |
+| DISCOVERIES | User workflow, reuse opportunities, integration surfaces, risks |
+| ANALYSIS | Orchestration plan, ownership boundaries, rollout strategy |
+| RISKS | Duplication, integration failures, operational gaps |
+| ARTIFACTS | Close-out: Feature Analysis, Orchestration Plan, Reuse & Architecture Consistency, State & Integration Coordination, Rollout & Reliability, Verification Plan |
+| NEXT ACTIONS | Next slice, delegate to builder-* skill, or verification |
+| HANDOFF | `/builder-ui` · `/builder-api` · `/builder-schema` · `/scrutinize` · `none` |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out verification gate before READY |
 
-Short turns: use **Summary / Details / Next step** section headers; expand the full Output format below when delivering the final artifact.
-
-## Feature Analysis
-- Primary Goal:
-- User Workflow:
-- Existing Systems:
-- Reuse Opportunities:
-- Duplication Risks:
-- Operational Risks:
-- Rollout Concerns:
-
-## Orchestration Plan
-- Specialist Responsibilities
-- Delegation Structure
-- Integration Surfaces
-- Ownership Boundaries
-
-## Reuse & Architecture Consistency
-- Existing Shared Systems
-- Extension Opportunities
-- Duplication Prevention
-- Architecture Constraints
-
-## State & Integration Coordination
-- State Ownership
-- Async Coordination
-- Cache Strategy
-- Failure Handling
-
-## Rollout & Reliability
-- Rollout Strategy
-- Monitoring Coverage
-- Rollback Plan
-- Operational Readiness
-
-## Verification Plan
-- Reuse Validation
-- Duplication Checks
-- Workflow Validation
-- Integration Verification
-- Scalability Checks
-- Reliability Validation
-- Rollout Verification
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.
 
 ---
 

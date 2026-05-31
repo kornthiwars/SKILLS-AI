@@ -1,7 +1,7 @@
 ---
 name: fix-record
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Canonical RCA after a validated fix — mechanism, fix, validation, slip-through.
   Required-input gate + verification protocol. Invoke with /fix-record when closing
@@ -74,15 +74,23 @@ Executive summaries reframe the same facts in plain language — this skill owns
 
 Detail: [reference.md](./reference.md) § Required inputs. Pull from debug ledger + hypothesis **CONFIRMED** when available.
 
-## Response shape
+## SKILL REPORT
 
-Before inputs satisfied:
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
-- **Summary** — missing item or draft plan
-- **Details** — four-input checklist
-- **Next step** — what user must provide
+| Section | `/fix-record` |
+|---------|---------------|
+| STATUS | BLOCKED = missing any of 4 inputs; IN_PROGRESS = drafting; READY = verified draft |
+| OBJECTIVE | Produce validated RCA record for destination (JIRA, PR, docs) |
+| DISCOVERIES | Symptom, mechanism, validation evidence from debug ledger |
+| ANALYSIS | Root cause chain — mechanism over narrative |
+| RISKS | Invented owners, unvalidated fix, missing repro, hedging |
+| ARTIFACTS | Draft sections: Summary, Root cause, Fix, Validation (+ optional sections per reference) |
+| NEXT ACTIONS | Missing input to collect · sign-off before POST · learning export |
+| HANDOFF | `/debug` if inputs incomplete · `none` when published |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Verification protocol before READY |
 
-After inputs satisfied: follow **Structure** in reference; full draft — not three bullets only.
+Before inputs satisfied: STATUS=BLOCKED, list missing items in DISCOVERIES. After satisfied: close-out with full ARTIFACTS draft.
 
 ## Structure
 

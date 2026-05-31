@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Safe inspect, commit (explicit request only), and push; matrix, pre-commit checklist,
   verification gate. Invoke with /git-push or ยืนยัน after blocked push.
@@ -118,39 +118,23 @@ Apply the **push decision matrix** after Phase 1.
 
 ---
 
-## Response shape
+## SKILL REPORT
 
-Default for short turns — **section headers only**:
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
-- **Summary** — branch, remote, result in one line
-- **Details** — matrix row taken, ahead/behind count, or block cause
-- **Next step** — exact user phrase or command to unblock
+| Section | `/git-push` |
+|---------|-------------|
+| STATUS | READY = pushed/synced; BLOCKED = dirty tree / no consent / SSH; IN_PROGRESS = inspecting |
+| OBJECTIVE | Safely inspect, commit (if consented), push, verify remote |
+| DISCOVERIES | `git status`, ahead/behind, matrix row, remote URL, auth errors |
+| ANALYSIS | Path taken, block cause, proposed commit message if dirty |
+| RISKS | Secrets in diff, force-push, wrong remote identity, hook failures |
+| ARTIFACTS | Branch, remote, commit range pushed, command output snippets |
+| NEXT ACTIONS | User phrase to unblock (e.g. ยืนยัน) or exact command |
+| HANDOFF | `/vault-recall` on SSH friction · `/scrutinize` before merge · `none` |
+| CONFIDENCE | 0–100; no READY without fresh push/status output |
 
-After a successful push or full pre-push state, use **# Output Format** below.
-
----
-
-# Output Format
-
-## Push Summary
-
-- **Branch:**
-- **Remote:**
-- **Commits pushed:** (range or count)
-- **Result:** success / blocked / up to date
-
-## Pre-push State
-
-- Uncommitted changes: yes/no
-- Commits ahead of origin: N
-- Path taken: (matrix row)
-
-## If Blocked
-
-- **Cause:**
-- **Evidence:** (command snippet)
-- **Proposed commit message:** (if dirty)
-- **Recommended fix:** (what user should say or run)
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE. Close-out: all sections.
 
 ---
 

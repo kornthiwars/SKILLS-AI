@@ -1,7 +1,7 @@
 ---
 name: builder-api
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Design scalable, secure, contract-first APIs with validation, auth boundaries,
   error systems, versioning, and observability. Invoke with /builder-api when
@@ -110,59 +110,23 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 ---
 
-## Response shape
+## SKILL REPORT
 
-- **Summary** — current phase or verdict in one line
-- **Details** — artifact excerpt, trace, or checklist row
-- **Next step** — next phase or deliverable
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
-# Output format
+| Section | `/builder-api` |
+|---------|----------------|
+| STATUS | IN_PROGRESS = phase N; READY = close-out gate passed; BLOCKED = missing reference/input |
+| OBJECTIVE | API contracts and backend boundaries from domain requirements |
+| DISCOVERIES | Resources, ownership, security/scalability signals |
+| ANALYSIS | Service boundaries, contract choices, reliability plan |
+| RISKS | Auth gaps, breaking contracts, missing validation layers |
+| ARTIFACTS | Close-out: API Analysis, Resource Architecture, API Contracts, Security Architecture, Backend Structure, Reliability Plan, Verification Plan |
+| NEXT ACTIONS | Next workflow phase or open question |
+| HANDOFF | `/builder-feature` · `/builder-schema` · `/scrutinize` · `none` |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |
 
-Short turns: use **Summary / Details / Next step** section headers; expand the full Output format below when delivering the final artifact.
-
-## API Analysis
-- Primary Domain:
-- Core Resources:
-- Ownership Boundaries:
-- Security Concerns:
-- Scalability Risks:
-
-## Resource Architecture
-- Resource Models
-- Relationships
-- Lifecycle Rules
-- Ownership Rules
-
-## API Contracts
-- Endpoints
-- Request Schemas
-- Response Schemas
-- Error Structures
-
-## Security Architecture
-- Authentication Flow
-- Authorization Rules
-- Permission Boundaries
-- Rate Limiting
-
-## Backend Structure
-- Folder Structure
-- Service Boundaries
-- Validation Layers
-- Dependency Strategy
-
-## Reliability Plan
-- Logging
-- Monitoring
-- Retry Rules
-- Health Checks
-
-## Verification Plan
-- Validation Tests
-- Auth Tests
-- Edge Cases
-- Performance Checks
-- Compatibility Checks
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.
 
 ---
 

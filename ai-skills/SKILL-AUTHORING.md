@@ -33,7 +33,7 @@ After clone: `./scripts/setup-macos-linux.sh <install-root>` — see [scripts/RE
 | **Invocation** | `disable-model-invocation: true` on **all** manual skills — prevents auto-loading full `SKILL.md` every chat |
 | **Description** | WHAT + invoke hint (one short block) — no duplicate `Trigger on` + `Use when` |
 | **paths** | Omit when `disable-model-invocation: true` (no auto-discovery benefit) |
-| **Response shape** | `Summary` / `Details` / `Next step` for short turns; full Output format when closing |
+| **Response shape** | [`templates/template.skill-report.md`](../templates/template.skill-report.md) — SKILL REPORT for every turn; mid vs close-out depth in template |
 | **Scope guardrails** | ALWAYS scope + non-goals; NEVER speculative rewrites |
 | **Large skills** | Keep `SKILL.md` under ~300 lines — move phase prose to `reference.md` § Workflow |
 

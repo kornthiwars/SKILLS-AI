@@ -1,7 +1,7 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Design integrity-safe schemas via domain modeling, relationships, indexing,
   and safe evolution. Invoke with /builder-schema when modeling entities,
@@ -108,52 +108,23 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 ---
 
-## Response shape
+## SKILL REPORT
 
-- **Summary** — current phase or verdict in one line
-- **Details** — artifact excerpt, trace, or checklist row
-- **Next step** — next phase or deliverable
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
-# Output format
+| Section | `/builder-schema` |
+|---------|-------------------|
+| STATUS | IN_PROGRESS = phase N; READY = close-out gate passed; BLOCKED = missing domain input |
+| OBJECTIVE | Data model, relationships, migrations, integrity plan |
+| DISCOVERIES | Entities, lifecycles, query patterns, evolution constraints |
+| ANALYSIS | Relationship map, indexing strategy, migration approach |
+| RISKS | Integrity gaps, unsafe migrations, scalability bottlenecks |
+| ARTIFACTS | Close-out: Domain Analysis, Entity Architecture, Relationship Architecture, Query & Indexing Plan, Integrity & Evolution Plan, Verification Plan |
+| NEXT ACTIONS | Next workflow phase or open question |
+| HANDOFF | `/builder-api` · `/builder-feature` · `/sql` · `none` |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |
 
-Short turns: use **Summary / Details / Next step** section headers; expand the full Output format below when delivering the final artifact.
-
-## Domain Analysis
-- Core Entities:
-- Ownership Boundaries:
-- Lifecycle Flows:
-- Transactional Boundaries:
-- Scalability Risks:
-
-## Entity Architecture
-- Entities
-- Attributes
-- Identifiers
-- Lifecycle States
-
-## Relationship Architecture
-- Relationship Map
-- Ownership Hierarchy
-- Cascade Rules
-- Dependency Structure
-
-## Query & Indexing Plan
-- Query Patterns
-- Indexing Strategy
-- Optimization Concerns
-- Performance Risks
-
-## Integrity & Evolution Plan
-- Constraints
-- Migration Strategy
-- Compatibility Risks
-- Rollback Plan
-
-## Verification Plan
-- Integrity Checks
-- Query Validation
-- Migration Safety
-- Scalability Validation
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.
 
 ---
 

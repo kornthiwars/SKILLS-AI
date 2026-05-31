@@ -80,7 +80,7 @@
 
 - **Debug ledger** + **hypothesis table** ต่อเนื่องในแชท
 - Repro artifact, trace notes, สมมติฐานที่ถูกตัดออก (REJECTED พร้อม evidence)
-- รูปแบบตอบ: **Summary / Details / Next step**
+- รูปแบบตอบ: **SKILL REPORT** (ดู `templates/template.skill-report.md`)
 - ข้อเสนอ fix **เล็กที่สุด** หลัง verification protocol ผ่าน — แล้วเสนอ `/fix-record` ถ้าไม่ trivial
 
 ### ความสัมพันธ์กับ rules
@@ -522,6 +522,6 @@ flowchart TD
 ## ภาคผนวก
 
 - ตารางเวอร์ชัน + `reference.md` ทุกตัว → [APPENDIX-TH.md](./APPENDIX-TH.md)
-- Scope Guardrails / Response shape ร่วม → APPENDIX §3–4
+- Scope Guardrails / SKILL REPORT ร่วม → APPENDIX §3–4
 
 *อัปเดตตาม repo หลัง change-control rollout — เวอร์ชันล่าสุดดูใน APPENDIX §1 หรือแต่ละ `SKILL.md`*

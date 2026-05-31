@@ -20,9 +20,8 @@ disable-model-invocation: true
 1. Title, Role, Mission, Purpose
 2. `## Scope Guardrails`
 3. Activate / workflow
-4. `## Response shape`
-5. `# Output format`
-6. `# Success criteria`
+4. `## SKILL REPORT` (link [`templates/template.skill-report.md`](../templates/template.skill-report.md))
+5. `# Success criteria`
 
 ## Pre-merge
 

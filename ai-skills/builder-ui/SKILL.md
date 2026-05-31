@@ -1,7 +1,7 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Design scalable, accessible UI systems from visual references — layout,
   components, responsive behavior, a11y. Invoke with /builder-ui for frontend
@@ -108,55 +108,23 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 ---
 
-## Response shape
+## SKILL REPORT
 
-- **Summary** — current phase or verdict in one line
-- **Details** — artifact excerpt, trace, or checklist row
-- **Next step** — next phase or deliverable
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
-# Output format
+| Section | `/builder-ui` |
+|---------|---------------|
+| STATUS | IN_PROGRESS = phase N; READY = close-out gate passed; BLOCKED = missing reference/input |
+| OBJECTIVE | UI architecture from references — components, design system, responsive plan |
+| DISCOVERIES | Reference patterns, hierarchy, reuse opportunities, a11y/responsive concerns |
+| ANALYSIS | Architecture choices, state boundaries, duplication risks |
+| RISKS | Inconsistent design system, missing a11y, responsive gaps |
+| ARTIFACTS | Close-out: UI Analysis, Component Architecture, Design System, Responsive Plan, Frontend Structure, Verification Plan |
+| NEXT ACTIONS | Next workflow phase or open question |
+| HANDOFF | `/builder-feature` · `/scrutinize` · `none` |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |
 
-Short turns: use **Summary / Details / Next step** section headers; expand the full Output format below when delivering the final artifact.
-
-## UI Analysis
-- Primary Goal:
-- Visual Hierarchy:
-- Layout Structure:
-- Reusable Patterns:
-- Responsive Concerns:
-- Accessibility Concerns:
-
-## Component Architecture
-- Component Tree
-- Shared Components
-- State Boundaries
-- Reusable Variants
-
-## Design System
-- Typography Scale
-- Spacing Scale
-- Colors
-- Variants
-- Interaction States
-
-## Responsive Plan
-- Desktop Layout
-- Tablet Layout
-- Mobile Layout
-- Breakpoint Behavior
-
-## Frontend Structure
-- Folder Structure
-- Component Ownership
-- State Architecture
-- Separation Strategy
-
-## Verification Plan
-- Responsive Checks
-- Accessibility Checks
-- Duplication Checks
-- Maintainability Checks
-- Interaction Verification
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.
 
 ---
 

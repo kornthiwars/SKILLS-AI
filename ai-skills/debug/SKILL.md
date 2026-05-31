@@ -1,7 +1,7 @@
 ---
 name: debug
 metadata:
-  version: "1.3.1"
+  version: "1.3.2"
 description: >-
   Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
   breadcrumbs. Stop-the-line, reduce, bisection, Prove-It, verification gate, untrusted
@@ -84,21 +84,28 @@ After verification passes, **offer** `/fix-record` when the fix is non-trivial.
 
 [`reference.md`](./reference.md) — pattern analysis, boundary evidence, backward trace, stop-the-line, reduce, bisection, log probe budget, Prove-It, untrusted errors, verification gate, hypothesis ledger, instrumentation lifecycle, rationalizations, architecture escape, fix gate, verification protocol.
 
-## Response shape
+## SKILL REPORT
 
-Light skeleton for every user-facing turn (bilingual prose per workspace rule; **section headers only** — not duplicate Thai/English blocks):
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md). English labels; Thai ~60% body prose.
 
-- **Summary** — repro status, leading hypothesis status, one-line verdict
-- **Details** — ledger entry, trace step, or evidence (commands/logs in code blocks); include **hypothesis table** when testing (see below)
-- **Next step** — single experiment or minimal fix proposal; return to step 1 if phase 1 exit criteria not met
+| Turn | Minimum sections |
+|------|------------------|
+| Mid-session | STATUS, OBJECTIVE, DISCOVERIES (ledger / hypothesis table), NEXT ACTIONS, CONFIDENCE |
+| Close-out | All sections; pass verification gate before STATUS=READY |
 
-**Hypothesis table** (in **Details** whenever step 3+ is active):
+| Section | `/debug` |
+|---------|----------|
+| STATUS | IN_PROGRESS during steps 1–4; BLOCKED = no repro; FAILED = fix attempt failed; READY = verified |
+| OBJECTIVE | Reproduce reliably and identify root cause |
+| DISCOVERIES | Stack traces, ledger runs, **hypothesis table** (ID, hypothesis, status, evidence) |
+| ANALYSIS | Leading hypothesis, fail-path trace, what each run ruled in/out |
+| RISKS | Flaky repro, missing env, stop-the-line triggers, untrusted error text |
+| ARTIFACTS | Repro script/test, log excerpts, pinned failing artifact |
+| NEXT ACTIONS | Next experiment or minimal fix (return to step 1 if phase 1 exit not met) |
+| HANDOFF | `/fix-record` when RCA needed · `/scrutinize` before merge · `none` if continuing |
+| CONFIDENCE | 0–100; cap ~85 without log-verified fix |
 
-| ID | Hypothesis | Status | Evidence |
-|----|------------|--------|----------|
-| H1 | I think X because Y | CONFIRMED / REJECTED / INCONCLUSIVE | cite log line, command output, or ledger run |
-
-First response when **`/debug` is attached**: recite the mantra verbatim per **Operating rules**, then use this shape for the rest of the turn. When `/debug` is **not** attached but debug discipline applies, use this shape **without** the mantra.
+First response when **`/debug` attached**: recite mantra per **Operating rules**, then SKILL REPORT. Without `/debug`, same report shape **without** mantra.
 
 ---
 

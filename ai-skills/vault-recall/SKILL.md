@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Grep vault learnings and recent issues; keyword strategy, recall verification gate,
   empty vault playbook. Invoke with /vault-recall or when user asks to search vault.
@@ -66,39 +66,25 @@ Other skills call the same search via `reference.md` — you do not need `/vault
 # Workflow
 
 1. Load and run [`reference.md`](./reference.md) (resolve root → search learnings → issues if needed).
-2. Report using **Response shape** or **Output format** below.
+2. Report using **SKILL REPORT** below.
 
 ---
 
-## Response shape
+## SKILL REPORT
 
-- **Summary** — hit count, best file(s), one-line takeaway
-- **Details** — bullet per note: path, `title:`, symptom, fix snippet
-- **Next step** — open file, run `/debug`, or no prior art
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
----
-
-# Output format (full recall)
-
-## Recall summary
-
-- **Query:**
-- **Vault root:**
-- **Learnings matched:** N (paths)
-- **Issues matched:** N (paths)
-
-## Top matches
-
-For each file (max 3):
-
-- **Path:**
-- **Title / skill:**
-- **Use when:**
-- **Fix (short):**
-
-## If empty
-
-- Suggest creating a learning after the issue is **resolved** (see `vault-issues.mdc`).
+| Section | `/vault-recall` |
+|---------|-----------------|
+| STATUS | READY = search complete; BLOCKED = vault root unknown |
+| OBJECTIVE | Find prior art in vault for current symptom or friction |
+| DISCOVERIES | Matched paths, titles, symptoms, fix snippets (≤3 files) |
+| ANALYSIS | Best match takeaway; empty-vault note if none |
+| RISKS | Token overrun, fabricated prior fixes, wrong vault root |
+| ARTIFACTS | Query, vault root, learnings/issues counts, top match list |
+| NEXT ACTIONS | Open file, run `/debug`, or create learning after close |
+| HANDOFF | `/debug` · `/git-push` · `none` |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Recall verification gate before READY |
 
 ---
 

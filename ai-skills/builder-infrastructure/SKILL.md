@@ -1,7 +1,7 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 description: >-
   Design reliable infrastructure — workloads, environments, CI/CD, networking,
   security, observability, DR. Invoke with /builder-infrastructure for deployment
@@ -112,59 +112,23 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 ---
 
-## Response shape
+## SKILL REPORT
 
-- **Summary** — current phase or verdict in one line
-- **Details** — artifact excerpt, trace, or checklist row
-- **Next step** — next phase or deliverable
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
-# Output format
+| Section | `/builder-infrastructure` |
+|---------|---------------------------|
+| STATUS | IN_PROGRESS = phase N; READY = close-out gate passed; BLOCKED = missing requirements |
+| OBJECTIVE | IaC, CI/CD, observability, scale/cost plan |
+| DISCOVERIES | Workload profile, reliability/security constraints, topology signals |
+| ANALYSIS | Architecture choices, IAM/secrets strategy, observability plan |
+| RISKS | Single points of failure, cost blowout, weak recovery/backup |
+| ARTIFACTS | Close-out: Infrastructure Analysis, Infrastructure Architecture, Security & Reliability, Observability Plan, Scalability & Cost Plan, Infrastructure as Code, Verification Plan |
+| NEXT ACTIONS | Next workflow phase or open question |
+| HANDOFF | `/builder-feature` · `/scrutinize` · `none` |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |
 
-Short turns: use **Summary / Details / Next step** section headers; expand the full Output format below when delivering the final artifact.
-
-## Infrastructure Analysis
-- Workload Profile:
-- Reliability Requirements:
-- Scalability Risks:
-- Security Concerns:
-- Operational Constraints:
-
-## Infrastructure Architecture
-- Environment Structure
-- Compute Strategy
-- Networking Topology
-- Deployment Architecture
-
-## Security & Reliability
-- IAM Strategy
-- Secrets Management
-- Recovery Strategy
-- Backup Plan
-
-## Observability Plan
-- Logging
-- Metrics
-- Tracing
-- Alerting
-- Health Monitoring
-
-## Scalability & Cost Plan
-- Autoscaling Strategy
-- Bottleneck Risks
-- Cost Optimization
-- Resource Allocation
-
-## Infrastructure as Code
-- IaC Structure
-- Module Strategy
-- Automation Workflow
-
-## Verification Plan
-- Deployment Validation
-- Recovery Testing
-- Scalability Testing
-- Security Validation
-- Observability Verification
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.
 
 ---
 

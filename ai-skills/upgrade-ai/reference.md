@@ -65,12 +65,7 @@ Possible improvements:
 
 ---
 
-## Response shape governance
-
-- Core and operator skills use `## Response shape` (**Summary** / **Details** / **Next step**) for short and mid-session turns.
-- Use the full `# Output Format` in `SKILL.md` (or `# Phase 5 — Report` for `sql`) when closing a diagnosis, push, SQL run, or review.
-- Workspace rule `ai-rules/bilingual-th-en.mdc` (via `.cursor/rules` link): Response shape labels are **section headers only** — do not duplicate the same content in full Thai and full English blocks.
-- Builder skills may keep `# Output format` as the canonical long form; a one-line pointer to the three labels under that heading is enough for consistency without prompt inflation.
+| Response shape | SKILL REPORT — [`templates/template.skill-report.md`](../../templates/template.skill-report.md) |
 
 ---
 
@@ -204,6 +199,7 @@ When upgrading **any** skill in this repo, verify peer skills stay aligned:
 |-------|---------------|
 | Handoffs | `## Handoffs` links related skills in pack |
 | Cheat sheet | Workflow skills have quick table in `SKILL.md` |
+| SKILL REPORT | All skills link `templates/template.skill-report.md`; field mapping in each `SKILL.md` |
 | reference.md | Depth on demand; `SKILL.md` < ~300 lines |
 | Verification | Close-out gate in reference or operating rules |
 | Vault | Search links `vault-recall/reference.md` — no copied grep tables |
