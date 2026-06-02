@@ -36,7 +36,7 @@ PR checklist + five-axis + verification: [reference.md](./reference.md).
 | Runtime bug while reviewing | [`/debug`](../debug/SKILL.md) |
 | RCA after validated fix | [`/fix-record`](../fix-record/SKILL.md) |
 | Skill/rule upgrade in diff | [`/upgrade-ai`](../upgrade-ai/SKILL.md) |
-| SQL or schema in diff | [`/sql`](../sql/SKILL.md) |
+| SQL or schema in diff | [`/builder-schema`](../builder-schema/SKILL.md) |
 | Ship approved changes | [`/git-push`](../git-push/SKILL.md) |
 
 ## Change-control

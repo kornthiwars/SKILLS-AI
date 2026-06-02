@@ -75,7 +75,7 @@ Optional: user may run `/vault-recall` first for a dedicated summary.
 |-----------|--------|
 | Fix validated — write RCA for engineers | [`/fix-record`](../fix-record/SKILL.md) |
 | Review debug patch or skill/rule PR before merge | [`/scrutinize`](../scrutinize/SKILL.md) |
-| Bug involves SQL / schema / prod data | [`/sql`](../sql/SKILL.md) |
+| Bug involves SQL / schema / prod data | [`/builder-schema`](../builder-schema/SKILL.md) + production safety rules |
 | Search prior fixes only (no full debug) | [`/vault-recall`](../vault-recall/SKILL.md) |
 
 After verification passes, **offer** `/fix-record` when the fix is non-trivial.

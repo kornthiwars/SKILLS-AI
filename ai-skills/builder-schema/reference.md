@@ -179,6 +179,6 @@ Reject if:
 | 2 | Hot queries have EXPLAIN or index justification |
 | 3 | Integrity rules documented per relationship |
 | 4 | Rollback/compatibility plan for prod |
-| 5 | `/sql` migrate path identified — not ad-hoc DDL |
+| 5 | Migration path identified from project DB toolchain — not ad-hoc DDL |
 
-Hand off execution to [`/sql`](../sql/SKILL.md). Pass/reject after cited tool output.
+For execution, use the project's migration toolchain and require explicit production confirmation for destructive operations. Pass/reject after cited tool output.

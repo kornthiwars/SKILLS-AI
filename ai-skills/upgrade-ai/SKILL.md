@@ -1,10 +1,10 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.2.2"
+  version: "1.2.3"
 description: >-
   Evidence-based skill diagnosis and minimal upgrades — 8 phases, cheat sheet, handoffs,
-  pack consistency checklist, SKILL REPORT output. Invoke with /upgrade-ai or /upgrade.
+  pack consistency checklist, SKILL REPORT output. Invoke with /upgrade-ai (canonical); /upgrade is shorthand alias.
 disable-model-invocation: true
 ---
 
@@ -23,9 +23,11 @@ Purpose: Continuously improve existing skills through structured diagnosis, fail
 | Trigger | Action |
 |---------|--------|
 | Repeat failure ≥2× | Phase 1 reproduce (or structural audit if meta-only) |
-| Meta audit (`/upgrade`) | Static pack checklist — cap confidence ~0.85 |
+| Meta audit (`/upgrade` alias) | Static pack checklist — cap confidence 85 |
 | Phase 7 | Minimal fix first · version bump plan per touched skill |
 | Phase 8 | Smoke + pass [reference.md](./reference.md) § Close-out verification gate |
+
+Canonical invoke is **`/upgrade-ai`** in docs/routing tables. Use **`/upgrade`** only as chat shorthand alias for this same skill.
 
 ## Scope Guardrails
 
@@ -46,8 +48,6 @@ Use this skill only for **skills and rules** in agent-skills (or the user's skil
 | Ship skill changes | [`/git-push`](../git-push/SKILL.md) |
 
 Application-code patches: follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) — do not duplicate its full gate list here.
-
----
 
 ---
 
@@ -97,7 +97,7 @@ Run sequentially. Stop early only if Phase 1 **failure diagnosis** cannot reprod
 - Confirm target skill/rules files and constraints from the user request.
 - When diagnosing **this** repo (agent-skills): search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 learnings, then issues if needed).
 - **Failure diagnosis:** reproduce ≥ 2 times under controlled conditions; capture actual vs expected behavior.
-- **Structural / meta audit** (no repeat failure — e.g. “wrong structure?”, token review): scope + static file analysis only; use SKILL REPORT; cap CONFIDENCE ~85; do **not** force artificial repro.
+- **Structural / meta audit** (no repeat failure — e.g. “wrong structure?”, token review): scope + static file analysis only; use SKILL REPORT; cap CONFIDENCE 85; do **not** force artificial repro.
 
 ### Phases 2–6
 
@@ -134,7 +134,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | ARTIFACTS | Upgrade proposal, version bump plan, audit scores if pack-wide |
 | NEXT ACTIONS | Repro, patch plan, smoke, or read `reference.md` |
 | HANDOFF | `/scrutinize` before merge · `/git-push` to ship · `none` |
-| CONFIDENCE | 0–100; cap ~85 for structural audit only; pass close-out gate before READY |
+| CONFIDENCE | 0–100; cap 85 for structural audit only; pass close-out gate before READY |
 
 Mid-session: STATUS, OBJECTIVE, DISCOVERIES or ANALYSIS, NEXT ACTIONS, CONFIDENCE. Close-out: all sections + version bump plan in ARTIFACTS.
 

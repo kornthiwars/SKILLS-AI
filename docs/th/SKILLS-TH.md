@@ -65,7 +65,7 @@
 | 3 | Falsify hypothesis | สมมติฐาน 3–5 อันจัดอันดับ — **พยายามพิสูจน์ว่าผิด** ก่อนเชื่ออันใดอันหนึ่ง |
 | 4 | Breadcrumb ledger | ทุกการรัน = บันทึก + **ตาราง H1/H2… CONFIRMED/REJECTED/INCONCLUSIVE** พร้อม cite evidence |
 
-**Handoffs:** fix ยืนยันแล้ว → `/fix-record` · review patch → `/scrutinize` · SQL → `/sql`  
+**Handoffs:** fix ยืนยันแล้ว → `/fix-record` · review patch → `/scrutinize` · schema/data plan → `/builder-schema`  
 **Cheatsheet + รายละเอียด:** `debug/reference.md` (exit criteria, instrumentation lifecycle, verification protocol)
 
 ### สิ่งที่ skill ห้ามทำ

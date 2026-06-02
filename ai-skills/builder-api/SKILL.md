@@ -44,7 +44,7 @@ Do NOT:
 |-----------|--------|
 | Full-stack feature | [`/builder-feature`](../builder-feature/SKILL.md) |
 | Data model / migrations | [`/builder-schema`](../builder-schema/SKILL.md) |
-| Execute SQL / migrations | [`/sql`](../sql/SKILL.md) |
+| Execute migration plan / schema evolution | [`/builder-schema`](../builder-schema/SKILL.md) + project DB toolchain |
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
 | API runtime bug | [`/debug`](../debug/SKILL.md) |
 
