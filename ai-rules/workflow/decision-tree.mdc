@@ -14,7 +14,8 @@ Agent routes from user intent **without requiring** a slash command unless the u
 | new screen / mock / component architecture | `/builder-ui` |
 | review PR / plan | `/scrutinize` |
 | database / SQL | `/sql` |
-| push / commit | `/git-push` |
+| push / commit | `/git-push` — if several git roots in the workspace, `cd` the repo the user means first |
+| mobile / native client bug (login, API error, crash) | Debug discipline in that **client repo** — **not** `/builder-feature` |
 | search past vault notes | `/vault-recall` |
 | improve skills in this repo | `/upgrade-ai` |
 | RCA after **one** validated fix | `/fix-record` |

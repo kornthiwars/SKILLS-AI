@@ -15,10 +15,10 @@
 | builder-api | `/builder-api` | 1.2.1 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.1 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.1 | ใช่ |
-| builder-feature | `/builder-feature` | 1.2.1 | ใช่ |
+| builder-feature | `/builder-feature` | 1.2.2 | ใช่ |
 | fix-record | `/fix-record` | 1.2.1 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.2.2 | ใช่ |
-| git-push | `/git-push` | 1.2.1 | ใช่ |
+| git-push | `/git-push` | 1.2.3 | ใช่ |
 | vault-recall | `/vault-recall` | 1.2.2 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`

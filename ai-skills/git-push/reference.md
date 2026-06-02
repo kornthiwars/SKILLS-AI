@@ -18,6 +18,17 @@ Never push uncommitted work. Never assume "confirm" means commit unless intent i
 
 ---
 
+## Multi-project workspace
+
+When the Cursor workspace contains **more than one git root** (sibling folders, each with its own `.git`):
+
+1. **Phase 1** — `cd` into the repo the user named (or infer from open files / prior task in the same thread).
+2. State the **repository directory name** in Pre-push State and Push Summary — not “the workspace”.
+3. Do not run `git status` only at a non-repo parent path unless that parent is itself the intended repo.
+4. One `/git-push` turn = **one repo** unless the user explicitly lists several.
+
+---
+
 ## Phase 2 — Commit gate
 
 ### Explicit commit consent

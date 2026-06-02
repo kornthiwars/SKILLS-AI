@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.2.1"
+  version: "1.2.3"
 description: >-
   Safe inspect, commit (explicit request only), and push; matrix, pre-commit checklist,
   verification gate. Invoke with /git-push or ยืนยัน after blocked push.

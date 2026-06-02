@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
 description: >-
   Orchestrate cross-layer features — workflow analysis, reuse, delegation to
   builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
@@ -53,10 +53,18 @@ Do NOT:
 
 Detail: [reference.md](./reference.md) § Incremental vertical slices · § Close-out verification gate.
 
+## When NOT to use
+
+- **Single bug** with known repo (login 400, one API, one screen) → [`/debug`](../debug/SKILL.md) — do not run full 7-phase orchestration.
+- **Copy / label / small UI** with clear outcome → direct minimal patch per [`decision-tree.mdc`](../../ai-rules/workflow/decision-tree.mdc).
+- **Git publish only** → [`/git-push`](../git-push/SKILL.md).
+- User only needs **one layer** (e.g. new modal) → [`/builder-ui`](../builder-ui/SKILL.md) or the matching specialist, not this orchestrator.
+
 ## Handoffs (other skills in this pack)
 
 | Situation | Skill |
 |-----------|--------|
+| Bug / login / API failure in one app | [`/debug`](../debug/SKILL.md) |
 | Prior lessons before design | [`/vault-recall`](../vault-recall/SKILL.md) |
 | Ship coordinated changes | [`/git-push`](../git-push/SKILL.md) |
 | Post-incident RCA | [`/fix-record`](../fix-record/SKILL.md) |
