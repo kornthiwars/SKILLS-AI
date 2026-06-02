@@ -11,4 +11,4 @@ alwaysApply: false
 - no destructive ops without approval
 - prefer read-only investigation first
 
-Invoke `/sql` with prod gates; use `/builder-infrastructure` for IaC changes.
+Use `/builder-schema` for schema/data change planning with prod gates; use `/builder-infrastructure` for IaC changes.

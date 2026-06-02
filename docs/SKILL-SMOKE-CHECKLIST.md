@@ -29,7 +29,7 @@ Reload Cursor after rule changes.
 | debug | Mantra + vault recall + manifest |
 | scrutinize | Skill PR checklist + manifest |
 | git-push | Blocked without ยืนยัน |
-| sql | Prod gate |
+| builder-schema | Migration + rollback plan |
 | vault-recall | ≤3 learning files |
 
 ## Docs

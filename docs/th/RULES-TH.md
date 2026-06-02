@@ -71,7 +71,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 |-----------|--------|
 | bug | `/debug` |
 | review PR | `/scrutinize` |
-| DB | `/sql` |
+| DB | `/builder-schema` |
 | git | `/git-push` |
 | ค้น vault | `/vault-recall` |
 | ปรับ skill | `/upgrade-ai` |
@@ -309,7 +309,7 @@ Root cause ต้องอธิบายอาการครบ path — อ�
 | globs | migrations, schema, prisma, … |
 
 ต้องมีแผน migrate, rollback, compatibility, data safety  
-**ห้าม** destructive schema อัตโนมัติ — ใช้ `/sql` MIGRATE + ยืนยัน prod
+**ห้าม** destructive schema อัตโนมัติ — ใช้ `/builder-schema` วางแผน migrate/rollback และยืนยัน prod ชัดเจนก่อน execute
 
 ---
 

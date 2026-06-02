@@ -10,7 +10,6 @@
 |-------|--------|---------|-------------------|
 | debug | `/debug` | 1.3.2 | ใช่ |
 | scrutinize | `/scrutinize` | 1.2.1 | ใช่ |
-| sql | `/sql` | 1.2.1 | ใช่ |
 | builder-ui | `/builder-ui` | 1.2.1 | ใช่ |
 | builder-api | `/builder-api` | 1.2.1 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.1 | ใช่ |
@@ -32,9 +31,9 @@
 | `vault-recall/reference.md` | resolve vault root, ลำดับ grep, จำกัด ≤3 learnings, ใครเรียกเมื่อไหร่ |
 | `debug/reference.md` | phase 1 exit criteria, hypothesis CONF/REJ table, instrumentation lifecycle, verification protocol |
 | `git-push/reference.md` | push matrix, commit gate, SSH multi-account, ตาราง error |
-| `sql/reference.md` | decision matrix, toolchain migrate, prod WRITE gate |
 | `scrutinize/reference.md` | agent-skills PR checklist, verification protocol, review red flags |
 | `fix-record/reference.md` | section guide, worked example, publish verification |
+| `upgrade-ai/reference.md` | catalog skill, version governance, anti-patterns |
 | `builder-*/reference.md` | phase ละเอียด, checklist, anti-patterns ต่อ layer |
 
 **หลัก:** `SKILL.md` = workflow + guardrails · `reference.md` = ตาราง/ตัวอย่างยาว (อย่า copy ซ้ำใน rule อื่น)
@@ -225,7 +224,7 @@ Template: `templates/template.issue.md`, `templates/template.learning.md`
 
 | รายการ | สถานะ |
 |--------|--------|
-| 12/12 skills มีหัวข้อใน SKILLS-TH | ครบ |
+| 11/11 skills มีหัวข้อใน SKILLS-TH | ครบ |
 | 34/34 rules มีหัวข้อใน RULES-TH | ครบ |
 | reference.md อธิบาย | ครบ (ไฟล์นี้ §2) |
 | Mantra / flaky / skip mantra | ครบ (§4) |

@@ -1,5 +1,5 @@
 ---
-description: Database schema changes require migration plan and approval — use /sql
+description: Database schema changes require migration plan and approval — use /builder-schema
 globs: "**/migrations/**,**/schema/**,**/prisma/**,**/*migration*.{sql,py,ts,js}"
 alwaysApply: false
 ---
@@ -13,4 +13,4 @@ Schema changes require:
 - compatibility analysis
 - data safety assessment
 
-Never auto-run destructive schema changes. Invoke `/sql` (MIGRATE mode) and get explicit prod confirmation when needed.
+Never auto-run destructive schema changes. Use `/builder-schema` to design migration and rollback first, then require explicit prod confirmation before any destructive execution.

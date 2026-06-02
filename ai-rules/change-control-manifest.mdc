@@ -59,7 +59,7 @@ See also [`workflow/decision-tree.mdc`](workflow/decision-tree.mdc) (always-on r
 | Known copy / label / small UI | Direct edit — no `/debug` |
 | New UI from mock / component system | `/builder-ui` |
 | Review plan or PR | `/scrutinize` |
-| Database | `/sql` |
+| Database | `/builder-schema` |
 | Git publish | `/git-push` |
 | Prior vault notes | `/vault-recall` |
 | Skill/rule upgrades | `/upgrade-ai` |

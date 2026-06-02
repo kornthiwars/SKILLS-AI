@@ -6,7 +6,7 @@
 
 | เอกสาร | เนื้อหา |
 |--------|---------|
-| [SKILLS-TH.md](./SKILLS-TH.md) | 12 skills — เรียกด้วย `/ชื่อ-skill` |
+| [SKILLS-TH.md](./SKILLS-TH.md) | 11 skills — เรียกด้วย `/ชื่อ-skill` |
 | [RULES-TH.md](./RULES-TH.md) | 34 rules — โหลดอัตโนมัติตาม Cursor |
 | [APPENDIX-TH.md](./APPENDIX-TH.md) | เติมรายละเอียด — versions, reference.md, vault, globs, smoke/CI, mantra |
 | [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md) | ลิงก์ไป `reference.md` ภาษาอังกฤษทุก skill |
@@ -56,7 +56,7 @@ CI: `.github/workflows/skills-quality.yml`
 |--------|----------|
 | `/debug` | bug, stack trace, พฤติกรรมผิด |
 | `/scrutinize` | review PR / แผน / diff |
-| `/sql` | query, migrate, DB |
+| `/builder-schema` | schema/migration design for DB work |
 | `/builder-ui` | สถาปัตยกรรม UI |
 | `/builder-api` | สัญญา API / backend |
 | `/builder-schema` | schema / migration |

@@ -69,12 +69,13 @@ else
   fail 'scenario 6 — scrutinize PR checklist'
 fi
 
-# Scenario 7 — sql prod gate (reference)
-if search_q 'prod' "ai-skills/sql/SKILL.md" \
-  && search_q 'Prod' "ai-skills/sql/reference.md" 2>/dev/null || search_q 'prod' "ai-skills/sql/reference.md"; then
-  pass 'scenario 7 — sql prod differentiation'
+# Scenario 7 — schema/prod gates
+if search_q '/builder-schema' "ai-rules/architecture/schema-change-protection.mdc" \
+  && search_q 'explicit prod confirmation' "ai-rules/architecture/schema-change-protection.mdc" \
+  && search_q '/builder-schema' "ai-rules/risk/production-safety.mdc"; then
+  pass 'scenario 7 — schema/prod gates'
 else
-  fail 'scenario 7 — sql prod gates'
+  fail 'scenario 7 — schema/prod gates'
 fi
 
 # Scenario 8 — smoke script exists

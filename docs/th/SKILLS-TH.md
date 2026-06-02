@@ -10,7 +10,6 @@
 
 1. [debug](#1-debug)
 2. [scrutinize](#2-scrutinize)
-3. [sql](#3-sql)
 4. [builder-ui](#4-builder-ui)
 5. [builder-api](#5-builder-api)
 6. [builder-schema](#6-builder-schema)
@@ -40,7 +39,7 @@
 ### ไม่ใช้เมื่อไหร่
 
 - แค่ review แผน/PR โดยไม่มีอาการผิดพลาด → ใช้ `/scrutinize`
-- แค่รัน SQL → ใช้ `/sql`
+- แค่รัน SQL/schema work → ใช้ `/builder-schema`
 - แค่ push git → ใช้ `/git-push`
 
 ### หลักการสำคัญ (Mantra)
@@ -140,44 +139,13 @@
 
 ---
 
-## 3. sql
+## 3. sql (removed)
 
-| รายการ | ค่า |
-|--------|-----|
-| **Invoke** | `/sql` |
-| **บทบาท** | ผู้ปฏิบัติการฐานข้อมูล — จำแนกโหมด, precheck, รัน, รายงาน |
+`/sql` ถูกถอดออกจาก repo นี้แล้ว เนื่องจากใช้งานได้ไม่ดีตาม feedback.
 
-### ใช้เมื่อไหร่
-
-- “รัน query นี้”, “เช็ค DB”, “migrate”, “สถานะ migration”
-- debug ข้อมูล (หลังยืนยันว่า READ พอ)
-
-### โหมดการทำงาน
-
-| โหมด | ความหมาย |
-|------|----------|
-| READ | SELECT / อ่านอย่างเดียว |
-| MIGRATE | migration ตาม toolchain โปรเจกต์ |
-| WRITE | INSERT/UPDATE/DELETE ที่มีควบคุม |
-| BLOCKED | อันตรายหรือไม่มี consent — หยุดและเสนอทางปลอดภัย |
-
-### สิ่งที่ห้าม
-
-- เก็บ/พิมพ์ connection string, password, API key
-- `DROP` / `TRUNCATE` / DELETE ไม่มี WHERE โดยไม่ยืนยัน
-- `migrate dev` / `db:reset` บน prod
-- แต่ง migration SQL เองถ้าโปรเจกต์มีคำสั่ง migrate อยู่แล้ว
-
-### ขั้นตอน (ย่อ)
-
-1. Context — engine, environment, วิธีเชื่อมต่อ
-2. Classify — READ / MIGRATE / WRITE / BLOCKED
-3–4. Precheck & execute — ตาม `reference.md`
-5. Report — SQL, ผลลัพธ์, แถว, duration, EXPLAIN ถ้ามี
-
-### ตัวอย่าง
-
-> `/sql` — รัน EXPLAIN บน query ช้าใน staging
+สำหรับงานฐานข้อมูล/สคีมา ให้ใช้:
+- `/builder-schema` สำหรับออกแบบ schema, migration strategy, rollback plan
+- rules `schema-change-protection` + `production-safety` สำหรับ prod confirmation gates
 
 ---
 
@@ -274,7 +242,7 @@ Domain → Entity → Relationships → Normalization → Query patterns → Ind
 
 - Entity Architecture, Relationship Architecture, Evolution Plan
 
-เชื่อมกับ `/sql` (MIGRATE) และ rule `schema-change-protection`
+เชื่อมกับ rule `schema-change-protection` และ `production-safety`
 
 ---
 
@@ -502,7 +470,7 @@ flowchart TD
   B -->|ไม่| C{review PR/plan?}
   C -->|ใช่| S[/scrutinize]
   C -->|ไม่| E{เกี่ยว DB?}
-  E -->|ใช่| Q[/sql]
+  E -->|ใช่| M[/builder-schema]
   E -->|ไม่| F{ออกแบบระบบ?}
   F -->|UI| U[/builder-ui]
   F -->|API| P[/builder-api]

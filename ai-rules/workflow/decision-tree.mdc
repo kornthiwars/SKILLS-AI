@@ -13,7 +13,7 @@ Agent routes from user intent **without requiring** a slash command unless the u
 | copy, label, known small UI (outcome clear) | Direct minimal patch — **no** `/debug` mantra |
 | new screen / mock / component architecture | `/builder-ui` |
 | review PR / plan | `/scrutinize` |
-| database / SQL | `/sql` |
+| database / SQL | `/builder-schema` |
 | push / commit | `/git-push` — if several git roots in the workspace, `cd` the repo the user means first |
 | mobile / native client bug (login, API error, crash) | Debug discipline in that **client repo** — **not** `/builder-feature` |
 | search past vault notes | `/vault-recall` |

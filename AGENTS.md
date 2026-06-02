@@ -37,7 +37,6 @@ Edit **`ai-skills/`**, **`ai-rules/`**, **`vault/`** in the clone — not inside
 |-------|----------|
 | [debug](ai-skills/debug/SKILL.md) | Bugs, stack traces, systematic diagnosis |
 | [scrutinize](ai-skills/scrutinize/SKILL.md) | Review plan, PR, or diff end-to-end |
-| [sql](ai-skills/sql/SKILL.md) | READ / MIGRATE / WRITE database work |
 | [builder-ui](ai-skills/builder-ui/SKILL.md) | UI architecture from references |
 | [builder-api](ai-skills/builder-api/SKILL.md) | API contracts and backend boundaries |
 | [builder-schema](ai-skills/builder-schema/SKILL.md) | Data modeling and migrations |
