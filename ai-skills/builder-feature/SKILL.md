@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.2.3"
+  version: "1.2.4"
 description: >-
   Orchestrate cross-layer features — workflow analysis, reuse, delegation to
   builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
@@ -57,7 +57,7 @@ Detail: [reference.md](./reference.md) § Incremental vertical slices · § Clos
 
 ## When NOT to use
 
-- **Single bug** with known repo (login 400, one API, one screen) → [`/debug`](../debug/SKILL.md) — do not run full 7-phase orchestration.
+- **Single bug** with known repo (login 400, one API, one screen) → [`/debug`](../debug/SKILL.md) — do not run the full orchestration workflow.
 - **Copy / label / small UI** with clear outcome → direct minimal patch per [`decision-tree.mdc`](../../ai-rules/workflow/decision-tree.mdc).
 - **Git publish only** → [`/git-push`](../git-push/SKILL.md).
 - User only needs **one layer** (e.g. new modal) → [`/builder-ui`](../builder-ui/SKILL.md) or the matching specialist, not this orchestrator.
@@ -155,7 +155,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | RISKS | Duplication, integration failures, operational gaps |
 | ARTIFACTS | Close-out: Feature Analysis, Orchestration Plan, Reuse & Architecture Consistency, State & Integration Coordination, Rollout & Reliability, Verification Plan |
 | NEXT ACTIONS | Next slice, delegate to builder-* skill, or verification |
-| HANDOFF | `/builder-ui` · `/builder-api` · `/builder-schema` · `/scrutinize` · `none` |
+| HANDOFF | `/builder-ui` · `/builder-api` · `/builder-schema` · `/builder-infrastructure` · `/scrutinize` · `/git-push` · `none` |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out verification gate before READY |
 
 Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.

@@ -14,7 +14,7 @@
 | builder-api | `/builder-api` | 1.2.1 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.1 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.1 | ใช่ |
-| builder-feature | `/builder-feature` | 1.2.3 | ใช่ |
+| builder-feature | `/builder-feature` | 1.2.4 | ใช่ |
 | fix-record | `/fix-record` | 1.2.1 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.2.2 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |

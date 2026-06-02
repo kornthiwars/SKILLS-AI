@@ -129,13 +129,13 @@ Delegate each slice to specialists; `/scrutinize` per slice before merge.
 
 ---
 
-## Close-out verification gate (phase 7)
+## Close-out verification gate (phases 0-8)
 
 Before final artifact:
 
 | # | Check |
 |---|--------|
-| 1 | All 7 phases delivered or explicitly deferred |
+| 1 | All required phases (0-8) delivered or explicitly deferred |
 | 2 | Each specialist slice has owner + sequencing |
 | 3 | `/scrutinize` planned per slice before merge |
 | 4 | Rollback + monitoring stated — not TBD |
