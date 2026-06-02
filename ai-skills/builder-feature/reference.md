@@ -4,6 +4,20 @@
 
 Load this section when executing a phase. Run phases **in order**.
 
+### 0) Discovery gate (required before phase 1)
+
+Goal: prevent "jump to implementation" when scope is still ambiguous.
+
+Required outputs before phase 1:
+
+- Scope lock: exact files/surfaces to touch in this run
+- Explicit non-goals: what this run will NOT change
+- Path choice:
+  - **UI-only** (single-screen/static/mock): hand off to `/builder-ui`
+  - **Cross-layer** (UI+API/schema/infra): continue with full orchestration
+
+If these are missing, set status to **BLOCKED** and ask targeted clarifying questions first.
+
 ### 1) Workflow analysis
 
 Analyze user actions, success path, async flows/retries, permissions, rollback/failure scenarios, cross-system dependencies.
@@ -45,6 +59,20 @@ Output: rollout plan, operational readiness assessment.
 Verify workflow continuity, reuse, ownership, integration, permissions, async reliability, observability, rollback. Use `/scrutinize` before merge.
 
 Reject if: unclear ownership, duplicated systems, excessive coupling, rollback impossible, incomplete observability.
+
+### 8) Execution handoff (plan -> execution)
+
+After phase 7, do NOT continue as an implicit implementation step. Choose one explicit path:
+
+1. **Specialist execution mode (default)**:
+   - delegate slices to `/builder-ui`, `/builder-api`, `/builder-schema`, `/builder-infrastructure`
+   - keep slice boundaries explicit (owner + sequence)
+2. **UI-only fast path**:
+   - if scope is static/mock/single-layer, hand off directly to `/builder-ui`
+3. **Ship mode**:
+   - after verification pass, hand off to `/git-push`
+
+Output in SKILL REPORT `NEXT ACTIONS` must state exactly which path was chosen.
 
 ---
 
@@ -89,6 +117,15 @@ Delegate each slice to specialists; `/scrutinize` per slice before merge.
 - hidden dependencies between layers
 - fragmented state ownership
 - rollout without monitoring/rollback
+
+## Anti-rationalization table
+
+| Rationalization | Why it fails | Required response |
+|---|---|---|
+| "งานเล็ก แค่ HTML ไม่ต้องวาง flow" | small UI still changes user workflow and navigation expectations | phase 0 scope lock + 3-5 step workflow map |
+| "เดี๋ยวค่อยถามทีหลัง ระหว่างเขียน" | implementation-first hides wrong assumptions and causes rework | block and clarify first; then choose UI-only or cross-layer path |
+| "builder-feature ทำเองทีเดียวเร็วกว่า" | violates ownership; increases coupling and regression risk | delegate to specialist skills per layer |
+| "ข้าม verify ก่อน เดี๋ยวค่อย review" | missing proof encourages false-ready status | pass phase 7 gate (`/scrutinize`) before handoff/ship |
 
 ---
 

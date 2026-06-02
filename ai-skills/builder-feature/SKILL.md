@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.2.2"
+  version: "1.2.3"
 description: >-
   Orchestrate cross-layer features — workflow analysis, reuse, delegation to
   builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
@@ -43,6 +43,7 @@ Do NOT:
 
 | # | Phase | Deliver |
 |---|--------|---------|
+| 0 | Discovery gate | scope lock + non-goals + path choice |
 | 1 | Workflow analysis | workflow map |
 | 2 | Existing systems | reuse vs duplicate |
 | 3 | Boundaries | ownership map |
@@ -50,6 +51,7 @@ Do NOT:
 | 5 | State + integration | integration map |
 | 6 | Rollout + reliability | rollout plan |
 | 7 | Verification | pass/reject · `/scrutinize` |
+| 8 | Execution handoff | specialist slices or direct specialist invoke |
 
 Detail: [reference.md](./reference.md) § Incremental vertical slices · § Close-out verification gate.
 
@@ -64,6 +66,7 @@ Detail: [reference.md](./reference.md) § Incremental vertical slices · § Clos
 
 | Situation | Skill |
 |-----------|--------|
+| UI-only mock / component delivery | [`/builder-ui`](../builder-ui/SKILL.md) |
 | Bug / login / API failure in one app | [`/debug`](../debug/SKILL.md) |
 | Prior lessons before design | [`/vault-recall`](../vault-recall/SKILL.md) |
 | Ship coordinated changes | [`/git-push`](../git-push/SKILL.md) |
@@ -127,6 +130,7 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 | # | Phase | Deliver |
 |---|--------|---------|
+| 0 | Discovery gate | scope lock, non-goals, execution path |
 | 1 | Workflow analysis | workflow map, failure scenarios |
 | 2 | Existing system analysis | reuse opportunities, duplication risks |
 | 3 | Feature boundary design | boundary map, ownership map |
@@ -134,6 +138,7 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 | 5 | State + integration | integration map, state ownership |
 | 6 | Rollout + reliability | rollout plan, ops readiness |
 | 7 | Cross-layer verification | pass/reject; `/scrutinize` before merge |
+| 8 | Execution handoff | either `/builder-ui|api|schema|infrastructure` or direct specialist invoke for UI-only |
 
 ---
 
