@@ -1,10 +1,10 @@
 ---
 name: wiki-ingest
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Wiki curator — ingest papers, articles, or closed insights into vault/wiki
-  (pages, sources, index, log).   LLM Wiki Pattern. Invoke with /wiki-ingest.
+  (pages, sources, index, log). LLM Wiki Pattern. Invoke with /wiki-ingest.
 disable-model-invocation: true
 ---
 

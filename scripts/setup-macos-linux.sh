@@ -90,6 +90,38 @@ ensure_vault_folders() {
   done
 }
 
+bootstrap_wiki_files() {
+  local today index_file log_file template
+
+  today="$(date +%Y-%m-%d)"
+  index_file="$VAULT/wiki/index.md"
+  log_file="$VAULT/wiki/log.md"
+
+  if [ -f "$index_file" ]; then
+    printf 'OK  vault/wiki/index.md\n'
+  else
+    template="$REPO_ROOT/templates/template.wiki-index.md"
+    if [ ! -f "$template" ]; then
+      printf '..  skip wiki index (no template)\n'
+    else
+      sed "s/{{YYYY-MM-DD}}/$today/g" "$template" >"$index_file"
+      printf 'OK  created vault/wiki/index.md\n'
+    fi
+  fi
+
+  if [ -f "$log_file" ]; then
+    printf 'OK  vault/wiki/log.md\n'
+  else
+    template="$REPO_ROOT/templates/template.wiki-log.md"
+    if [ ! -f "$template" ]; then
+      printf '..  skip wiki log (no template)\n'
+    else
+      sed "s/{{YYYY-MM-DD}}/$today/g" "$template" >"$log_file"
+      printf 'OK  created vault/wiki/log.md\n'
+    fi
+  fi
+}
+
 bootstrap_daily_issues() {
   local today file template
   today="$(date +%Y-%m-%d)"
@@ -135,6 +167,7 @@ link_dir "$INSTALL_ROOT/.cursor/vault" "$VAULT"
 
 write_vault_pointer
 ensure_vault_folders
+bootstrap_wiki_files
 bootstrap_daily_issues
 
 printf '\nDone. Reload Cursor.\n'

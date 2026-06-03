@@ -86,6 +86,39 @@ function Ensure-VaultFolders {
     }
 }
 
+function Bootstrap-WikiFiles {
+    $today = Get-Date -Format 'yyyy-MM-dd'
+    $wikiDir = Join-Path $Vault 'wiki'
+
+    $indexFile = Join-Path $wikiDir 'index.md'
+    if (Test-Path -LiteralPath $indexFile) {
+        Write-Host 'OK  vault/wiki/index.md'
+    } else {
+        $template = Join-Path $RepoRoot 'templates\template.wiki-index.md'
+        if (-not (Test-Path -LiteralPath $template)) {
+            Write-Host '..  skip wiki index (no template)'
+        } else {
+            $content = (Get-Content -LiteralPath $template -Raw -Encoding UTF8).Replace('{{YYYY-MM-DD}}', $today)
+            [IO.File]::WriteAllText($indexFile, $content, [Text.UTF8Encoding]::new($false))
+            Write-Host 'OK  created vault/wiki/index.md'
+        }
+    }
+
+    $logFile = Join-Path $wikiDir 'log.md'
+    if (Test-Path -LiteralPath $logFile) {
+        Write-Host 'OK  vault/wiki/log.md'
+    } else {
+        $template = Join-Path $RepoRoot 'templates\template.wiki-log.md'
+        if (-not (Test-Path -LiteralPath $template)) {
+            Write-Host '..  skip wiki log (no template)'
+        } else {
+            $content = (Get-Content -LiteralPath $template -Raw -Encoding UTF8).Replace('{{YYYY-MM-DD}}', $today)
+            [IO.File]::WriteAllText($logFile, $content, [Text.UTF8Encoding]::new($false))
+            Write-Host 'OK  created vault/wiki/log.md'
+        }
+    }
+}
+
 function Bootstrap-DailyIssues {
     $today = Get-Date -Format 'yyyy-MM-dd'
     $file = Join-Path $Vault "issues\$today.md"
@@ -131,6 +164,7 @@ Set-Junction (Join-Path $InstallRoot '.cursor\vault')  $Vault
 
 Write-VaultPointer
 Ensure-VaultFolders
+Bootstrap-WikiFiles
 Bootstrap-DailyIssues
 
 Write-Host ""

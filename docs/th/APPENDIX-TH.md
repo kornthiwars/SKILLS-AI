@@ -18,8 +18,8 @@
 | fix-record | `/fix-record` | 1.2.2 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.2.4 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
-| vault-recall | `/vault-recall` | 1.3.1 | ใช่ |
-| wiki-ingest | `/wiki-ingest` | 1.0.1 | ใช่ |
+| vault-recall | `/vault-recall` | 1.3.2 | ใช่ |
+| wiki-ingest | `/wiki-ingest` | 1.0.2 | ใช่ |
 | workday-init | `/workday-init` | 1.2.1 | ใช่ |
 | workday-update | `/workday-update` | 1.2.1 | ไม่ |
 | workday-review | `/workday-review` | 1.2.1 | ใช่ |

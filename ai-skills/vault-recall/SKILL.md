@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.3.1"
+  version: "1.3.2"
 description: >-
   Grep vault wiki pages and recent issues; keyword strategy, recall verification gate.
   Invoke with /vault-recall. Search wiki/pages/ then recent issues.
@@ -58,6 +58,8 @@ Search **local** vault and return a short, actionable summary. Does **not** writ
 ---
 
 ## SKILL REPORT
+
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
 
 | Section | `/vault-recall` |
 |---------|-----------------|

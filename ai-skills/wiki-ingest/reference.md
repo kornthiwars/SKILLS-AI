@@ -19,7 +19,7 @@ Every close-out **must** write/update wiki files **and** show summary in chat.
 | 2 | `<workspace>/.cursor/vault/wiki/` | via junction |
 | 3 | `<workspace>/vault/wiki/` or agent-skills clone `vault/wiki/` | use |
 
-Create `wiki/pages/`, `wiki/sources/` if missing. Ensure `index.md` and `log.md` exist (from templates or empty).
+Create `wiki/pages/`, `wiki/sources/` if missing. Ensure `index.md` and `log.md` exist — from [`templates/template.wiki-index.md`](../../templates/template.wiki-index.md) / [`template.wiki-log.md`](../../templates/template.wiki-log.md) or empty.
 
 ### Paths
 
