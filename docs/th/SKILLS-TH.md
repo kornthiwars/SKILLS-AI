@@ -62,7 +62,7 @@
 
 | Phase | ชื่อ | ทำอะไร |
 |-------|------|--------|
-| 0 | Vault recall | ค้น `vault/learnings/` และ `vault/issues/` ตาม `vault-recall/reference.md` ก่อนสร้าง repro ใหม่ |
+| 0 | Vault recall | ค้น `vault/wiki/pages/` และ `vault/issues/` ตาม `vault-recall/reference.md` |
 | 1 | Reproduce reliably | สร้างสัญญาณ pass/fail ที่ทำซ้ำได้เร็ว (สคริปต์, test, ขั้นตอนมือ) |
 | 2 | Know the fail path | debugger / trace / instrumentation ในโค้ด — รู้ว่า execution ไปทางไหนจนล้ม |
 | 3 | Falsify hypothesis | สมมติฐาน 3–5 อันจัดอันดับ — **พยายามพิสูจน์ว่าผิด** ก่อนเชื่ออันใดอันหนึ่ง |
@@ -342,7 +342,7 @@ Workload & SLO → Boundaries → Deploy → Compute/network → Secrets → Obs
 | Artifact | ที่เก็บ | ใช้เมื่อ |
 |----------|---------|----------|
 | `vault/issues/` | บันทึกรายวัน Q&A | ทำงานประจำวัน |
-| `vault/learnings/` | บทเรียนสั้น grep ได้ | จำ mechanism ซ้ำ |
+| `vault/wiki/pages/` | ความรู้ระยะยาว (concept) | `/wiki-ingest` |
 | fix-record | RCA เต็ม | ส่งทีม / JIRA / PR |
 
 ---
@@ -453,8 +453,8 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 
 ### ขั้นตอน
 
-1. ทำตาม `vault-recall/reference.md` (resolve root → grep learnings → issues)  
-2. รายงาน: สรุป, top 3 matches, ถ้าว่างแนะนำสร้าง learning หลังแก้เสร็จ
+1. ทำตาม `vault-recall/reference.md` (resolve root → grep wiki/pages → issues)  
+2. รายงาน: สรุป, top 3 matches, ถ้าว่างแนะนำ `/wiki-ingest` หลังปิดเรื่อง
 
 ### ถูกเรียกแบบ inline
 

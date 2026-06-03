@@ -44,7 +44,7 @@ When pushing **this** repository:
 
 - Edit and commit **`ai-skills/`**, **`ai-rules/`**, **`scripts/`**, **`templates/`**, **`docs/`** — not files only under `.cursor/` junctions.
 - After clone, run `./scripts/setup-macos-linux.sh .` so Cursor loads linked skills.
-- `vault/issues/*.md` and `vault/learnings/*` (except README) are **gitignored** — local only.
+- `vault/issues/*.md` and `vault/wiki/**` (except README) are **gitignored** — local only.
 
 ## Scope Guardrails
 

@@ -15,17 +15,17 @@
       }
     },
     {
-      "query": "path:learnings",
-      "color": {
-        "a": 1,
-        "rgb": 11911304
-      }
-    },
-    {
       "query": "path:workday",
       "color": {
         "a": 1,
         "rgb": 3066993
+      }
+    },
+    {
+      "query": "path:wiki",
+      "color": {
+        "a": 1,
+        "rgb": 10181046
       }
     }
   ],

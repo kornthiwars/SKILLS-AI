@@ -8,7 +8,7 @@ Read before creating or editing a skill. Gold examples: [`upgrade-ai/`](upgrade-
 agent-skills/
 ├── ai-skills/          # canonical skills (edit here)
 ├── ai-rules/           # canonical rules (.mdc)
-├── vault/              # daily issues + learnings
+├── vault/              # issues, workday, wiki
 ├── templates/          # template.issue.md for new days
 └── scripts/            # setup → .cursor/ links in workspace
 ```
@@ -86,4 +86,4 @@ Smoke = skills/rules structure. Change-control = patch budget on current diff.
 
 - **SKILL.md body:** English (technical clarity).
 - **User replies:** follow `ai-rules/bilingual-th-en.mdc` (~60% Thai / ~40% English).
-- **Vault files:** body may be Thai or English; frontmatter `tags`, `skill:`, `title:`, `symptoms:`, `files:` stay **English** (see `vault-issues.mdc`). New files: match [templates/template.issue.md](../templates/template.issue.md) and [template.learning.md](../templates/template.learning.md).
+- **Vault files:** body may be Thai or English; frontmatter `tags`, `title:` stay **English**. New issues: [template.issue.md](../templates/template.issue.md). Wiki: [template.wiki-page.md](../templates/template.wiki-page.md).

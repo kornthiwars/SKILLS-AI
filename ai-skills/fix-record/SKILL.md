@@ -22,7 +22,7 @@ Executive summaries reframe the same facts in plain language — this skill owns
 | **Inputs** | Repro + root cause + fix pointer + validation — all four |
 | **Draft** | Sections per [reference.md](./reference.md) § Structure |
 | **Verify** | [reference.md](./reference.md) § Verification protocol before publish |
-| **After** | Offer vault learning if reusable |
+| **After** | Offer `/wiki-ingest` if reusable |
 
 ## Scope Guardrails
 
@@ -61,7 +61,7 @@ Executive summaries reframe the same facts in plain language — this skill owns
 
 | Artifact | Use |
 |----------|-----|
-| `vault/learnings/*.md` | Short reusable lesson — `vault-issues.mdc` |
+| `vault/wiki/pages/` | Durable wiki page — `/wiki-ingest` |
 | `/fix-record` | Long engineering RCA **after** validated fix |
 | `vault/issues/` | Daily Q&A — not substitute for RCA |
 

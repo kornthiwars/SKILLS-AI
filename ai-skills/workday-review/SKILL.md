@@ -50,7 +50,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 | Plan tomorrow | [`/workday-init`](../workday-init/SKILL.md) — seed from **NEXT** |
 | Unplanned bug found | [`/debug`](../debug/SKILL.md) |
 | Ship today's work | [`/git-push`](../git-push/SKILL.md) |
-| Document reusable lesson | vault learning per `vault-issues.mdc` |
+| Document reusable knowledge | [`/wiki-ingest`](../wiki-ingest/SKILL.md) |
 
 ## Scope Guardrails
 

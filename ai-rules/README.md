@@ -8,7 +8,7 @@ Canonical Cursor rules (`.mdc`). Linked into `.cursor/rules` by setup scripts.
 |------|---------|
 | `change-control-manifest.mdc` | AI change-control — sequence, patch budget, confidence, skill routing |
 | `bilingual-th-en.mdc` | Thai ~60% / English ~40% replies |
-| `vault-issues.mdc` | Vault issues + learnings write policy |
+| `vault-issues.mdc` | Vault issues + wiki via `/wiki-ingest` |
 | `clean-code.mdc` | Code style baseline for generated code |
 
 ## Production rule tree (scoped)

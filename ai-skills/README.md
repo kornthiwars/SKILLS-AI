@@ -17,6 +17,7 @@ Authoring: [SKILL-AUTHORING.md](SKILL-AUTHORING.md) · Agents: [AGENTS.md](../AG
 | upgrade-ai | `/upgrade-ai` |
 | git-push | `/git-push` |
 | vault-recall | `/vault-recall` |
+| wiki-ingest | `/wiki-ingest` |
 | workday-init | `/workday-init` |
 | workday-update | `/workday-update` |
 | workday-review | `/workday-review` |

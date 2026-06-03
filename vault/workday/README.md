@@ -1,6 +1,6 @@
 # workday
 
-Daily execution plans — **one file per calendar day**. Separate from `issues/` (work Q&A) and `learnings/` (reusable lessons).
+Daily execution plans — separate from `issues/` (Q&A) and `wiki/` (long-lived knowledge).
 
 ## Layout
 
@@ -22,7 +22,7 @@ vault/workday/
 
 - Tag: `workday` (frontmatter + graph)
 - Graph color: green (`path:workday` in `.obsidian/graph.json`)
-- Open `vault/` in Obsidian to browse daily plans alongside issues/learnings
+- Open `vault/` in Obsidian alongside issues and wiki
 
 ## Agent
 

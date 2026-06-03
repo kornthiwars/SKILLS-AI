@@ -195,7 +195,7 @@ Pass/fail before claiming the bug is fixed — includes **Verification gate** ab
 
 If any check fails → report blocked state; do not claim success.
 
-**After pass:** offer [`/fix-record`](../fix-record/SKILL.md) for non-trivial fixes; suggest a vault **learning** when closed per `vault-issues.mdc`.
+**After pass:** offer [`/fix-record`](../fix-record/SKILL.md); suggest **`/wiki-ingest`** when closed and reusable.
 
 ---
 

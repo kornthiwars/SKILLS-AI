@@ -1,41 +1,43 @@
 ---
-description: Vault — work Q&A in issues/ (one file/day); lessons in learnings/; Obsidian tags; no chitchat auto-log
+description: Vault — work Q&A in issues/; plans in workday/; long-lived knowledge in wiki/ via /wiki-ingest; no chitchat auto-log
 alwaysApply: true
 ---
 
-# Vault (issues + learnings)
+# Vault (issues · workday · wiki)
 
 Design detail: [vault/README.md](../vault/README.md)
 
 ## Goals
 
 - **Practical use** — log dev/repo/skills work only; skip casual chat
-- **Separate files** — daily `issues/` · daily plan `workday/` · lessons `learnings/YYYY-MM-DD-HHmm.md`
+- **Separate files** — daily `issues/` · plan `workday/` · knowledge `wiki/pages/`
 - **Obsidian** — frontmatter `tags`, topic `#hashtags`, graph color by folder
 
 Do **not** replace `/fix-record` (long RCA after a validated fix).
+
+**Deprecated:** `vault/learnings/` — removed; use **`/wiki-ingest`** → `wiki/pages/` instead.
 
 ## Language
 
 | Where | Language |
 |-------|----------|
-| **Vault files** | Body may be Thai or English · `tags` / `skill:` / `symptoms:` / `files:` / `title:` stay **English** (search + graph) |
+| **Vault files** | Body may be Thai or English · `tags` / `title:` stay **English** (search + graph) |
 | **Chat to user** | Follow `bilingual-th-en.mdc` (~60% Thai) |
 
 ## Resolve vault root (before every write)
 
 | Step | If true → vault root |
 |------|----------------------|
-| 1 | Read `<workspace>/.cursor/ai-skills-vault.json` → use `issuesRelative` / `learningsRelative` / `workdayRelative` |
+| 1 | Read `<workspace>/.cursor/ai-skills-vault.json` → `issuesRelative` / `wikiRelative` / `workdayRelative` |
 | 2 | `<workspace>/.cursor/vault/issues/` exists | workspace via junction |
 | 3 | `<workspace>/vault/issues/` | workspace root |
 | 4 | Folder contains `ai-skills/` and `scripts/setup-macos-linux.sh` | agent-skills clone |
 
-Create `issues/`, `workday/`, and `learnings/` if missing.
+Create `issues/`, `workday/`, `wiki/pages/`, `wiki/sources/` if missing.
 
-**WORKDAY plans** (`/workday-init`, `/workday-update`, `/workday-review`) write **`vault/workday/YYYY-MM-DD.md` only** — do **not** put WORKDAY blocks in `issues/`. Protocol: `ai-skills/workday-init/reference.md` § Persistence.
+**WORKDAY** → `vault/workday/YYYY-MM-DD.md` only — protocol: `ai-skills/workday-init/reference.md` § Persistence.
 
-**Multi-project:** run setup with `-InstallRoot` = the folder open in Cursor → writes to `.cursor/vault/issues/` (same files as `agent-skills/vault/issues/` when linked).
+**Wiki pages** → **`/wiki-ingest`** only — protocol: `ai-skills/wiki-ingest/reference.md`. Do **not** auto-write wiki every turn.
 
 ## When to write — issues (no ask-first)
 
@@ -43,107 +45,40 @@ Write **after** finishing the user reply, **only on work turns** — **not every
 
 | Write | Skip |
 |-------|------|
-| code, repo, skills, git, SQL, debug, infra, vault, workflow | greetings, chitchat, trivia, weather, generic opinions unrelated to work |
-| work-related skill invokes (`/debug`, `/git-push`, `/upgrade-ai`, …) | long post-mortem → `/fix-record` · lesson → `learnings/` |
+| code, repo, skills, git, SQL, debug, infra, vault, workflow | greetings, chitchat, trivia, weather |
+| work-related skill invokes | long post-mortem → `/fix-record` · durable knowledge → `/wiki-ingest` |
 | user says **save to vault** / **เก็บลง vault** | |
 
 Do **not** default to logging every question.
 
-## When to write — learnings (separate file)
+## When to write — wiki (skill only)
 
-Do **not** count chat rounds — ask whether **this topic should be findable again** (lesson, not a daily log).
+Do **not** write wiki files from this rule. User invokes **`/wiki-ingest`** when:
 
-Path: `vault/learnings/YYYY-MM-DD-HHmm.md` from [templates/template.learning.md](../templates/template.learning.md).
+- closed insight worth finding again next month
+- paper / article / research summary
+- export from `/fix-record` when mechanism is reusable
+- user says **save to wiki** / **เก็บลง wiki**
 
-Plain Q&A → `issues/` only · **do not** copy the issues format — use the **lesson card** below.
-
-### Both required (AND)
-
-| # | Condition |
-|---|-----------|
-| A | **Closed** — `fixed` · `decided` · `wontfix` · `deferred` (with reason) — **do not** write while still investigating |
-| B | **Worth reopening** — next month you would Grep `symptoms:` / `skill:` / words in **symptoms** to find this note |
-
-### At least one (OR) — why not issues only
-
-| # | Signal |
-|---|--------|
-| 1 | **Non-trivial mechanism** — root cause or workaround needs more than one line in issues |
-| 2 | **Multiple approaches** — tried **≥2 distinct paths** on the same problem (commands / hypotheses / fixes), regardless of message count |
-| 3 | **Repeat** — same symptom in `issues/` within ~7 days, or user says they have seen it before |
-| 4 | **System friction** — git, skill, vault, Obsidian, SSH, setup likely to recur |
-| 5 | **User asks** — save as lesson / save learning / remember this |
-
-### Do not write a learning
-
-| Case | Use instead |
-|------|-------------|
-| one-off knowledge Q&A (when to create issues, scores, rule explanation) | `issues/` |
-| typo / single command fix, no lesson | `issues/` |
-| unknown root cause / not fixed yet | wait until closed |
-| long RCA after ship, ticket closure | `/fix-record` |
-| casual chat | do not write |
-
-### After writing a learning
-
-- Same day in `issues/` (if there was a work turn) — short append that a learning was created + path
-- Grep `learnings/` first — if a close match exists → **update** that file instead of duplicating (unless a different topic)
+See [vault/wiki/README.md](../vault/wiki/README.md).
 
 ## Issues file format (daily log only)
 
 Path: `vault/issues/YYYY-MM-DD.md` — create from [templates/template.issue.md](../templates/template.issue.md) if missing.
 
-**Current structure (Obsidian-friendly):** each topic = `## N. title` (not one long `## Questions` section for the whole day)
-
-```markdown
-## 3. short title
-
-#vault #git
-
-### Question
-...
-
-### Answer / status
-resolved — one line outcome
-```
+Each topic = `## N. title` with `#topic` line, `### Question`, `### Answer / status`.
 
 - Increment `N` sequentially that day
-- `#topic` line under the heading: 1–3 from `vault`, `git`, `skills`, `sql`, `debug`, `research`, `ui`, `api`, `infrastructure`
-- Update frontmatter `tags: [issues, …]` with the day’s topics
+- Topics: `vault`, `git`, `skills`, `sql`, `debug`, `research`, `ui`, `api`, `infrastructure`
 - **Append only** — do not delete history
-- **No duplicate** same topic same day (update the existing entry)
 - **No secrets**
-- **Do not append** to legacy sections `## คำถาม` / `## ปัญหา` / `ประเภท:` — deprecated
-
-## Learnings file format (lesson card — not issues)
-
-Path: `vault/learnings/YYYY-MM-DD-HHmm.md` — from [templates/template.learning.md](../templates/template.learning.md).
-
-**Entirely different from issues** — no daily `## N.` · no `### Question` / `### Answer`
-
-| Section | Content |
-|---------|---------|
-| **Context** | work / repo / skill |
-| **Symptoms** | what you observed |
-| **Root cause** | mechanism |
-| **Fix** | commands, files that worked |
-| **When to use** | reopen this note when… |
-| **Avoid** | do not repeat |
-| **References** | `related_issue: YYYY-MM-DD` (optional) |
-
-New notes should match [templates/template.learning.md](../templates/template.learning.md) (English section headings).
-
-Required frontmatter: `tags: [learning, <skill>]`, `skill:`, `title:` (English), `time:`, `status: resolved|wontfix`  
-Optional for grep: `symptoms: []`, `files: []`, `related_issue: ""`
-
-Graph: `title:` via **Property Over File Name** — [vault/README.md](../vault/README.md).
 
 ## Search before debug / git friction
 
-Follow [`ai-skills/vault-recall/reference.md`](../ai-skills/vault-recall/reference.md) (single source of truth). Invoke `/vault-recall` when the user wants search only; `debug` and `git-push` call the same steps inline.
+Follow [`ai-skills/vault-recall/reference.md`](../ai-skills/vault-recall/reference.md). Invoke `/vault-recall` when the user wants search only.
 
 ## Precedence
 
 - Vault append **once per turn** before the final reply (after main work)
 - If the turn does not match Write → **do not write** and **do not** claim “logged to vault”
-- If written → one line in chat: `Logged → <path>` (+ short section/topic); Thai OK per bilingual rule
+- If written → one line in chat: `Logged → <path>`

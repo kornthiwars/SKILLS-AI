@@ -54,6 +54,6 @@ chmod +x scripts/setup-macos-linux.sh
 
 ## Vault
 
-Daily work log: `vault/issues/YYYY-MM-DD.md` · Lessons: `vault/learnings/YYYY-MM-DD-HHmm.md` (**local-only**).  
+Daily work log: `vault/issues/` · Plan: `vault/workday/` · Wiki: `vault/wiki/` (**local-only**).  
 Obsidian: open `vault/` — see [vault/README.md](vault/README.md).  
 Rule: `vault-issues.mdc` — logs **work-related** turns only (not chitchat); say **เก็บลง vault** to force-write.

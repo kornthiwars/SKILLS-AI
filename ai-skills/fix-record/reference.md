@@ -45,7 +45,7 @@ Maps to [`debug`](../debug/SKILL.md) steps 1–4 and hypothesis **CONFIRMED** in
 | 4 | Code identifiers preserved in Root cause + Fix |
 | 5 | User sign-off before JIRA POST (print-only exempt) |
 
-After publish: suggest vault **learning** if reusable per `vault-issues.mdc`.
+After publish: suggest **`/wiki-ingest`** if reusable per `vault/wiki/README.md`.
 
 ---
 
@@ -94,11 +94,11 @@ Action items should include a regression test when the gap was missing CI covera
 
 ---
 
-## Learning export
+## Wiki export
 
-When reusable, offer lesson card from [`templates/template.learning.md`](../../templates/template.learning.md) — **not** a pasted fix-record body.
+When reusable, offer [`/wiki-ingest`](../wiki-ingest/SKILL.md) — merge into `wiki/pages/{slug}.md`. **Not** a pasted fix-record body.
 
-| fix-record section | learning section |
+| fix-record section | wiki page section |
 |--------------------|------------------|
 | Symptom + Root cause | Symptoms + Root cause |
 | Fix | Fix |

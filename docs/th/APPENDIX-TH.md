@@ -18,7 +18,8 @@
 | fix-record | `/fix-record` | 1.2.1 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.2.2 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
-| vault-recall | `/vault-recall` | 1.2.2 | ใช่ |
+| vault-recall | `/vault-recall` | 1.3.0 | ใช่ |
+| wiki-ingest | `/wiki-ingest` | 1.0.0 | ใช่ |
 | workday-init | `/workday-init` | 1.2.1 | ใช่ |
 | workday-update | `/workday-update` | 1.2.1 | ไม่ |
 | workday-review | `/workday-review` | 1.2.1 | ใช่ |
@@ -31,7 +32,8 @@
 
 | ไฟล์ | เนื้อหาลึก |
 |------|------------|
-| `vault-recall/reference.md` | resolve vault root, ลำดับ grep, จำกัด ≤3 learnings, ใครเรียกเมื่อไหร่ |
+| `vault-recall/reference.md` | resolve vault root, grep wiki/pages ≤3, แล้ว issues |
+| `wiki-ingest/reference.md` | merge pages, index, log |
 | `debug/reference.md` | phase 1 exit criteria, hypothesis CONF/REJ table, instrumentation lifecycle, verification protocol |
 | `git-push/reference.md` | push matrix, commit gate, SSH multi-account, ตาราง error |
 | `scrutinize/reference.md` | agent-skills PR checklist, verification protocol, review red flags |

@@ -54,9 +54,9 @@ else
   fail 'scenario 4 — manifest patch budget'
 fi
 
-# Scenario 5 — vault-recall ≤3 learnings
+# Scenario 5 — vault-recall ≤3 wiki pages
 if search_q '≤3' "ai-skills/vault-recall/reference.md"; then
-  pass 'scenario 5 — vault-recall caps learning reads'
+  pass 'scenario 5 — vault-recall caps wiki page reads'
 else
   fail 'scenario 5 — vault-recall read cap'
 fi

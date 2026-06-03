@@ -27,8 +27,11 @@ ai-skills/.local/
 # Vault — daily content local; README + .obsidian + templates in git
 vault/issues/*.md
 !vault/issues/README.md
-vault/learnings/*
-!vault/learnings/README.md
+vault/wiki/index.md
+vault/wiki/log.md
+vault/wiki/pages/**
+vault/wiki/sources/**
+!vault/wiki/README.md
 vault/workday/*.md
 !vault/workday/README.md
 !vault/.obsidian/

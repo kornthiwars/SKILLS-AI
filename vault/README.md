@@ -7,63 +7,53 @@ Obsidian vault root = this **`vault/`** folder (open the repo or open `vault/` d
 ```
 templates/                    ← repo root
 vault/
-├── .obsidian/                ← graph colors for 2 folders (in git)
+├── .obsidian/                ← graph colors (in git)
 ├── issues/YYYY-MM-DD.md      ← daily work log (local, gitignored)
-├── workday/YYYY-MM-DD.md     ← daily plan WORKDAY block (local, gitignored)
-└── learnings/YYYY-MM-DD-HHmm.md  ← reusable lessons (local)
+├── workday/YYYY-MM-DD.md     ← daily plan WORKDAY (local, gitignored)
+└── wiki/                     ← long-lived knowledge (local pages)
+    ├── index.md              ← catalog
+    ├── log.md                ← update log
+    ├── pages/{slug}.md       ← concepts (merge over time)
+    └── sources/{slug}.md     ← papers, URLs
 ```
 
 ## Flow
 
 ```
-Short work Q&A     → issues/YYYY-MM-DD.md     (## N. + Question / Answer)
+Short work Q&A     → issues/YYYY-MM-DD.md
 Daily plan         → workday/YYYY-MM-DD.md    (/workday-init · update · review)
+Durable knowledge  → wiki/pages/              (/wiki-ingest)
 Casual chat        → do not write
-Reusable lesson    → learnings/YYYY-MM-DD-HHmm  (closed + OR signals — see rule)
-RCA after fix      → /fix-record
+RCA after fix      → /fix-record → optional /wiki-ingest
 ```
 
-**issues ≠ learnings** — do not reuse legacy `ประเภท` / old section layouts.
+**Deprecated:** `learnings/` removed — use `wiki/` instead.
 
 ## Tags (Obsidian)
-
-### Type (required)
 
 | Tag | Folder |
 |-----|--------|
 | `issues` | `issues/` |
 | `workday` | `workday/` |
-| `learning` | `learnings/` |
+| `wiki` | `wiki/` |
 
-### Topic (pick 1–3 per entry)
-
-`vault` · `git` · `skills` · `sql` · `debug` · `research` · `ui` · `api` · `infrastructure`
-
-Put in daily frontmatter + `#vault #git` line under `## N. title`.
+Topic hashtags: `vault` · `git` · `skills` · `sql` · `debug` · `research` · `ui` · `api` · `infrastructure`
 
 ## Graph
 
-- Config: `vault/.obsidian/graph.json`
-- **Groups:** `path:issues` (blue) · `path:workday` (green) · `path:learnings` (gold)
+- **Groups:** `path:issues` (blue) · `path:workday` (green) · `path:wiki` (purple)
 - **Filter:** `-path:templates -file:README`
-- Enable **Tags** in Graph · no hub file · wikilinks optional
 
-## Plugin (recommended)
-
-**Property Over File Name** — show `title:` instead of `2026-05-27-1545.md`  
-Enable community plugins in Obsidian; repo ships `.obsidian/community-plugins.json`.
-
-## Agent rules & search
+## Agent
 
 | Piece | Role |
 |-------|------|
-| `ai-rules/vault-issues.mdc` | When to write issues/learnings + formats |
-| `ai-skills/vault-recall/reference.md` | How to grep before debug/git (SSoT) |
-| `/vault-recall` | Read-only search on demand |
-
-Linked to `.cursor/rules/` after setup.
+| `ai-rules/vault-issues.mdc` | When to write issues; wiki via skill |
+| `ai-skills/vault-recall/reference.md` | Search: wiki → issues |
+| `/vault-recall` | Read-only search |
+| `/wiki-ingest` | Curate wiki pages |
 
 ## Git
 
-**In git:** README, `.obsidian`, `templates/`  
-**Local only:** `issues/*.md`, `workday/*.md`, `learnings/*.md` (except `*/README.md`)
+**In git:** README files, `.obsidian`, `templates/`  
+**Local only:** `issues/*.md`, `workday/*.md`, `wiki/**` except `wiki/README.md`
