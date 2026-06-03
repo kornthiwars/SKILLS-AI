@@ -19,6 +19,9 @@
 10. [upgrade-ai](#10-upgrade-ai)
 11. [git-push](#11-git-push)
 12. [vault-recall](#12-vault-recall)
+13. [workday-init](#13-workday-init)
+14. [workday-update](#14-workday-update)
+15. [workday-review](#15-workday-review)
 
 ---
 
@@ -461,6 +464,83 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 
 ---
 
+## 13. workday-init
+
+| รายการ | ค่า |
+|--------|-----|
+| **Invoke** | `/workday-init` |
+| **บทบาท** | วางแผนงานรายวัน — แปลงความตั้งใจดิบเป็นแผนที่ทำได้ทันที |
+
+### ใช้เมื่อไหร่
+
+- เริ่มวัน — มี bullet, note, ความคิดกระจัดกระจาย
+- ต้องการจัดกลุ่มงานตาม domain: **API · WEB · SKILL · DOCS · OPS**
+
+### ไม่ใช้เมื่อไหร่
+
+- งานเพิ่มกลางวัน → `/workday-update`
+- สรุปท้ายวัน → `/workday-review`
+- ลงมือ implement → ใช้ `/builder-*`
+
+### ผลลัพธ์ (6 ส่วน)
+
+Work Summary · Task Breakdown · Dependencies · Risks · Success Criteria · Recommended Execution Order
+
+**กฎ:** ไม่เขียนโค้ด · ไม่ estimate เวลาโดยไม่มีหลักฐาน · tag `[AMBIGUOUS]` เมื่อ requirement ไม่ชัด
+
+---
+
+## 14. workday-update
+
+| รายการ | ค่า |
+|--------|-----|
+| **Invoke** | `/workday-update` |
+| **บทบาท** | อัปเดตแผนกลางวัน — งานใหม่, bug, client request |
+
+### ใช้เมื่อไหร่
+
+- พบ bug, scope change, refactor ระหว่างทำ
+- ต้องเปลี่ยน priority หรือ dependency
+
+### ไม่ใช้เมื่อไหร่
+
+- ยังไม่มีแผนเช้า → `/workday-init` ก่อน
+- สรุปท้ายวัน → `/workday-review`
+
+### ผลลัพธ์ (5 ส่วน)
+
+New Tasks · Related Tasks · Priority Changes · Dependency Changes · Updated Execution Order
+
+**กฎ:** ห้ามสร้าง task ซ้ำ · บันทึก source + discovery reason · เก็บประวัติแผนเดิม
+
+---
+
+## 15. workday-review
+
+| รายการ | ค่า |
+|--------|-----|
+| **Invoke** | `/workday-review` |
+| **บทบาท** | audit ท้ายวันจาก **git + codebase** เทียบแผนเช้า |
+
+### ใช้เมื่อไหร่
+
+- ปิดวัน — ต้องการรู้ว่าทำอะไรจริง vs แผน
+- เตรียม input ให้ `/workday-init` พรุ่งนี้
+
+### หลักฐาน (ลำดับความสำคัญ)
+
+1. Codebase 2. Git 3. แผนรายวัน 4. User notes 5. Conversation
+
+**ห้าม** mark complete จากแค่บทสนทนา — ต้อง cite file/commit/test
+
+### ผลลัพธ์ (7 ส่วน)
+
+Completed · In Progress · Blocked · Unplanned Work · Carry Over · Tomorrow Recommendations · Overall Progress
+
+รายละเอียด evidence mapping → `workday-review/reference.md`
+
+---
+
 ## สรุป: เลือก skill อย่างไร
 
 ```mermaid
@@ -481,6 +561,10 @@ flowchart TD
   G -->|push| GP[/git-push]
   G -->|ปรับ skill| UA[/upgrade-ai]
   G -->|ค้นอดีต| VR[/vault-recall]
+  A --> WI{วางแผนวัน?}
+  WI -->|เริ่มวัน| WDI[/workday-init]
+  WI -->|กลางวัน| WDU[/workday-update]
+  WI -->|ท้ายวัน| WDR[/workday-review]
 ```
 
 ---

@@ -46,6 +46,9 @@ Edit **`ai-skills/`**, **`ai-rules/`**, **`vault/`** in the clone — not inside
 | [upgrade-ai](ai-skills/upgrade-ai/SKILL.md) | Improve skills in this repo |
 | [git-push](ai-skills/git-push/SKILL.md) | Safe commit + push (sole git skill) |
 | [vault-recall](ai-skills/vault-recall/SKILL.md) | **When:** `/vault-recall` or search vault · **Not:** logging (use `vault-issues.mdc`) · Search SSoT: [reference.md](ai-skills/vault-recall/reference.md) |
+| [workday-init](ai-skills/workday-init/SKILL.md) | Morning plan from raw intentions (API/WEB/SKILL/DOCS/OPS) |
+| [workday-update](ai-skills/workday-update/SKILL.md) | Mid-day plan updates — bugs, scope changes, no duplicates |
+| [workday-review](ai-skills/workday-review/SKILL.md) | End-of-day audit — git/code evidence vs plan |
 
 Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Change-control: [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) · Smoke: [docs/SKILL-SMOKE-CHECKLIST.md](docs/SKILL-SMOKE-CHECKLIST.md) · **Thai:** [docs/th/README.md](docs/th/README.md) ([APPENDIX](docs/th/APPENDIX-TH.md))
 
