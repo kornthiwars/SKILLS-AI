@@ -482,11 +482,19 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 - สรุปท้ายวัน → `/workday-review`
 - ลงมือ implement → ใช้ `/builder-*`
 
-### ผลลัพธ์ (6 ส่วน)
+### ผลลัพธ์ — บล็อก WORKDAY
 
-Work Summary · Task Breakdown · Dependencies · Risks · Success Criteria · Recommended Execution Order
+รูปแบบมาตรฐาน: `templates/template.workday.md`
 
-**กฎ:** ไม่เขียนโค้ด · ไม่ estimate เวลาโดยไม่มีหลักฐาน · tag `[AMBIGUOUS]` เมื่อ requirement ไม่ชัด
+```
+WORKDAY → DATE · MISSION · ACTIVE TASKS · PROGRESS · PROBLEMS
+       · DISCOVERED TODAY · NEXT · EVIDENCE · DAY SCORE
+```
+
+**init กรอก:** DATE, MISSION, ACTIVE TASKS (`[ ]`), PROBLEMS, NEXT, DAY SCORE (แผน)  
+**Task ID:** `{DOMAIN}-{NNN}` เช่น `API-001`, `WEB-002`
+
+**กฎ:** ไม่เขียนโค้ด · PROGRESS/EVIDENCE ว่าง (`—`) จนกว่าจะ review
 
 ---
 
@@ -507,11 +515,12 @@ Work Summary · Task Breakdown · Dependencies · Risks · Success Criteria · R
 - ยังไม่มีแผนเช้า → `/workday-init` ก่อน
 - สรุปท้ายวัน → `/workday-review`
 
-### ผลลัพธ์ (5 ส่วน)
+### ผลลัพธ์ — WORKDAY ฉบับอัปเดต (เต็มบล็อก)
 
-New Tasks · Related Tasks · Priority Changes · Dependency Changes · Updated Execution Order
+**update เปลี่ยน:** DISCOVERED TODAY (`+`), ACTIVE TASKS, PROBLEMS, NEXT  
+**เพิ่ม:** `+ plan v{N} — เหตุผล` ใน DISCOVERED TODAY
 
-**กฎ:** ห้ามสร้าง task ซ้ำ · บันทึก source + discovery reason · เก็บประวัติแผนเดิม
+**กฎ:** ห้าม task ซ้ำ · ทุก discovery มี source + reason · ไม่ `[x]` โดยไม่มี evidence review
 
 ---
 
@@ -533,11 +542,12 @@ New Tasks · Related Tasks · Priority Changes · Dependency Changes · Updated 
 
 **ห้าม** mark complete จากแค่บทสนทนา — ต้อง cite file/commit/test
 
-### ผลลัพธ์ (7 ส่วน)
+### ผลลัพธ์ — WORKDAY ปิดวัน (เต็มบล็อก)
 
-Completed · In Progress · Blocked · Unplanned Work · Carry Over · Tomorrow Recommendations · Overall Progress
+**review กรอก:** PROGRESS (`✓`), ACTIVE TASKS (`[x]`/`[~]`/`[ ]`), EVIDENCE (บังคับ), DAY SCORE (จากหลักฐาน)  
+**NEXT** = carry-over พรุ่งนี้ · unplanned → DISCOVERED TODAY
 
-รายละเอียด evidence mapping → `workday-review/reference.md`
+รายละเอียด → `workday-review/reference.md` · template → `templates/template.workday.md`
 
 ---
 

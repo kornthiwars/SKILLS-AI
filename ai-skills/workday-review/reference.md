@@ -1,53 +1,63 @@
 # workday-review — reference
 
+WORKDAY shape: [`templates/template.workday.md`](../../templates/template.workday.md).
+
 ## Evidence mapping
 
-Map git/code signals to plan task IDs:
+Map git/code signals to `{DOMAIN}-{NNN}` task IDs:
 
-| Signal | Typical meaning |
-|--------|-----------------|
-| New file under planned area | Strong progress on that task |
-| Modified file + no commit | In progress |
-| Commit message references task/topic | Completed or partial — verify diff size |
-| Test file added/updated | Strong completion signal for behavior tasks |
-| Docs only | Likely DOCS domain complete |
-| Changes outside plan scope | Unplanned work |
+| Signal | Maps to |
+|--------|---------|
+| New file under planned area | **PROGRESS** `✓ {ID}` + **EVIDENCE** files |
+| Modified file, no commit | **ACTIVE TASKS** `[~]` + **EVIDENCE** files |
+| Commit message / diff matches task | **PROGRESS** + **EVIDENCE** commit SHA |
+| Test file added/updated | **EVIDENCE** tests |
+| Docs only | **EVIDENCE** docs · often `DOCS-{NNN}` |
+| Changes outside plan | **DISCOVERED TODAY** `+ UNPLANNED-…` |
 
-## Task status rules
+## Task status → WORKDAY fields
 
-| Status | Criteria |
-|--------|----------|
-| **Completed** | Plan item done + evidence (file/commit/test) cited |
-| **In progress** | Partial diff or WIP files; success criteria not fully met |
-| **Blocked** | No evidence of progress + known external blocker |
-| **Abandoned** | Was in plan, no evidence, no explicit deferral — flag in Carry Over |
+| Status | ACTIVE TASKS | PROGRESS | EVIDENCE |
+|--------|--------------|----------|----------|
+| **Completed** | `[x]` | `✓ {ID} title` | required |
+| **In progress** | `[~]` | optional partial note | partial paths OK |
+| **Not started** | `[ ]` | — | — |
+| **Blocked** | `[ ]` + title note | — | — ; detail in **PROBLEMS** |
+| **Unverified claim** | `[~]` or `[ ]` | `✓ … [UNVERIFIED]` | missing or weak |
 
 ## Abandonment detection
 
-- Task was in morning plan (or update vN)
+- Task in **ACTIVE TASKS** from init/update
 - No matching paths in `git diff --stat` for the day window
-- No commit messages referencing the topic
-- User did not explicitly defer in `/workday-update`
+- No commit referencing the topic
+- User did not defer in **PROBLEMS**
 
-→ List under **Carry Over** with note "no evidence of work."
+→ keep `[ ]`; add **NEXT** carry-over `→` line.
 
-## Unplanned work detection
+## Unplanned work
 
-- Commits or diffs with no matching `{DOMAIN}-{n}` ID
-- Files changed in areas not listed in plan
-- Tag suggestion: `UNPLANNED-{domain}-{n}` for tomorrow's init
+- Commits/diffs with no `{DOMAIN}-{NNN}` match
+- Add **DISCOVERED TODAY**: `+ UNPLANNED-{DOMAIN}-{NNN} title — evidence: {SHA or paths}`
+
+## DAY SCORE rubric
+
+| Field | Strong / High | Partial / Medium | Weak / Low / None |
+|-------|---------------|------------------|-------------------|
+| **Focus** | ≤3 active priorities worked | split across many tasks | context-switching, no depth |
+| **Progress** | most planned tasks `[x]` with evidence | mix `[x]` and `[~]` | few/no verified completions |
+| **Risk** | clean tree, blockers resolved | dirty tree or open blockers | uncommitted critical work, false completes |
 
 ## When git is unavailable
 
-1. STATE explicitly: evidence limited to user notes / conversation.
-2. Cap CONFIDENCE at ~60.
-3. Mark all completion claims `[UNVERIFIED]`.
-4. Ask user to run git locally or grant repo access for a follow-up pass.
+1. STATE in **PROBLEMS**: evidence limited.
+2. All **PROGRESS** lines get `[UNVERIFIED]`.
+3. **EVIDENCE**: `—` with note in **PROBLEMS**.
+4. Cap CONFIDENCE at ~60.
 
 ## Version governance
 
 | Change | Bump |
 |--------|------|
 | Wording, examples | patch |
-| New evidence rule or workflow step | minor |
-| Breaking output shape | major |
+| New evidence rule or WORKDAY field | minor |
+| Breaking template shape | major — coordinate `template.workday.md` |

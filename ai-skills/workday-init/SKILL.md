@@ -1,11 +1,10 @@
 ---
 name: workday-init
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 description: >-
-  Daily work planner — turn raw intentions into a structured execution plan grouped
-  by domain (API, WEB, SKILL, DOCS, OPS). Invoke with /workday-init at day start.
-  Planning only; no code implementation.
+  Daily work planner — emit WORKDAY block from raw intentions (API/WEB/SKILL/DOCS/OPS).
+  Invoke with /workday-init at day start. Planning only; no code implementation.
 disable-model-invocation: true
 ---
 
@@ -13,11 +12,13 @@ disable-model-invocation: true
 
 Role: Daily Work Planner
 
-Mission: Transform raw user intentions into a structured, actionable work plan for the current day.
+Mission: Transform raw user intentions into a structured, actionable WORKDAY plan for the current day.
 
 ## Purpose
 
 Create a realistic daily execution plan from unstructured user input so a developer can start work immediately without needing additional task clarification.
+
+Output contract: [`templates/template.workday.md`](../../templates/template.workday.md).
 
 ## Quick cheat sheet
 
@@ -27,8 +28,8 @@ Create a realistic daily execution plan from unstructured user input so a develo
 | **2 Extract** | Pull discrete tasks; preserve user intent |
 | **3 Group** | Assign domain: API · WEB · SKILL · DOCS · OPS |
 | **4 Decompose** | Split large items into actionable work items |
-| **5 Analyze** | Dependencies, risks, missing requirements |
-| **6 Plan** | Execution order + success criteria |
+| **5 Analyze** | Risks, ambiguities, dependencies → **PROBLEMS** |
+| **6 Emit** | Full **WORKDAY** block; **NEXT** = execution order |
 
 ## When to use
 
@@ -53,18 +54,17 @@ Create a realistic daily execution plan from unstructured user input so a develo
 
 ## Scope Guardrails
 
-- ALWAYS preserve user intent — do not drop or rewrite goals without flagging.
-- ALWAYS group tasks by domain (API, WEB, SKILL, DOCS, OPS); use `MISC` only when truly uncategorizable.
-- ALWAYS flag ambiguous requirements and hidden dependencies explicitly.
+- ALWAYS emit the **WORKDAY** block per [`template.workday.md`](../../templates/template.workday.md).
+- ALWAYS use task IDs `{DOMAIN}-{NNN}` (e.g. `API-001`, `WEB-002`).
+- ALWAYS put risks and ambiguities in **PROBLEMS**; tag titles with `[AMBIGUOUS]` / `[BLOCKED]` when needed.
 - NEVER implement code in this skill — planning output only.
-- NEVER estimate completion time without evidence (prior velocity, similar tasks, or user-provided constraints).
+- NEVER estimate completion time without evidence.
 - NEVER perform speculative rewrites of the user's goals.
 
 ## Non-goals
 
-- No commits, no file edits, no git operations
-- No time estimates unless user supplies evidence or explicit deadline
-- No replacing builder-* skills for architecture or implementation
+- No commits, no file edits (unless user asks to persist to vault)
+- No filling **PROGRESS** or **EVIDENCE** with fabricated completion — leave `—` or empty lists
 
 ---
 
@@ -82,27 +82,30 @@ Create a realistic daily execution plan from unstructured user input so a develo
    | **DOCS** | README, runbooks, comments, user-facing docs |
    | **OPS** | Deploy, CI/CD, env, monitoring, infra |
 
-4. **Decompose** — break tasks larger than ~2 hours of focused work into smaller items.
-5. **Detect** — dependencies (hard/soft), risks, missing requirements.
-6. **Order** — recommend execution sequence with rationale.
-7. **Success criteria** — measurable done-state per task or group.
+4. **Decompose** — break tasks larger than ~2 hours of focused work into smaller items; assign next `{NNN}` per domain.
+5. **PROBLEMS** — dependencies (as blockers), risks, missing requirements, ambiguities.
+6. **NEXT** — ordered `→` lines; reference task IDs where helpful.
+7. **DAY SCORE** — planned assessment (Focus / Progress=None or Weak / Risk) — not evidence-based yet.
 
-Optional: run [`/vault-recall`](../vault-recall/SKILL.md) when input references recurring issues or "same as last time."
+Optional: run [`/vault-recall`](../vault-recall/SKILL.md) when input references recurring issues.
 
 ---
 
-# Required output sections
+# Required close-out output
 
-Deliver **all six** in every close-out response:
+Emit the full **WORKDAY** block — see [`template.workday.md`](../../templates/template.workday.md).
 
-1. **Work Summary** — one paragraph: goal of the day, domains involved, key constraints.
-2. **Task Breakdown** — by domain; each item: ID, title, actionable description, `[AMBIGUOUS]` / `[BLOCKED]` tags when needed.
-3. **Dependencies** — table: task → depends on → type (hard/soft) → notes.
-4. **Risks** — ranked list with mitigation or open question.
-5. **Success Criteria** — per task or domain: how to know it is done.
-6. **Recommended Execution Order** — numbered list with brief why.
-
-Task ID convention: `{DOMAIN}-{n}` (e.g. `API-1`, `WEB-2`).
+| Section | init fills |
+|---------|------------|
+| DATE | today |
+| MISSION | one-line day goal |
+| ACTIVE TASKS | all `[ ]` with `{DOMAIN}-{NNN} title` |
+| PROGRESS | `—` |
+| PROBLEMS | `•` risks, blockers, ambiguities |
+| DISCOVERED TODAY | `—` |
+| NEXT | `→` execution order (3+ when plan allows) |
+| EVIDENCE | all fields `—` |
+| DAY SCORE | Focus / Progress / Risk (planned, not verified) |
 
 ---
 
@@ -112,26 +115,24 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 
 | Section | `/workday-init` |
 |---------|-----------------|
-| STATUS | READY = plan complete; BLOCKED = no input or critical ambiguity unresolved |
-| OBJECTIVE | Structured daily plan from user intentions |
+| STATUS | READY = WORKDAY complete; BLOCKED = no input or critical ambiguity unresolved |
+| OBJECTIVE | WORKDAY plan from user intentions |
 | DISCOVERIES | Extracted tasks, ambiguities, missing requirements |
-| ANALYSIS | Domain grouping, dependency graph, execution rationale |
-| RISKS | From Required output §4 |
-| ARTIFACTS | Full six-section plan (Work Summary through Execution Order) |
-| NEXT ACTIONS | First 1–3 tasks to start; or questions to unblock |
+| ANALYSIS | Domain grouping, **NEXT** rationale |
+| RISKS | Summarized from **PROBLEMS** |
+| ARTIFACTS | Full **WORKDAY** block |
+| NEXT ACTIONS | First **NEXT** arrow items |
 | HANDOFF | `/builder-*` · `/workday-update` · `/vault-recall` · `none` |
-| CONFIDENCE | 0–100; cap ~70 when input has unresolved ambiguities |
+| CONFIDENCE | 0–100; cap ~70 when **PROBLEMS** has unresolved ambiguities |
 
-Mid-session: STATUS, OBJECTIVE, DISCOVERIES or ANALYSIS, NEXT ACTIONS, CONFIDENCE.
-
-Close-out: embed the six required sections under ARTIFACTS (or as the main body after SKILL REPORT header).
+Close-out: render **WORKDAY** block as main body (after optional SKILL REPORT header).
 
 ---
 
 # Success criteria
 
-- All six required output sections present and actionable
-- Every user-stated intention appears in Task Breakdown or is flagged as dropped (with reason)
-- Ambiguous items tagged; no silent assumptions
-- Developer can start the first task without asking "what exactly?"
+- **WORKDAY** block matches template exactly
+- Every user-stated intention appears in **ACTIVE TASKS** or **PROBLEMS** (as dropped-with-reason)
+- Task IDs use `{DOMAIN}-{NNN}` format
+- Developer can start first **NEXT** item without clarification
 - No code was written during this skill run
