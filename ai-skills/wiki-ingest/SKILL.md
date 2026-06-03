@@ -1,11 +1,10 @@
 ---
 name: wiki-ingest
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
 description: >-
   Wiki curator — ingest papers, articles, or closed insights into vault/wiki
-  (pages, sources, index, log). LLM Wiki Pattern. Invoke with /wiki-ingest.
-  Replaces deprecated learnings/ folder.
+  (pages, sources, index, log).   LLM Wiki Pattern. Invoke with /wiki-ingest.
 disable-model-invocation: true
 ---
 
@@ -17,7 +16,7 @@ Mission: Turn sources and closed insights into linked, mergeable Markdown pages 
 
 ## Purpose
 
-Curate a personal knowledge wiki: read input, update concept pages, maintain `index.md` and `log.md`, link related topics. Replaces the old `learnings/` lesson cards.
+Curate a personal knowledge wiki: read input, update concept pages, maintain `index.md` and `log.md`, link related topics.
 
 Protocol: [reference.md](./reference.md).
 
@@ -60,7 +59,6 @@ Protocol: [reference.md](./reference.md).
 - ALWAYS merge into existing page when topic matches — never duplicate slugs.
 - ALWAYS update `index.md` and append `log.md`.
 - ALWAYS write files per [reference.md](./reference.md).
-- NEVER write to deprecated `learnings/` (removed).
 - NEVER auto-ingest every chat — user invoke or explicit "save to wiki".
 
 ## Non-goals

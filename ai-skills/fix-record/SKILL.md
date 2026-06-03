@@ -1,7 +1,7 @@
 ---
 name: fix-record
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
 description: >-
   Canonical RCA after a validated fix — mechanism, fix, validation, slip-through.
   Required-input gate + verification protocol. Invoke with /fix-record when closing
@@ -86,7 +86,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | ANALYSIS | Root cause chain — mechanism over narrative |
 | RISKS | Invented owners, unvalidated fix, missing repro, hedging |
 | ARTIFACTS | Draft sections: Summary, Root cause, Fix, Validation (+ optional sections per reference) |
-| NEXT ACTIONS | Missing input to collect · sign-off before POST · learning export |
+| NEXT ACTIONS | Missing input to collect · sign-off before POST · wiki export |
 | HANDOFF | `/debug` if inputs incomplete · `none` when published |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Verification protocol before READY |
 
@@ -108,7 +108,7 @@ Engineer-to-engineer: code identifiers first-class; mechanism over narrative; ac
 4. Sign-off before JIRA POST — wait for explicit *post it* / *go ahead*.
 5. Optional leadership summary only if user asks.
 
-Pass [reference.md](./reference.md) § Verification protocol before publish. Offer [learning export](./reference.md) § Learning export when reusable.
+Pass [reference.md](./reference.md) § Verification protocol before publish. Offer [wiki export](./reference.md) § Wiki export when reusable.
 
 ## Rules
 

@@ -1,7 +1,7 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
 description: >-
   Outsider review — intent, simpler alternatives, end-to-end trace, five-axis and
   browser UI checks, verification gate before ship. Invoke with /scrutinize.

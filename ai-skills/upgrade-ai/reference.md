@@ -79,7 +79,8 @@ When diagnosing or upgrading **this** repository:
 | `ai-rules/*.mdc` | `.cursor/rules/` |
 | `vault/` | `.cursor/vault/` |
 | `templates/template.issue.md` | used by scripts + `vault-issues.mdc` |
-| `templates/template.learning.md` | lesson card for `vault/learnings/` |
+| `templates/template.wiki-page.md` | concept page for `vault/wiki/pages/` via `/wiki-ingest` |
+| `templates/template.wiki-source.md` | source note for `vault/wiki/sources/` |
 
 - **Do not** treat `.cursor/skills` as source of truth in the clone — it points at `ai-skills/`.
 - **Do not** commit `vault/issues/YYYY-MM-DD.md` (gitignored).
@@ -167,7 +168,7 @@ Avoid and watch for these recurring traps:
 | skipped verification | role ambiguity |
 | adding abstraction without measurable benefit | — |
 | **vault search drift** — grep tables copied outside [`vault-recall/reference.md`](../vault-recall/reference.md) | link instead of copy-paste |
-| **issues vs learnings confusion** — daily Q&A format in `learnings/` | use [`templates/template.learning.md`](../../templates/template.learning.md) lesson card |
+| **issues vs wiki confusion** — daily Q&A format in `wiki/pages/` | issues → `vault-issues.mdc`; durable knowledge → [`/wiki-ingest`](../wiki-ingest/SKILL.md) + [`template.wiki-page.md`](../../templates/template.wiki-page.md) |
 
 Use this table to bias diagnoses toward known traps.
 
@@ -175,7 +176,7 @@ Use this table to bias diagnoses toward known traps.
 
 When upgrading skills in agent-skills:
 
-1. Run search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 learning files)
+1. Run search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 wiki page files)
 2. Check `vault/issues/` last 2 days for repeat topics
 3. In other skills: **link** `reference.md` — do not duplicate the grep table; keep `/vault-recall` for explicit user search
 4. After `/scrutinize` on skill PRs: verify checklist in [`scrutinize/SKILL.md`](../scrutinize/SKILL.md) § agent-skills skill / rule PRs

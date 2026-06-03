@@ -9,17 +9,17 @@
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
 | debug | `/debug` | 1.3.2 | ใช่ |
-| scrutinize | `/scrutinize` | 1.2.1 | ใช่ |
+| scrutinize | `/scrutinize` | 1.2.2 | ใช่ |
 | builder-ui | `/builder-ui` | 1.2.1 | ใช่ |
 | builder-api | `/builder-api` | 1.2.1 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.1 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.1 | ใช่ |
 | builder-feature | `/builder-feature` | 1.2.4 | ใช่ |
-| fix-record | `/fix-record` | 1.2.1 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.2.2 | ใช่ |
+| fix-record | `/fix-record` | 1.2.2 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.2.4 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
-| vault-recall | `/vault-recall` | 1.3.0 | ใช่ |
-| wiki-ingest | `/wiki-ingest` | 1.0.0 | ใช่ |
+| vault-recall | `/vault-recall` | 1.3.1 | ใช่ |
+| wiki-ingest | `/wiki-ingest` | 1.0.1 | ใช่ |
 | workday-init | `/workday-init` | 1.2.1 | ใช่ |
 | workday-update | `/workday-update` | 1.2.1 | ไม่ |
 | workday-review | `/workday-review` | 1.2.1 | ใช่ |
@@ -100,7 +100,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 - [ ] `disable-model-invocation: true` (ยกเว้นที่ document ไว้)  
 - [ ] `SKILL.md` ไม่ยาวเกิน ~300 บรรทัด — phase ยาวย้ายไป `reference.md`  
 - [ ] ขั้นค้น vault **ลิงก์** `vault-recall/reference.md` ไม่ copy ตารางซ้ำ  
-- [ ] แยก artifact: issues (รายวัน) · `/fix-record` (RCA) · learnings (บทเรียนสั้น)
+- [ ] แยก artifact: issues (รายวัน) · workday (แผน) · `/fix-record` (RCA) · wiki/pages (ความรู้ถาวร ผ่าน `/wiki-ingest`)
 
 ---
 
@@ -126,20 +126,22 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | ขั้น | การทำ |
 |------|--------|
 | resolve root | `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → agent-skills clone |
-| 1 | grep `learnings/` (keywords, `symptoms:`, `skill:`) |
-| 2 | อ่านเต็ม ≤ **3** ไฟล์ |
+| 1 | grep `wiki/pages/` (keywords, `title:`, tags, wikilinks) |
+| 2 | อ่านเต็ม ≤ **3** หน้า (ไม่นับ README) |
 | 3 | ถ้าไม่พอ → grep `issues/` วันนี้ + เมื่อวาน |
+| 4 | (optional) `workday/` วันนี้ — context งานค้าง |
 
 ### เขียน (บันทึก)
 
-→ rule `vault-issues.mdc` (ไม่ใช่ vault-recall)
+→ rule `vault-issues.mdc` (issues) · skills `workday-*` (แผน) · `/wiki-ingest` (wiki)
 
 | ประเภท | path | รูปแบบ |
 |--------|------|--------|
 | issues | `vault/issues/YYYY-MM-DD.md` | `## N. title` + Question / Answer |
-| learnings | `vault/learnings/YYYY-MM-DD-HHmm.md` | Context, Symptoms, Root cause, Fix, When to use, Avoid |
+| workday | `vault/workday/YYYY-MM-DD.md` | WORKDAY block — `/workday-init` · update · review |
+| wiki | `vault/wiki/pages/{slug}.md` | concept page — `/wiki-ingest` เท่านั้น |
 
-Template: `templates/template.issue.md`, `templates/template.learning.md`  
+Template: `templates/template.issue.md`, `templates/template.wiki-page.md`, `templates/template.wiki-source.md`  
 รายละเอียด Obsidian: `vault/README.md`
 
 **ห้าม** ใส่ secret ใน vault
@@ -254,4 +256,4 @@ Template: `templates/template.issue.md`, `templates/template.learning.md`
 | [SKILL-PATTERN.md](../SKILL-PATTERN.md) | โครง SKILL.md |
 | [SKILL-SMOKE-CHECKLIST.md](../SKILL-SMOKE-CHECKLIST.md) | ทดสอบมือหลังแก้ rule |
 | [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | 3 layers EN |
-| [docs/examples/change-control-learning.md](../examples/change-control-learning.md) | ตัวอย่าง learning card |
+| [docs/examples/change-control-wiki-page.md](../examples/change-control-wiki-page.md) | ตัวอย่าง wiki page |

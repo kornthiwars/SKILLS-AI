@@ -37,5 +37,5 @@ Every reply to the user must mix **Thai and English** in roughly this split:
 
 - User asks for **one language only** → follow that request for that turn.
 - Quoted logs, stderr, or UI strings → keep original language.
-- Vault files (`vault/issues/`, `vault/learnings/`): body may be Thai-primary; `tags` / `title:` / `symptoms:` stay English. Logging follows `vault-issues.mdc` (work-related only — not every chat message).
+- Vault files (`vault/issues/`, `vault/workday/`, `vault/wiki/`): body may be Thai-primary; `tags` / `title:` stay English. Logging follows `vault-issues.mdc` (work-related only — not every chat message).
 - Task-specific skills (`/debug`, `/git-push`, …) override voice style for workflow steps; keep the user-facing summary bilingual.

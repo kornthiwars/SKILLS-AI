@@ -134,7 +134,7 @@
 ### ผลลัพธ์
 
 - แต่ละ finding: ปัญหา, ทำไมสำคัญ, **หลักฐาน file:line**, แนวแก้
-- **PR ของ agent-skills** (เมื่อแตะ skill/rule): bump `metadata.version`, `disable-model-invocation`, SKILL.md ≤~300 บรรทัด, ลิงก์ `vault-recall/reference.md` (ไม่ copy ตารางค้น), แยก issues / fix-record / learnings — ดู checklist เต็มใน [APPENDIX-TH.md](./APPENDIX-TH.md) §5
+- **PR ของ agent-skills** (เมื่อแตะ skill/rule): bump `metadata.version`, `disable-model-invocation`, SKILL.md ≤~300 บรรทัด, ลิงก์ `vault-recall/reference.md` (ไม่ copy ตารางค้น), แยก issues / workday / fix-record / wiki — ดู checklist เต็มใน [APPENDIX-TH.md](./APPENDIX-TH.md) §5
 
 ### ตัวอย่าง
 
@@ -319,7 +319,7 @@ Workload & SLO → Boundaries → Deploy → Compute/network → Secrets → Obs
 
 - bug ยังไม่ fix / ยังไม่ validate
 - typo ชัดๆ ไม่ต้อง ceremony
-- แทน learning card สั้นใน vault (คนละ artifact)
+- แทน wiki page สั้นใน vault (คนละ artifact — ใช้ `/wiki-ingest`)
 - โพสต์ JIRA โดยไม่ sign-off
 
 ### input ที่ต้องครบ (4 อย่าง)
@@ -438,7 +438,7 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-recall` |
-| **บทบาท** | บรรณารักษ์ vault — **ค้น** บทเรียน/ issues ไม่เขียน |
+| **บทบาท** | บรรณารักษ์ vault — **ค้น** wiki/issues ไม่เขียน |
 
 ### ใช้เมื่อไหร่
 
@@ -447,8 +447,8 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 
 ### ไม่ใช้เมื่อไหร่
 
-- เขียน issues/learnings (ใช้ rule `vault-issues.mdc`)
-- อ่าน learning เกิน 3 ไฟล์เต็มต่อการค้นหา
+- เขียน issues (ใช้ rule `vault-issues.mdc`) หรือ wiki (ใช้ `/wiki-ingest`)
+- อ่าน wiki page เกิน 3 ไฟล์เต็มต่อการค้นหา
 - ทุกข้อความแชทสบายๆ
 
 ### ขั้นตอน

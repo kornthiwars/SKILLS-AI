@@ -1,32 +1,26 @@
 ---
 date: 2026-05-28
-time: "1715"
-tags: [learning, skills, infrastructure]
-skill: skills
+tags: [wiki, skills, infrastructure]
 title: Production change-control three-layer system
-status: resolved
-symptoms: [AI patches too large, rules-only not enough, no CI gate]
-files: [ai-rules/change-control-manifest.mdc, scripts/change-control-check.sh, .github/workflows/skills-quality.yml]
-related_issue: "2026-05-28"
+status: active
+related: [change-control]
 ---
+
+#wiki #skills #infrastructure
 
 # Production change-control three-layer system
 
-## Context
+## Summary
 
 agent-skills needed production mindset: risk, scope, verification — not only skill file patterns.
 
-## Symptoms
+## Key points
 
-- Rules governed meta files but not app code behavior consistently
-- Large AI diffs without budget enforcement
-- No automated gate before merge
+- Single-layer rules (`clean-code` only) lacked orchestration and CI verification
+- Symptoms: large AI diffs, rules-only governance, no automated gate before merge
+- Fix: manifest + scoped rules + skills linking manifest + smoke/change-control scripts + GitHub Actions
 
-## Root cause
-
-Single-layer rules (`clean-code` only) without orchestration (skills) and verification (scripts/CI).
-
-## Fix
+## Details
 
 1. `ai-rules/change-control-manifest.mdc` (alwaysApply) + scoped rule tree
 2. Skills link manifest (`debug`, `scrutinize`, `git-push`)
@@ -41,7 +35,7 @@ Large governance upgrades, repeat “AI over-patched” incidents, onboarding pr
 - 20+ `alwaysApply` rule files (context explosion)
 - Duplicating full `/debug` workflow inside every rule file
 
-## References
+## Related
 
 - `docs/CHANGE-CONTROL.md`
-- `related_issue:` 2026-05-28
+- issues: 2026-05-28

@@ -27,8 +27,6 @@ Casual chat        → do not write
 RCA after fix      → /fix-record → optional /wiki-ingest
 ```
 
-**Deprecated:** `learnings/` removed — use `wiki/` instead.
-
 ## Tags (Obsidian)
 
 | Tag | Folder |

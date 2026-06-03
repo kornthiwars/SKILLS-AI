@@ -15,8 +15,6 @@ Design detail: [vault/README.md](../vault/README.md)
 
 Do **not** replace `/fix-record` (long RCA after a validated fix).
 
-**Deprecated:** `vault/learnings/` — removed; use **`/wiki-ingest`** → `wiki/pages/` instead.
-
 ## Language
 
 | Where | Language |

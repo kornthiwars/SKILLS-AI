@@ -104,24 +104,25 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 |--|--|
 | **โหลด** | alwaysApply |
 
-**จุดประสงค์:** นโยบาย **เขียน vault** (Obsidian) — แยก issues กับ learnings
+**จุดประสงค์:** นโยบาย **เขียน vault** (Obsidian) — แยก issues · workday · wiki
 
 **ที่เก็บ:**
 
 | โฟลเดอร์ | ใช้ทำอะไร |
 |----------|-----------|
 | `vault/issues/YYYY-MM-DD.md` | บันทึกงานรายวัน — หัวข้อ `## N.` + Question/Answer |
-| `vault/learnings/YYYY-MM-DD-HHmm.md` | **บทเรียน** — รูปแบบ lesson card คนละแบบ |
+| `vault/workday/YYYY-MM-DD.md` | แผน WORKDAY — skills `workday-init` · update · review |
+| `vault/wiki/pages/{slug}.md` | ความรู้ถาวร — **`/wiki-ingest`** เท่านั้น |
 
 **เมื่อเขียน issues:** หลังจบงานจริง (code, git, skill, debug) — **ไม่** log ทุกแชท
 
-**เมื่อเขียน learning:** ต้องครบ AND — ปิดเรื่องแล้ว + คุ้มค้นหาซ้ำเดือนหน้า; และ OR อย่างน้อยหนึ่ง — mechanism ซับซ้อน / ลอง ≥2 ทาง / อาการซ้ำ / friction ระบบ / user ขอจำ
+**เมื่อเขียน wiki:** ผ่าน **`/wiki-ingest`** เมื่อปิดเรื่องแล้ว + คุ้มค้นหาซ้ำ / mechanism ซับซ้อน / user ขอเก็บ wiki
 
 **Resolve vault root (4 ขั้น):** `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → โฟลเดอร์ที่มี `ai-skills/` + setup script
 
-**ก่อน debug/git ติด:** ค้นตาม `vault-recall/reference.md` (ลำดับ learnings ≤3 ไฟล์ → issues วันนี้/เมื่อวาน) — รายละเอียด [APPENDIX-TH.md](./APPENDIX-TH.md) §7
+**ก่อน debug/git ติด:** ค้นตาม `vault-recall/reference.md` (ลำดับ wiki/pages ≤3 ไฟล์ → issues วันนี้/เมื่อวาน) — รายละเอียด [APPENDIX-TH.md](./APPENDIX-TH.md) §7
 
-**Learning card:** Context, Symptoms, Root cause, Fix, When to use, Avoid — template `templates/template.learning.md`
+**Wiki page:** Summary, Key points, Related — template `templates/template.wiki-page.md`
 
 **ภาษาใน vault:** เนื้อหาไทยหรืออังกฤษได้; `tags`, `title`, `symptoms` ใช้ **English**
 

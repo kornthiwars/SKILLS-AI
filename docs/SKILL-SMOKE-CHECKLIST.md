@@ -30,7 +30,7 @@ Reload Cursor after rule changes.
 | scrutinize | Skill PR checklist + manifest |
 | git-push | Blocked without ยืนยัน |
 | builder-schema | Migration + rollback plan |
-| vault-recall | ≤3 learning files |
+| vault-recall | ≤3 wiki page files |
 
 ## Docs
 
