@@ -19,9 +19,9 @@
 | upgrade-ai | `/upgrade-ai` | 1.2.2 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
 | vault-recall | `/vault-recall` | 1.2.2 | ใช่ |
-| workday-init | `/workday-init` | 1.1.0 | ไม่ |
-| workday-update | `/workday-update` | 1.1.0 | ไม่ |
-| workday-review | `/workday-review` | 1.1.0 | ใช่ |
+| workday-init | `/workday-init` | 1.2.1 | ใช่ |
+| workday-update | `/workday-update` | 1.2.1 | ไม่ |
+| workday-review | `/workday-review` | 1.2.1 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
 
@@ -39,7 +39,9 @@
 | `upgrade-ai/reference.md` | catalog skill, version governance, anti-patterns |
 | `builder-*/reference.md` | phase ละเอียด, checklist, anti-patterns ต่อ layer |
 | `templates/template.workday.md` | WORKDAY block SSoT — section ownership init/update/review |
-| `workday-review/reference.md` | evidence mapping, DAY SCORE rubric, abandonment / unplanned detection |
+| `templates/template.workday-file.md` | Vault file wrapper (frontmatter + block) |
+| `workday-init/reference.md` | Persistence path, in-place overwrite, load protocol |
+| `workday-review/reference.md` | evidence mapping, DAY SCORE rubric |
 
 **หลัก:** `SKILL.md` = workflow + guardrails · `reference.md` = ตาราง/ตัวอย่างยาว (อย่า copy ซ้ำใน rule อื่น)
 

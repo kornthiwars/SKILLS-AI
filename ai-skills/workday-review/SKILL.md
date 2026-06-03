@@ -1,9 +1,9 @@
 ---
 name: workday-review
 metadata:
-  version: "1.1.0"
+  version: "1.2.1"
 description: >-
-  End-of-day auditor — fill WORKDAY PROGRESS and EVIDENCE from git/code vs plan.
+  End-of-day auditor — fill WORKDAY + write vault/workday with EVIDENCE from git/code.
   Invoke with /workday-review. Never marks complete from conversation alone.
 disable-model-invocation: true
 ---
@@ -27,7 +27,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 | **1 Evidence** | Codebase + git | `git status`, `git log`, `git diff` |
 | **2 Plan** | WORKDAY block | Match `{DOMAIN}-{NNN}` to changes |
 | **3 Classify** | Compare | **PROGRESS** · `[x]`/`[~]`/`[ ]` · unplanned |
-| **4 Emit** | Synthesize | Full **WORKDAY** with **EVIDENCE** + **DAY SCORE** |
+| **4 Emit** | Full **WORKDAY** + write `vault/workday/YYYY-MM-DD.md` (`status: closed`) |
 
 **Evidence rule:** every `✓` in **PROGRESS** and every `[x]` in **ACTIVE TASKS** requires **EVIDENCE** citation.
 
@@ -54,7 +54,8 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 
 ## Scope Guardrails
 
-- ALWAYS gather git/code evidence before filling **PROGRESS** or `[x]`.
+- ALWAYS load plan from `vault/workday/YYYY-MM-DD.md` when present — [workday-init/reference.md](../workday-init/reference.md) § Load protocol.
+- ALWAYS **write** file with `status: closed` per [workday-init/reference.md](../workday-init/reference.md) § Persistence.
 - ALWAYS fill **EVIDENCE** section from inspection (commit, files, tests, docs).
 - ALWAYS use `[UNVERIFIED]` on **PROGRESS** lines when evidence is insufficient.
 - NEVER mark `[x]` or `✓` from conversation or user claim alone.
@@ -71,7 +72,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 
 1. **Codebase** — file contents, new files, test results
 2. **Git history** — commits, diff since day start
-3. **WORKDAY block** — init/update output in chat or vault
+3. **WORKDAY file** — `vault/workday/YYYY-MM-DD.md` (preferred) or chat
 4. **User notes** — supplementary only
 5. **Conversation context** — lowest
 
@@ -105,6 +106,8 @@ Emit the **full WORKDAY** block — see [`template.workday.md`](../../templates/
 
 Unplanned work: add to **DISCOVERED TODAY** as `+ UNPLANNED-{DOMAIN}-{NNN} …` with evidence.
 
+**Persist** — overwrite file with `status: closed`, bump `plan_version`, report path.
+
 ---
 
 ## SKILL REPORT
@@ -118,7 +121,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | DISCOVERIES | Git summary, file changes, plan gaps |
 | ANALYSIS | Verified vs claimed; abandonment signals |
 | RISKS | Uncommitted work, `[UNVERIFIED]` items |
-| ARTIFACTS | Full **WORKDAY** block |
+| ARTIFACTS | Full **WORKDAY** block + path `vault/workday/YYYY-MM-DD.md` |
 | NEXT ACTIONS | **NEXT** arrows · `/workday-init` tomorrow · `/git-push` if ready |
 | HANDOFF | `/workday-init` · `/git-push` · `/fix-record` · `none` |
 | CONFIDENCE | 0–100; cap ~60 without git; cap ~85 without test evidence |
@@ -128,6 +131,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 # Success criteria
 
 - **WORKDAY** block matches template; all sections filled or `—`
+- **`vault/workday/YYYY-MM-DD.md`** written with `status: closed`
 - Git/code inspected when repo available
 - Every `✓` and `[x]` has **EVIDENCE** backing or `[UNVERIFIED]` tag
 - Unplanned work in **DISCOVERED TODAY**

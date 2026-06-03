@@ -20,6 +20,13 @@
         "a": 1,
         "rgb": 11911304
       }
+    },
+    {
+      "query": "path:workday",
+      "color": {
+        "a": 1,
+        "rgb": 3066993
+      }
     }
   ],
   "collapse-display": true,

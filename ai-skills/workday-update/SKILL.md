@@ -1,10 +1,10 @@
 ---
 name: workday-update
 metadata:
-  version: "1.1.0"
+  version: "1.2.1"
 description: >-
-  Daily task change manager — merge discoveries into the WORKDAY block without
-  duplicates. Invoke with /workday-update during the day. Planning only.
+  Daily task change manager — merge discoveries into WORKDAY + vault/workday file.
+  Invoke with /workday-update during the day. Planning only.
 disable-model-invocation: true
 ---
 
@@ -29,7 +29,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 | **3 Relate** | Link to existing `{DOMAIN}-{NNN}` before creating new ID |
 | **4 Dedupe** | Merge or skip duplicates |
 | **5 Update** | **DISCOVERED TODAY**, **ACTIVE TASKS**, **PROBLEMS**, **NEXT** |
-| **6 Emit** | Full refreshed **WORKDAY** block |
+| **6 Emit** | Full **WORKDAY** + overwrite `vault/workday/YYYY-MM-DD.md` |
 
 ## When to use
 
@@ -54,7 +54,9 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 
 ## Scope Guardrails
 
-- ALWAYS load and re-emit the **full WORKDAY** block — not a delta-only patch.
+- ALWAYS load from `vault/workday/YYYY-MM-DD.md` when present — see [workday-init/reference.md](../workday-init/reference.md) § Load protocol.
+- ALWAYS **write** updated file in place per [workday-init/reference.md](../workday-init/reference.md) § Persistence (bump `plan_version`).
+- ALWAYS re-emit the **full WORKDAY** block in chat and vault file.
 - ALWAYS append to **DISCOVERED TODAY** with `+` lines (source + discovery reason).
 - ALWAYS relate new work to existing `{DOMAIN}-{NNN}` before minting a new ID.
 - NEVER create duplicate tasks — merge or note `duplicate of API-001` in **DISCOVERED TODAY**.
@@ -63,7 +65,8 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 
 ## Non-goals
 
-- No commits unless user explicitly asks to persist WORKDAY to vault
+- No app code commits
+- No writing to `vault/issues/`
 - No full replan from scratch unless user requests — preserve **MISSION** and history
 - No evidence-based **PROGRESS** or **EVIDENCE** — that is [`/workday-review`](../workday-review/SKILL.md)
 
@@ -71,7 +74,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 
 # Workflow
 
-1. **Load WORKDAY** — from conversation, `vault/issues/{today}.md`, or user paste. If missing, hand off to `/workday-init`.
+1. **Load WORKDAY** — from `vault/workday/YYYY-MM-DD.md`, chat, or user paste. If missing, hand off to `/workday-init`.
 2. **Parse new input** — bugs, client requests, refactors, research, partial completions (user-reported only).
 3. **Classify** — new task · bug · change request · refactor · research · blocker.
 4. **DISCOVERED TODAY** — add `+ {DOMAIN}-{NNN} title — source: … — reason: …`
@@ -79,6 +82,8 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 6. **PROBLEMS** — append `•` for new blockers, scope creep, priority conflicts.
 7. **NEXT** — re-order `→` lines with brief rationale in **DISCOVERED TODAY** or **PROBLEMS** if priority shifted.
 8. **PROGRESS** — add `✓` only when user explicitly reports completion (mark `[UNVERIFIED]` until `/workday-review`).
+
+8. **Persist** — overwrite file, bump `plan_version`, report path.
 
 New task IDs: next `{NNN}` in that domain for the day.
 
@@ -114,7 +119,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | DISCOVERIES | New items, duplicates avoided, blockers |
 | ANALYSIS | Impact on **NEXT** and **PROBLEMS** |
 | RISKS | Scope creep, conflicting priorities |
-| ARTIFACTS | Full **WORKDAY** block |
+| ARTIFACTS | Full **WORKDAY** block + path `vault/workday/YYYY-MM-DD.md` |
 | NEXT ACTIONS | Top **NEXT** arrows |
 | HANDOFF | `/debug` · `/builder-*` · `/workday-review` · `none` |
 | CONFIDENCE | 0–100; lower if base WORKDAY was incomplete |
@@ -123,7 +128,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 
 # Success criteria
 
-- Full **WORKDAY** block emitted; matches template
+- Full **WORKDAY** block emitted; **`vault/workday/YYYY-MM-DD.md`** updated
 - No duplicate task IDs for the same work
 - Every discovery has `+` line with source and reason
 - Original tasks preserved; history visible in **DISCOVERED TODAY**

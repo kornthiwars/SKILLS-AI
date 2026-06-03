@@ -68,6 +68,7 @@ function Write-VaultPointer {
         vaultRoot         = $vaultRootAbs
         issuesRelative    = '.cursor/vault/issues'
         learningsRelative = '.cursor/vault/learnings'
+        workdayRelative   = '.cursor/vault/workday'
     } | ConvertTo-Json -Compress
 
     $path = Join-Path $cursorDir 'ai-skills-vault.json'
@@ -76,7 +77,7 @@ function Write-VaultPointer {
 }
 
 function Ensure-VaultFolders {
-    foreach ($rel in @('issues', 'learnings')) {
+    foreach ($rel in @('issues', 'learnings', 'workday')) {
         $path = Join-Path $Vault $rel
         if (-not (Test-Path -LiteralPath $path)) {
             New-Item -ItemType Directory -Path $path -Force | Out-Null

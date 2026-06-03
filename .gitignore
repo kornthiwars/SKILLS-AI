@@ -29,5 +29,7 @@ vault/issues/*.md
 !vault/issues/README.md
 vault/learnings/*
 !vault/learnings/README.md
+vault/workday/*.md
+!vault/workday/README.md
 !vault/.obsidian/
 !vault/.obsidian/**

@@ -9,6 +9,7 @@ templates/                    ← repo root
 vault/
 ├── .obsidian/                ← graph colors for 2 folders (in git)
 ├── issues/YYYY-MM-DD.md      ← daily work log (local, gitignored)
+├── workday/YYYY-MM-DD.md     ← daily plan WORKDAY block (local, gitignored)
 └── learnings/YYYY-MM-DD-HHmm.md  ← reusable lessons (local)
 ```
 
@@ -16,6 +17,7 @@ vault/
 
 ```
 Short work Q&A     → issues/YYYY-MM-DD.md     (## N. + Question / Answer)
+Daily plan         → workday/YYYY-MM-DD.md    (/workday-init · update · review)
 Casual chat        → do not write
 Reusable lesson    → learnings/YYYY-MM-DD-HHmm  (closed + OR signals — see rule)
 RCA after fix      → /fix-record
@@ -30,6 +32,7 @@ RCA after fix      → /fix-record
 | Tag | Folder |
 |-----|--------|
 | `issues` | `issues/` |
+| `workday` | `workday/` |
 | `learning` | `learnings/` |
 
 ### Topic (pick 1–3 per entry)
@@ -41,7 +44,7 @@ Put in daily frontmatter + `#vault #git` line under `## N. title`.
 ## Graph
 
 - Config: `vault/.obsidian/graph.json`
-- **Groups:** `path:issues` (blue) · `path:learnings` (gold)
+- **Groups:** `path:issues` (blue) · `path:workday` (green) · `path:learnings` (gold)
 - **Filter:** `-path:templates -file:README`
 - Enable **Tags** in Graph · no hub file · wikilinks optional
 
@@ -63,4 +66,4 @@ Linked to `.cursor/rules/` after setup.
 ## Git
 
 **In git:** README, `.obsidian`, `templates/`  
-**Local only:** `issues/*.md`, `learnings/*.md` (except `*/README.md`)
+**Local only:** `issues/*.md`, `workday/*.md`, `learnings/*.md` (except `*/README.md`)

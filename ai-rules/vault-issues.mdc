@@ -10,7 +10,7 @@ Design detail: [vault/README.md](../vault/README.md)
 ## Goals
 
 - **Practical use** — log dev/repo/skills work only; skip casual chat
-- **Separate files** — daily `issues/` · lessons `learnings/YYYY-MM-DD-HHmm.md`
+- **Separate files** — daily `issues/` · daily plan `workday/` · lessons `learnings/YYYY-MM-DD-HHmm.md`
 - **Obsidian** — frontmatter `tags`, topic `#hashtags`, graph color by folder
 
 Do **not** replace `/fix-record` (long RCA after a validated fix).
@@ -26,12 +26,14 @@ Do **not** replace `/fix-record` (long RCA after a validated fix).
 
 | Step | If true → vault root |
 |------|----------------------|
-| 1 | Read `<workspace>/.cursor/ai-skills-vault.json` → use `issuesRelative` / `learningsRelative` |
+| 1 | Read `<workspace>/.cursor/ai-skills-vault.json` → use `issuesRelative` / `learningsRelative` / `workdayRelative` |
 | 2 | `<workspace>/.cursor/vault/issues/` exists | workspace via junction |
 | 3 | `<workspace>/vault/issues/` | workspace root |
 | 4 | Folder contains `ai-skills/` and `scripts/setup-macos-linux.sh` | agent-skills clone |
 
-Create `issues/` and `learnings/` if missing.
+Create `issues/`, `workday/`, and `learnings/` if missing.
+
+**WORKDAY plans** (`/workday-init`, `/workday-update`, `/workday-review`) write **`vault/workday/YYYY-MM-DD.md` only** — do **not** put WORKDAY blocks in `issues/`. Protocol: `ai-skills/workday-init/reference.md` § Persistence.
 
 **Multi-project:** run setup with `-InstallRoot` = the folder open in Cursor → writes to `.cursor/vault/issues/` (same files as `agent-skills/vault/issues/` when linked).
 

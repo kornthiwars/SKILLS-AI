@@ -491,7 +491,8 @@ WORKDAY → DATE · MISSION · ACTIVE TASKS · PROGRESS · PROBLEMS
        · DISCOVERED TODAY · NEXT · EVIDENCE · DAY SCORE
 ```
 
-**init กรอก:** DATE, MISSION, ACTIVE TASKS (`[ ]`), PROBLEMS, NEXT, DAY SCORE (แผน)  
+**init กรอก:** DATE, MISSION, ACTIVE TASKS, PROBLEMS, NEXT, DAY SCORE  
+**ไฟล์ (บังคับ):** `vault/workday/YYYY-MM-DD.md` — ไม่ใช่ `issues/`  
 **Task ID:** `{DOMAIN}-{NNN}` เช่น `API-001`, `WEB-002`
 
 **กฎ:** ไม่เขียนโค้ด · PROGRESS/EVIDENCE ว่าง (`—`) จนกว่าจะ review
@@ -517,8 +518,8 @@ WORKDAY → DATE · MISSION · ACTIVE TASKS · PROGRESS · PROBLEMS
 
 ### ผลลัพธ์ — WORKDAY ฉบับอัปเดต (เต็มบล็อก)
 
-**update เปลี่ยน:** DISCOVERED TODAY (`+`), ACTIVE TASKS, PROBLEMS, NEXT  
-**เพิ่ม:** `+ plan v{N} — เหตุผล` ใน DISCOVERED TODAY
+**update เปลี่ยน:** DISCOVERED TODAY, ACTIVE TASKS, PROBLEMS, NEXT · overwrite ไฟล์เดิม + bump `plan_version`  
+**ไฟล์:** อัปเดต `vault/workday/YYYY-MM-DD.md` (bump `plan_version`)
 
 **กฎ:** ห้าม task ซ้ำ · ทุก discovery มี source + reason · ไม่ `[x]` โดยไม่มี evidence review
 
@@ -544,8 +545,8 @@ WORKDAY → DATE · MISSION · ACTIVE TASKS · PROGRESS · PROBLEMS
 
 ### ผลลัพธ์ — WORKDAY ปิดวัน (เต็มบล็อก)
 
-**review กรอก:** PROGRESS (`✓`), ACTIVE TASKS (`[x]`/`[~]`/`[ ]`), EVIDENCE (บังคับ), DAY SCORE (จากหลักฐาน)  
-**NEXT** = carry-over พรุ่งนี้ · unplanned → DISCOVERED TODAY
+**review กรอก:** PROGRESS, EVIDENCE, DAY SCORE · `status: closed` ใน frontmatter  
+**ไฟล์:** `vault/workday/YYYY-MM-DD.md`
 
 รายละเอียด → `workday-review/reference.md` · template → `templates/template.workday.md`
 

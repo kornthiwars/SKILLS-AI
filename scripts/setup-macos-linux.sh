@@ -71,6 +71,7 @@ data = {
     "vaultRoot": vault_root,
     "issuesRelative": ".cursor/vault/issues",
     "learningsRelative": ".cursor/vault/learnings",
+    "workdayRelative": ".cursor/vault/workday",
 }
 with open(path, "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False)
@@ -80,7 +81,7 @@ PY
 
 ensure_vault_folders() {
   local rel path
-  for rel in issues learnings; do
+  for rel in issues learnings workday; do
     path="$VAULT/$rel"
     if [ ! -d "$path" ]; then
       mkdir -p "$path"

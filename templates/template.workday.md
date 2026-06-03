@@ -125,6 +125,12 @@ Checkbox states in **ACTIVE TASKS**:
 
 ---
 
-## Persistence (optional)
+## Persistence (mandatory)
 
-User may ask to save to `vault/issues/{{YYYY-MM-DD}}.md` under a `## WORKDAY` heading — use this exact block.
+Every close-out **writes a vault file** and shows the WORKDAY block in chat.
+
+| Path | Role |
+|------|------|
+| `vault/workday/YYYY-MM-DD.md` | Canonical daily plan (one file; updated in place) |
+
+Write protocol: [workday-init/reference.md](../ai-skills/workday-init/reference.md) § Persistence · file wrapper: [`template.workday-file.md`](./template.workday-file.md).

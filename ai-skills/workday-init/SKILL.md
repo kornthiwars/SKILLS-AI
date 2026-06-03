@@ -1,10 +1,10 @@
 ---
 name: workday-init
 metadata:
-  version: "1.1.0"
+  version: "1.2.1"
 description: >-
-  Daily work planner — emit WORKDAY block from raw intentions (API/WEB/SKILL/DOCS/OPS).
-  Invoke with /workday-init at day start. Planning only; no code implementation.
+  Daily work planner — emit WORKDAY block + write vault/workday/YYYY-MM-DD.md.
+  Invoke with /workday-init at day start. Planning only; no app code.
 disable-model-invocation: true
 ---
 
@@ -29,7 +29,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 | **3 Group** | Assign domain: API · WEB · SKILL · DOCS · OPS |
 | **4 Decompose** | Split large items into actionable work items |
 | **5 Analyze** | Risks, ambiguities, dependencies → **PROBLEMS** |
-| **6 Emit** | Full **WORKDAY** block; **NEXT** = execution order |
+| **6 Emit** | Full **WORKDAY** block + write `vault/workday/YYYY-MM-DD.md` |
 
 ## When to use
 
@@ -54,7 +54,8 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 
 ## Scope Guardrails
 
-- ALWAYS emit the **WORKDAY** block per [`template.workday.md`](../../templates/template.workday.md).
+- ALWAYS **write** `vault/workday/YYYY-MM-DD.md` per [reference.md](./reference.md) § Persistence.
+- ALWAYS emit the **WORKDAY** block in chat and in the vault file.
 - ALWAYS use task IDs `{DOMAIN}-{NNN}` (e.g. `API-001`, `WEB-002`).
 - ALWAYS put risks and ambiguities in **PROBLEMS**; tag titles with `[AMBIGUOUS]` / `[BLOCKED]` when needed.
 - NEVER implement code in this skill — planning output only.
@@ -63,7 +64,8 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 
 ## Non-goals
 
-- No commits, no file edits (unless user asks to persist to vault)
+- No app code commits
+- No writing WORKDAY to `vault/issues/`
 - No filling **PROGRESS** or **EVIDENCE** with fabricated completion — leave `—` or empty lists
 
 ---
@@ -86,6 +88,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 5. **PROBLEMS** — dependencies (as blockers), risks, missing requirements, ambiguities.
 6. **NEXT** — ordered `→` lines; reference task IDs where helpful.
 7. **DAY SCORE** — planned assessment (Focus / Progress=None or Weak / Risk) — not evidence-based yet.
+8. **Persist** — write file per [reference.md](./reference.md) § Persistence; report path to user.
 
 Optional: run [`/vault-recall`](../vault-recall/SKILL.md) when input references recurring issues.
 
@@ -120,7 +123,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | DISCOVERIES | Extracted tasks, ambiguities, missing requirements |
 | ANALYSIS | Domain grouping, **NEXT** rationale |
 | RISKS | Summarized from **PROBLEMS** |
-| ARTIFACTS | Full **WORKDAY** block |
+| ARTIFACTS | Full **WORKDAY** block + path `vault/workday/YYYY-MM-DD.md` |
 | NEXT ACTIONS | First **NEXT** arrow items |
 | HANDOFF | `/builder-*` · `/workday-update` · `/vault-recall` · `none` |
 | CONFIDENCE | 0–100; cap ~70 when **PROBLEMS** has unresolved ambiguities |
@@ -132,6 +135,7 @@ Close-out: render **WORKDAY** block as main body (after optional SKILL REPORT he
 # Success criteria
 
 - **WORKDAY** block matches template exactly
+- **`vault/workday/YYYY-MM-DD.md`** written (see [reference.md](./reference.md))
 - Every user-stated intention appears in **ACTIVE TASKS** or **PROBLEMS** (as dropped-with-reason)
 - Task IDs use `{DOMAIN}-{NNN}` format
 - Developer can start first **NEXT** item without clarification
