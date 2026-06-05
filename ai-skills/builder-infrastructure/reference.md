@@ -149,6 +149,22 @@ Reject if: rollback impossible, ownership unclear, observability incomplete, wea
 
 ---
 
+## CI failure triage (PR checks)
+
+When a PR check fails ([openai/gh-fix-ci](https://officialskills.sh/openai/skills/gh-fix-ci) pattern — link only):
+
+| Step | Action |
+|------|--------|
+| 1 IDENTIFY | Which job/step failed; link to run URL |
+| 2 RUN | `gh run view <id> --log-failed` or CI log in session |
+| 3 READ | First actionable error — not cascading noise |
+| 4 LOCALIZE | Infra config vs app vs flaky external |
+| 5 FIX | Minimal patch; re-run same check |
+
+Pack CI reference: `.github/workflows/skills-quality.yml` — smoke + budget checks. Hand off app-runtime failures to [`/debug`](../debug/SKILL.md).
+
+---
+
 ## Close-out verification gate (phase 9)
 
 | # | Proof |

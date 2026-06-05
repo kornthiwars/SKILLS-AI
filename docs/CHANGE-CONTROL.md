@@ -55,9 +55,23 @@ DIFF_BASE=origin/main...HEAD ./scripts/change-control-check.sh  # PR range (CI)
 | 0.7 – 0.89 | Propose; prefer review |
 | < 0.7 | Diagnose only |
 
+## External skill quality (VoltAgent bar)
+
+When authoring or reviewing skills in this repo, align with [awesome-agent-skills § Skill Quality Standards](https://github.com/VoltAgent/awesome-agent-skills#skill-quality-standards):
+
+| Area | Guideline |
+|------|-----------|
+| **Description** | Third person; state what + when; specific keywords |
+| **Progressive disclosure** | `SKILL.md` stays short; depth in `reference.md` (< ~500 lines in SKILL) |
+| **Paths** | No machine-specific absolute paths in skills |
+| **Scoped tools** | `disable-model-invocation: true` on manual skills; rules use globs |
+
+Full ecosystem crosswalk: [EXTERNAL-PARITY.md](./EXTERNAL-PARITY.md).
+
 ## Related
 
 - [SKILL-PATTERN.md](./SKILL-PATTERN.md) — skill file structure
 - [SKILL-SMOKE-CHECKLIST.md](./SKILL-SMOKE-CHECKLIST.md) — manual smoke
+- [EXTERNAL-PARITY.md](./EXTERNAL-PARITY.md) — catalog vs pack mapping
 - [th/README.md](./th/README.md) — Thai guides for all skills and rules
 - [DYNAMIC-AGENT-SMOKE.md](./DYNAMIC-AGENT-SMOKE.md) — manual agent scenarios

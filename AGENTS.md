@@ -55,6 +55,20 @@ Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Chang
 
 ---
 
+## External discovery
+
+This pack is a **cohesive engineering system** (15 skills + change-control rules) — not a skill catalog.
+
+| Resource | Use |
+|----------|-----|
+| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | Curated index of community/official skills — discovery only |
+| [docs/EXTERNAL-PARITY.md](docs/EXTERNAL-PARITY.md) | Crosswalk: catalog category → pack skill → when to install external |
+| [Snyk Agent Scan](https://github.com/snyk/agent-scan) · [Agent Trust Hub](https://ai.gendigital.com/agent-trust-hub) | Review external skills before install — catalog is not audited |
+
+**Rule:** link external patterns into `reference.md`; do not copy wholesale skills into `ai-skills/` unless `/upgrade-ai` approves scope.
+
+---
+
 ## Rules (`ai-rules/`)
 
 | Rule | Role |

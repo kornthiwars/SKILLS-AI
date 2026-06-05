@@ -53,6 +53,22 @@ Search order SSoT: [`vault-recall/reference.md`](../vault-recall/reference.md) �
 
 ---
 
+## Close-out verification gate
+
+Before STATUS=READY ([verification-before-completion](https://github.com/obra/superpowers) pattern):
+
+| Step | Proof |
+|------|-------|
+| 1 IDENTIFY | Paths written: `pages/{slug}.md`, `index.md`, `log.md` (+ optional `sources/`) |
+| 2 RUN | Read files after write — slug exists, no duplicate topic page |
+| 3 READ | `index.md` lists page; `log.md` has append line with date + action |
+| 4 VERIFY | Merge rules followed — no parallel page for same topic |
+| 5 CLAIM | Report paths in chat; offer `/vault-recall` for next search |
+
+Forbidden without step 2–3: "saved to wiki" without paths.
+
+---
+
 ## Version governance
 
 | Change | Bump `metadata.version` |

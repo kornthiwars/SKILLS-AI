@@ -1,7 +1,7 @@
 ---
 name: fix-record
 metadata:
-  version: "1.2.2"
+  version: "1.2.3"
 description: >-
   Canonical RCA after a validated fix — mechanism, fix, validation, slip-through.
   Required-input gate + verification protocol. Invoke with /fix-record when closing
@@ -21,7 +21,7 @@ Executive summaries reframe the same facts in plain language — this skill owns
 |------|-------------|
 | **Inputs** | Repro + root cause + fix pointer + validation — all four |
 | **Draft** | Sections per [reference.md](./reference.md) § Structure |
-| **Verify** | [reference.md](./reference.md) § Verification protocol before publish |
+| **Verify** | [reference.md](./reference.md) § Verification protocol + § Close-out verification gate |
 | **After** | Offer `/wiki-ingest` if reusable |
 
 ## Scope Guardrails

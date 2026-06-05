@@ -8,20 +8,20 @@
 
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
-| debug | `/debug` | 1.3.3 | ใช่ |
-| scrutinize | `/scrutinize` | 1.2.3 | ใช่ |
-| builder-ui | `/builder-ui` | 1.2.3 | ใช่ |
+| debug | `/debug` | 1.3.4 | ใช่ |
+| scrutinize | `/scrutinize` | 1.2.4 | ใช่ |
+| builder-ui | `/builder-ui` | 1.2.4 | ใช่ |
 | builder-api | `/builder-api` | 1.2.3 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.2 | ใช่ |
-| builder-infrastructure | `/builder-infrastructure` | 1.2.2 | ใช่ |
+| builder-infrastructure | `/builder-infrastructure` | 1.2.3 | ใช่ |
 | builder-feature | `/builder-feature` | 1.2.6 | ใช่ |
-| fix-record | `/fix-record` | 1.2.2 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.2.4 | ใช่ |
+| fix-record | `/fix-record` | 1.2.3 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.2.5 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
 | vault-recall | `/vault-recall` | 1.3.2 | ใช่ |
-| wiki-ingest | `/wiki-ingest` | 1.0.2 | ใช่ |
-| workday-init | `/workday-init` | 1.2.1 | ใช่ |
-| workday-update | `/workday-update` | 1.2.1 | ไม่ |
+| wiki-ingest | `/wiki-ingest` | 1.0.3 | ใช่ |
+| workday-init | `/workday-init` | 1.2.2 | ใช่ |
+| workday-update | `/workday-update` | 1.2.2 | ใช่ |
 | workday-review | `/workday-review` | 1.2.1 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
@@ -33,12 +33,14 @@
 | ไฟล์ | เนื้อหาลึก |
 |------|------------|
 | `vault-recall/reference.md` | resolve vault root, grep wiki/pages ≤3, แล้ว issues |
-| `wiki-ingest/reference.md` | merge pages, index, log |
-| `debug/reference.md` | phase 1 exit criteria, hypothesis CONF/REJ table, instrumentation lifecycle, verification protocol (incl. callee redirect cleanup #7) |
+| `wiki-ingest/reference.md` | merge pages, index, log, close-out verification |
+| `debug/reference.md` | phase 1 exit criteria, edit lock, hypothesis table, verification + callee cleanup |
 | `git-push/reference.md` | push matrix, commit gate, SSH multi-account, ตาราง error |
-| `scrutinize/reference.md` | agent-skills PR checklist, verification protocol, review red flags |
-| `fix-record/reference.md` | section guide, worked example, publish verification |
-| `upgrade-ai/reference.md` | catalog skill, version governance, anti-patterns |
+| `scrutinize/reference.md` | agent-skills PR checklist, NeoLabHQ lenses, browser MCP, verification gate |
+| `fix-record/reference.md` | section guide, worked example, publish + close-out verification |
+| `upgrade-ai/reference.md` | external discovery, context engineering, version governance, anti-patterns |
+| `workday-update/reference.md` | dedupe, DISCOVERED TODAY, close-out verification |
+| `docs/EXTERNAL-PARITY.md` | catalog crosswalk, security, non-goals |
 | `builder-*/reference.md` | phase ละเอียด, checklist, anti-patterns ต่อ layer |
 | `templates/template.workday.md` | WORKDAY block SSoT — section ownership init/update/review |
 | `templates/template.workday-file.md` | Vault file wrapper (frontmatter + block) |

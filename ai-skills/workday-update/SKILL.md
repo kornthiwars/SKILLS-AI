@@ -1,7 +1,7 @@
 ---
 name: workday-update
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
 description: >-
   Daily task change manager — merge discoveries into WORKDAY + vault/workday file.
   Invoke with /workday-update during the day. Planning only.
@@ -30,6 +30,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 | **4 Dedupe** | Merge or skip duplicates |
 | **5 Update** | **DISCOVERED TODAY**, **ACTIVE TASKS**, **PROBLEMS**, **NEXT** |
 | **6 Emit** | Full **WORKDAY** + overwrite `vault/workday/YYYY-MM-DD.md` |
+| **7 Verify** | [reference.md](./reference.md) § Close-out verification gate |
 
 ## When to use
 
@@ -54,8 +55,8 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 
 ## Scope Guardrails
 
-- ALWAYS load from `vault/workday/YYYY-MM-DD.md` when present — see [workday-init/reference.md](../workday-init/reference.md) § Load protocol.
-- ALWAYS **write** updated file in place per [workday-init/reference.md](../workday-init/reference.md) § Persistence (bump `plan_version`).
+- ALWAYS load from `vault/workday/YYYY-MM-DD.md` when present — see [reference.md](./reference.md) · [workday-init/reference.md](../workday-init/reference.md) § Load protocol.
+- ALWAYS **write** updated file in place per [workday-init/reference.md](../workday-init/reference.md) § Persistence (bump `plan_version`); update rules in [reference.md](./reference.md).
 - ALWAYS re-emit the **full WORKDAY** block in chat and vault file.
 - ALWAYS append to **DISCOVERED TODAY** with `+` lines (source + discovery reason).
 - ALWAYS relate new work to existing `{DOMAIN}-{NNN}` before minting a new ID.
@@ -122,7 +123,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | ARTIFACTS | Full **WORKDAY** block + path `vault/workday/YYYY-MM-DD.md` |
 | NEXT ACTIONS | Top **NEXT** arrows |
 | HANDOFF | `/debug` · `/builder-*` · `/workday-review` · `none` |
-| CONFIDENCE | 0–100; lower if base WORKDAY was incomplete |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out verification gate before READY |
 
 ---
 

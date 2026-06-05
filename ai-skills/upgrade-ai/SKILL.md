@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.2.4"
+  version: "1.2.5"
 description: >-
   Evidence-based skill diagnosis and minimal upgrades — 8 phases, cheat sheet, handoffs,
   pack consistency checklist, SKILL REPORT output. Invoke with /upgrade-ai (canonical); /upgrade is shorthand alias.

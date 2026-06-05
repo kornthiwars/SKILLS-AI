@@ -1,7 +1,7 @@
 ---
 name: wiki-ingest
 metadata:
-  version: "1.0.2"
+  version: "1.0.3"
 description: >-
   Wiki curator — ingest papers, articles, or closed insights into vault/wiki
   (pages, sources, index, log). LLM Wiki Pattern. Invoke with /wiki-ingest.
@@ -30,6 +30,7 @@ Protocol: [reference.md](./reference.md).
 | **4 Index** | Update `index.md` |
 | **5 Log** | Append `log.md` |
 | **6 Report** | Paths + summary in chat |
+| **7 Verify** | [reference.md](./reference.md) § Close-out verification gate |
 
 ## When to use
 
@@ -92,7 +93,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | ARTIFACTS | Paths under `vault/wiki/` |
 | NEXT ACTIONS | Open in Obsidian; `/vault-recall` next time |
 | HANDOFF | `/vault-recall` · `/workday-update` · `none` |
-| CONFIDENCE | 0–100 |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out verification gate before READY |
 
 ---
 

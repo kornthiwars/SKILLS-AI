@@ -4,6 +4,8 @@ WORKDAY block shape: [`templates/template.workday.md`](../../templates/template.
 
 All workday skills (**init · update · review**) use this file for **persistence** — do not duplicate in each `SKILL.md`.
 
+Update-specific dedupe and discovery rules: [`workday-update/reference.md`](../workday-update/reference.md).
+
 ---
 
 ## Persistence (mandatory)

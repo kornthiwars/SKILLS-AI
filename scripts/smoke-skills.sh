@@ -98,6 +98,9 @@ check_contains "ai-skills/debug/SKILL.md" 'change-control-manifest' "debug refer
 check_contains "ai-skills/git-push/SKILL.md" 'change-control-manifest' "git-push references change-control manifest"
 check_contains "ai-rules/change-control-manifest.mdc" 'Patch budget' "manifest defines patch budget"
 check_contains "AGENTS.md" 'change-control-manifest' "AGENTS.md lists change-control"
+check_contains "AGENTS.md" 'awesome-agent-skills' "AGENTS.md links external catalog"
+check_file "docs/EXTERNAL-PARITY.md"
+check_file "ai-skills/workday-update/reference.md"
 check_file "docs/DYNAMIC-AGENT-SMOKE.md"
 check_file "scripts/verify-dynamic-smoke-static.sh"
 

@@ -60,6 +60,21 @@ When reviewing application changes ([addyosmani code-review pattern](https://git
 
 Lead with the axis that exposes the highest-severity risk.
 
+### Specialized reviewer lenses (optional)
+
+For large or high-risk PRs, mentally rotate lenses from [NeoLabHQ/code-review](https://github.com/NeoLabHQ/context-engineering-kit/tree/master/plugins/code-review) — link only; one pass per lens:
+
+| Lens | Focus |
+|------|-------|
+| **bug-hunter** | Regressions, off-by-one, race, error paths not traced |
+| **security-auditor** | AuthZ, injection, secrets, supply chain in diff |
+| **test-coverage-reviewer** | New behavior has asserting test — not snapshot-only |
+| **contracts-reviewer** | API/schema breaking changes, consumer impact |
+| **historical-context-reviewer** | Prior incidents, wiki pages, reverted commits |
+| **code-quality-reviewer** | Coupling, naming, dead code after redirect |
+
+Fold findings into the five-axis table — do not emit six duplicate verdicts.
+
 ---
 
 ## Untrusted review input

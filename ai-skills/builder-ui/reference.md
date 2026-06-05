@@ -101,6 +101,21 @@ For **standalone demos** (no framework build), the consumer project may keep moc
 
 ---
 
+## Web quality (external patterns)
+
+For performance, accessibility, SEO, and best-practice audits beyond runtime browser MCP ([addyosmani/web-quality-audit](https://officialskills.sh/addyosmani/skills/web-quality-audit) subtree — link only):
+
+| Topic | External skill |
+|-------|----------------|
+| Holistic audit | [web-quality-audit](https://officialskills.sh/addyosmani/skills/web-quality-audit) |
+| Core Web Vitals | [core-web-vitals](https://officialskills.sh/addyosmani/skills/core-web-vitals) |
+| Accessibility | [accessibility](https://officialskills.sh/addyosmani/skills/accessibility) |
+| Performance | [performance](https://officialskills.sh/addyosmani/skills/performance) |
+
+This pack owns **component architecture + tokens + a11y checklist** in phases 1–7; install external skills when the user needs Lighthouse-grade or SEO depth.
+
+---
+
 ## Close-out verification gate (phase 7)
 
 | # | Proof |

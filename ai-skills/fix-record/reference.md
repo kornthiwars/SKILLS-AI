@@ -49,6 +49,24 @@ After publish: suggest **`/wiki-ingest`** if reusable per `vault/wiki/README.md`
 
 ---
 
+## Close-out verification gate
+
+Before STATUS=READY or publish ([verification-before-completion](https://github.com/obra/superpowers) pattern):
+
+| Step | Proof |
+|------|-------|
+| 1 IDENTIFY | Original repro command/test; fix pointer (PR/commit) |
+| 2 RUN | Re-execute repro or cite fresh debug session output |
+| 3 READ | Pass signal — exit code, green test, or explicit flake waiver |
+| 4 VERIFY | All four required inputs + protocol checks 1–5 above |
+| 5 CLAIM | Only then READY / offer POST |
+
+Forbidden without step 2–3: "RCA complete", "validated", "ready to post".
+
+Pull evidence from [`debug`](../debug/SKILL.md) ledger hypothesis **CONFIRMED** when available.
+
+---
+
 ## Prove-It guard (regression)
 
 Section **Validation** should cite a test or repro that:

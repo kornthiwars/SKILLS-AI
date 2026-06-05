@@ -212,6 +212,33 @@ Patterns to import from external repos (link, do not copy wholesale): [superpowe
 
 ---
 
+## External discovery
+
+| Resource | Role |
+|----------|------|
+| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | Curated catalog — discovery index, not a competing pack |
+| [`docs/EXTERNAL-PARITY.md`](../../docs/EXTERNAL-PARITY.md) | Crosswalk: catalog category → pack skill → non-goals |
+| [Snyk Agent Scan](https://github.com/snyk/agent-scan) · [Agent Trust Hub](https://ai.gendigital.com/agent-trust-hub) | Security review before installing external skills |
+
+**Rule:** catalog entries inform **link-only** `reference.md` rows and docs — not bulk imports into `ai-skills/`.
+
+---
+
+## Context engineering (long-session meta)
+
+When prompts grow unstable or context noise rises ([muratcankoylan/Agent-Skills-for-Context-Engineering](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering) — link only):
+
+| Signal | Upgrade bias |
+|--------|--------------|
+| Lost-in-middle / instruction clash | Decompose to `reference.md`; reduce `alwaysApply` rules |
+| Long sessions, repeated vault grep | Link [`vault-recall/reference.md`](../vault-recall/reference.md) — no copied tables |
+| Multi-agent overlap | Handoffs table; one skill per responsibility |
+| Skill > 300 lines or > 5 duties | Phase 7 decomposition per § Complexity governance |
+
+Do not import the full context-engineering pack — use as diagnosis vocabulary during `/upgrade-ai` meta audits.
+
+---
+
 ## Meta audit rubric (target 9/10)
 
 After upgrading one or more skills, score in **SKILL REPORT** `ARTIFACTS` (inline — no repo audit file):
