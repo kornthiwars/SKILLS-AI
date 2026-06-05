@@ -1,11 +1,12 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.2.4"
+  version: "1.2.6"
 description: >-
   Orchestrate cross-layer features — workflow analysis, reuse, delegation to
   builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
   /builder-feature for full-stack feature planning.
+paths: "**/*.{ts,tsx,js,jsx,py,go,rs,vue,svelte}"
 disable-model-invocation: true
 ---
 

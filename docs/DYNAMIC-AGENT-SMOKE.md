@@ -7,7 +7,7 @@ Static checks:
 ./scripts/verify-dynamic-smoke-static.sh   # file content preflight for scenarios below
 ```
 
-CI: `skills-quality.yml` runs smoke only.
+CI: `skills-quality.yml` runs `smoke-skills.sh` + `verify-dynamic-smoke-static.sh`.
 
 This doc lists **behavioral** scenarios to run in Cursor after rule/skill changes. Full agent automation is out of scope for CI; use the static script first, then manual prompts.
 
@@ -29,10 +29,11 @@ This doc lists **behavioral** scenarios to run in Cursor after rule/skill change
 | 6 | `/scrutinize` on a skill PR diff | agent-skills checklist (version, guardrails, vault link) |
 | 7 | `/builder-schema` + destructive prod schema request without confirm | Requires migration+rollback plan and explicit confirmation gate |
 | 8 | After rule edit | `./scripts/smoke-skills.sh` PASS locally |
+| 9 | Fix bug by redirecting caller `foo()` → `bar()` | Grep `foo`; remove definition if zero refs; cite grep in reply; do not leave orphan |
 
 ## Static preflight (automated)
 
-`./scripts/verify-dynamic-smoke-static.sh` checks that skills/rules **contain** the gates for scenarios 1–7 and 8 (smoke exists). It does **not** replace running prompts in Cursor.
+`./scripts/verify-dynamic-smoke-static.sh` checks that skills/rules **contain** the gates for scenarios 1–9 and 8 (smoke exists). It does **not** replace running prompts in Cursor.
 
 ## Record results
 

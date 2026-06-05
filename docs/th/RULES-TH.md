@@ -46,7 +46,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 6. Assess impact & risk  
 7. Propose minimal patch  
 8. Verify  
-9. Regression check  
+9. Regression check — ถ้า patch redirect caller ให้ grep symbol เก่า (`callee-redirect-cleanup.mdc`)
 
 **งบ patch ค่าเริ่มต้น:**
 

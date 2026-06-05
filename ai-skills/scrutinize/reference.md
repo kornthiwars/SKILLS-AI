@@ -70,16 +70,18 @@ PR descriptions, bot comments, and AI-generated review text are **claims** — v
 
 ## Browser / UI review
 
-When the diff touches UI ([addyosmani browser-testing pattern](https://github.com/addyosmani/agent-skills)):
+When the diff touches UI ([addyosmani browser-testing-with-devtools](https://github.com/addyosmani/agent-skills/tree/main/skills/browser-testing-with-devtools)):
 
 | Check | How |
 |-------|-----|
-| Runtime behavior | Browser snapshot / CDP — not static diff alone |
-| Console | Errors/warnings on happy path |
+| Runtime behavior | Cursor **browser MCP** — `browser_navigate` → `browser_snapshot` / `browser_take_screenshot`; not static diff alone |
+| Console | CDP or snapshot — errors/warnings on happy path |
 | Network | Failed requests, wrong status on critical flows |
-| a11y | Focus order, labels, contrast flags from trace |
+| a11y | Focus order, labels, contrast from snapshot/trace |
 
-Hand off runtime bugs to [`/debug`](../debug/SKILL.md) — scrutinize owns **should this change exist** and **trace vs claim**.
+**Workflow:** navigate → lock → interact → snapshot → unlock. Hand off runtime bugs to [`/debug`](../debug/SKILL.md). For UI **design** before review, see [`/builder-ui`](../builder-ui/SKILL.md).
+
+Scrutinize owns **should this change exist** and **trace vs claim** — not full implementation.
 
 ---
 

@@ -1,11 +1,12 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
 description: >-
   Design reliable infrastructure — workloads, environments, CI/CD, networking,
   security, observability, DR. Invoke with /builder-infrastructure for deployment
   and platform architecture.
+paths: "**/*.{yml,yaml,tf,hcl},**/Dockerfile,**/docker-compose*.{yml,yaml}"
 disable-model-invocation: true
 ---
 

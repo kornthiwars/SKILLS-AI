@@ -16,8 +16,9 @@ jobs:
 
       - name: Smoke skills and rules
         run: |
-          chmod +x scripts/smoke-skills.sh scripts/change-control-check.sh
+          chmod +x scripts/smoke-skills.sh scripts/change-control-check.sh scripts/verify-dynamic-smoke-static.sh
           ./scripts/smoke-skills.sh
+          ./scripts/verify-dynamic-smoke-static.sh
 
       - name: Change-control budget (PR vs main)
         run: |

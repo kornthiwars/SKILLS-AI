@@ -140,5 +140,6 @@ Before final artifact:
 | 3 | `/scrutinize` planned per slice before merge |
 | 4 | Rollback + monitoring stated — not TBD |
 | 5 | Reuse checklist passed — no duplicate systems |
+| 6 | **Callee redirect cleanup** — each implementation slice greps orphans from redirected callers ([`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc)) |
 
 IDENTIFY proof: integration test or walkthrough script · RUN in session · cite result.

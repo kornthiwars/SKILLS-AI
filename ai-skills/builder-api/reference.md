@@ -179,6 +179,7 @@ Reject if:
 | 2 | Auth matrix covers every mutating route |
 | 3 | Error payload shape consistent |
 | 4 | Pagination/rate limits specified |
-| 5 | `/scrutinize` + optional integration test RUN output cited |
+| 5 | **Callee redirect cleanup** — grep old handlers/exports if routes or call targets changed ([`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc)) |
+| 6 | `/scrutinize` + optional integration test RUN output cited |
 
 Pass/reject only after IDENTIFY→RUN→READ on highest-risk endpoint.

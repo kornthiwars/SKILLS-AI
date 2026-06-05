@@ -108,7 +108,8 @@ For **standalone demos** (no framework build), the consumer project may keep moc
 | 1 | Component tree + tokens documented |
 | 2 | a11y checklist passed (keyboard, focus, contrast) |
 | 3 | Responsive breakpoints defined — not one width only |
-| 4 | Browser/runtime check on critical path if UI behavior claimed |
-| 5 | `/scrutinize` before merge |
+| 4 | Browser/runtime check on critical path if UI behavior claimed — use Cursor browser MCP (`browser_snapshot`, `browser_take_screenshot`) per [scrutinize/reference.md](../scrutinize/reference.md) § Browser / UI review |
+| 5 | **Callee redirect cleanup** — if implementation changed call targets, grep old symbols per [`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc) |
+| 6 | `/scrutinize` before merge |
 
 IDENTIFY → RUN (snapshot/test/story) → READ output → then pass/reject.

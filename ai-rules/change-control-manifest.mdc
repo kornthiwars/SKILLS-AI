@@ -17,7 +17,7 @@ agent-skills treats the agent as a **change-control system**, not only a coding 
 6. Assess impact and risk
 7. Propose minimal patch
 8. Verify
-9. Regression check
+9. Regression check — if the patch **redirected callers**, grep old symbols and remove zero-ref orphans per [`patching/callee-redirect-cleanup.mdc`](patching/callee-redirect-cleanup.mdc) before claiming done
 
 **Never patch before diagnosis for unknown behavior.** Follow debug steps 1–4 (reproduce → trace → falsify → ledger). Use full **`/debug`** (mantra + ledger) when the user attaches it or the failure is non-trivial. For **known changes** (copy, labels, styling, remove `*`, small UX) — patch directly after observe; do not recite the debug mantra.
 

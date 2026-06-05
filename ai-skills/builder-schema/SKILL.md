@@ -1,11 +1,12 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
 description: >-
   Design integrity-safe schemas via domain modeling, relationships, indexing,
   and safe evolution. Invoke with /builder-schema when modeling entities,
   migrations, or schema changes.
+paths: "**/{migrations,schema,prisma,db,database}/**/*,**/*.{sql,prisma}"
 disable-model-invocation: true
 ---
 

@@ -1,11 +1,12 @@
 ---
 name: builder-api
 metadata:
-  version: "1.2.1"
+  version: "1.2.3"
 description: >-
   Design scalable, secure, contract-first APIs with validation, auth boundaries,
   error systems, versioning, and observability. Invoke with /builder-api when
   designing or refactoring API contracts, endpoints, or backend service boundaries.
+paths: "**/{api,routes,controllers,handlers,services}/**/*.{ts,js,py,go,rs}"
 disable-model-invocation: true
 ---
 

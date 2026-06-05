@@ -157,6 +157,7 @@ Reject if: rollback impossible, ownership unclear, observability incomplete, wea
 | 2 | Observability: metrics/alerts map to SLOs |
 | 3 | Secrets strategy — not in repo |
 | 4 | Cost/scale limits stated |
-| 5 | `/scrutinize` before merge · `/git-push` for ship |
+| 5 | **Callee redirect cleanup** — remove superseded resources/modules when grep shows zero refs ([`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc)) |
+| 6 | `/scrutinize` before merge · `/git-push` for ship |
 
 Cite `terraform plan`, health check, or drill output — IDENTIFY→RUN→READ.

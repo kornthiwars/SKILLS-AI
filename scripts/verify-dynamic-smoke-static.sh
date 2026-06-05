@@ -85,6 +85,14 @@ else
   fail 'scenario 8 — smoke-skills.sh'
 fi
 
+# Scenario 9 — callee redirect cleanup (manifest + debug close-out)
+if search_q 'callee-redirect-cleanup' "ai-rules/change-control-manifest.mdc" \
+  && search_q 'Callee redirect cleanup' "ai-skills/debug/reference.md"; then
+  pass 'scenario 9 — callee redirect gates in manifest and debug'
+else
+  fail 'scenario 9 — callee redirect cleanup gates'
+fi
+
 printf '\n'
 if [ "$failures" -eq 0 ]; then
   printf 'Static dynamic-smoke preflight passed.\n'

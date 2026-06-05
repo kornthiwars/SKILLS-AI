@@ -39,7 +39,7 @@ Most sub-rules use **globs** or intelligent activation — not `alwaysApply`, to
 DIFF_BASE=origin/main...HEAD ./scripts/change-control-check.sh  # PR range (CI)
 ```
 
-**CI** (`.github/workflows/skills-quality.yml`): smoke hard-fails; PR budget fails unless `[BUDGET-OVERRIDE]` appears in a commit on the branch.
+**CI** (`.github/workflows/skills-quality.yml`): `smoke-skills.sh` + `verify-dynamic-smoke-static.sh` hard-fail; PR budget fails unless `[BUDGET-OVERRIDE]` appears in a commit on the branch.
 
 ## Patch budget (default)
 

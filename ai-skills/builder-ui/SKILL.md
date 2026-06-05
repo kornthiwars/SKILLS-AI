@@ -1,11 +1,12 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.2.1"
+  version: "1.2.3"
 description: >-
   Design scalable, accessible UI systems from visual references — layout,
   components, responsive behavior, a11y. Invoke with /builder-ui for frontend
   architecture and component structure.
+paths: "**/*.{tsx,jsx,vue,svelte,css,scss,html,rs}"
 disable-model-invocation: true
 ---
 

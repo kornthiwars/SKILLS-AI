@@ -180,5 +180,6 @@ Reject if:
 | 3 | Integrity rules documented per relationship |
 | 4 | Rollback/compatibility plan for prod |
 | 5 | Migration path identified from project DB toolchain — not ad-hoc DDL |
+| 6 | **Callee redirect cleanup** — drop deprecated columns/tables only after caller grep shows zero refs ([`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc)) |
 
 For execution, use the project's migration toolchain and require explicit production confirmation for destructive operations. Pass/reject after cited tool output.
