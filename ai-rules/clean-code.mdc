@@ -24,7 +24,7 @@ Process gates (sequence, budget, risk): [`change-control-manifest.mdc`](./change
 5. **Fail safely** — handle errors explicitly; do not silently swallow failures.
 6. **Keep behavior stable** — avoid unrelated refactors in the same patch.
 7. **Add/adjust tests when behavior changes** — at least one verification path for new logic.
-8. **No dead code** — do not leave commented-out blocks or unused scaffolding.
+8. **No dead code** — do not leave commented-out blocks or unused scaffolding. **Exception:** when this turn redirected a caller, grep the old symbol and remove it in the same patch if zero references remain ([`patching/callee-redirect-cleanup.mdc`](./patching/callee-redirect-cleanup.mdc)).
 
 ## Implementation guidance
 

@@ -192,6 +192,7 @@ Pass/fail before claiming the bug is fixed — includes **Verification gate** ab
 | 4 | Post-fix run compared to pre-fix logs or behavior (before/after) |
 | 5 | Instrumentation removed (or user waived keeping debug logs) |
 | 6 | Ledger + hypothesis table summarize the causal chain |
+| 7 | **Callee redirect cleanup** — if the fix changed call targets (e.g. `a1` → `a2`): grep the old symbol; remove definition when zero refs remain in the same patch, or list **NEXT ACTIONS** if over budget ([`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc)) |
 
 If any check fails → report blocked state; do not claim success.
 

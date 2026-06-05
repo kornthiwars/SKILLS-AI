@@ -1,7 +1,7 @@
 ---
 name: debug
 metadata:
-  version: "1.3.2"
+  version: "1.3.3"
 description: >-
   Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
   breadcrumbs. Stop-the-line, reduce, bisection, Prove-It, verification gate, untrusted
@@ -91,7 +91,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | Turn | Minimum sections |
 |------|------------------|
 | Mid-session | STATUS, OBJECTIVE, DISCOVERIES (ledger / hypothesis table), NEXT ACTIONS, CONFIDENCE |
-| Close-out | All sections; pass verification gate before STATUS=READY |
+| Close-out | All sections; pass verification gate + callee redirect cleanup before STATUS=READY |
 
 | Section | `/debug` |
 |---------|----------|
@@ -182,5 +182,5 @@ Maintain a running **ledger** of every experiment in this session. Each entry: w
 - If you catch yourself proposing a fix without a reliable repro, stop and return to step 1.
 - If you catch red-flag thinking, stop — see [reference.md](./reference.md) § Red flags and § Rationalizations.
 - **Stop-the-line:** on unexpected failure — no new features until verification passes ([reference.md](./reference.md) § Stop-the-line rule).
-- **Close-out:** pass verification gate + verification protocol; then offer `/fix-record` when appropriate.
+- **Close-out:** pass verification gate + verification protocol; if the fix changed call targets, grep old symbols per [`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc) — see [reference.md](./reference.md) § Verification protocol; then offer `/fix-record` when appropriate.
 - The mantra is a constraint **you** carry through the session — not advice to deliver back to the user.

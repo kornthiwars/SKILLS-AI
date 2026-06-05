@@ -8,7 +8,7 @@
 
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
-| debug | `/debug` | 1.3.2 | ใช่ |
+| debug | `/debug` | 1.3.3 | ใช่ |
 | scrutinize | `/scrutinize` | 1.2.2 | ใช่ |
 | builder-ui | `/builder-ui` | 1.2.1 | ใช่ |
 | builder-api | `/builder-api` | 1.2.1 | ใช่ |
@@ -34,7 +34,7 @@
 |------|------------|
 | `vault-recall/reference.md` | resolve vault root, grep wiki/pages ≤3, แล้ว issues |
 | `wiki-ingest/reference.md` | merge pages, index, log |
-| `debug/reference.md` | phase 1 exit criteria, hypothesis CONF/REJ table, instrumentation lifecycle, verification protocol |
+| `debug/reference.md` | phase 1 exit criteria, hypothesis CONF/REJ table, instrumentation lifecycle, verification protocol (incl. callee redirect cleanup #7) |
 | `git-push/reference.md` | push matrix, commit gate, SSH multi-account, ตาราง error |
 | `scrutinize/reference.md` | agent-skills PR checklist, verification protocol, review red flags |
 | `fix-record/reference.md` | section guide, worked example, publish verification |

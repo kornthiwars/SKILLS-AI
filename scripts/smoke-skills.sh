@@ -56,6 +56,7 @@ check_file "scripts/change-control-check.sh"
 for f in \
   ai-rules/core/execution-model.mdc \
   ai-rules/patching/patch-scope-control.mdc \
+  ai-rules/patching/callee-redirect-cleanup.mdc \
   ai-rules/risk/risk-classification.mdc \
   ai-rules/workflow/stop-conditions.mdc; do
   check_file "$f"

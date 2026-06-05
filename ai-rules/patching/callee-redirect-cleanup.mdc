@@ -1,0 +1,33 @@
+---
+description: After redirecting a caller, remove self-caused orphans when zero references remain
+globs: "**/*.{ts,tsx,js,jsx,py,go,rs,java,kt,cs,php,rb,vue,svelte}"
+alwaysApply: false
+---
+
+# Callee redirect cleanup
+
+When a patch **changes what a caller invokes** (e.g. `a` called `a1` → now calls `a2`), treat orphan removal as part of the fix — not drive-by cleanup.
+
+## When this applies
+
+- Replacing function, method, hook, import, or API call target in the same change
+- Renaming or inlining a callee so the old symbol may be unused
+
+## Required before closing the turn
+
+1. **Grep / find references** for the old symbol (`a1`, old import, old handler).
+2. **Zero callers remain** (only definition or dead export) → **remove** the old definition in the **same patch** when within patch budget ([`change-control-manifest.mdc`](../change-control-manifest.mdc)).
+3. **Other callers still use the old symbol** → **do not delete**; note remaining usages in the reply.
+4. **Removal exceeds budget** → list exact paths/symbols in **NEXT ACTIONS**; do not leave silent orphans.
+
+## Not in scope (still separate patch)
+
+- Deleting unrelated dead code you did not orphan this turn
+- Repo-wide cleanup, rename sweeps, or “while I’m here” refactors
+- Removing symbols shared across modules when any caller remains
+
+## Relation to other rules
+
+- [`clean-code.mdc`](../clean-code.mdc) § No dead code — self-caused orphans are not exempt
+- [`minimal-change.mdc`](../core/minimal-change.mdc) — removing a symbol **you** orphaned is required scope, not optional refactor
+- [`safe-edit-order.mdc`](./safe-edit-order.mdc) — run this check after verify, before claiming done

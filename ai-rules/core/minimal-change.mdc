@@ -8,6 +8,7 @@ alwaysApply: false
 
 - Change only what the proven root cause requires.
 - Do not combine bugfixes with refactors, cleanup, optimizations, or new features.
+- **Callee redirect:** removing a symbol you orphaned by changing call targets is required fix scope — see [`patching/callee-redirect-cleanup.mdc`](../patching/callee-redirect-cleanup.mdc).
 - Prefer localized fixes over cross-cutting rewrites.
 - Align with `clean-code.mdc` for style; this rule governs **scope**.
 

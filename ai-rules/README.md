@@ -17,7 +17,7 @@ Canonical Cursor rules (`.mdc`). Linked into `.cursor/rules` by setup scripts.
 |--------|---------|
 | `core/` | Execution model, diagnosis, uncertainty, minimal change, verification |
 | `debugging/` | Repro, evidence, disprove alternatives (use `/debug` for depth) |
-| `patching/` | Scope, size limits, side effects, dependencies |
+| `patching/` | Scope, size limits, callee redirect cleanup, side effects, dependencies |
 | `architecture/` | Boundaries, shared modules, API, schema |
 | `testing/` | Validation, regression, manual flows |
 | `risk/` | Classification, approval gates, rollback, prod safety |

@@ -69,7 +69,7 @@
 | 4 | Breadcrumb ledger | ทุกการรัน = บันทึก + **ตาราง H1/H2… CONFIRMED/REJECTED/INCONCLUSIVE** พร้อม cite evidence |
 
 **Handoffs:** fix ยืนยันแล้ว → `/fix-record` · review patch → `/scrutinize` · schema/data plan → `/builder-schema`  
-**Cheatsheet + รายละเอียด:** `debug/reference.md` (exit criteria, instrumentation lifecycle, verification protocol)
+**Cheatsheet + รายละเอียด:** `debug/reference.md` (exit criteria, instrumentation lifecycle, verification protocol รวม callee redirect cleanup)
 
 ### สิ่งที่ skill ห้ามทำ
 
@@ -83,7 +83,7 @@
 - **Debug ledger** + **hypothesis table** ต่อเนื่องในแชท
 - Repro artifact, trace notes, สมมติฐานที่ถูกตัดออก (REJECTED พร้อม evidence)
 - รูปแบบตอบ: **SKILL REPORT** (ดู `templates/template.skill-report.md`)
-- ข้อเสนอ fix **เล็กที่สุด** หลัง verification protocol ผ่าน — แล้วเสนอ `/fix-record` ถ้าไม่ trivial
+- ข้อเสนอ fix **เล็กที่สุด** หลัง verification protocol ผ่าน (รวม grep symbol เก่าถ้าเปลี่ยน caller) — แล้วเสนอ `/fix-record` ถ้าไม่ trivial
 
 ### ความสัมพันธ์กับ rules
 

@@ -145,7 +145,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 5. จัดการ error ชัด — ไม่กลืนเงียบ  
 6. อย่าเปลี่ยน behavior นอก scope  
 7. มี test/verify เมื่อ behavior เปลี่ยน  
-8. ไม่ทิ้ง dead code  
+8. ไม่ทิ้ง dead code — **ยกเว้น redirect:** ถ้า turn นี้เปลี่ยน caller (a1→a2) ให้ grep a1 แล้วลบถ้าไม่มี reference เหลือ (ดู `patching/callee-redirect-cleanup.mdc`)
 
 **ก่อนจบ turn:** บอกว่ารัน lint/test อะไรแล้ว / อะไรยังไม่ได้รัน
 
@@ -264,7 +264,8 @@ Root cause ต้องอธิบายอาการครบ path — อ�
 | globs | `**/*` |
 
 ชอบ fix แคบ: condition, guard, wrapper  
-**ห้าม** ปน refactor/cleanup/feature กับ bugfix — งบ 120 บรรทัด / 5 ไฟล์
+**ห้าม** ปน refactor/cleanup/feature กับ bugfix — งบ 120 บรรทัด / 5 ไฟล์  
+**ยกเว้น:** ลบ symbol ที่ orphan จาก callee redirect ใน turn เดียวกัน (`callee-redirect-cleanup.mdc`)
 
 ### `patching/no-hidden-side-effects.mdc`
 
@@ -278,10 +279,24 @@ Root cause ต้องอธิบายอาการครบ path — อ�
 
 ### `patching/safe-edit-order.mdc`
 
-ลำดับ: repro/test fail → fix เล็กสุด → verify → regression เป้า → cleanup **แยก patch**  
+ลำดับ: repro/test fail → fix เล็กสุด → verify → regression เป้า → **callee redirect cleanup** → cleanup กว้าง **แยก patch**  
 **ห้าม** “เก็บความสะอาดก่อน” ตอน incident
 
+### `patching/callee-redirect-cleanup.mdc`
+
+| globs | ไฟล์ source หลายประเภท |
+
+เมื่อ patch **เปลี่ยนสิ่งที่ caller เรียก** (เช่น a เรียก a1 → a2):
+
+1. grep symbol เก่า (a1, import เก่า)
+2. **ไม่มี caller เหลือ** → ลบ definition ใน **patch เดียวกัน** (อยู่ในงบ)
+3. **ยังมี caller อื่น** → อย่าลบ · บอกใน reply
+4. ลบเกินงบ → ใส่ NEXT ACTIONS อย่าปล่อยค้างเงียบ
+
+**ไม่รวม:** cleanup ทั้ง repo / dead code ที่ไม่ได้ orphan ใน turn นี้
+
 ---
+
 
 ## โฟลเดอร์ `architecture/`
 

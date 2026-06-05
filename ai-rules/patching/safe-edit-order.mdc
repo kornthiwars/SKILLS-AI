@@ -10,6 +10,7 @@ alwaysApply: false
 2. Apply smallest proven fix
 3. Verify repro passes
 4. Run targeted regression checks
-5. Only then optional cleanup (separate patch)
+5. **Callee redirect cleanup** — if the fix changed call targets, grep old symbols; remove when zero refs remain ([`callee-redirect-cleanup.mdc`](./callee-redirect-cleanup.mdc))
+6. Only then optional wider cleanup (separate patch)
 
 Do not reorder to "clean up first" during incident fixes.
