@@ -18,7 +18,7 @@
 | fix-record | `/fix-record` | 1.2.3 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.2.5 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
-| vault-recall | `/vault-recall` | 1.3.3 | ใช่ |
+| vault-recall | `/vault-recall` | 1.3.4 | ใช่ |
 | wiki-ingest | `/wiki-ingest` | 1.0.3 | ใช่ |
 | workday-init | `/workday-init` | 1.2.4 | ใช่ |
 | workday-update | `/workday-update` | 1.2.3 | ใช่ |

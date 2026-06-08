@@ -106,6 +106,7 @@ check_file "templates/template.slice-brief.md"
 check_file "templates/template.feature-plan.md"
 check_contains "ai-skills/builder-feature/reference.md" 'template.slice-brief.md' "builder-feature links slice brief template"
 check_contains "ai-skills/vault-recall/reference.md" 'workday/plans/' "vault-recall searches feature plans"
+check_contains "ai-skills/vault-recall/SKILL.md" 'workday/plans/' "vault-recall SKILL syncs plans search order"
 check_file "docs/DYNAMIC-AGENT-SMOKE.md"
 check_file "scripts/verify-dynamic-smoke-static.sh"
 

@@ -200,9 +200,11 @@
 
 - ออกแบบ/ refactor **API contract**, routes, service boundaries
 - ต้องการ validation, auth, error model, observability
+- **`slice N go`** หลัง `/builder-feature` — โหลด slice brief ก่อน phase 1
 
-### ขั้นตอน (10 phase)
+### ขั้นตอน (11 phase)
 
+0. Slice brief intake (จากแผน feature หรือ N/A ถ้า standalone)  
 1. Domain analysis  
 2. Resource modeling  
 3. Contract design  
@@ -213,6 +215,8 @@
 8. Observability + reliability  
 9. Backend structure  
 10. Verification  
+
+รายละเอียด slice brief → `ai-skills/builder-api/reference.md` § Slice brief intake
 
 ### ผลลัพธ์
 
@@ -452,7 +456,7 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-recall` |
-| **บทบาท** | บรรณารักษ์ vault — **ค้น** wiki/issues ไม่เขียน |
+| **บทบาท** | บรรณารักษ์ vault — **ค้น** wiki / feature plans / issues ไม่เขียน |
 
 ### ใช้เมื่อไหร่
 
@@ -462,13 +466,17 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 ### ไม่ใช้เมื่อไหร่
 
 - เขียน issues (ใช้ rule `vault-issues.mdc`) หรือ wiki (ใช้ `/wiki-ingest`)
-- อ่าน wiki page เกิน 3 ไฟล์เต็มต่อการค้นหา
+- อ่าน wiki page เกิน 3 ไฟล์ หรือ plan เกิน 2 ไฟล์ต่อการค้นหา
 - ทุกข้อความแชทสบายๆ
 
 ### ขั้นตอน
 
-1. ทำตาม `vault-recall/reference.md` (resolve root → grep wiki/pages → issues)  
-2. รายงาน: สรุป, top 3 matches, ถ้าว่างแนะนำ `/wiki-ingest` หลังปิดเรื่อง
+1. ทำตาม `vault-recall/reference.md` (resolve root → grep wiki/pages → **workday/plans/** เมื่อ query ชื่อ feature/plan → issues วันนี้/เมื่อวาน)  
+2. รายงาน: สรุป, top matches (wiki + plan + issues), ถ้าว่างแนะนำ `/wiki-ingest` หลังปิดเรื่อง
+
+### Handoff
+
+- แผน feature เดิม → `/builder-feature` ต่อจาก recall
 
 ### ถูกเรียกแบบ inline
 
@@ -494,7 +502,8 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 
 - งานเพิ่มกลางวัน → `/workday-update`
 - สรุปท้ายวัน → `/workday-review`
-- ลงมือ implement → ใช้ `/builder-*`
+- **วางแผน cross-layer feature** → `/builder-feature` (plan only)
+- **implement slice ที่อนุมัติแล้ว** → `/builder-ui` · `/builder-api` · `/builder-schema` · `/builder-infrastructure` ตาม owner ในแผน
 
 ### ผลลัพธ์ — บล็อก WORKDAY
 

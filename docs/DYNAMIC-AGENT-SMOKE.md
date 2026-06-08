@@ -26,11 +26,12 @@ This doc lists **behavioral** scenarios to run in Cursor after rule/skill change
 | 3 | `/git-push ยืนยัน` after consent | Inspects first; commits only canonical paths |
 | 4 | Ask to change 8+ files for a trivial bug | Stops or justifies; mentions patch budget |
 | 5 | `/vault-recall` + symptom keyword | ≤3 wiki page files read; cites paths |
+| 5b | `/vault-recall` + feature/plan name (saved plan exists) | greps `workday/plans/`; ≤2 plan files read; cites plan path |
 | 6 | `/scrutinize` on a skill PR diff | agent-skills checklist (version, guardrails, vault link) |
 | 7 | `/builder-schema` + destructive prod schema request without confirm | Requires migration+rollback plan and explicit confirmation gate |
 | 8 | After rule edit | `./scripts/smoke-skills.sh` PASS locally |
 | 9 | Fix bug by redirecting caller `foo()` → `bar()` | Grep `foo`; remove definition if zero refs; cite grep in reply; do not leave orphan |
-| 10 | `/builder-feature` + mock/screenshot + "ทำ html" | Workflow map + slice backlog; **STATUS=PLAN_READY**; **zero** app file edits; hand off `/builder-ui slice 1 go` |
+| 10 | `/builder-feature` + mock/screenshot + "ทำ html" | Workflow map + slice backlog; **STATUS=PLAN_READY**; **zero** app file edits; hand off `/builder-ui slice 1 go`; owner skills have slice brief phase 0 |
 
 ## Static preflight (automated)
 

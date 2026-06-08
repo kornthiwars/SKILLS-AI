@@ -100,8 +100,11 @@ if search_q 'Plan-only iron law' "ai-skills/builder-feature/SKILL.md" \
   && search_q 'Never edit application files' "ai-skills/builder-feature/SKILL.md" \
   && search_q 'Slice brief intake' "ai-skills/builder-ui/reference.md" \
   && search_q 'workday/plans/' "ai-skills/vault-recall/reference.md" \
-  && search_q 'Slice brief intake' "ai-skills/builder-api/reference.md"; then
-  pass 'scenario 10 — plan-only, express lane, slice intake, vault plans search'
+  && search_q 'Slice brief intake' "ai-skills/builder-api/reference.md" \
+  && search_q 'Slice brief intake' "ai-skills/builder-schema/reference.md" \
+  && search_q 'Slice brief intake' "ai-skills/builder-infrastructure/reference.md" \
+  && search_q 'workday/plans/' "ai-skills/vault-recall/SKILL.md"; then
+  pass 'scenario 10 — plan-only, slice intake all builders, vault plans in SKILL+ref'
 else
   fail 'scenario 10 — builder-feature plan-only gates'
 fi
