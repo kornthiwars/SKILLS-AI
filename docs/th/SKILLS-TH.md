@@ -276,30 +276,44 @@ Workload & SLO → Boundaries → Deploy → Compute/network → Secrets → Obs
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/builder-feature` |
-| **บทบาท** | **Orchestrator** — ประสาน builder ย่อย ไม่แทนที่ทุก layer |
+| **Version** | 1.4.0 |
+| **บทบาท** | **Plan-only orchestrator** — วาง flow + slice backlog **ไม่เขียนโค้ด** |
 
 ### ใช้เมื่อไหร่
 
 - วางแผน **feature ข้าม layer** (UI + API + schema + infra)
+- วางแผน **UI mock / static HTML** ผ่าน **express lane** (workflow สั้น + slice backlog)
 
 ### ไม่ใช้เมื่อไหร่
 
-- implement ทุก layer เองใน skill เดียว
-- ข้าม verification ของ specialist
+- implement เองใน skill นี้ (รวม HTML/CSS)
+- บั๊กจุดเดียว → `/debug`
+- layer เดียวพร้อม implement → `/builder-ui` ฯลฯ โดยตรง
 
-### ขั้นตอน (7 phase)
+### โหมด
 
-1. Workflow analysis  
-2. Existing system analysis  
-3. Feature boundary  
-4. **Delegate** ไป `/builder-ui`, `/builder-api`, `/builder-schema`, `/builder-infrastructure`  
-5. State + integration  
-6. Rollout + reliability  
-7. Cross-layer verification (รวม `/scrutinize` ก่อน merge)
+| โหมด | ผลลัพธ์ |
+|------|---------|
+| **PLAN** | Phase 0–7 + slice backlog → `PLAN_READY` |
+| **Express** | UI-only mock — workflow map ≥3 ขั้น + component outline + slice backlog |
+| **Handoff** | Slice brief → `/builder-ui` · `/builder-api` · … |
+
+### ขั้นตอน (plan)
+
+0. Discovery (scope, non-goals, UI-only vs cross-layer)  
+1. **Workflow map** (บังคับก่อน slice backlog)  
+2–6. Reuse, boundaries, integration, rollout (express lane: defer N/A ได้)  
+7. Plan verification  
+→ Slice backlog → **`PLAN_READY`** → user สั่ง **`/builder-ui slice N go`**
 
 ### ผลลัพธ์
 
-- Orchestration Plan, task map, ลำดับงาน specialist
+- Workflow map, Orchestration plan, **Slice backlog table**, Slice N brief  
+- **ไม่มี** diff ใน repo จาก skill นี้
+
+### Smoke
+
+- Scenario **#10** ใน [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) — plan-only ห้าม patch
 
 ---
 

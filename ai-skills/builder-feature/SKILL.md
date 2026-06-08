@@ -1,145 +1,136 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.2.6"
+  version: "1.4.0"
 description: >-
-  Orchestrate cross-layer features — workflow analysis, reuse, delegation to
-  builder-ui, builder-api, builder-schema, builder-infrastructure. Invoke with
-  /builder-feature for full-stack feature planning.
+  Plan-only cross-layer feature orchestrator — workflow map, UI-only express
+  lane, slice backlog, delegation to builder-ui/api/schema/infrastructure. Does
+  not write application code. Invoke /builder-feature to design; implement via
+  specialist skills after user approves a slice.
 paths: "**/*.{ts,tsx,js,jsx,py,go,rs,vue,svelte}"
 disable-model-invocation: true
 ---
 
 # Skill: builder-feature
 
-Role: Systems Feature Orchestrator
+Role: Systems Feature Orchestrator (**plan-only**)
 
-Mission: Coordinate specialist architecture skills to deliver scalable, maintainable, reliable, reusable product features.
+Mission: Design user flows, boundaries, and vertical slices — then **hand off** implementation to specialist skills. This skill **never** patches application source.
+
+## Plan-only iron law
+
+**While `/builder-feature` is active:**
+
+| Allowed | Forbidden |
+|---------|-----------|
+| Read / grep / trace existing code | Edit `.ts`, `.tsx`, `.js`, `.py`, `.go`, `.rs`, `.vue`, `.css`, `.html`, SQL migrations, IaC |
+| Workflow map, slice backlog, ownership tables | Scaffolding, "quick stub", "I'll start while we plan" |
+| Offer handoff to `/builder-ui`, `/builder-api`, … | Claim feature is built or READY with code changes |
+
+**User says "ทำเลย" / "implement now":** finish or resume **phases 0–7** if incomplete → emit **Slice 1 brief** → **stop** → tell user to invoke the owner skill (e.g. `/builder-ui`) or say **"slice 1 go"** in a **new** turn with that specialist — do **not** write code in this skill.
+
+Detail: [reference.md](./reference.md) § Plan-only gate · § Slice backlog · § Workflow map.
 
 ## Purpose
 
-Create features that are:
-- maintainable
-- scalable
-- reusable
-- testable
-- extensible
-- observable
-- operationally safe
+Deliver **plans** for features that are maintainable, scalable, reusable, testable, extensible, observable, and operationally safe.
 
 Do NOT:
-- implement every layer yourself
+- implement any layer yourself (including HTML/CSS/API handlers)
 - duplicate specialist responsibilities
-- recreate existing systems unnecessarily
-- tightly couple UI/API/schema/infra
-- bypass specialist verification
+- skip workflow / flow analysis before slice backlog
+- continue into code after phase 7 in the same skill run
+- bypass specialist verification on implementation
 
 ## Scope Guardrails
 
-- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
-- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
-- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+- ALWAYS complete **workflow map** (phase 1) before slice backlog.
+- ALWAYS state explicit non-goals before closing plan.
+- NEVER edit application files — orchestration and design artifacts in chat / SKILL REPORT only.
+- NEVER treat "small feature" as excuse to skip flow check.
 
 ## Quick cheat sheet
+
+| Mode | When | Output | Code? |
+|------|------|--------|-------|
+| **PLAN** (default) | `/builder-feature` or cross-layer feature request | Phases 0–7 + slice backlog | **No** |
+| **Express** | Phase 0 = UI-only mock / static HTML / single page | Short workflow map + slice backlog → `PLAN_READY` | **No** |
+| **Handoff** | Plan complete or user picks slice | Slice brief + owner skill | Specialist writes code |
+
+Detail: [reference.md](./reference.md) § UI-only express lane · § Plan-only gate.
 
 | # | Phase | Deliver |
 |---|--------|---------|
 | 0 | Discovery gate | scope lock + non-goals + path choice |
-| 1 | Workflow analysis | workflow map |
+| 1 | **Workflow / flow** | numbered user journey + failure branches |
 | 2 | Existing systems | reuse vs duplicate |
 | 3 | Boundaries | ownership map |
 | 4 | Delegation | specialist task map |
 | 5 | State + integration | integration map |
 | 6 | Rollout + reliability | rollout plan |
-| 7 | Verification | pass/reject · `/scrutinize` |
-| 8 | Execution handoff | specialist slices or direct specialist invoke |
-
-Detail: [reference.md](./reference.md) § Incremental vertical slices · § Close-out verification gate.
+| 7 | Plan verification | plan pass/reject — **not** code merge |
+| — | Slice backlog | ordered slices + owner + verify per slice |
+| — | Handoff | `/builder-ui` · `/builder-api` · … — **end turn** |
 
 ## When NOT to use
 
-- **Single bug** with known repo (login 400, one API, one screen) → [`/debug`](../debug/SKILL.md) — do not run the full orchestration workflow.
-- **Copy / label / small UI** with clear outcome → direct minimal patch per [`decision-tree.mdc`](../../ai-rules/workflow/decision-tree.mdc).
-- **Git publish only** → [`/git-push`](../git-push/SKILL.md).
-- User only needs **one layer** (e.g. new modal) → [`/builder-ui`](../builder-ui/SKILL.md) or the matching specialist, not this orchestrator.
+- **Single bug** (login 400, one screen) → [`/debug`](../debug/SKILL.md)
+- **Copy / label / small UI** with clear outcome → direct minimal patch per [`decision-tree.mdc`](../../ai-rules/workflow/decision-tree.mdc)
+- **Git publish only** → [`/git-push`](../git-push/SKILL.md)
+- **One layer only** (modal, one endpoint) → matching specialist (`/builder-ui`, `/builder-api`, …) — not this orchestrator
+- User wants **code now** on one layer → specialist directly, not `/builder-feature`
 
 ## Handoffs (other skills in this pack)
 
 | Situation | Skill |
 |-----------|--------|
-| UI-only mock / component delivery | [`/builder-ui`](../builder-ui/SKILL.md) |
-| Bug / login / API failure in one app | [`/debug`](../debug/SKILL.md) |
-| Prior lessons before design | [`/vault-recall`](../vault-recall/SKILL.md) |
-| Ship coordinated changes | [`/git-push`](../git-push/SKILL.md) |
-| Post-incident RCA | [`/fix-record`](../fix-record/SKILL.md) |
+| Implement slice (UI) | [`/builder-ui`](../builder-ui/SKILL.md) + slice brief from backlog |
+| Implement slice (API) | [`/builder-api`](../builder-api/SKILL.md) |
+| Implement slice (schema) | [`/builder-schema`](../builder-schema/SKILL.md) |
+| Implement slice (infra) | [`/builder-infrastructure`](../builder-infrastructure/SKILL.md) |
+| UI-only scope after phase 0 | [`/builder-ui`](../builder-ui/SKILL.md) — use **express lane** here if still planning; specialist implements after slice brief |
+| Bug during build | [`/debug`](../debug/SKILL.md) |
+| Prior art | [`/vault-recall`](../vault-recall/SKILL.md) |
+| Review implemented slice PR | [`/scrutinize`](../scrutinize/SKILL.md) |
+| Ship after slices verified | [`/git-push`](../git-push/SKILL.md) |
 
 ---
 
 # Core philosophy
 
-Do NOT build everything from scratch.
+Do NOT build from scratch in this skill.
 
-First:
-1. analyze workflows
-2. analyze existing systems
-3. identify reuse opportunities
-4. define ownership boundaries
-5. delegate to specialists
-6. coordinate integration
-7. verify cross-layer consistency
-
-Prefer:
-- reuse before creation
-- extension before replacement
-- integration before duplication
+1. Map **user workflow** and failure paths (phase 1 — mandatory)
+2. Analyze existing systems
+3. Reuse before create
+4. Define ownership boundaries
+5. Emit **slice backlog**
+6. Hand off **one slice at a time** to specialists
 
 ---
 
-# Core principles
-
-- Reuse before duplication
-- Specialists own domains
-- Explicit ownership boundaries
-- User workflows before technical layers
-- Explicit state ownership
-- Minimize cross-layer coupling
-- Reliability + observability mandatory
-- Rollout safety must be planned
-- Complexity must justify value
-
----
-
-# Specialist delegation (agent-skills)
+# Specialist delegation
 
 | Layer | Skill | Responsibility |
 |---|---|---|
-| UI | `/builder-ui` | component architecture, responsiveness, a11y |
-| API | `/builder-api` | contracts, validation, auth boundaries |
-| Schema | `/builder-schema` | data model, integrity, migration safety |
-| Infra | `/builder-infrastructure` | deployment, reliability, observability |
-| Review | `/scrutinize` | pre-merge end-to-end sanity check |
-| Runtime debug | `/debug` | failure diagnosis |
-| RCA | `/fix-record` | post-fix engineering record |
+| UI | `/builder-ui` | component architecture + **implementation** |
+| API | `/builder-api` | contracts + **implementation** |
+| Schema | `/builder-schema` | model + migrations |
+| Infra | `/builder-infrastructure` | deploy + observability |
+| Review | `/scrutinize` | pre-merge on **implemented** diffs |
+| Debug | `/debug` | runtime failures |
 
-Note: no `test-builder` in this repo yet; include testing plan in Phase 7.
+Testing plan belongs in slice backlog; no `test-builder` in this repo yet.
 
 ---
 
 # Workflow
 
-Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow (detail).
+Execute phases **in order**. Do **not** open phase N+1 until phase N outputs are in DISCOVERIES/ARTIFACTS.
 
-| # | Phase | Deliver |
-|---|--------|---------|
-| 0 | Discovery gate | scope lock, non-goals, execution path |
-| 1 | Workflow analysis | workflow map, failure scenarios |
-| 2 | Existing system analysis | reuse opportunities, duplication risks |
-| 3 | Feature boundary design | boundary map, ownership map |
-| 4 | Specialist delegation | task map, sequencing plan |
-| 5 | State + integration | integration map, state ownership |
-| 6 | Rollout + reliability | rollout plan, ops readiness |
-| 7 | Cross-layer verification | pass/reject; `/scrutinize` before merge |
-| 8 | Execution handoff | either `/builder-ui|api|schema|infrastructure` or direct specialist invoke for UI-only |
+Detail: [reference.md](./reference.md) § Workflow (detail).
+
+After phase 7 + slice backlog → STATUS **PLAN_READY** → hand off slice 1 → **stop** (no code).
 
 ---
 
@@ -149,20 +140,20 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 
 | Section | `/builder-feature` |
 |---------|---------------------|
-| STATUS | IN_PROGRESS = phase N; READY = close-out gate passed; BLOCKED = scope unclear |
-| OBJECTIVE | Cross-layer feature orchestration in vertical slices |
-| DISCOVERIES | User workflow, reuse opportunities, integration surfaces, risks |
-| ANALYSIS | Orchestration plan, ownership boundaries, rollout strategy |
-| RISKS | Duplication, integration failures, operational gaps |
-| ARTIFACTS | Close-out: Feature Analysis, Orchestration Plan, Reuse & Architecture Consistency, State & Integration Coordination, Rollout & Reliability, Verification Plan |
-| NEXT ACTIONS | Next slice, delegate to builder-* skill, or verification |
-| HANDOFF | `/builder-ui` · `/builder-api` · `/builder-schema` · `/builder-infrastructure` · `/scrutinize` · `/git-push` · `none` |
-| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out verification gate before READY |
+| STATUS | IN_PROGRESS = phase N; **PLAN_READY** = plan + backlog complete, no code; BLOCKED = scope/flow unclear |
+| OBJECTIVE | Cross-layer **plan** in vertical slices — not implementation |
+| DISCOVERIES | **Workflow map**, reuse, integration surfaces, risks |
+| ANALYSIS | Orchestration plan, ownership, rollout |
+| RISKS | Duplication, integration gaps, agent jump-to-code |
+| ARTIFACTS | Workflow map · Orchestration plan · **Slice backlog table** · Verification plan per slice |
+| NEXT ACTIONS | User approves slice N → invoke owner skill with brief |
+| HANDOFF | `/builder-ui` · `/builder-api` · `/builder-schema` · `/builder-infrastructure` · `none` after plan |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Plan close-out gate before PLAN_READY |
 
-Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES (include workflow map), NEXT ACTIONS, CONFIDENCE.
 
 ---
 
 # Reference
 
-See [reference.md](./reference.md) for workflow detail and orchestration checklists.
+[reference.md](./reference.md) — plan-only gate, workflow map format, slice backlog, anti-rationalizations.

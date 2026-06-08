@@ -1,7 +1,7 @@
 ---
 name: workday-update
 metadata:
-  version: "1.2.2"
+  version: "1.2.3"
 description: >-
   Daily task change manager — merge discoveries into WORKDAY + vault/workday file.
   Invoke with /workday-update during the day. Planning only.
@@ -51,7 +51,8 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 | No WORKDAY exists yet | [`/workday-init`](../workday-init/SKILL.md) first |
 | Bug needs root cause | [`/debug`](../debug/SKILL.md) |
 | Close of day | [`/workday-review`](../workday-review/SKILL.md) |
-| Resume execution | [`/builder-feature`](../builder-feature/SKILL.md) · domain builders |
+| Resume cross-layer planning | [`/builder-feature`](../builder-feature/SKILL.md) — plan-only |
+| Implement approved slice | [`/builder-ui`](../builder-ui/SKILL.md) · [`/builder-api`](../builder-api/SKILL.md) · [`/builder-schema`](../builder-schema/SKILL.md) · [`/builder-infrastructure`](../builder-infrastructure/SKILL.md) per WORKDAY slice owner |
 
 ## Scope Guardrails
 

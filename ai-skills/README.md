@@ -12,7 +12,7 @@ Authoring: [SKILL-AUTHORING.md](SKILL-AUTHORING.md) · Agents: [AGENTS.md](../AG
 | builder-api | `/builder-api` |
 | builder-schema | `/builder-schema` |
 | builder-infrastructure | `/builder-infrastructure` |
-| builder-feature | `/builder-feature` |
+| builder-feature | `/builder-feature` — plan-only; slice handoff to builder-* |
 | fix-record | `/fix-record` |
 | upgrade-ai | `/upgrade-ai` |
 | git-push | `/git-push` |

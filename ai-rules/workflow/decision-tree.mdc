@@ -12,6 +12,7 @@ Agent routes from user intent **without requiring** a slash command unless the u
 | bug, error, stack trace, wrong data, flaky | Debug discipline ([`change-control-manifest.mdc`](../change-control-manifest.mdc) steps 1–4); `/debug` if user attached or non-trivial |
 | copy, label, known small UI (outcome clear) | Direct minimal patch — **no** `/debug` mantra |
 | new screen / mock / component architecture | `/builder-ui` |
+| cross-layer / full-stack **feature** (UI+API+schema) | `/builder-feature` — **plan only**; implement via specialist per approved slice |
 | review PR / plan | `/scrutinize` |
 | database / SQL | `/builder-schema` |
 | push / commit | `/git-push` — if several git roots in the workspace, `cd` the repo the user means first |

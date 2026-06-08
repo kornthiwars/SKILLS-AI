@@ -10,18 +10,18 @@
 |-------|--------|---------|-------------------|
 | debug | `/debug` | 1.3.4 | ใช่ |
 | scrutinize | `/scrutinize` | 1.2.4 | ใช่ |
-| builder-ui | `/builder-ui` | 1.2.4 | ใช่ |
+| builder-ui | `/builder-ui` | 1.2.5 | ใช่ |
 | builder-api | `/builder-api` | 1.2.3 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.2 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.3 | ใช่ |
-| builder-feature | `/builder-feature` | 1.2.6 | ใช่ |
+| builder-feature | `/builder-feature` | 1.4.0 | ใช่ |
 | fix-record | `/fix-record` | 1.2.3 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.2.5 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
 | vault-recall | `/vault-recall` | 1.3.2 | ใช่ |
 | wiki-ingest | `/wiki-ingest` | 1.0.3 | ใช่ |
 | workday-init | `/workday-init` | 1.2.2 | ใช่ |
-| workday-update | `/workday-update` | 1.2.2 | ใช่ |
+| workday-update | `/workday-update` | 1.2.3 | ใช่ |
 | workday-review | `/workday-review` | 1.2.1 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
@@ -42,6 +42,8 @@
 | `workday-update/reference.md` | dedupe, DISCOVERED TODAY, close-out verification |
 | `docs/EXTERNAL-PARITY.md` | catalog crosswalk, security, non-goals |
 | `builder-*/reference.md` | phase ละเอียด, checklist, anti-patterns ต่อ layer |
+| `builder-feature/reference.md` | plan-only, express lane, workflow map, slice backlog |
+| `builder-ui/reference.md` | slice brief intake (phase 0), phases, a11y close-out |
 | `templates/template.workday.md` | WORKDAY block SSoT — section ownership init/update/review |
 | `templates/template.workday-file.md` | Vault file wrapper (frontmatter + block) |
 | `workday-init/reference.md` | Persistence path, in-place overwrite, load protocol |

@@ -1,5 +1,32 @@
 # builder-ui — reference
 
+## Slice brief intake (phase 0)
+
+Run **before** visual analysis when any of:
+
+- User says **`slice N go`** after `/builder-feature`
+- Chat contains **`## Slice N brief (from /builder-feature)`**
+- User pastes a slice row from a feature **Slice backlog** table
+
+### Required fields (block if missing — ask or hand back to `/builder-feature`)
+
+| Field | Use |
+|-------|-----|
+| **Outcome** | Scope lock for this slice |
+| **Non-goals** | What not to touch |
+| **Verify** | Command or walkthrough for close-out |
+| **Workflow steps covered** | Optional — maps to components |
+
+If **standalone** `/builder-ui` (no feature plan): phase 0 = confirm scope + non-goals in chat; no brief required.
+
+### Intake protocol
+
+1. Parse brief into SKILL REPORT OBJECTIVE + non-goals.
+2. Do **not** redesign cross-slice architecture — implement brief; escalate conflicts to `/builder-feature`.
+3. Close-out: cite **Verify** from brief in phase 7 gate.
+
+---
+
 ## Workflow (detail)
 
 Load this section when executing a phase. Run phases **in order**.

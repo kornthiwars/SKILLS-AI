@@ -1,11 +1,11 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.2.4"
+  version: "1.2.5"
 description: >-
   Design scalable, accessible UI systems from visual references — layout,
-  components, responsive behavior, a11y. Invoke with /builder-ui for frontend
-  architecture and component structure.
+  components, responsive behavior, a11y. Accepts slice briefs from
+  /builder-feature. Invoke with /builder-ui or "slice N go" for implementation.
 paths: "**/*.{tsx,jsx,vue,svelte,css,scss,html,rs}"
 disable-model-invocation: true
 ---
@@ -42,7 +42,8 @@ Do NOT:
 
 | Situation | Skill |
 |-----------|--------|
-| Full-stack feature | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Full-stack feature (plan) | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Slice brief from feature plan | Load [reference.md](./reference.md) § Slice brief intake **before** phase 1 |
 | API contract for UI | [`/builder-api`](../builder-api/SKILL.md) |
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Runtime UI bug | [`/debug`](../debug/SKILL.md) |
@@ -53,6 +54,7 @@ Deliver in **vertical slices** — [builder-feature/reference.md](../builder-fea
 
 | # | Phase | Gate |
 |---|--------|------|
+| 0 | Slice brief intake | brief loaded or N/A (standalone UI) |
 | 1 | Visual analysis | hierarchy map |
 | 2 | Layout | responsive plan |
 | 3 | Components | reuse tree |
@@ -99,6 +101,7 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 | # | Phase | Deliver |
 |---|--------|---------|
+| 0 | Slice brief intake | confirm Outcome, Non-goals, Verify from plan |
 | 1 | Visual analysis | observations, hierarchy, patterns |
 | 2 | Layout reconstruction | layout architecture, responsive plan |
 | 3 | Component extraction | component tree, shared candidates |

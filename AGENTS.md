@@ -41,7 +41,7 @@ Edit **`ai-skills/`**, **`ai-rules/`**, **`vault/`** in the clone — not inside
 | [builder-api](ai-skills/builder-api/SKILL.md) | API contracts and backend boundaries |
 | [builder-schema](ai-skills/builder-schema/SKILL.md) | Data modeling and migrations |
 | [builder-infrastructure](ai-skills/builder-infrastructure/SKILL.md) | IaC, CI/CD, observability |
-| [builder-feature](ai-skills/builder-feature/SKILL.md) | Cross-layer feature orchestration |
+| [builder-feature](ai-skills/builder-feature/SKILL.md) | Plan-only cross-layer design — slice backlog; **no app code**; implement via builder-* |
 | [fix-record](ai-skills/fix-record/SKILL.md) | RCA after validated fix |
 | [upgrade-ai](ai-skills/upgrade-ai/SKILL.md) | Improve skills in this repo |
 | [git-push](ai-skills/git-push/SKILL.md) | Safe commit + push (sole git skill) |

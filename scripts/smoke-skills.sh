@@ -101,6 +101,7 @@ check_contains "AGENTS.md" 'change-control-manifest' "AGENTS.md lists change-con
 check_contains "AGENTS.md" 'awesome-agent-skills' "AGENTS.md links external catalog"
 check_file "docs/EXTERNAL-PARITY.md"
 check_file "ai-skills/workday-update/reference.md"
+check_contains "ai-skills/builder-feature/SKILL.md" 'Plan-only iron law' "builder-feature plan-only gate"
 check_file "docs/DYNAMIC-AGENT-SMOKE.md"
 check_file "scripts/verify-dynamic-smoke-static.sh"
 
