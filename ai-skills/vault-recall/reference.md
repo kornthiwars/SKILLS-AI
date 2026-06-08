@@ -57,9 +57,9 @@ If `wiki/pages/` empty → skip 1–3. If `workday/plans/` empty → skip step 4
 
 - **Summary** — hit count, best paths, one-line takeaway
 - **Details** — per file: `title:`, key snippet (max 3 wiki pages)
-- **Next step** — open note, run `/debug`, `/wiki-ingest`, or no prior art
+- **Next step** — open note, run `/debug`, or no prior art; durable closed insight → [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) wiki auto-ingest gate (no ask-first)
 
-If empty → suggest **`/wiki-ingest`** after insight is **closed** (not for open bugs).
+If empty → proceed; closed reusable insight triggers wiki auto-ingest at end of work turn (not for open bugs).
 
 ---
 
@@ -106,7 +106,7 @@ Before "recall complete":
 
 1. Report empty with query tried
 2. Proceed without inventing history
-3. After closed insight → offer [`/wiki-ingest`](../wiki-ingest/SKILL.md)
+3. After closed insight → wiki auto-ingest per [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) (or manual `/wiki-ingest`)
 
 ---
 

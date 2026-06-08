@@ -21,6 +21,7 @@ Triggered by [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) at end of **w
 | 4 | Topic is **closed or verified** — not open bug ledger |
 | 5 | User did **not** say no wiki / อย่าเก็บ wiki this turn |
 | 6 | Not a feature **plan** artifact → use `workday/plans/` via `/builder-feature` instead |
+| 7 | Wiki adds **≥1 durable insight** not already in this turn's `issues/` entry — abstract mechanism, not paraphrase of Question/Answer |
 
 ### On PASS
 

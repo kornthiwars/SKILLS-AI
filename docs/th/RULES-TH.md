@@ -113,7 +113,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | `vault/issues/YYYY-MM-DD.md` | บันทึกงานรายวัน — หัวข้อ `## N.` + Question/Answer |
 | `vault/workday/YYYY-MM-DD.md` | แผน WORKDAY — skills `workday-init` · update · review |
 | `vault/workday/plans/{slug}.md` | แผน feature จาก `/builder-feature` (opt-in persist) — gitignored |
-| `vault/wiki/pages/{slug}.md` | ความรู้ถาวร — **`/wiki-ingest`** เท่านั้น |
+| `vault/wiki/pages/{slug}.md` | ความรู้ถาวร — **auto-ingest gate** หรือ **`/wiki-ingest`** |
 
 **เมื่อเขียน issues:** หลังจบงานจริง (code, git, skill, debug) — **ไม่** log ทุกแชท
 

@@ -45,7 +45,7 @@ Maps to [`debug`](../debug/SKILL.md) steps 1–4 and hypothesis **CONFIRMED** in
 | 4 | Code identifiers preserved in Root cause + Fix |
 | 5 | User sign-off before JIRA POST (print-only exempt) |
 
-After publish: suggest **`/wiki-ingest`** if reusable per `vault/wiki/README.md`.
+After publish: reusable mechanism → wiki auto-ingest per [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) at turn end (no ask-first).
 
 ---
 
@@ -114,7 +114,7 @@ Action items should include a regression test when the gap was missing CI covera
 
 ## Wiki export
 
-When reusable, offer [`/wiki-ingest`](../wiki-ingest/SKILL.md) — merge into `wiki/pages/{slug}.md`. **Not** a pasted fix-record body.
+When reusable, wiki auto-ingest merges into `wiki/pages/{slug}.md` per [`wiki-ingest/reference.md`](../wiki-ingest/reference.md). **Not** a pasted fix-record body.
 
 | fix-record section | wiki page section |
 |--------------------|------------------|

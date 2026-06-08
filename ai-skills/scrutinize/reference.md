@@ -15,7 +15,7 @@ When the diff touches `ai-skills/*/SKILL.md`, `*/reference.md`, or `ai-rules/*.m
 - [ ] `SKILL.md` under ~300 lines; new phase prose → `reference.md`
 - [ ] Vault grep steps **link** [`vault-recall/reference.md`](../vault-recall/reference.md) — no duplicated search tables
 - [ ] Handoffs section links related skills (not orphan workflows)
-- [ ] Write vs RCA: daily Q&A → `vault-issues.mdc`; long RCA → `/fix-record`; durable knowledge → `/wiki-ingest` → `wiki/pages/`
+- [ ] Write vs RCA: daily Q&A → `vault-issues.mdc`; long RCA → `/fix-record`; durable wiki → `vault-issues.mdc` auto-ingest gate → `wiki/pages/`
 
 When the diff touches **`builder-feature`**, **`templates/template.slice-brief.md`**, **`templates/template.feature-plan.md`**, or **`vault/workday/plans/`**:
 

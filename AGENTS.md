@@ -46,7 +46,7 @@ Edit **`ai-skills/`**, **`ai-rules/`**, **`vault/`** in the clone — not inside
 | [upgrade-ai](ai-skills/upgrade-ai/SKILL.md) | Improve skills in this repo |
 | [git-push](ai-skills/git-push/SKILL.md) | Safe commit + push (sole git skill) |
 | [vault-recall](ai-skills/vault-recall/SKILL.md) | **When:** `/vault-recall` · Search SSoT: [reference.md](ai-skills/vault-recall/reference.md) |
-| [wiki-ingest](ai-skills/wiki-ingest/SKILL.md) | Curate long-lived knowledge in `vault/wiki/` (LLM Wiki Pattern) |
+| [wiki-ingest](ai-skills/wiki-ingest/SKILL.md) | Wiki curator — auto-ingest via `vault-issues.mdc` gate or manual `/wiki-ingest` |
 | [workday-init](ai-skills/workday-init/SKILL.md) | Morning plan from raw intentions (API/WEB/SKILL/DOCS/OPS) |
 | [workday-update](ai-skills/workday-update/SKILL.md) | Mid-day plan updates — bugs, scope changes, no duplicates |
 | [workday-review](ai-skills/workday-review/SKILL.md) | End-of-day audit — git/code evidence vs plan |
@@ -75,7 +75,7 @@ This pack is a **cohesive engineering system** (15 skills + change-control rules
 |------|------|
 | [change-control-manifest.mdc](ai-rules/change-control-manifest.mdc) | **Production AI** — observe→verify, patch budget, confidence gates |
 | [bilingual-th-en.mdc](ai-rules/bilingual-th-en.mdc) | Thai ~60% / English ~40% replies |
-| [vault-issues.mdc](ai-rules/vault-issues.mdc) | Work Q&A in `vault/issues/`; wiki via `/wiki-ingest` |
+| [vault-issues.mdc](ai-rules/vault-issues.mdc) | Work Q&A in `vault/issues/`; wiki auto-ingest when durable (no ask-first) |
 | [clean-code.mdc](ai-rules/clean-code.mdc) | Code style for generated application code |
 | `ai-rules/{core,debugging,patching,architecture,testing,risk,workflow}/` | Scoped production rules — see [CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) |
 

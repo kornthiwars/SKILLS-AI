@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.3.4"
+  version: "1.3.5"
 description: >-
   Grep vault wiki pages, feature plans (workday/plans), and recent issues;
   keyword strategy, recall verification gate. Invoke with /vault-recall.
@@ -28,7 +28,7 @@ Search **local** vault and return a short, actionable summary. Does **not** writ
 | Grep `wiki/pages/` | ≤3 files full read |
 | Feature / plan keyword | grep `workday/plans/` · ≤2 plan files |
 | Then issues | today + yesterday |
-| Empty | suggest `/wiki-ingest` after close |
+| Empty | durable insight → wiki auto-ingest gate on close |
 
 ## Handoffs
 
@@ -36,7 +36,7 @@ Search **local** vault and return a short, actionable summary. Does **not** writ
 |--------------|--------|
 | Bug with prior art | [`/debug`](../debug/SKILL.md) |
 | Git push blocked | [`/git-push`](../git-push/SKILL.md) Phase 0 |
-| Save durable knowledge | [`/wiki-ingest`](../wiki-ingest/SKILL.md) |
+| Durable knowledge written | [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) wiki gate · [`/wiki-ingest`](../wiki-ingest/SKILL.md) manual |
 | Write RCA after fix | [`/fix-record`](../fix-record/SKILL.md) |
 | Prior feature plan | [`/builder-feature`](../builder-feature/SKILL.md) after recall |
 
@@ -48,7 +48,7 @@ Search **local** vault and return a short, actionable summary. Does **not** writ
 
 ## Non-goals
 
-- No automatic writes — issues via rule; wiki via `/wiki-ingest`
+- No writes in this skill — issues + wiki auto-ingest via [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc); manual `/wiki-ingest` optional
 
 ---
 

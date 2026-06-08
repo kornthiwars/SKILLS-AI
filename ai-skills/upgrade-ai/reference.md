@@ -168,7 +168,7 @@ Avoid and watch for these recurring traps:
 | skipped verification | role ambiguity |
 | adding abstraction without measurable benefit | — |
 | **vault search drift** — grep tables copied outside [`vault-recall/reference.md`](../vault-recall/reference.md) | link instead of copy-paste |
-| **issues vs wiki confusion** — daily Q&A format in `wiki/pages/` | issues → `vault-issues.mdc`; durable knowledge → [`/wiki-ingest`](../wiki-ingest/SKILL.md) + [`template.wiki-page.md`](../../templates/template.wiki-page.md) |
+| **issues vs wiki confusion** — daily Q&A format in `wiki/pages/` | issues → `vault-issues.mdc`; durable wiki → auto-ingest gate + [`template.wiki-page.md`](../../templates/template.wiki-page.md) |
 
 Use this table to bias diagnoses toward known traps.
 

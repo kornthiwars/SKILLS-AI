@@ -110,6 +110,16 @@ else
   fail 'scenario 10 — builder-feature plan-only gates'
 fi
 
+# Scenario 11 — wiki auto-ingest (no ask-first)
+if search_q 'Auto-ingest gate' "ai-rules/vault-issues.mdc" \
+  && search_q 'Auto-ingest gate' "ai-skills/wiki-ingest/reference.md" \
+  && search_q 'not a paraphrase' "ai-skills/wiki-ingest/reference.md" \
+  && search_q 'auto-ingest' "ai-skills/vault-recall/SKILL.md"; then
+  pass 'scenario 11 — wiki auto-ingest gate, anti-duplicate, vault-recall aligned'
+else
+  fail 'scenario 11 — wiki auto-ingest gates'
+fi
+
 printf '\n'
 if [ "$failures" -eq 0 ]; then
   printf 'Static dynamic-smoke preflight passed.\n'

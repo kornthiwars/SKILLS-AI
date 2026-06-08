@@ -371,7 +371,7 @@
 | Artifact | ที่เก็บ | ใช้เมื่อ |
 |----------|---------|----------|
 | `vault/issues/` | บันทึกรายวัน Q&A | ทำงานประจำวัน |
-| `vault/wiki/pages/` | ความรู้ระยะยาว (concept) | `/wiki-ingest` |
+| `vault/wiki/pages/` | ความรู้ระยะยาว (concept) | auto-ingest gate · `/wiki-ingest` |
 | fix-record | RCA เต็ม | ส่งทีม / JIRA / PR |
 
 ---
@@ -476,14 +476,14 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 
 ### ไม่ใช้เมื่อไหร่
 
-- เขียน issues (ใช้ rule `vault-issues.mdc`) หรือ wiki (ใช้ `/wiki-ingest`)
+- เขียน issues (rule `vault-issues.mdc`) — wiki ผ่าน auto-ingest gate หรือ `/wiki-ingest`
 - อ่าน wiki page เกิน 3 ไฟล์ หรือ plan เกิน 2 ไฟล์ต่อการค้นหา
 - ทุกข้อความแชทสบายๆ
 
 ### ขั้นตอน
 
 1. ทำตาม `vault-recall/reference.md` (resolve root → grep wiki/pages → **workday/plans/** เมื่อ query ชื่อ feature/plan → issues วันนี้/เมื่อวาน)  
-2. รายงาน: สรุป, top matches (wiki + plan + issues), ถ้าว่างแนะนำ `/wiki-ingest` หลังปิดเรื่อง
+2. รายงาน: สรุป, top matches (wiki + plan + issues); ปิดเรื่องแล้ว durable insight → wiki auto-ingest ท้าย work turn
 
 ### Handoff
 

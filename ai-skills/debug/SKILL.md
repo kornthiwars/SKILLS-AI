@@ -1,7 +1,7 @@
 ---
 name: debug
 metadata:
-  version: "1.3.4"
+  version: "1.3.5"
 description: >-
   Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
   breadcrumbs. Stop-the-line, reduce, bisection, Prove-It, verification gate, untrusted

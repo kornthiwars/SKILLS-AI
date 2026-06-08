@@ -8,21 +8,21 @@
 
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
-| debug | `/debug` | 1.3.4 | ใช่ |
-| scrutinize | `/scrutinize` | 1.2.5 | ใช่ |
+| debug | `/debug` | 1.3.5 | ใช่ |
+| scrutinize | `/scrutinize` | 1.2.6 | ใช่ |
 | builder-ui | `/builder-ui` | 1.2.6 | ใช่ |
 | builder-api | `/builder-api` | 1.2.4 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.3 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.4 | ใช่ |
 | builder-feature | `/builder-feature` | 1.5.1 | ใช่ |
-| fix-record | `/fix-record` | 1.2.3 | ใช่ |
+| fix-record | `/fix-record` | 1.2.4 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.2.7 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
-| vault-recall | `/vault-recall` | 1.3.4 | ใช่ |
-| wiki-ingest | `/wiki-ingest` | 1.1.0 | ใช่ |
+| vault-recall | `/vault-recall` | 1.3.5 | ใช่ |
+| wiki-ingest | `/wiki-ingest` | 1.1.1 | ใช่ |
 | workday-init | `/workday-init` | 1.2.4 | ใช่ |
 | workday-update | `/workday-update` | 1.2.3 | ใช่ |
-| workday-review | `/workday-review` | 1.2.1 | ใช่ |
+| workday-review | `/workday-review` | 1.2.2 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
 
@@ -108,7 +108,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 - [ ] `disable-model-invocation: true` (ยกเว้นที่ document ไว้)  
 - [ ] `SKILL.md` ไม่ยาวเกิน ~300 บรรทัด — phase ยาวย้ายไป `reference.md`  
 - [ ] ขั้นค้น vault **ลิงก์** `vault-recall/reference.md` ไม่ copy ตารางซ้ำ  
-- [ ] แยก artifact: issues (รายวัน) · workday (แผน) · `/fix-record` (RCA) · wiki/pages (ความรู้ถาวร ผ่าน `/wiki-ingest`)
+- [ ] แยก artifact: issues (รายวัน) · workday (แผน) · `/fix-record` (RCA) · wiki/pages (auto-ingest gate)
 
 ---
 
@@ -142,14 +142,14 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 ### เขียน (บันทึก)
 
-→ rule `vault-issues.mdc` (issues) · skills `workday-*` (แผน) · `/wiki-ingest` (wiki)
+→ rule `vault-issues.mdc` (issues + wiki auto-ingest) · skills `workday-*` (แผน)
 
 | ประเภท | path | รูปแบบ |
 |--------|------|--------|
 | issues | `vault/issues/YYYY-MM-DD.md` | `## N. title` + Question / Answer |
 | workday | `vault/workday/YYYY-MM-DD.md` | WORKDAY block — `/workday-init` · update · review |
 | feature plan | `vault/workday/plans/{slug}.md` | `/builder-feature` PLAN_READY — opt-in · gitignored |
-| wiki | `vault/wiki/pages/{slug}.md` | concept page — `/wiki-ingest` เท่านั้น |
+| wiki | `vault/wiki/pages/{slug}.md` | concept page — auto-ingest gate หรือ `/wiki-ingest` |
 
 Template: `templates/template.issue.md`, `templates/template.workday.md`, `templates/template.feature-plan.md`, `templates/template.slice-brief.md`, `templates/template.wiki-page.md`, `templates/template.wiki-source.md`  
 รายละเอียด Obsidian: `vault/README.md`

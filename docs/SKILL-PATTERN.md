@@ -34,7 +34,7 @@ disable-model-invocation: true
 | [`template.feature-plan.md`](../templates/template.feature-plan.md) | PLAN_READY persist → `vault/workday/plans/{slug}.md` |
 | [`template.workday.md`](../templates/template.workday.md) | WORKDAY block from `/workday-init` |
 | [`template.issue.md`](../templates/template.issue.md) | Daily Q&A in `vault/issues/` (rule) |
-| [`template.wiki-page.md`](../templates/template.wiki-page.md) | Durable pages via `/wiki-ingest` |
+| [`template.wiki-page.md`](../templates/template.wiki-page.md) | Durable pages — auto-ingest gate or `/wiki-ingest` |
 
 Depth: [`builder-feature/reference.md`](../ai-skills/builder-feature/reference.md) · [`builder-ui/reference.md`](../ai-skills/builder-ui/reference.md) § Slice brief intake.
 

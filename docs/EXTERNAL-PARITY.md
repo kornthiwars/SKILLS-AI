@@ -15,7 +15,7 @@ How **agent-skills** (this pack) relates to the wider ecosystem — especially [
 | Ship skill or rule changes | `/git-push` (explicit consent) |
 | Improve skills in **this** repo | `/upgrade-ai` |
 | Daily Q&A | `vault/issues/` (rule) |
-| Durable knowledge | `/wiki-ingest` → `vault/wiki/pages/` |
+| Durable knowledge | `vault-issues.mdc` auto-ingest → `vault/wiki/pages/` · manual `/wiki-ingest` |
 | Daily plan | `/workday-init` · `/workday-update` · `/workday-review` |
 | Domain-specific official skill (Stripe, Terraform vendor, …) | Install from catalog — **review source first** |
 | Browser E2E at scale (Playwright CI farm) | External skill + your CI — not duplicate Cursor browser MCP in pack |
@@ -36,7 +36,7 @@ How **agent-skills** (this pack) relates to the wider ecosystem — especially [
 | Incremental delivery | [addyosmani/incremental-implementation](https://github.com/addyosmani/agent-skills) | `/builder-feature` reference | Plan-only orchestrator + thin vertical slices; implement per owner skill |
 | Deprecation / migration | [addyosmani/deprecation-and-migration](https://github.com/addyosmani/agent-skills/tree/main/skills/deprecation-and-migration) | `callee-redirect-cleanup.mdc` | Redirect + grep dead callers |
 | Planning | [obra/writing-plans](https://github.com/obra/superpowers), [garrytan/plan-eng-review](https://officialskills.sh/garrytan/skills/plan-eng-review) | `/workday-*` | Vault `workday/` persistence — not chat-only plans |
-| Memory / wiki | [hanfang/claude-memory-skill](https://github.com/hanfang/claude-memory-skill), [RoundTable02/tutor-skills](https://github.com/RoundTable02/tutor-skills) | `/vault-recall` · `/wiki-ingest` | issues vs wiki split is pack-specific |
+| Memory / wiki | [hanfang/claude-memory-skill](https://github.com/hanfang/claude-memory-skill), [RoundTable02/tutor-skills](https://github.com/RoundTable02/tutor-skills) | `/vault-recall` · auto-ingest wiki | issues vs wiki split; no ask-first when gate passes |
 | Skill authoring | [anthropics/skill-creator](https://officialskills.sh/anthropics/skills/skill-creator), [hqhq1025/skill-optimizer](https://github.com/hqhq1025/skill-optimizer) | `/upgrade-ai` | 8-phase diagnosis + version governance |
 | Context engineering | [muratcankoylan/Agent-Skills-for-Context-Engineering](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering) | `/upgrade-ai` reference | Meta only — long sessions, decomposition |
 | Playwright / Browserbase | [anthropics/webapp-testing](https://officialskills.sh/anthropics/skills/webapp-testing), [browserbase/ui-test](https://officialskills.sh/browserbase/skills/ui-test) | **Non-goal** in pack | Use Cursor browser MCP or install external skill |

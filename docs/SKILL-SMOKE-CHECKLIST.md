@@ -32,6 +32,7 @@ Reload Cursor after rule changes.
 | builder-feature | Plan-only; no `paths` frontmatter; slice handoff |
 | builder-schema | Migration + rollback plan |
 | vault-recall | ≤3 wiki page files · ≤2 plan files from `workday/plans/` when feature keyword |
+| wiki auto-ingest | `vault-issues.mdc` + `wiki-ingest/reference.md` Auto-ingest gate; scenario **#11** |
 
 ## Docs
 

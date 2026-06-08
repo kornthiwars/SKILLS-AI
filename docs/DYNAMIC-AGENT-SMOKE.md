@@ -34,17 +34,18 @@ This doc lists **behavioral** scenarios to run in Cursor after rule/skill change
 | 8 | After rule edit | `./scripts/smoke-skills.sh` PASS locally |
 | 9 | Fix bug by redirecting caller `foo()` → `bar()` | Grep `foo`; remove definition if zero refs; cite grep in reply; do not leave orphan |
 | 10 | `/builder-feature` + mock/screenshot + "ทำ html" | Workflow map + slice backlog; **STATUS=PLAN_READY**; **zero** app file edits; hand off `/builder-ui slice 1 go`; owner skills have slice brief phase 0 |
+| 11 | Finish a work turn with a **new reusable mechanism** (e.g. explain vault wiki flow) — **do not** say "save to wiki" | Agent does **not** ask "save to wiki?"; if gate passes → `Wiki → vault/wiki/pages/{slug}.md` + `index.md`/`log.md` updated; wiki content ≠ paraphrase of issues entry |
 
 ## Static preflight (automated)
 
-`./scripts/verify-dynamic-smoke-static.sh` checks that skills/rules **contain** the gates for scenarios 1–10 and 8 (smoke exists). It does **not** replace running prompts in Cursor.
+`./scripts/verify-dynamic-smoke-static.sh` checks that skills/rules **contain** the gates for scenarios 1–11 and 8 (smoke exists). It does **not** replace running prompts in Cursor.
 
 ## Record results
 
 | Result | Where |
 |--------|--------|
 | Static preflight fail | Fix files, re-run script |
-| Behavioral fail in Cursor | `vault/issues/` or `/wiki-ingest` after close |
+| Behavioral fail in Cursor | `vault/issues/` after close; wiki gap → note in log |
 
 ### Behavioral pass log (manual)
 
@@ -54,8 +55,9 @@ After major skill/rule changes, record Cursor runs here or in `vault/issues/`:
 |------|----------|-------|-------|
 | 2026-06-03 | #10 plan-only + slice handoff | Y | Maxwell Plans mock — PLAN_READY, zero app edits in orchestrator; `/builder-ui slice 1 go` — user confirmed match |
 | 2026-06-08 | #5b feature plan recall | — | P4/P4.1 static + reference synced; **pending** until a plan is persisted under `vault/workday/plans/` |
+| 2026-06-08 | #11 wiki auto-ingest | — | P7 shipped static gates; **pending** behavioral pass after Reload |
 
-Log repeatable gaps to issues when open; durable knowledge via `/wiki-ingest` when closed per `vault-issues.mdc`.
+Log repeatable gaps to issues when open; durable knowledge via wiki auto-ingest gate when closed per `vault-issues.mdc`.
 
 ## Related
 

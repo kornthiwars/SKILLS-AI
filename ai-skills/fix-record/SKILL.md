@@ -1,7 +1,7 @@
 ---
 name: fix-record
 metadata:
-  version: "1.2.3"
+  version: "1.2.4"
 description: >-
   Canonical RCA after a validated fix — mechanism, fix, validation, slip-through.
   Required-input gate + verification protocol. Invoke with /fix-record when closing
@@ -22,7 +22,7 @@ Executive summaries reframe the same facts in plain language — this skill owns
 | **Inputs** | Repro + root cause + fix pointer + validation — all four |
 | **Draft** | Sections per [reference.md](./reference.md) § Structure |
 | **Verify** | [reference.md](./reference.md) § Verification protocol + § Close-out verification gate |
-| **After** | Offer `/wiki-ingest` if reusable |
+| **After** | Reusable mechanism → wiki auto-ingest gate at turn end (no ask) · or `/wiki-ingest` manual |
 
 ## Scope Guardrails
 
@@ -61,7 +61,7 @@ Executive summaries reframe the same facts in plain language — this skill owns
 
 | Artifact | Use |
 |----------|-----|
-| `vault/wiki/pages/` | Durable wiki page — `/wiki-ingest` |
+| `vault/wiki/pages/` | Durable wiki — auto-ingest gate or `/wiki-ingest` |
 | `/fix-record` | Long engineering RCA **after** validated fix |
 | `vault/issues/` | Daily Q&A — not substitute for RCA |
 

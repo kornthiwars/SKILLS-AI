@@ -24,9 +24,9 @@ vault/
 Short work Q&A     → issues/YYYY-MM-DD.md
 Daily plan         → workday/YYYY-MM-DD.md    (/workday-init · update · review)
 Feature plan       → workday/plans/{slug}.md  (/builder-feature PLAN_READY — opt-in)
-Durable knowledge  → wiki/pages/              (/wiki-ingest)
+Durable knowledge  → wiki/pages/              (auto-ingest gate or /wiki-ingest)
 Casual chat        → do not write
-RCA after fix      → /fix-record → optional /wiki-ingest
+RCA after fix      → /fix-record → wiki auto-ingest when reusable
 ```
 
 ## Tags (Obsidian)
@@ -51,7 +51,7 @@ Topic hashtags: `vault` · `git` · `skills` · `sql` · `debug` · `research` �
 | `ai-rules/vault-issues.mdc` | When to write issues; wiki via skill |
 | `ai-skills/vault-recall/reference.md` | Search: wiki → issues |
 | `/vault-recall` | Read-only search |
-| `/wiki-ingest` | Curate wiki pages |
+| `vault-issues.mdc` + `/wiki-ingest` | Auto-ingest durable wiki; manual ingest |
 
 ## Git
 

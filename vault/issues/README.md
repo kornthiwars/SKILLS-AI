@@ -25,7 +25,7 @@ resolved — one-line outcome
 
 - **Not every chat** — work turns only (see `vault-issues.mdc`)
 - One topic = `## N.` sequential numbering
-- Durable knowledge → `wiki/pages/` via `/wiki-ingest`
+- Durable knowledge → `wiki/pages/` via auto-ingest gate (`vault-issues.mdc`) or `/wiki-ingest`
 
 Template: [templates/template.issue.md](../../templates/template.issue.md)
 

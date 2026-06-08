@@ -1,7 +1,7 @@
 ---
 name: workday-review
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
 description: >-
   End-of-day auditor — fill WORKDAY + write vault/workday with EVIDENCE from git/code.
   Invoke with /workday-review. Never marks complete from conversation alone.
@@ -50,7 +50,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 | Plan tomorrow | [`/workday-init`](../workday-init/SKILL.md) — seed from **NEXT** |
 | Unplanned bug found | [`/debug`](../debug/SKILL.md) |
 | Ship today's work | [`/git-push`](../git-push/SKILL.md) |
-| Document reusable knowledge | [`/wiki-ingest`](../wiki-ingest/SKILL.md) |
+| Document reusable knowledge | wiki auto-ingest gate · [`/wiki-ingest`](../wiki-ingest/SKILL.md) manual |
 
 ## Scope Guardrails
 

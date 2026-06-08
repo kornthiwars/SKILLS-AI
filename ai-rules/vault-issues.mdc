@@ -61,7 +61,7 @@ At end of a **work turn**, run [`wiki-ingest/reference.md`](../ai-skills/wiki-in
 | Exportable insight after `/fix-record` or validated fix | User said **no wiki** / **อย่าเก็บ wiki** |
 | Skill/rule pack insight validated this session | `builder-feature` plan output → `workday/plans/` not wiki |
 
-**Max one** wiki write per turn. Grep `wiki/pages/` first — **merge**, never duplicate slug.
+**Max one** wiki write per turn. Grep `wiki/pages/` first — **merge**, never duplicate slug. Wiki must add durable insight **not** a paraphrase of this turn's `issues/` entry — see gate check #7 in reference.
 
 User may still invoke **`/wiki-ingest`** or say **save to wiki** / **เก็บลง wiki** explicitly.
 
