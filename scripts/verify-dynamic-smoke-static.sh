@@ -95,6 +95,7 @@ fi
 
 # Scenario 10 — builder-feature plan-only (no code)
 if search_q 'Plan-only iron law' "ai-skills/builder-feature/SKILL.md" \
+  && ! search_q '^paths:' "ai-skills/builder-feature/SKILL.md" \
   && search_q 'PLAN_READY' "ai-skills/builder-feature/SKILL.md" \
   && search_q 'UI-only express lane' "ai-skills/builder-feature/reference.md" \
   && search_q 'Never edit application files' "ai-skills/builder-feature/SKILL.md" \

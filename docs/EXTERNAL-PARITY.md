@@ -33,7 +33,7 @@ How **agent-skills** (this pack) relates to the wider ecosystem — especially [
 | Git / ship | [obra/finishing-a-development-branch](https://github.com/obra/superpowers), [fvadicamo/dev-agent-skills](https://github.com/fvadicamo/dev-agent-skills) | `/git-push` only | Sole git skill; explicit user consent |
 | CI / infra failures | [openai/gh-fix-ci](https://officialskills.sh/openai/skills/gh-fix-ci) | `/builder-infrastructure` reference | Use `gh` log triage for PR checks; pack CI is `skills-quality.yml` |
 | UI quality | [addyosmani/web-quality-audit](https://officialskills.sh/addyosmani/skills/web-quality-audit) (+ a11y, CWV children) | `/builder-ui` · `/scrutinize` § Browser | Cursor browser MCP for runtime; external for Lighthouse-style audits |
-| Incremental delivery | [addyosmani/incremental-implementation](https://github.com/addyosmani/agent-skills) | `/builder-feature` reference | Thin vertical slices |
+| Incremental delivery | [addyosmani/incremental-implementation](https://github.com/addyosmani/agent-skills) | `/builder-feature` reference | Plan-only orchestrator + thin vertical slices; implement per owner skill |
 | Deprecation / migration | [addyosmani/deprecation-and-migration](https://github.com/addyosmani/agent-skills/tree/main/skills/deprecation-and-migration) | `callee-redirect-cleanup.mdc` | Redirect + grep dead callers |
 | Planning | [obra/writing-plans](https://github.com/obra/superpowers), [garrytan/plan-eng-review](https://officialskills.sh/garrytan/skills/plan-eng-review) | `/workday-*` | Vault `workday/` persistence — not chat-only plans |
 | Memory / wiki | [hanfang/claude-memory-skill](https://github.com/hanfang/claude-memory-skill), [RoundTable02/tutor-skills](https://github.com/RoundTable02/tutor-skills) | `/vault-recall` · `/wiki-ingest` | issues vs wiki split is pack-specific |
@@ -46,11 +46,12 @@ How **agent-skills** (this pack) relates to the wider ecosystem — especially [
 ## Pack strengths (not typical in catalog entries)
 
 1. **3-layer change-control** — `change-control-manifest.mdc` + scoped `ai-rules/` + CI smoke
-2. **Vault triangle** — `issues/` (daily) · `workday/` (plans) · `wiki/pages/` (durable)
+2. **Vault triangle** — `issues/` (daily) · `workday/` + `workday/plans/` (feature plans) · `wiki/pages/` (durable)
 3. **SKILL REPORT** contract — [`templates/template.skill-report.md`](../templates/template.skill-report.md)
 4. **Thai docs** — [`docs/th/README.md`](./th/README.md)
 5. **`disable-model-invocation: true`** on all 15 skills
 6. **Callee redirect cleanup** — rule + dynamic smoke scenario #9
+7. **Plan-only orchestrator** — [`/builder-feature`](../ai-skills/builder-feature/SKILL.md) iron law (no app patches); vertical slices + optional vault plan persist; implement via builder-* per slice
 
 ---
 

@@ -163,6 +163,7 @@
 
 - ออกแบบ **frontend architecture**, component tree, design tokens
 - มี visual reference (screenshot, Figma export)
+- **`slice N go`** หลัง `/builder-feature` — โหลด slice brief ก่อน phase 1
 
 ### ไม่ใช้เมื่อไหร่
 
@@ -170,8 +171,9 @@
 - ยัด business logic ใน presentation layer
 - แลก a11y/responsive เพื่อความเร็ว
 
-### ขั้นตอน (7 phase)
+### ขั้นตอน (8 phase)
 
+0. Slice brief intake (จากแผน feature หรือ N/A ถ้า standalone)  
 1. Visual analysis  
 2. Layout reconstruction  
 3. Component extraction  
@@ -180,12 +182,12 @@
 6. Accessibility review  
 7. Verification (checklist pass/reject)
 
+รายละเอียด slice brief → `ai-skills/builder-ui/reference.md` § Slice brief intake
+
 ### ผลลัพธ์
 
 - UI Analysis, Component Architecture, Design System
 - Responsive Plan, Verification Plan
-
-รายละเอียด checklist → `ai-skills/builder-ui/reference.md`
 
 ---
 
@@ -235,15 +237,19 @@
 ### ใช้เมื่อไหร่
 
 - ออกแบบ entity, ความสัมพันธ์, index, migration strategy
+- **`slice N go`** หลัง `/builder-feature` — โหลด slice brief ก่อน phase 1
 
 ### ไม่ใช้เมื่อไหร่
 
 - เริ่มจาก “สร้างตาราง” โดยไม่รู้ domain
 - over-index ก่อนรู้ query pattern
 
-### ขั้นตอน (10 phase)
+### ขั้นตอน (11 phase)
 
-Domain → Entity → Relationships → Normalization → Query patterns → Indexing → Integrity → Scale → Evolution → Verification
+0. Slice brief intake (จากแผน feature หรือ N/A)  
+1–10. Domain → Entity → Relationships → Normalization → Query patterns → Indexing → Integrity → Scale → Evolution → Verification
+
+รายละเอียด slice brief → `ai-skills/builder-schema/reference.md` § Slice brief intake
 
 ### ผลลัพธ์
 
@@ -263,15 +269,19 @@ Domain → Entity → Relationships → Normalization → Query patterns → Ind
 ### ใช้เมื่อไหร่
 
 - ออกแบบ deployment, platform, IaC, DR, scaling
+- **`slice N go`** หลัง `/builder-feature` — โหลด slice brief ก่อน phase 1
 
 ### ไม่ใช้เมื่อไหร่
 
 - เริ่มจาก “จอง server” โดยไม่รู้ workload/SLO
 - ผูก environment แน่นเกินไป
 
-### ขั้นตอน (9 phase)
+### ขั้นตอน (10 phase)
 
-Workload & SLO → Boundaries → Deploy → Compute/network → Secrets → Observability → Reliability → Scale/cost → IaC + verify
+0. Slice brief intake (จากแผน feature หรือ N/A)  
+1–9. Workload & SLO → Boundaries → Deploy → Compute/network → Secrets → Observability → Reliability → Scale/cost → IaC + verify
+
+รายละเอียด slice brief → `ai-skills/builder-infrastructure/reference.md` § Slice brief intake
 
 ---
 
@@ -280,8 +290,9 @@ Workload & SLO → Boundaries → Deploy → Compute/network → Secrets → Obs
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/builder-feature` |
-| **Version** | 1.5.0 |
+| **Version** | 1.5.1 |
 | **บทบาท** | **Plan-only orchestrator** — วาง flow + slice backlog **ไม่เขียนโค้ด** |
+| **Activation** | Manual `/builder-feature` — **ไม่มี** `paths` frontmatter (ไม่ auto-invoke ตอนแก้ app code) |
 
 ### ใช้เมื่อไหร่
 

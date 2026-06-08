@@ -37,6 +37,17 @@ check_contains() {
   fi
 }
 
+check_not_contains() {
+  local path="$1"
+  local pattern="$2"
+  local label="$3"
+  if search_q "$pattern" "$path"; then
+    fail "$label"
+  else
+    pass "$label"
+  fi
+}
+
 printf 'Running agent-skills smoke checks in %s\n\n' "$REPO_ROOT"
 
 # Critical paths
@@ -102,6 +113,9 @@ check_contains "AGENTS.md" 'awesome-agent-skills' "AGENTS.md links external cata
 check_file "docs/EXTERNAL-PARITY.md"
 check_file "ai-skills/workday-update/reference.md"
 check_contains "ai-skills/builder-feature/SKILL.md" 'Plan-only iron law' "builder-feature plan-only gate"
+check_not_contains "ai-skills/builder-feature/SKILL.md" '^paths:' "builder-feature has no paths frontmatter (plan-only)"
+check_file "docs/SKILL-PATTERN.md"
+check_contains "docs/SKILL-PATTERN.md" 'template.slice-brief.md' "SKILL-PATTERN indexes slice brief template"
 check_file "templates/template.slice-brief.md"
 check_file "templates/template.feature-plan.md"
 check_contains "ai-skills/builder-feature/reference.md" 'template.slice-brief.md' "builder-feature links slice brief template"

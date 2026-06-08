@@ -13,9 +13,11 @@ This doc lists **behavioral** scenarios to run in Cursor after rule/skill change
 
 ## Prerequisites
 
-- `./scripts/setup-macos-linux.sh .`
+- `./scripts/setup-macos-linux.sh .` (Windows: `scripts/setup-windows.ps1`)
 - Reload Cursor
 - Fresh chat per scenario
+
+**Windows / no bash:** `./scripts/smoke-skills.sh` needs **Git Bash**, **WSL**, or **macOS/Linux**. Without bash locally, rely on CI (`.github/workflows/skills-quality.yml`) after push.
 
 ## Scenarios
 
@@ -43,6 +45,15 @@ This doc lists **behavioral** scenarios to run in Cursor after rule/skill change
 |--------|--------|
 | Static preflight fail | Fix files, re-run script |
 | Behavioral fail in Cursor | `vault/issues/` or `/wiki-ingest` after close |
+
+### Behavioral pass log (manual)
+
+After major skill/rule changes, record Cursor runs here or in `vault/issues/`:
+
+| Date | Scenario | Pass? | Notes |
+|------|----------|-------|-------|
+| YYYY-MM-DD | #10 plan-only + slice handoff | Y/N | e.g. Maxwell mock — PLAN_READY, zero app edits |
+| YYYY-MM-DD | #5b feature plan recall | Y/N | grepped `workday/plans/`, cited path |
 
 Log repeatable gaps to issues when open; durable knowledge via `/wiki-ingest` when closed per `vault-issues.mdc`.
 

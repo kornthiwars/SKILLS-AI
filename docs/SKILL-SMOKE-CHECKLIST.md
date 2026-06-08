@@ -29,6 +29,7 @@ Reload Cursor after rule changes.
 | debug | Mantra + vault recall + manifest |
 | scrutinize | Skill PR checklist + manifest |
 | git-push | Blocked without ยืนยัน |
+| builder-feature | Plan-only; no `paths` frontmatter; slice handoff |
 | builder-schema | Migration + rollback plan |
 | vault-recall | ≤3 wiki page files · ≤2 plan files from `workday/plans/` when feature keyword |
 

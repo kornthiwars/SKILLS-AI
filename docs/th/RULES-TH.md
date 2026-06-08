@@ -112,6 +112,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 |----------|-----------|
 | `vault/issues/YYYY-MM-DD.md` | บันทึกงานรายวัน — หัวข้อ `## N.` + Question/Answer |
 | `vault/workday/YYYY-MM-DD.md` | แผน WORKDAY — skills `workday-init` · update · review |
+| `vault/workday/plans/{slug}.md` | แผน feature จาก `/builder-feature` (opt-in persist) — gitignored |
 | `vault/wiki/pages/{slug}.md` | ความรู้ถาวร — **`/wiki-ingest`** เท่านั้น |
 
 **เมื่อเขียน issues:** หลังจบงานจริง (code, git, skill, debug) — **ไม่** log ทุกแชท
@@ -120,7 +121,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 **Resolve vault root (4 ขั้น):** `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → โฟลเดอร์ที่มี `ai-skills/` + setup script
 
-**ก่อน debug/git ติด:** ค้นตาม `vault-recall/reference.md` (ลำดับ wiki/pages ≤3 ไฟล์ → issues วันนี้/เมื่อวาน) — รายละเอียด [APPENDIX-TH.md](./APPENDIX-TH.md) §7
+**ก่อน debug/git ติด:** ค้นตาม `vault-recall/reference.md` (ลำดับ wiki/pages ≤3 ไฟล์ → **workday/plans/** เมื่อ query ชื่อ feature/plan → issues วันนี้/เมื่อวาน) — รายละเอียด [APPENDIX-TH.md](./APPENDIX-TH.md) §7
 
 **Wiki page:** Summary, Key points, Related — template `templates/template.wiki-page.md`
 

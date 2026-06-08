@@ -14,9 +14,9 @@
 | builder-api | `/builder-api` | 1.2.4 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.3 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.4 | ใช่ |
-| builder-feature | `/builder-feature` | 1.5.0 | ใช่ |
+| builder-feature | `/builder-feature` | 1.5.1 | ใช่ |
 | fix-record | `/fix-record` | 1.2.3 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.2.5 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.2.6 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
 | vault-recall | `/vault-recall` | 1.3.4 | ใช่ |
 | wiki-ingest | `/wiki-ingest` | 1.0.3 | ใช่ |
@@ -261,7 +261,7 @@ Template: `templates/template.issue.md`, `templates/template.wiki-page.md`, `tem
 | ไฟล์ | ทำไม |
 |------|------|
 | [SKILL-AUTHORING.md](../../ai-skills/SKILL-AUTHORING.md) | เขียน skill ใหม่ |
-| [SKILL-PATTERN.md](../SKILL-PATTERN.md) | โครง SKILL.md |
+| [SKILL-PATTERN.md](../SKILL-PATTERN.md) | โครง SKILL.md + template index |
 | [SKILL-SMOKE-CHECKLIST.md](../SKILL-SMOKE-CHECKLIST.md) | ทดสอบมือหลังแก้ rule |
 | [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | 3 layers EN |
 | [docs/examples/change-control-wiki-page.md](../examples/change-control-wiki-page.md) | ตัวอย่าง wiki page |

@@ -1,12 +1,11 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.5.0"
+  version: "1.5.1"
 description: >-
   Plan-only cross-layer feature orchestrator — workflow map, UI-only express
   lane, slice backlog, optional vault plan persist, delegation to
   builder-ui/api/schema/infrastructure. Does not write application code.
-paths: "**/*.{ts,tsx,js,jsx,py,go,rs,vue,svelte}"
 disable-model-invocation: true
 ---
 
