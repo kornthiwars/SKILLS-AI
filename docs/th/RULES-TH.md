@@ -117,7 +117,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 **เมื่อเขียน issues:** หลังจบงานจริง (code, git, skill, debug) — **ไม่** log ทุกแชท
 
-**เมื่อเขียน wiki:** ผ่าน **`/wiki-ingest`** เมื่อปิดเรื่องแล้ว + คุ้มค้นหาซ้ำ / mechanism ซับซ้อน / user ขอเก็บ wiki
+**เมื่อเขียน wiki:** agent **ประเมินเอง** ท้าย work turn ตาม `wiki-ingest/reference.md` § Auto-ingest gate — **ไม่ถาม** ถ้า PASS · หรือ user สั่ง **`/wiki-ingest`** / เก็บลง wiki · ข้ามถ้า user บอก **อย่าเก็บ wiki**
 
 **Resolve vault root (4 ขั้น):** `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → โฟลเดอร์ที่มี `ai-skills/` + setup script
 

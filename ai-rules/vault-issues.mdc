@@ -1,5 +1,5 @@
 ---
-description: Vault — work Q&A in issues/; plans in workday/; long-lived knowledge in wiki/ via /wiki-ingest; no chitchat auto-log
+description: Vault — work Q&A in issues/; plans in workday/; wiki auto-ingest when durable (wiki-ingest gate); no chitchat auto-log
 alwaysApply: true
 ---
 
@@ -35,7 +35,7 @@ Create `issues/`, `workday/`, `wiki/pages/`, `wiki/sources/` if missing.
 
 **WORKDAY** → `vault/workday/YYYY-MM-DD.md` only — protocol: `ai-skills/workday-init/reference.md` § Persistence.
 
-**Wiki pages** → **`/wiki-ingest`** only — protocol: `ai-skills/wiki-ingest/reference.md`. Do **not** auto-write wiki every turn.
+**Wiki pages** → protocol: `ai-skills/wiki-ingest/reference.md` § Auto-ingest gate. **Evaluate every work turn** — ingest when gate passes **without asking** the user. Manual `/wiki-ingest` still valid.
 
 ## When to write — issues (no ask-first)
 
@@ -44,19 +44,26 @@ Write **after** finishing the user reply, **only on work turns** — **not every
 | Write | Skip |
 |-------|------|
 | code, repo, skills, git, SQL, debug, infra, vault, workflow | greetings, chitchat, trivia, weather |
-| work-related skill invokes | long post-mortem → `/fix-record` · durable knowledge → `/wiki-ingest` |
+| work-related skill invokes | long post-mortem → `/fix-record` · durable knowledge → wiki auto-ingest gate |
 | user says **save to vault** / **เก็บลง vault** | |
 
 Do **not** default to logging every question.
 
-## When to write — wiki (skill only)
+## When to write — wiki (auto-evaluate, no ask-first)
 
-Do **not** write wiki files from this rule. User invokes **`/wiki-ingest`** when:
+At end of a **work turn**, run [`wiki-ingest/reference.md`](../ai-skills/wiki-ingest/reference.md) § **Auto-ingest gate**. If **PASS** → merge/create page, update `index.md` + `log.md` — **do not ask** "save to wiki?".
 
-- closed insight worth finding again next month
-- paper / article / research summary
-- export from `/fix-record` when mechanism is reusable
-- user says **save to wiki** / **เก็บลง wiki**
+| Ingest (no ask) | Skip wiki |
+|-----------------|-----------|
+| Closed mechanism, pattern, architecture decision worth recall next month | Open bug; mid-`/debug`; unverified guess |
+| Reusable across sessions (not only today's status) | Ephemeral Q&A that belongs in `issues/` only |
+| Research / paper / article summary on a closed topic | Greeting, chitchat, trivial one-liner |
+| Exportable insight after `/fix-record` or validated fix | User said **no wiki** / **อย่าเก็บ wiki** |
+| Skill/rule pack insight validated this session | `builder-feature` plan output → `workday/plans/` not wiki |
+
+**Max one** wiki write per turn. Grep `wiki/pages/` first — **merge**, never duplicate slug.
+
+User may still invoke **`/wiki-ingest`** or say **save to wiki** / **เก็บลง wiki** explicitly.
 
 See [vault/wiki/README.md](../vault/wiki/README.md).
 
@@ -77,6 +84,7 @@ Follow [`ai-skills/vault-recall/reference.md`](../ai-skills/vault-recall/referen
 
 ## Precedence
 
-- Vault append **once per turn** before the final reply (after main work)
-- If the turn does not match Write → **do not write** and **do not** claim “logged to vault”
-- If written → one line in chat: `Logged → <path>`
+- Before the final reply (after main work): evaluate **issues** write, then **wiki** auto-ingest gate — each at most **once per turn**
+- If issues written → one line: `Logged → <issues path>`
+- If wiki ingested → one line: `Wiki → <pages path>` (no ask-first when gate passed)
+- If neither → **do not** claim “logged to vault” or “saved to wiki”

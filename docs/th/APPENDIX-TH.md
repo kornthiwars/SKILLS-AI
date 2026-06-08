@@ -19,7 +19,7 @@
 | upgrade-ai | `/upgrade-ai` | 1.2.7 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
 | vault-recall | `/vault-recall` | 1.3.4 | ใช่ |
-| wiki-ingest | `/wiki-ingest` | 1.0.3 | ใช่ |
+| wiki-ingest | `/wiki-ingest` | 1.1.0 | ใช่ |
 | workday-init | `/workday-init` | 1.2.4 | ใช่ |
 | workday-update | `/workday-update` | 1.2.3 | ใช่ |
 | workday-review | `/workday-review` | 1.2.1 | ใช่ |

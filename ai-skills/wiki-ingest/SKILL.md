@@ -1,10 +1,10 @@
 ---
 name: wiki-ingest
 metadata:
-  version: "1.0.3"
+  version: "1.1.0"
 description: >-
-  Wiki curator — ingest papers, articles, or closed insights into vault/wiki
-  (pages, sources, index, log). LLM Wiki Pattern. Invoke with /wiki-ingest.
+  Wiki curator — auto-ingest durable insights (no ask-first) or manual ingest of
+  papers and closed knowledge into vault/wiki. LLM Wiki Pattern. /wiki-ingest.
 disable-model-invocation: true
 ---
 
@@ -34,11 +34,14 @@ Protocol: [reference.md](./reference.md).
 
 ## When to use
 
+**Automatic (no ask):** end of work turns — [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) runs [reference.md](./reference.md) § **Auto-ingest gate**.
+
+**Manual invoke:**
+
 - `/wiki-ingest` or "save to wiki" / "เก็บลง wiki"
 - After reading paper, article, long research summary
 - After `/fix-record` — export reusable mechanism to wiki
 - After `/workday-review` — insight worth keeping
-- User paste + "remember this properly"
 
 ## When NOT to use
 
@@ -60,7 +63,8 @@ Protocol: [reference.md](./reference.md).
 - ALWAYS merge into existing page when topic matches — never duplicate slugs.
 - ALWAYS update `index.md` and append `log.md`.
 - ALWAYS write files per [reference.md](./reference.md).
-- NEVER auto-ingest every chat — user invoke or explicit "save to wiki".
+- NEVER ingest on chitchat or open bugs — only when [reference.md](./reference.md) § Auto-ingest gate passes.
+- NEVER ask "save to wiki?" when the gate passes — write and report `Wiki → path`.
 
 ## Non-goals
 

@@ -7,6 +7,33 @@ All wiki writes use this file — do not duplicate in `SKILL.md`.
 
 ---
 
+## Auto-ingest gate (no ask-first)
+
+Triggered by [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) at end of **work turns**. **Do not** prompt the user "save to wiki?" when this gate passes.
+
+### Evaluate (all must hold)
+
+| # | Check |
+|---|--------|
+| 1 | Turn is **work** (code, skills, git, debug closed, infra, vault, workflow) — not chitchat |
+| 2 | Insight is **durable** — would help `/vault-recall` in a future session on the same topic |
+| 3 | Content is **mechanism / pattern / decision** — not only "what we did today" (that stays in `issues/`) |
+| 4 | Topic is **closed or verified** — not open bug ledger |
+| 5 | User did **not** say no wiki / อย่าเก็บ wiki this turn |
+| 6 | Not a feature **plan** artifact → use `workday/plans/` via `/builder-feature` instead |
+
+### On PASS
+
+1. Grep `wiki/pages/` for existing slug/title → **merge** (required)
+2. Run **Write protocol** below
+3. Report one line: `Wiki → vault/wiki/pages/{slug}.md` (or workspace-relative path)
+
+### On FAIL
+
+Skip wiki silently — issues log may still apply.
+
+---
+
 ## Persistence (mandatory)
 
 Every close-out **must** write/update wiki files **and** show summary in chat.

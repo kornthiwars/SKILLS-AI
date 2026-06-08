@@ -23,8 +23,8 @@ vault/wiki/
 |------|-------|--------|
 | Daily Q&A | `issues/YYYY-MM-DD.md` | rule `vault-issues.mdc` |
 | Daily plan | `workday/YYYY-MM-DD.md` | `/workday-init` · update · review |
-| **Knowledge that should survive** | `wiki/pages/` | **`/wiki-ingest`** |
-| Long RCA after fix | `/fix-record` | then optional `/wiki-ingest` export |
+| **Knowledge that should survive** | `wiki/pages/` | **auto-ingest** (rule gate) or **`/wiki-ingest`** |
+| Long RCA after fix | `/fix-record` | then auto-ingest or `/wiki-ingest` export |
 
 ## Rules
 
