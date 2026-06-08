@@ -102,6 +102,9 @@ check_contains "AGENTS.md" 'awesome-agent-skills' "AGENTS.md links external cata
 check_file "docs/EXTERNAL-PARITY.md"
 check_file "ai-skills/workday-update/reference.md"
 check_contains "ai-skills/builder-feature/SKILL.md" 'Plan-only iron law' "builder-feature plan-only gate"
+check_file "templates/template.slice-brief.md"
+check_file "templates/template.feature-plan.md"
+check_contains "ai-skills/builder-feature/reference.md" 'template.slice-brief.md' "builder-feature links slice brief template"
 check_file "docs/DYNAMIC-AGENT-SMOKE.md"
 check_file "scripts/verify-dynamic-smoke-static.sh"
 

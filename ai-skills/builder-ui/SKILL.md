@@ -1,7 +1,7 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.2.5"
+  version: "1.2.6"
 description: >-
   Design scalable, accessible UI systems from visual references — layout,
   components, responsive behavior, a11y. Accepts slice briefs from

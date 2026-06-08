@@ -10,6 +10,8 @@ Run **before** visual analysis when any of:
 
 ### Required fields (block if missing — ask or hand back to `/builder-feature`)
 
+Contract: [`templates/template.slice-brief.md`](../../templates/template.slice-brief.md).
+
 | Field | Use |
 |-------|-----|
 | **Outcome** | Scope lock for this slice |

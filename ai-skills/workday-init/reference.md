@@ -25,6 +25,8 @@ Create `workday/` if missing.
 
 **Never** write WORKDAY plans to `vault/issues/` — use `vault/workday/` only.
 
+**Feature plans** (orchestrator output from `/builder-feature`): optional `vault/workday/plans/{feature-slug}.md` — see [`builder-feature/reference.md`](../builder-feature/reference.md) § Plan persistence · [`templates/template.feature-plan.md`](../../templates/template.feature-plan.md).
+
 ### File path
 
 `vault/workday/YYYY-MM-DD.md` — **one file per day**, updated in place.

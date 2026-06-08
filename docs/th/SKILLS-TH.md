@@ -276,7 +276,7 @@ Workload & SLO → Boundaries → Deploy → Compute/network → Secrets → Obs
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/builder-feature` |
-| **Version** | 1.4.0 |
+| **Version** | 1.5.0 |
 | **บทบาท** | **Plan-only orchestrator** — วาง flow + slice backlog **ไม่เขียนโค้ด** |
 
 ### ใช้เมื่อไหร่
@@ -304,7 +304,7 @@ Workload & SLO → Boundaries → Deploy → Compute/network → Secrets → Obs
 1. **Workflow map** (บังคับก่อน slice backlog)  
 2–6. Reuse, boundaries, integration, rollout (express lane: defer N/A ได้)  
 7. Plan verification  
-→ Slice backlog → **`PLAN_READY`** → user สั่ง **`/builder-ui slice N go`**
+→ Slice backlog → **`PLAN_READY`** → optional save [`template.feature-plan.md`](../templates/template.feature-plan.md) → user สั่ง **`/builder-ui slice N go`** ([`template.slice-brief.md`](../templates/template.slice-brief.md))
 
 ### ผลลัพธ์
 

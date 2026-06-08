@@ -1,12 +1,11 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.4.0"
+  version: "1.5.0"
 description: >-
   Plan-only cross-layer feature orchestrator — workflow map, UI-only express
-  lane, slice backlog, delegation to builder-ui/api/schema/infrastructure. Does
-  not write application code. Invoke /builder-feature to design; implement via
-  specialist skills after user approves a slice.
+  lane, slice backlog, optional vault plan persist, delegation to
+  builder-ui/api/schema/infrastructure. Does not write application code.
 paths: "**/*.{ts,tsx,js,jsx,py,go,rs,vue,svelte}"
 disable-model-invocation: true
 ---
@@ -25,11 +24,11 @@ Mission: Design user flows, boundaries, and vertical slices — then **hand off*
 |---------|-----------|
 | Read / grep / trace existing code | Edit `.ts`, `.tsx`, `.js`, `.py`, `.go`, `.rs`, `.vue`, `.css`, `.html`, SQL migrations, IaC |
 | Workflow map, slice backlog, ownership tables | Scaffolding, "quick stub", "I'll start while we plan" |
-| Offer handoff to `/builder-ui`, `/builder-api`, … | Claim feature is built or READY with code changes |
+| Offer handoff to `/builder-ui`, … · **optional** `vault/workday/plans/` persist (user opt-in) | Claim feature is built or READY with code changes |
 
 **User says "ทำเลย" / "implement now":** finish or resume **phases 0–7** if incomplete → emit **Slice 1 brief** → **stop** → tell user to invoke the owner skill (e.g. `/builder-ui`) or say **"slice 1 go"** in a **new** turn with that specialist — do **not** write code in this skill.
 
-Detail: [reference.md](./reference.md) § Plan-only gate · § Slice backlog · § Workflow map.
+Detail: [reference.md](./reference.md) § UI-only express lane · § Plan persistence · [`templates/template.slice-brief.md`](../../templates/template.slice-brief.md).
 
 ## Purpose
 
@@ -145,8 +144,8 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | DISCOVERIES | **Workflow map**, reuse, integration surfaces, risks |
 | ANALYSIS | Orchestration plan, ownership, rollout |
 | RISKS | Duplication, integration gaps, agent jump-to-code |
-| ARTIFACTS | Workflow map · Orchestration plan · **Slice backlog table** · Verification plan per slice |
-| NEXT ACTIONS | User approves slice N → invoke owner skill with brief |
+| ARTIFACTS | Workflow map · Orchestration plan · **Slice backlog** · optional `vault/workday/plans/{slug}.md` · Slice brief per [`template.slice-brief.md`](../../templates/template.slice-brief.md) |
+| NEXT ACTIONS | User approves slice N → invoke owner skill · offer plan persist |
 | HANDOFF | `/builder-ui` · `/builder-api` · `/builder-schema` · `/builder-infrastructure` · `none` after plan |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Plan close-out gate before PLAN_READY |
 

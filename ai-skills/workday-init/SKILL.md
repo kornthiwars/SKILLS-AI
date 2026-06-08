@@ -1,7 +1,7 @@
 ---
 name: workday-init
 metadata:
-  version: "1.2.2"
+  version: "1.2.3"
 description: >-
   Daily work planner — emit WORKDAY block + write vault/workday/YYYY-MM-DD.md.
   Invoke with /workday-init at day start. Planning only; no app code.

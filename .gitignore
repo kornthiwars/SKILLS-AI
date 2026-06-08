@@ -33,6 +33,8 @@ vault/wiki/pages/**
 vault/wiki/sources/**
 !vault/wiki/README.md
 vault/workday/*.md
+vault/workday/plans/**
 !vault/workday/README.md
+!vault/workday/plans/README.md
 !vault/.obsidian/
 !vault/.obsidian/**

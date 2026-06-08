@@ -180,19 +180,49 @@ Rules:
 
 ### Slice brief (handoff payload)
 
-When user approves slice N, emit this block for the owner skill:
+When user approves slice N, emit the block from [`templates/template.slice-brief.md`](../../templates/template.slice-brief.md) — required fields: **Outcome**, **Non-goals**, **Verify**, **Owner**.
 
-```markdown
-## Slice N brief (from /builder-feature)
+Do not invent a alternate brief shape; owner skills parse this contract ([`builder-ui/reference.md`](../builder-ui/reference.md) § Slice brief intake).
 
-**Outcome:** …
-**Workflow steps covered:** …
-**Owner:** /builder-ui | /builder-api | …
-**Files likely touched:** (suggestions only — specialist confirms)
-**Contracts:** …
-**Non-goals:** …
-**Verify:** …
-```
+---
+
+## Plan persistence (optional on PLAN_READY)
+
+Plans survive chat loss when written under **`vault/workday/plans/`** (local, gitignored like other workday content).
+
+### When to persist
+
+| Trigger | Action |
+|---------|--------|
+| PLAN_READY close-out | **Offer** in NEXT ACTIONS: "Save plan to vault?" |
+| User says save / remember / เก็บแผน | Write plan file |
+| Active `vault/workday/YYYY-MM-DD.md` exists | Offer persist + suggest `+` line in **DISCOVERED TODAY** on next `/workday-update` |
+
+Do **not** auto-write vault on every plan unless user opts in or same-session workday is active.
+
+### Resolve directory
+
+Same workday root as [`workday-init/reference.md`](../workday-init/reference.md) § Persistence → `{workday}/plans/`.
+
+Create `plans/` if missing.
+
+### Write protocol
+
+1. Derive **`feature_slug`** — kebab-case from feature name (`Maxwell Plans` → `maxwell-plans`).
+2. Load [`templates/template.feature-plan.md`](../../templates/template.feature-plan.md):
+   - Replace `{{YYYY-MM-DD}}`, `{{FEATURE_NAME}}`, `{{FEATURE_SLUG}}`, `{{OWNER_SKILL}}` (slice 1 owner).
+   - Paste workflow map, component outline, slice backlog table into template sections.
+3. Write UTF-8 to `vault/workday/plans/{feature_slug}.md` (overwrite same slug same day if re-plan).
+4. Report **absolute or workspace-relative path** in chat.
+5. Slice briefs should cite **Plan ref:** path in `template.slice-brief.md` block.
+
+### Workday cross-link (optional)
+
+If user uses WORKDAY same day, suggest appending to **DISCOVERED TODAY**:
+
+`+ {DOMAIN}-{NNN} feature plan — source: /builder-feature — vault/workday/plans/{feature_slug}.md`
+
+Do not write to `vault/issues/` or `vault/wiki/` for execution plans.
 
 ---
 
@@ -262,7 +292,7 @@ Before STATUS **PLAN_READY**:
 | 4 | Rollback + monitoring stated — not TBD |
 | 5 | Reuse checklist passed |
 | 6 | **Zero application file edits** in this session under this skill |
-| 7 | NEXT ACTIONS = user picks slice → invoke owner skill |
+| 7 | NEXT ACTIONS = user picks slice → invoke owner skill · **offer** plan persist per [reference.md](./reference.md) § Plan persistence |
 
 Do **not** require integration test RUN at plan close-out — that happens after specialist implements slice N.
 
