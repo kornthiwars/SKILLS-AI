@@ -1,10 +1,10 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.3.2"
+  version: "1.3.3"
 description: >-
-  Grep vault wiki pages and recent issues; keyword strategy, recall verification gate.
-  Invoke with /vault-recall. Search wiki/pages/ then recent issues.
+  Grep vault wiki pages, feature plans (workday/plans), and recent issues;
+  keyword strategy, recall verification gate. Invoke with /vault-recall.
 disable-model-invocation: true
 ---
 

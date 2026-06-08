@@ -1,5 +1,15 @@
 # builder-schema — reference
 
+## Slice brief intake (phase 0)
+
+Same triggers and required fields as [builder-ui/reference.md](../builder-ui/reference.md) § Slice brief intake.
+
+Contract: [`templates/template.slice-brief.md`](../../templates/template.slice-brief.md).
+
+**Owner focus:** migrations and entity changes in brief **Contracts** / **Files likely touched**; production gates per schema rules; escalate cross-layer scope to `/builder-feature`.
+
+---
+
 ## Workflow (detail)
 
 Load this section when executing a phase. Run phases **in order**.

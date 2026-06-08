@@ -105,6 +105,7 @@ check_contains "ai-skills/builder-feature/SKILL.md" 'Plan-only iron law' "builde
 check_file "templates/template.slice-brief.md"
 check_file "templates/template.feature-plan.md"
 check_contains "ai-skills/builder-feature/reference.md" 'template.slice-brief.md' "builder-feature links slice brief template"
+check_contains "ai-skills/vault-recall/reference.md" 'workday/plans/' "vault-recall searches feature plans"
 check_file "docs/DYNAMIC-AGENT-SMOKE.md"
 check_file "scripts/verify-dynamic-smoke-static.sh"
 

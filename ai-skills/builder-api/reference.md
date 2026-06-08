@@ -1,5 +1,15 @@
 # builder-api — reference
 
+## Slice brief intake (phase 0)
+
+Same triggers and required fields as [builder-ui/reference.md](../builder-ui/reference.md) § Slice brief intake.
+
+Contract: [`templates/template.slice-brief.md`](../../templates/template.slice-brief.md).
+
+**Owner focus:** implement **Contracts** and API boundaries from the brief only; do not expand UI/schema scope — hand off or escalate to `/builder-feature`.
+
+---
+
 ## Workflow (detail)
 
 Load this section when executing a phase. Run phases **in order**.

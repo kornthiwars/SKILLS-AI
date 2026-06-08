@@ -13,7 +13,7 @@ Canonical search steps for **`/vault-recall`**, **`debug`**, **`git-push` Phase 
 | 3 | `<workspace>/vault/issues/` | workspace root |
 | 4 | Folder has `ai-skills/` + `scripts/setup-macos-linux.sh` | agent-skills repo clone |
 
-Create `issues/`, `workday/`, `wiki/pages/`, `wiki/sources/` if missing.
+Create `issues/`, `workday/`, `workday/plans/`, `wiki/pages/`, `wiki/sources/` if missing.
 
 ---
 
@@ -24,10 +24,11 @@ Create `issues/`, `workday/`, `wiki/pages/`, `wiki/sources/` if missing.
 | 1 | **Grep** `vault/wiki/pages/` — keywords, `title:`, tags, wikilinks |
 | 2 | Skim `vault/wiki/index.md` if grep thin |
 | 3 | Cap ~15 matching lines · read **≤3** best page files (not README) |
-| 4 | If insufficient → grep `vault/issues/YYYY-MM-DD.md` for **today** and **yesterday** |
-| 5 | Optional → today's `vault/workday/YYYY-MM-DD.md` for active task context |
+| 4 | If query names a **feature**, slice, or plan → **grep** `vault/workday/plans/` (`title:`, `feature_slug:`, body); read **≤2** plan files |
+| 5 | If insufficient → grep `vault/issues/YYYY-MM-DD.md` for **today** and **yesterday** |
+| 6 | Optional → today's `vault/workday/YYYY-MM-DD.md` for active task context |
 
-If `wiki/pages/` empty → skip 1–3; issues-only search.
+If `wiki/pages/` empty → skip 1–3. If `workday/plans/` empty → skip step 4.
 
 ---
 
@@ -39,6 +40,7 @@ If `wiki/pages/` empty → skip 1–3; issues-only search.
 | **`/debug`** | Before step 1 (reproduce) — fold hits into ledger |
 | **`/git-push`** | Phase 0 when blocked, failed before, or SSH/remote/dirty-tree friction |
 | **`/wiki-ingest`** | Before merge — find existing slug |
+| **`/builder-feature`** | Before phase 1 — prior feature plan for same slug ([`builder-feature/reference.md`](../builder-feature/reference.md) § Plan persistence) |
 | **Rule** | Agent heading into debug or git friction without another skill |
 
 ---
@@ -93,8 +95,8 @@ Before "recall complete":
 | # | Check |
 |---|--------|
 | 1 | Vault root resolved and stated |
-| 2 | Search order followed (wiki pages → issues) |
-| 3 | ≤3 wiki page files read full-text |
+| 2 | Search order followed (wiki → plans when feature keyword → issues) |
+| 3 | ≤3 wiki page files read · ≤2 plan files from `workday/plans/` |
 | 4 | Summary cites paths — not paraphrase from memory |
 | 5 | Empty → explicit "no prior art" + next skill |
 

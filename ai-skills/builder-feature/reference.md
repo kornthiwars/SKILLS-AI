@@ -215,6 +215,7 @@ Create `plans/` if missing.
 3. Write UTF-8 to `vault/workday/plans/{feature_slug}.md` (overwrite same slug same day if re-plan).
 4. Report **absolute or workspace-relative path** in chat.
 5. Slice briefs should cite **Plan ref:** path in `template.slice-brief.md` block.
+6. Recall saved plans via [`/vault-recall`](../vault-recall/SKILL.md) — grep `workday/plans/` per [`vault-recall/reference.md`](../vault-recall/reference.md).
 
 ### Workday cross-link (optional)
 

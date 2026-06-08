@@ -1,11 +1,11 @@
 ---
 name: builder-api
 metadata:
-  version: "1.2.3"
+  version: "1.2.4"
 description: >-
   Design scalable, secure, contract-first APIs with validation, auth boundaries,
-  error systems, versioning, and observability. Invoke with /builder-api when
-  designing or refactoring API contracts, endpoints, or backend service boundaries.
+  error systems, versioning, and observability. Accepts slice briefs from
+  /builder-feature. Invoke with /builder-api or "slice N go" for API slices.
 paths: "**/{api,routes,controllers,handlers,services}/**/*.{ts,js,py,go,rs}"
 disable-model-invocation: true
 ---
@@ -43,7 +43,8 @@ Do NOT:
 
 | Situation | Skill |
 |-----------|--------|
-| Full-stack feature | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Full-stack feature (plan) | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Slice brief from feature plan | [reference.md](./reference.md) § Slice brief intake **before** phase 1 |
 | Data model / migrations | [`/builder-schema`](../builder-schema/SKILL.md) |
 | Execute migration plan / schema evolution | [`/builder-schema`](../builder-schema/SKILL.md) + project DB toolchain |
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
@@ -55,6 +56,7 @@ Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md)
 
 | # | Phase | Gate |
 |---|--------|------|
+| 0 | Slice brief intake | brief loaded or N/A (standalone API) |
 | 1–2 | Domain + resources | ownership map |
 | 3–4 | Contracts + validation | OpenAPI/schema draft |
 | 5–6 | Auth + errors | auth matrix + error taxonomy |
@@ -98,6 +100,7 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 | # | Phase | Deliver |
 |---|--------|---------|
+| 0 | Slice brief intake | Outcome, Contracts, Verify from plan |
 | 1 | Domain analysis | domain map, ownership map |
 | 2 | Resource modeling | resource model, lifecycle rules |
 | 3 | Contract design | endpoint contracts, schemas |

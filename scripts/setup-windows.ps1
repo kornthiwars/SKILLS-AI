@@ -77,7 +77,7 @@ function Write-VaultPointer {
 }
 
 function Ensure-VaultFolders {
-    foreach ($rel in @('issues', 'workday', 'wiki', 'wiki/pages', 'wiki/sources')) {
+    foreach ($rel in @('issues', 'workday', 'workday/plans', 'wiki', 'wiki/pages', 'wiki/sources')) {
         $path = Join-Path $Vault $rel
         if (-not (Test-Path -LiteralPath $path)) {
             New-Item -ItemType Directory -Path $path -Force | Out-Null

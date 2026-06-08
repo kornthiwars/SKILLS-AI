@@ -1,11 +1,11 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.2.3"
+  version: "1.2.4"
 description: >-
   Design reliable infrastructure — workloads, environments, CI/CD, networking,
-  security, observability, DR. Invoke with /builder-infrastructure for deployment
-  and platform architecture.
+  security, observability, DR. Accepts slice briefs from /builder-feature.
+  Invoke with /builder-infrastructure or "slice N go" for infra slices.
 paths: "**/*.{yml,yaml,tf,hcl},**/Dockerfile,**/docker-compose*.{yml,yaml}"
 disable-model-invocation: true
 ---
@@ -46,7 +46,8 @@ Do NOT:
 
 | Situation | Skill |
 |-----------|--------|
-| Full-stack feature | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Full-stack feature (plan) | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Slice brief from feature plan | [reference.md](./reference.md) § Slice brief intake **before** phase 1 |
 | Deploy/runtime bug | [`/debug`](../debug/SKILL.md) |
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Ship infra changes | [`/git-push`](../git-push/SKILL.md) |
@@ -57,6 +58,7 @@ Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md)
 
 | # | Phase | Gate |
 |---|--------|------|
+| 0 | Slice brief intake | brief loaded or N/A |
 | 1–2 | Workload + environments | SLO + env map |
 | 3–4 | Deploy + network | rollback plan |
 | 5–6 | Security + observability | secrets + alerts |
@@ -101,6 +103,7 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 | # | Phase | Deliver |
 |---|--------|---------|
+| 0 | Slice brief intake | Outcome, Verify, infra scope from plan |
 | 1 | Workload & SLO | workload profile, reliability requirements |
 | 2 | Boundaries & environments | boundary map, environment strategy |
 | 3 | Deployment architecture | deploy and rollback plan |

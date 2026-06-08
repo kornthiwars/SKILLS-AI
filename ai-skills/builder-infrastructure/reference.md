@@ -1,5 +1,15 @@
 # builder-infrastructure — reference
 
+## Slice brief intake (phase 0)
+
+Same triggers and required fields as [builder-ui/reference.md](../builder-ui/reference.md) § Slice brief intake.
+
+Contract: [`templates/template.slice-brief.md`](../../templates/template.slice-brief.md).
+
+**Owner focus:** deploy, CI, observability, and infra paths from brief; honor **Verify** (health check, plan, drill); escalate app-layer scope to `/builder-feature`.
+
+---
+
 ## Workflow (detail)
 
 Load this section when executing a phase. Run phases **in order**.

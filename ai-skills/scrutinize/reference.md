@@ -17,6 +17,14 @@ When the diff touches `ai-skills/*/SKILL.md`, `*/reference.md`, or `ai-rules/*.m
 - [ ] Handoffs section links related skills (not orphan workflows)
 - [ ] Write vs RCA: daily Q&A → `vault-issues.mdc`; long RCA → `/fix-record`; durable knowledge → `/wiki-ingest` → `wiki/pages/`
 
+When the diff touches **`builder-feature`**, **`templates/template.slice-brief.md`**, **`templates/template.feature-plan.md`**, or **`vault/workday/plans/`**:
+
+- [ ] **Plan-only iron law** preserved — orchestrator must not patch app source
+- [ ] Slice brief uses [`template.slice-brief.md`](../../templates/template.slice-brief.md) — no alternate shape
+- [ ] **`builder-ui` / `builder-api` / `builder-schema` / `builder-infrastructure`** link slice intake — no duplicate full protocol in each `SKILL.md`
+- [ ] [`vault-recall/reference.md`](../vault-recall/reference.md) search order includes `workday/plans/` — table not copied into skills
+- [ ] Smoke: `Plan-only iron law` in builder-feature · scenario **#10** in [`DYNAMIC-AGENT-SMOKE.md`](../../docs/DYNAMIC-AGENT-SMOKE.md)
+
 ---
 
 ## Verification protocol (review complete)

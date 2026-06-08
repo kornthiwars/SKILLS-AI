@@ -98,10 +98,12 @@ if search_q 'Plan-only iron law' "ai-skills/builder-feature/SKILL.md" \
   && search_q 'PLAN_READY' "ai-skills/builder-feature/SKILL.md" \
   && search_q 'UI-only express lane' "ai-skills/builder-feature/reference.md" \
   && search_q 'Never edit application files' "ai-skills/builder-feature/SKILL.md" \
-  && search_q 'Slice brief intake' "ai-skills/builder-ui/reference.md"; then
-  pass 'scenario 10 — builder-feature plan-only, express lane, builder-ui brief intake'
+  && search_q 'Slice brief intake' "ai-skills/builder-ui/reference.md" \
+  && search_q 'workday/plans/' "ai-skills/vault-recall/reference.md" \
+  && search_q 'Slice brief intake' "ai-skills/builder-api/reference.md"; then
+  pass 'scenario 10 — plan-only, express lane, slice intake, vault plans search'
 else
-  fail 'scenario 10 — builder-feature plan-only / builder-ui brief gates'
+  fail 'scenario 10 — builder-feature plan-only gates'
 fi
 
 printf '\n'

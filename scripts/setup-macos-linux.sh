@@ -81,7 +81,7 @@ PY
 
 ensure_vault_folders() {
   local rel path
-  for rel in issues workday wiki wiki/pages wiki/sources; do
+  for rel in issues workday workday/plans wiki wiki/pages wiki/sources; do
     path="$VAULT/$rel"
     if [ ! -d "$path" ]; then
       mkdir -p "$path"

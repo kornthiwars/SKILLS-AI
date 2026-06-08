@@ -1,7 +1,7 @@
 ---
 name: workday-init
 metadata:
-  version: "1.2.3"
+  version: "1.2.4"
 description: >-
   Daily work planner — emit WORKDAY block + write vault/workday/YYYY-MM-DD.md.
   Invoke with /workday-init at day start. Planning only; no app code.
@@ -47,7 +47,8 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 
 | Situation | Skill |
 |-----------|--------|
-| Plan ready — start building | [`/builder-feature`](../builder-feature/SKILL.md) · [`/builder-api`](../builder-api/SKILL.md) · [`/builder-ui`](../builder-ui/SKILL.md) |
+| Cross-layer feature — **plan only** | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Implement approved slice | [`/builder-ui`](../builder-ui/SKILL.md) · [`/builder-api`](../builder-api/SKILL.md) · [`/builder-schema`](../builder-schema/SKILL.md) · [`/builder-infrastructure`](../builder-infrastructure/SKILL.md) — per slice owner in plan |
 | Scope changes during day | [`/workday-update`](../workday-update/SKILL.md) |
 | Close of day | [`/workday-review`](../workday-review/SKILL.md) |
 | Prior art before planning | [`/vault-recall`](../vault-recall/SKILL.md) |

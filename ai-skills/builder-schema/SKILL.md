@@ -1,11 +1,11 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.2.2"
+  version: "1.2.3"
 description: >-
   Design integrity-safe schemas via domain modeling, relationships, indexing,
-  and safe evolution. Invoke with /builder-schema when modeling entities,
-  migrations, or schema changes.
+  and safe evolution. Accepts slice briefs from /builder-feature. Invoke with
+  /builder-schema or "slice N go" for schema/migration slices.
 paths: "**/{migrations,schema,prisma,db,database}/**/*,**/*.{sql,prisma}"
 disable-model-invocation: true
 ---
@@ -43,7 +43,8 @@ Do NOT:
 
 | Situation | Skill |
 |-----------|--------|
-| Full-stack feature | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Full-stack feature (plan) | [`/builder-feature`](../builder-feature/SKILL.md) |
+| Slice brief from feature plan | [reference.md](./reference.md) § Slice brief intake **before** phase 1 |
 | Plan and execute migrations safely | project DB toolchain + production confirmation gates |
 | API layer impact | [`/builder-api`](../builder-api/SKILL.md) |
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
@@ -54,6 +55,7 @@ Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md)
 
 | # | Phase | Gate |
 |---|--------|------|
+| 0 | Slice brief intake | brief loaded or N/A |
 | 1–3 | Domain + entities + relations | ER map |
 | 4–6 | Normalization + queries + indexes | access patterns |
 | 7–8 | Integrity + scale | constraints + rollout |
@@ -96,6 +98,7 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 | # | Phase | Deliver |
 |---|--------|---------|
+| 0 | Slice brief intake | Outcome, Contracts, Verify from plan |
 | 1 | Domain analysis | domain map, ownership boundaries |
 | 2 | Entity modeling | entity definitions, lifecycle rules |
 | 3 | Relationship architecture | relationship map, dependencies |
