@@ -16,7 +16,7 @@
 | builder-infrastructure | `/builder-infrastructure` | 1.2.4 | ใช่ |
 | builder-feature | `/builder-feature` | 1.5.1 | ใช่ |
 | fix-record | `/fix-record` | 1.2.3 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.2.6 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.2.7 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
 | vault-recall | `/vault-recall` | 1.3.4 | ใช่ |
 | wiki-ingest | `/wiki-ingest` | 1.0.3 | ใช่ |
@@ -136,8 +136,9 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | resolve root | `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → agent-skills clone |
 | 1 | grep `wiki/pages/` (keywords, `title:`, tags, wikilinks) |
 | 2 | อ่านเต็ม ≤ **3** หน้า (ไม่นับ README) |
-| 3 | ถ้าไม่พอ → grep `issues/` วันนี้ + เมื่อวาน |
-| 4 | (optional) `workday/` วันนี้ — context งานค้าง |
+| 3 | query ชื่อ **feature / plan / slice** → grep `workday/plans/` · อ่าน ≤ **2** ไฟล์ |
+| 4 | ถ้าไม่พอ → grep `issues/` วันนี้ + เมื่อวาน |
+| 5 | (optional) `workday/` วันนี้ — context งานค้าง |
 
 ### เขียน (บันทึก)
 
@@ -147,9 +148,10 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 |--------|------|--------|
 | issues | `vault/issues/YYYY-MM-DD.md` | `## N. title` + Question / Answer |
 | workday | `vault/workday/YYYY-MM-DD.md` | WORKDAY block — `/workday-init` · update · review |
+| feature plan | `vault/workday/plans/{slug}.md` | `/builder-feature` PLAN_READY — opt-in · gitignored |
 | wiki | `vault/wiki/pages/{slug}.md` | concept page — `/wiki-ingest` เท่านั้น |
 
-Template: `templates/template.issue.md`, `templates/template.wiki-page.md`, `templates/template.wiki-source.md`  
+Template: `templates/template.issue.md`, `templates/template.workday.md`, `templates/template.feature-plan.md`, `templates/template.slice-brief.md`, `templates/template.wiki-page.md`, `templates/template.wiki-source.md`  
 รายละเอียด Obsidian: `vault/README.md`
 
 **ห้าม** ใส่ secret ใน vault

@@ -52,8 +52,8 @@ After major skill/rule changes, record Cursor runs here or in `vault/issues/`:
 
 | Date | Scenario | Pass? | Notes |
 |------|----------|-------|-------|
-| YYYY-MM-DD | #10 plan-only + slice handoff | Y/N | e.g. Maxwell mock — PLAN_READY, zero app edits |
-| YYYY-MM-DD | #5b feature plan recall | Y/N | grepped `workday/plans/`, cited path |
+| 2026-06-03 | #10 plan-only + slice handoff | Y | Maxwell Plans mock — PLAN_READY, zero app edits in orchestrator; `/builder-ui slice 1 go` — user confirmed match |
+| 2026-06-08 | #5b feature plan recall | — | P4/P4.1 static + reference synced; **pending** until a plan is persisted under `vault/workday/plans/` |
 
 Log repeatable gaps to issues when open; durable knowledge via `/wiki-ingest` when closed per `vault-issues.mdc`.
 

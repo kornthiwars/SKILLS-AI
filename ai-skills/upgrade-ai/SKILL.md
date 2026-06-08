@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.2.6"
+  version: "1.2.7"
 description: >-
   Evidence-based skill diagnosis and minimal upgrades — 8 phases, cheat sheet, handoffs,
   pack consistency checklist, SKILL REPORT output. Invoke with /upgrade-ai (canonical); /upgrade is shorthand alias.
@@ -95,7 +95,7 @@ Run sequentially. Stop early only if Phase 1 **failure diagnosis** cannot reprod
 ### Phase 1 — Reproduce
 
 - Confirm target skill/rules files and constraints from the user request.
-- When diagnosing **this** repo (agent-skills): search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 wiki pages, then issues if needed).
+- When diagnosing **this** repo (agent-skills): search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 wiki pages · ≤2 plan files from `workday/plans/` when feature keyword · then issues if needed).
 - **Failure diagnosis:** reproduce ≥ 2 times under controlled conditions; capture actual vs expected behavior.
 - **Structural / meta audit** (no repeat failure — e.g. “wrong structure?”, token review): scope + static file analysis only; use SKILL REPORT; cap CONFIDENCE 85; do **not** force artificial repro.
 
