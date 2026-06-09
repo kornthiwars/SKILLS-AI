@@ -14,14 +14,14 @@
 | builder-api | `/builder-api` | 1.2.4 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.3 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.4 | ใช่ |
-| builder-feature | `/builder-feature` | 1.5.1 | ใช่ |
+| builder-feature | `/builder-feature` | 1.5.3 | ใช่ |
 | fix-record | `/fix-record` | 1.2.4 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.2.7 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
-| vault-recall | `/vault-recall` | 1.3.5 | ใช่ |
-| wiki-ingest | `/wiki-ingest` | 1.1.1 | ใช่ |
-| workday-init | `/workday-init` | 1.2.4 | ใช่ |
-| workday-update | `/workday-update` | 1.2.3 | ใช่ |
+| vault-recall | `/vault-recall` | 1.3.7 | ใช่ |
+| wiki-ingest | `/wiki-ingest` | 1.1.3 | ใช่ |
+| workday-init | `/workday-init` | 1.2.6 | ใช่ |
+| workday-update | `/workday-update` | 1.2.4 | ใช่ |
 | workday-review | `/workday-review` | 1.2.2 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
@@ -133,7 +133,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 | ขั้น | การทำ |
 |------|--------|
-| resolve root | `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → agent-skills clone |
+| resolve root | `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → agent-skills clone → **parent walk** (monorepo subproject เปิดโฟลเดอร์ลูกอย่างเดียว) |
 | 1 | grep `wiki/pages/` (keywords, `title:`, tags, wikilinks) |
 | 2 | อ่านเต็ม ≤ **3** หน้า (ไม่นับ README) |
 | 3 | query ชื่อ **feature / plan / slice** → grep `workday/plans/` · อ่าน ≤ **2** ไฟล์ |

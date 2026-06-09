@@ -120,6 +120,19 @@ else
   fail 'scenario 11 — wiki auto-ingest gates'
 fi
 
+# Scenario 12 — rule/skill precedence (P8-R)
+if search_q 'Active skill precedence' "ai-rules/change-control-manifest.mdc" \
+  && search_q 'until review complete; recommend only' "ai-rules/change-control-manifest.mdc" \
+  && search_q 'Plan-only' "ai-rules/workflow/decision-tree.mdc" \
+  && search_q 'change-control-manifest' "ai-skills/builder-feature/SKILL.md" \
+  && search_q 'parent directories' "ai-skills/workday-init/reference.md" \
+  && search_q 'html,css' "ai-rules/core/execution-model.mdc" \
+  && search_q 'manual `/wiki-ingest` only' "ai-skills/wiki-ingest/reference.md"; then
+  pass 'scenario 12 — skill precedence, plan-only routing, monorepo resolve, P9 gates'
+else
+  fail 'scenario 12 — rule/skill precedence gates'
+fi
+
 printf '\n'
 if [ "$failures" -eq 0 ]; then
   printf 'Static dynamic-smoke preflight passed.\n'

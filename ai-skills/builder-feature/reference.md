@@ -223,7 +223,9 @@ If user uses WORKDAY same day, suggest appending to **DISCOVERED TODAY**:
 
 `+ {DOMAIN}-{NNN} feature plan — source: /builder-feature — vault/workday/plans/{feature_slug}.md`
 
-Do not write to `vault/issues/` or `vault/wiki/` for execution plans.
+Do **not** put **plan artifacts** in `vault/issues/` or `vault/wiki/` — use **`vault/workday/plans/{feature_slug}.md`** (opt-in persist) per § Plan persistence above.
+
+Session Q&A during planning may still log to `issues/` per [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) when the turn is work-related. Wiki auto-ingest skips feature plans — gate #6 in [`wiki-ingest/reference.md`](../wiki-ingest/reference.md).
 
 ---
 

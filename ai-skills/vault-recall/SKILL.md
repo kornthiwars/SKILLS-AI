@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.3.6"
+  version: "1.3.7"
 description: >-
   Grep vault wiki pages, feature plans (workday/plans), and recent issues;
   keyword strategy, recall verification gate. Invoke with /vault-recall.
@@ -36,7 +36,7 @@ Search **local** vault and return a short, actionable summary. Does **not** writ
 |--------------|--------|
 | Bug with prior art | [`/debug`](../debug/SKILL.md) |
 | Git push blocked | [`/git-push`](../git-push/SKILL.md) Phase 0 |
-| Durable knowledge written | [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) wiki gate · [`/wiki-ingest`](../wiki-ingest/SKILL.md) manual |
+| Durable knowledge written | [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) wiki auto-ingest (no ask) · manual [`/wiki-ingest`](../wiki-ingest/SKILL.md) only if gate skipped |
 | Write RCA after fix | [`/fix-record`](../fix-record/SKILL.md) |
 | Prior feature plan | [`/builder-feature`](../builder-feature/SKILL.md) after recall |
 
@@ -48,7 +48,7 @@ Search **local** vault and return a short, actionable summary. Does **not** writ
 
 ## Non-goals
 
-- No writes in this skill — issues + wiki auto-ingest via [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc); manual `/wiki-ingest` optional
+- No writes in this skill — end-of-turn issues + wiki auto-ingest via [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc); invoke `/wiki-ingest` manually only when auto-ingest did not run
 
 ---
 
@@ -69,8 +69,8 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | OBJECTIVE | Find prior art |
 | DISCOVERIES | Matched wiki pages (≤3), plans (≤2), issues |
 | ARTIFACTS | Query, paths, counts |
-| NEXT ACTIONS | Open page, `/debug`, `/wiki-ingest`, or none |
-| HANDOFF | `/debug` · `/wiki-ingest` · `none` |
+| NEXT ACTIONS | Open page, `/debug`, manual `/wiki-ingest` if auto-ingest skipped, or none |
+| HANDOFF | `/debug` · manual `/wiki-ingest` · `none` |
 | CONFIDENCE | 0–100; pass verification gate before READY |
 
 ---

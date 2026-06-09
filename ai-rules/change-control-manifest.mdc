@@ -66,6 +66,19 @@ See also [`workflow/decision-tree.mdc`](workflow/decision-tree.mdc) (always-on r
 | Skill/rule upgrades | `/upgrade-ai` |
 | Long RCA after validated fix (one root cause) | `/fix-record` |
 
+## Active skill precedence
+
+When the user attaches or clearly invokes a skill whose **iron law** conflicts with the execution sequence above:
+
+| Skill mode | Overrides |
+|------------|-----------|
+| `/builder-feature` (plan-only) | Steps 7–8 — **no application source patches**; hand off to builder-* per slice |
+| `/vault-recall` | Writes — search/report only |
+| `/scrutinize` (review-only) | **No patch** until review complete; recommend only until user approves changes |
+| `/upgrade-ai` on this pack | App patch budget N/A; skill/rule edits follow upgrade-ai + patch budget for meta files |
+
+**Always-on rules** (this manifest, [`decision-tree.mdc`](workflow/decision-tree.mdc), [`vault-issues.mdc`](vault-issues.mdc)) still apply for routing and end-of-turn vault — unless the active skill explicitly forbids a **specific artifact** (e.g. feature plan → `workday/plans/` not wiki). Skill `reference.md` wins for that artifact only; it does not disable `vault-issues.mdc` for unrelated session Q&A.
+
 ## Production prohibitions
 
 - speculative fixes without evidence

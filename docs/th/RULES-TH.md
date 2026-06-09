@@ -77,6 +77,8 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | ปรับ skill | `/upgrade-ai` |
 | RCA ยาว | `/fix-record` |
 
+**Active skill precedence:** เมื่อ skill มี iron law (เช่น `/builder-feature` plan-only) — **override** ขั้น 7–8 ของลำดับ 9 ขั้น; vault ท้าย turn ยังตาม `vault-issues.mdc` ยกเว้น artifact ที่ skill ห้ามชัด (plan → `workday/plans/` ไม่ใช่ wiki)
+
 **ห้ามใน production:** fix เดา, refactor ปน bugfix, เปลี่ยน API/schema แอบ, ทำลาย schema โดยไม่มีแผน
 
 ---
@@ -119,7 +121,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 **เมื่อเขียน wiki:** agent **ประเมินเอง** ท้าย work turn ตาม `wiki-ingest/reference.md` § Auto-ingest gate — **ไม่ถาม** ถ้า PASS · หรือ user สั่ง **`/wiki-ingest`** / เก็บลง wiki · ข้ามถ้า user บอก **อย่าเก็บ wiki**
 
-**Resolve vault root (4 ขั้น):** `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → โฟลเดอร์ที่มี `ai-skills/` + setup script
+**Resolve vault root (5 ขั้น):** `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → โฟลเดอร์ที่มี `ai-skills/` + setup script → **parent walk** เมื่อเปิด monorepo subproject อย่างเดียว (ดู `vault-recall/reference.md` § Resolve step 5 · `workday-init/reference.md`)
 
 **ก่อน debug/git ติด:** ค้นตาม `vault-recall/reference.md` (ลำดับ wiki/pages ≤3 ไฟล์ → **workday/plans/** เมื่อ query ชื่อ feature/plan → issues วันนี้/เมื่อวาน) — รายละเอียด [APPENDIX-TH.md](./APPENDIX-TH.md) §7
 
@@ -395,10 +397,19 @@ HIGH risk ต้องมี automated test **หรือ** manual steps ชั
 
 ### `workflow/decision-tree.mdc`
 
-| โหลด | intelligent |
+| โหลด | alwaysApply |
 
 แผนที่ intent → skill (ดูตารางใน manifest)  
-หลายอย่างพร้อมกัน: **recall → diagnose → patch → verify → git-push**
+หลายอย่างพร้อมกัน — ใช้ **โหมดที่ active** ไม่บังคับ patch ทุกครั้ง:
+
+| โหมด | ลำดับ |
+|------|--------|
+| patch/fix (default) | recall → diagnose → patch → verify → git-push |
+| plan-only (`/builder-feature`) | plan → handoff — **ไม่ patch app** |
+| read-only (`/vault-recall`, scrutinize review) | recall/review → report |
+| meta (`/upgrade-ai`) | diagnose skill/rule → verify smoke |
+
+skill **iron law** ชนะ patch steps 7–8 ของ manifest — ดู `change-control-manifest.mdc` § Active skill precedence
 
 ### `workflow/response-format.mdc`
 

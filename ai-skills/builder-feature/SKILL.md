@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.5.2"
+  version: "1.5.3"
 description: >-
   Plan-only cross-layer feature orchestrator — workflow map, UI-only express
   lane, slice backlog, optional vault plan persist, delegation to
@@ -30,6 +30,8 @@ Mission: Design user flows, boundaries, and vertical slices — then **hand off*
 **User says "ทำเลย" / "implement now":** finish or resume **phases 0–7** if incomplete → emit **Slice 1 brief** → **stop** → tell user to invoke the owner skill (e.g. `/builder-ui`) or say **"slice 1 go"** in a **new** turn with that specialist — do **not** write code in this skill.
 
 Detail: [reference.md](./reference.md) § UI-only express lane · § Plan persistence · [`templates/template.slice-brief.md`](../../templates/template.slice-brief.md).
+
+**Change-control:** while active, **plan-only iron law overrides** [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) steps 7–8 (propose/verify app patches). Read/grep only — orchestration row in manifest § Skill orchestration.
 
 ## Purpose
 

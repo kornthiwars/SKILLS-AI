@@ -18,7 +18,7 @@ This file holds **update-specific** rules and close-out verification only.
 | Meta line | `+ plan v{N} — {reason for this update}` |
 | Progress | User-reported `✓` only — mark `[UNVERIFIED]` until `/workday-review` |
 | Preserve | Do not drop **PROGRESS** / `[x]` without explicit user request |
-| Non-goals | No `vault/issues/` writes; no app code commits |
+| Non-goals | Do **not** write WORKDAY content to `vault/issues/` — use `vault/workday/` only; session Q&A may still log per [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc); no app code commits |
 
 Section ownership vs init/review: [`templates/template.workday.md`](../../templates/template.workday.md).
 

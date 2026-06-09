@@ -20,10 +20,13 @@ Every close-out **must** write the vault file **and** show the WORKDAY block in 
 | 2 | `<workspace>/.cursor/vault/workday/` exists | use via junction |
 | 3 | `<workspace>/vault/workday/` or `<agent-skills>/vault/workday/` | use |
 | 4 | Folder contains `ai-skills/` + `scripts/setup-macos-linux.sh` | `{clone}/vault/workday/` |
+| 5 | Walk **parent directories** from workspace; first ancestor with `.cursor/ai-skills-vault.json` | use that pointer → `workdayRelative` (monorepo subproject opened alone) |
+
+Full resolve table: [`vault-recall/reference.md`](../vault-recall/reference.md) § Resolve vault root.
 
 Create `workday/` if missing.
 
-**Never** write WORKDAY plans to `vault/issues/` — use `vault/workday/` only.
+**Never** write WORKDAY plans to `vault/issues/` — use `vault/workday/` only. End-of-turn session Q&A may still log per [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc).
 
 **Feature plans** (orchestrator output from `/builder-feature`): optional `vault/workday/plans/{feature-slug}.md` — see [`builder-feature/reference.md`](../builder-feature/reference.md) § Plan persistence · [`templates/template.feature-plan.md`](../../templates/template.feature-plan.md).
 

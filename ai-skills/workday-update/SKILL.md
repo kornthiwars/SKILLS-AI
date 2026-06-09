@@ -1,7 +1,7 @@
 ---
 name: workday-update
 metadata:
-  version: "1.2.3"
+  version: "1.2.4"
 description: >-
   Daily task change manager — merge discoveries into WORKDAY + vault/workday file.
   Invoke with /workday-update during the day. Planning only.
@@ -68,7 +68,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 ## Non-goals
 
 - No app code commits
-- No writing to `vault/issues/`
+- Do **not** write WORKDAY blocks to `vault/issues/` — use `vault/workday/` only; end-of-turn session Q&A may still log per [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc)
 - No full replan from scratch unless user requests — preserve **MISSION** and history
 - No evidence-based **PROGRESS** or **EVIDENCE** — that is [`/workday-review`](../workday-review/SKILL.md)
 

@@ -124,6 +124,13 @@ check_contains "ai-skills/vault-recall/SKILL.md" 'workday/plans/' "vault-recall 
 check_contains "ai-rules/vault-issues.mdc" 'Auto-ingest gate' "vault-issues defines wiki auto-ingest"
 check_contains "ai-skills/wiki-ingest/reference.md" 'Auto-ingest gate' "wiki-ingest reference has auto-ingest gate"
 check_contains "ai-rules/vault-issues.mdc" 'Wiki →' "vault-issues reports Wiki path on ingest"
+check_contains "ai-skills/workday-init/reference.md" 'parent directories' "workday-init resolve step 5 monorepo"
+check_contains "ai-rules/workflow/decision-tree.mdc" 'Plan-only' "decision-tree plan-only exception"
+check_contains "ai-skills/builder-feature/SKILL.md" 'change-control-manifest' "builder-feature links change-control manifest"
+check_contains "ai-rules/change-control-manifest.mdc" 'Active skill precedence' "manifest defines skill precedence"
+check_contains "ai-rules/change-control-manifest.mdc" 'until review complete; recommend only' "scrutinize row forbids patch during review"
+check_contains "ai-rules/core/execution-model.mdc" 'html,css' "execution-model covers html/css"
+check_contains "ai-skills/wiki-ingest/reference.md" 'manual `/wiki-ingest` only' "wiki persistence scoped to manual invoke"
 check_file "docs/DYNAMIC-AGENT-SMOKE.md"
 check_file "scripts/verify-dynamic-smoke-static.sh"
 

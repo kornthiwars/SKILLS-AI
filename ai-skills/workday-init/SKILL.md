@@ -1,7 +1,7 @@
 ---
 name: workday-init
 metadata:
-  version: "1.2.4"
+  version: "1.2.6"
 description: >-
   Daily work planner — emit WORKDAY block + write vault/workday/YYYY-MM-DD.md.
   Invoke with /workday-init at day start. Planning only; no app code.
@@ -66,7 +66,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 ## Non-goals
 
 - No app code commits
-- No writing WORKDAY to `vault/issues/`
+- Do **not** write WORKDAY blocks to `vault/issues/` — use `vault/workday/` only; end-of-turn session Q&A may still log per [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc)
 - No filling **PROGRESS** or **EVIDENCE** with fabricated completion — leave `—` or empty lists
 
 ---

@@ -35,9 +35,11 @@ Skip wiki silently — issues log may still apply.
 
 ---
 
-## Persistence (mandatory)
+## Persistence (mandatory — manual `/wiki-ingest` only)
 
-Every close-out **must** write/update wiki files **and** show summary in chat.
+When the user invokes **`/wiki-ingest`** or says save to wiki, every close-out **must** write/update wiki files **and** show summary in chat.
+
+**Auto-ingest gate** (end of work turns via [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc)): on **FAIL** skip wiki silently — this section does **not** apply.
 
 ### Resolve wiki directory
 
