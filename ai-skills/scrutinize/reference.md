@@ -16,6 +16,12 @@ When the diff touches `ai-skills/*/SKILL.md`, `*/reference.md`, or `ai-rules/*.m
 - [ ] Vault grep steps **link** [`vault-recall/reference.md`](../vault-recall/reference.md) — no duplicated search tables
 - [ ] Handoffs section links related skills (not orphan workflows)
 - [ ] Write vs RCA: daily Q&A → `vault-issues.mdc`; long RCA → `/fix-record`; durable wiki → `vault-issues.mdc` auto-ingest gate → `wiki/pages/`
+- [ ] Rule/skill hierarchy: [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) § **Active skill precedence** + [`decision-tree.mdc`](../../ai-rules/workflow/decision-tree.mdc) active modes stay aligned when touching routing
+
+When the diff touches **`decision-tree.mdc`**, **`change-control-manifest.mdc`**, or skill orchestration rows:
+
+- [ ] **workday-*** routes present (`/workday-init`, `/workday-update`, `/workday-review`) — plan-only, no app code
+- [ ] Plan-only / read-only / WORKDAY / meta modes not regressed to forced patch sequence
 
 When the diff touches **`builder-feature`**, **`templates/template.slice-brief.md`**, **`templates/template.feature-plan.md`**, or **`vault/workday/plans/`**:
 

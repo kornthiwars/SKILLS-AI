@@ -127,8 +127,11 @@ if search_q 'Active skill precedence' "ai-rules/change-control-manifest.mdc" \
   && search_q 'change-control-manifest' "ai-skills/builder-feature/SKILL.md" \
   && search_q 'parent directories' "ai-skills/workday-init/reference.md" \
   && search_q 'html,css' "ai-rules/core/execution-model.mdc" \
+  && search_q 'html,css' "ai-rules/core/diagnosis-first.mdc" \
+  && search_q '/workday-init' "ai-rules/workflow/decision-tree.mdc" \
+  && search_q '/workday-review' "ai-rules/change-control-manifest.mdc" \
   && search_q 'manual `/wiki-ingest` only' "ai-skills/wiki-ingest/reference.md"; then
-  pass 'scenario 12 — skill precedence, plan-only routing, monorepo resolve, P9 gates'
+  pass 'scenario 12 — skill precedence, plan-only routing, monorepo resolve, P9-P10 gates'
 else
   fail 'scenario 12 — rule/skill precedence gates'
 fi

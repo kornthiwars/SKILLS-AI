@@ -9,7 +9,7 @@
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
 | debug | `/debug` | 1.3.5 | ใช่ |
-| scrutinize | `/scrutinize` | 1.2.6 | ใช่ |
+| scrutinize | `/scrutinize` | 1.2.7 | ใช่ |
 | builder-ui | `/builder-ui` | 1.2.6 | ใช่ |
 | builder-api | `/builder-api` | 1.2.4 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.3 | ใช่ |

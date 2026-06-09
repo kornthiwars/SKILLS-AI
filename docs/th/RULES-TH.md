@@ -74,6 +74,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | DB | `/builder-schema` |
 | git | `/git-push` |
 | ค้น vault | `/vault-recall` |
+| แผน WORKDAY (เช้า / กลางวัน / ท้ายวัน) | `/workday-init` · `/workday-update` · `/workday-review` |
 | ปรับ skill | `/upgrade-ai` |
 | RCA ยาว | `/fix-record` |
 
@@ -406,6 +407,7 @@ HIGH risk ต้องมี automated test **หรือ** manual steps ชั
 |------|--------|
 | patch/fix (default) | recall → diagnose → patch → verify → git-push |
 | plan-only (`/builder-feature`) | plan → handoff — **ไม่ patch app** |
+| WORKDAY (`/workday-*`) | plan maintenance → `vault/workday/` — **ไม่ patch app** |
 | read-only (`/vault-recall`, scrutinize review) | recall/review → report |
 | meta (`/upgrade-ai`) | diagnose skill/rule → verify smoke |
 

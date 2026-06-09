@@ -63,6 +63,7 @@ See also [`workflow/decision-tree.mdc`](workflow/decision-tree.mdc) (always-on r
 | Database | `/builder-schema` |
 | Git publish | `/git-push` |
 | Prior vault notes | `/vault-recall` |
+| Daily WORKDAY plan (init / update / review) | `/workday-init` · `/workday-update` · `/workday-review` — **no app code** |
 | Skill/rule upgrades | `/upgrade-ai` |
 | Long RCA after validated fix (one root cause) | `/fix-record` |
 
@@ -73,6 +74,7 @@ When the user attaches or clearly invokes a skill whose **iron law** conflicts w
 | Skill mode | Overrides |
 |------------|-----------|
 | `/builder-feature` (plan-only) | Steps 7–8 — **no application source patches**; hand off to builder-* per slice |
+| `/workday-init` · `/workday-update` · `/workday-review` | Steps 7–8 — **no app patches**; write `vault/workday/` only per skill reference |
 | `/vault-recall` | Writes — search/report only |
 | `/scrutinize` (review-only) | **No patch** until review complete; recommend only until user approves changes |
 | `/upgrade-ai` on this pack | App patch budget N/A; skill/rule edits follow upgrade-ai + patch budget for meta files |

@@ -131,6 +131,10 @@ check_contains "ai-rules/change-control-manifest.mdc" 'Active skill precedence' 
 check_contains "ai-rules/change-control-manifest.mdc" 'until review complete; recommend only' "scrutinize row forbids patch during review"
 check_contains "ai-rules/core/execution-model.mdc" 'html,css' "execution-model covers html/css"
 check_contains "ai-skills/wiki-ingest/reference.md" 'manual `/wiki-ingest` only' "wiki persistence scoped to manual invoke"
+check_contains "ai-rules/workflow/decision-tree.mdc" '/workday-init' "decision-tree routes workday-init"
+check_contains "ai-rules/change-control-manifest.mdc" '/workday-init' "manifest orchestrates workday skills"
+check_contains "ai-rules/change-control-manifest.mdc" '/workday-review' "manifest active precedence includes workday"
+check_contains "ai-rules/core/diagnosis-first.mdc" 'html,css' "diagnosis-first covers html/css"
 check_file "docs/DYNAMIC-AGENT-SMOKE.md"
 check_file "scripts/verify-dynamic-smoke-static.sh"
 

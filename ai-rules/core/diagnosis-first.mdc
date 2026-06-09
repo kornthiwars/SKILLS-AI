@@ -1,6 +1,6 @@
 ---
 description: Require failing vs expected behavior and evidence before modifying code
-globs: "**/*.{ts,tsx,js,jsx,py,go,rs,java,kt,cs,php,rb,sql}"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 
@@ -15,3 +15,5 @@ Before modifying code, state:
 - root-cause evidence (logs, stack, trace, state)
 
 Do not patch speculative causes. If evidence is missing, gather it or ask.
+
+When an active skill **iron law** forbids app patches (e.g. `/builder-feature`, `/workday-*`), follow [`change-control-manifest.mdc`](../change-control-manifest.mdc) § Active skill precedence — diagnosis applies to reads and plan output, not application source edits.
