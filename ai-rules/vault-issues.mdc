@@ -30,6 +30,7 @@ Do **not** replace `/fix-record` (long RCA after a validated fix).
 | 2 | `<workspace>/.cursor/vault/issues/` exists | workspace via junction |
 | 3 | `<workspace>/vault/issues/` | workspace root |
 | 4 | Folder contains `ai-skills/` and `scripts/setup-macos-linux.sh` | agent-skills clone |
+| 5 | Walk **parent directories** from workspace; first ancestor with `.cursor/ai-skills-vault.json` | use that pointer (monorepo subproject opened alone) |
 
 Create `issues/`, `workday/`, `wiki/pages/`, `wiki/sources/` if missing.
 

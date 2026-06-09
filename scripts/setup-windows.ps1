@@ -1,7 +1,10 @@
 #Requires -Version 5.1
 # Junction .cursor/skills, .cursor/rules, .cursor/vault + ai-skills-vault.json
+# Subprojects: vault-only wire for monorepo siblings (auto when agent-skills is child of install root).
 param(
-    [string]$InstallRoot = ''
+    [string]$InstallRoot = '',
+    [string]$Subprojects = '',
+    [switch]$NoAutoSubprojects
 )
 
 Set-StrictMode -Version Latest
@@ -56,10 +59,9 @@ function Set-Junction([string]$Link, [string]$Target) {
     Write-Host "OK  $Link -> $targetAbs"
 }
 
-function Write-VaultPointer {
-    $cursorDir = Join-Path $InstallRoot '.cursor'
-    if (-not (Test-Path -LiteralPath $cursorDir)) {
-        New-Item -ItemType Directory -Path $cursorDir -Force | Out-Null
+function Write-VaultPointerAt([string]$CursorDir) {
+    if (-not (Test-Path -LiteralPath $CursorDir)) {
+        New-Item -ItemType Directory -Path $CursorDir -Force | Out-Null
     }
 
     $vaultRootAbs = (Resolve-Path -LiteralPath $Vault).Path
@@ -71,9 +73,54 @@ function Write-VaultPointer {
         wikiRelative      = '.cursor/vault/wiki'
     } | ConvertTo-Json -Compress
 
-    $path = Join-Path $cursorDir 'ai-skills-vault.json'
+    $path = Join-Path $CursorDir 'ai-skills-vault.json'
     [IO.File]::WriteAllText($path, $json, [Text.UTF8Encoding]::new($false))
     Write-Host "OK  $path"
+}
+
+function Write-VaultPointer {
+    Write-VaultPointerAt (Join-Path $InstallRoot '.cursor')
+}
+
+function Wire-SubprojectVault([string]$SubRoot) {
+    if (-not (Test-Path -LiteralPath $SubRoot)) { return }
+    $subAbs = (Resolve-Path -LiteralPath $SubRoot).Path
+    if ($subAbs -eq $InstallRoot) { return }
+
+    $cursorDir = Join-Path $subAbs '.cursor'
+    Set-Junction (Join-Path $cursorDir 'vault') $Vault
+    Write-VaultPointerAt $cursorDir
+    Write-Host "OK  subproject vault: $subAbs"
+}
+
+function Get-SubprojectRoots {
+    if ($Subprojects) {
+        foreach ($name in ($Subprojects -split ',')) {
+            $name = $name.Trim()
+            if (-not $name) { continue }
+            if (Test-Path -LiteralPath $name) {
+                (Resolve-Path -LiteralPath $name).Path
+            } elseif (Test-Path -LiteralPath (Join-Path $InstallRoot $name)) {
+                (Resolve-Path -LiteralPath (Join-Path $InstallRoot $name)).Path
+            } else {
+                Write-Host "..  skip subproject (missing): $name"
+            }
+        }
+        return
+    }
+
+    if ($NoAutoSubprojects) { return }
+
+    $agentSkillsInInstall = Join-Path $InstallRoot 'agent-skills'
+    if (-not (Test-Path -LiteralPath $agentSkillsInInstall)) { return }
+    $repoAbs = (Resolve-Path -LiteralPath $RepoRoot).Path
+    $agentAbs = (Resolve-Path -LiteralPath $agentSkillsInInstall).Path
+    if ($agentAbs -ne $repoAbs) { return }
+
+    Get-ChildItem -LiteralPath $InstallRoot -Directory | ForEach-Object {
+        if ($_.FullName -eq $agentAbs) { return }
+        $_.FullName
+    }
 }
 
 function Ensure-VaultFolders {
@@ -166,6 +213,10 @@ Write-VaultPointer
 Ensure-VaultFolders
 Bootstrap-WikiFiles
 Bootstrap-DailyIssues
+
+foreach ($subRoot in Get-SubprojectRoots) {
+    if ($subRoot) { Wire-SubprojectVault $subRoot }
+}
 
 Write-Host ""
 Write-Host "Done. Reload Cursor."

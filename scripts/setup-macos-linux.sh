@@ -1,11 +1,42 @@
 #!/usr/bin/env bash
 # Symlink .cursor/skills, .cursor/rules, .cursor/vault + ai-skills-vault.json
-# Usage: ./scripts/setup-macos-linux.sh [install-root]
-# Default (no arg): parent of agent-skills — typical when Cursor opens the project folder.
+# Usage: ./scripts/setup-macos-linux.sh [install-root] [--subprojects dir1,dir2] [--no-auto-subprojects]
+# Default (no install-root): parent of agent-skills — typical when Cursor opens the project folder.
 # Use "." or "--here" when Cursor opens agent-skills/ itself.
+# Subprojects: vault-only wire for monorepo siblings (e.g. exat-web/) — auto when agent-skills is child of install root.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+INSTALL_ROOT_ARG=""
+SUBPROJECTS=""
+AUTO_SUBPROJECTS=1
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --subprojects)
+      SUBPROJECTS="${2:-}"
+      [ -n "$SUBPROJECTS" ] || { echo "Missing value for --subprojects" >&2; exit 1; }
+      shift 2
+      ;;
+    --no-auto-subprojects)
+      AUTO_SUBPROJECTS=0
+      shift
+      ;;
+    --here | here | . | --parent | parent)
+      INSTALL_ROOT_ARG="$1"
+      shift
+      ;;
+    --*)
+      echo "Unknown option: $1" >&2
+      exit 1
+      ;;
+    *)
+      INSTALL_ROOT_ARG="$1"
+      shift
+      ;;
+  esac
+done
 
 resolve_install_root() {
   case "${1:-}" in
@@ -21,7 +52,7 @@ resolve_install_root() {
   esac
 }
 
-INSTALL_ROOT="$(resolve_install_root "${1:-}")"
+INSTALL_ROOT="$(resolve_install_root "${INSTALL_ROOT_ARG:-}")"
 
 SKILLS="$REPO_ROOT/ai-skills"
 RULES="$REPO_ROOT/ai-rules"
@@ -55,8 +86,8 @@ link_dir() {
   printf 'OK  %s -> %s\n' "$link_path" "$target_abs"
 }
 
-write_vault_pointer() {
-  local cursor_dir="$INSTALL_ROOT/.cursor"
+write_vault_pointer_at() {
+  local cursor_dir="$1"
   local vault_abs json_path
 
   mkdir -p "$cursor_dir"
@@ -77,6 +108,57 @@ with open(path, "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False)
 PY
   printf 'OK  %s\n' "$json_path"
+}
+
+write_vault_pointer() {
+  write_vault_pointer_at "$INSTALL_ROOT/.cursor"
+}
+
+wire_subproject_vault() {
+  local sub_root="$1"
+  local cursor_dir
+
+  [ -d "$sub_root" ] || return 0
+  sub_root="$(cd "$sub_root" && pwd)"
+  [ "$sub_root" != "$INSTALL_ROOT" ] || return 0
+
+  cursor_dir="$sub_root/.cursor"
+  link_dir "$cursor_dir/vault" "$VAULT"
+  write_vault_pointer_at "$cursor_dir"
+  printf 'OK  subproject vault: %s\n' "$sub_root"
+}
+
+collect_subproject_roots() {
+  local name dir agent_skills_in_install sibling
+
+  if [ -n "$SUBPROJECTS" ]; then
+    IFS=',' read -r -a _subs <<<"$SUBPROJECTS"
+    for name in "${_subs[@]}"; do
+      name="${name#"${name%%[![:space:]]*}"}"
+      name="${name%"${name##*[![:space:]]}"}"
+      [ -n "$name" ] || continue
+      if [ -d "$name" ]; then
+        printf '%s\n' "$(cd "$name" && pwd)"
+      elif [ -d "$INSTALL_ROOT/$name" ]; then
+        printf '%s\n' "$(cd "$INSTALL_ROOT/$name" && pwd)"
+      else
+        printf '..  skip subproject (missing): %s\n' "$name" >&2
+      fi
+    done
+    return 0
+  fi
+
+  [ "$AUTO_SUBPROJECTS" -eq 1 ] || return 0
+
+  agent_skills_in_install="$INSTALL_ROOT/agent-skills"
+  [ -d "$agent_skills_in_install" ] || return 0
+  [ "$(cd "$agent_skills_in_install" && pwd)" = "$(cd "$REPO_ROOT" && pwd)" ] || return 0
+
+  for sibling in "$INSTALL_ROOT"/*; do
+    [ -d "$sibling" ] || continue
+    [ "$sibling" = "$agent_skills_in_install" ] && continue
+    printf '%s\n' "$(cd "$sibling" && pwd)"
+  done
 }
 
 ensure_vault_folders() {
@@ -169,5 +251,10 @@ write_vault_pointer
 ensure_vault_folders
 bootstrap_wiki_files
 bootstrap_daily_issues
+
+while IFS= read -r sub_root; do
+  [ -n "$sub_root" ] || continue
+  wire_subproject_vault "$sub_root"
+done < <(collect_subproject_roots)
 
 printf '\nDone. Reload Cursor.\n'

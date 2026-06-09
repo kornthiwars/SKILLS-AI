@@ -33,7 +33,10 @@ cd agent-skills
 chmod +x scripts/setup-macos-linux.sh
 ./scripts/setup-macos-linux.sh            # default: parent of agent-skills
 ./scripts/setup-macos-linux.sh .          # workspace = agent-skills only
+./scripts/setup-macos-linux.sh --subprojects exat-web,exat-api-service
 ```
+
+**Monorepo subprojects:** when `agent-skills/` is a child of the install root, setup also wires **vault-only** (`.cursor/vault` + `ai-skills-vault.json`) into each sibling folder (e.g. `exat-web/`). Override with `--subprojects` or disable with `--no-auto-subprojects`. Agents resolve vault via parent walk — `vault-recall/reference.md` § Resolve step 5.
 
 Requires `python3` (for `ai-skills-vault.json`).
 

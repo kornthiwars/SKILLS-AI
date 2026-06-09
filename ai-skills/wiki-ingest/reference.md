@@ -21,7 +21,7 @@ Triggered by [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) at end of **w
 | 4 | Topic is **closed or verified** — not open bug ledger |
 | 5 | User did **not** say no wiki / อย่าเก็บ wiki this turn |
 | 6 | Not a feature **plan** artifact → use `workday/plans/` via `/builder-feature` instead |
-| 7 | Wiki adds **≥1 durable insight** not already in this turn's `issues/` entry — abstract mechanism, not paraphrase of Question/Answer |
+| 7 | Wiki adds **≥1 durable insight** not already in this turn's `issues/` entry — abstract mechanism, **not a paraphrase** of Question/Answer |
 
 ### On PASS
 
@@ -46,6 +46,7 @@ Every close-out **must** write/update wiki files **and** show summary in chat.
 | 1 | Read `<workspace>/.cursor/ai-skills-vault.json` → `wikiRelative` or `vaultRoot` + `/wiki/` |
 | 2 | `<workspace>/.cursor/vault/wiki/` | via junction |
 | 3 | `<workspace>/vault/wiki/` or agent-skills clone `vault/wiki/` | use |
+| 4 | Parent walk per [`vault-recall/reference.md`](../vault-recall/reference.md) § Resolve step 5 → `wikiRelative` | subproject workspace |
 
 Create `wiki/pages/`, `wiki/sources/` if missing. Ensure `index.md` and `log.md` exist — from [`templates/template.wiki-index.md`](../../templates/template.wiki-index.md) / [`template.wiki-log.md`](../../templates/template.wiki-log.md) or empty.
 

@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.3.5"
+  version: "1.3.6"
 description: >-
   Grep vault wiki pages, feature plans (workday/plans), and recent issues;
   keyword strategy, recall verification gate. Invoke with /vault-recall.

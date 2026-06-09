@@ -1,7 +1,7 @@
 ---
 name: wiki-ingest
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
 description: >-
   Wiki curator — auto-ingest durable insights (no ask-first) or manual ingest of
   papers and closed knowledge into vault/wiki. LLM Wiki Pattern. /wiki-ingest.

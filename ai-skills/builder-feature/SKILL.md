@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.5.1"
+  version: "1.5.2"
 description: >-
   Plan-only cross-layer feature orchestrator — workflow map, UI-only express
   lane, slice backlog, optional vault plan persist, delegation to
@@ -24,6 +24,8 @@ Mission: Design user flows, boundaries, and vertical slices — then **hand off*
 | Read / grep / trace existing code | Edit `.ts`, `.tsx`, `.js`, `.py`, `.go`, `.rs`, `.vue`, `.css`, `.html`, SQL migrations, IaC |
 | Workflow map, slice backlog, ownership tables | Scaffolding, "quick stub", "I'll start while we plan" |
 | Offer handoff to `/builder-ui`, … · **optional** `vault/workday/plans/` persist (user opt-in) | Claim feature is built or READY with code changes |
+
+**Never edit application files** in this skill — implementation belongs in `/builder-ui`, `/builder-api`, `/builder-schema`, or `/builder-infrastructure`.
 
 **User says "ทำเลย" / "implement now":** finish or resume **phases 0–7** if incomplete → emit **Slice 1 brief** → **stop** → tell user to invoke the owner skill (e.g. `/builder-ui`) or say **"slice 1 go"** in a **new** turn with that specialist — do **not** write code in this skill.
 

@@ -12,6 +12,7 @@ Canonical search steps for **`/vault-recall`**, **`debug`**, **`git-push` Phase 
 | 2 | `<workspace>/.cursor/vault/issues/` exists | workspace via junction |
 | 3 | `<workspace>/vault/issues/` | workspace root |
 | 4 | Folder has `ai-skills/` + `scripts/setup-macos-linux.sh` | agent-skills repo clone |
+| 5 | Walk **parent directories** from workspace; first ancestor with `.cursor/ai-skills-vault.json` | use that pointer (monorepo subproject opened alone) |
 
 Create `issues/`, `workday/`, `workday/plans/`, `wiki/pages/`, `wiki/sources/` if missing.
 
