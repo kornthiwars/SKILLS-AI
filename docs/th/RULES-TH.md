@@ -8,7 +8,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | **`globs`** | เมื่อแตะไฟล์ที่ path ตรง pattern |
 | **intelligent** | Cursor เลือกเมื่อคำอธิบาย rule ตรงงาน (ไม่มี glob) |
 
-**รวม 34 ไฟล์** — 4 ตัว always-on, 30 ตัว scoped
+**รวม 34 ไฟล์** — **5** ตัว always-on, **29** ตัว scoped
 
 ---
 
@@ -80,6 +80,8 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 **Active skill precedence:** เมื่อ skill มี iron law (เช่น `/builder-feature` plan-only) — **override** ขั้น 7–8 ของลำดับ 9 ขั้น; vault ท้าย turn ยังตาม `vault-issues.mdc` ยกเว้น artifact ที่ skill ห้ามชัด (plan → `workday/plans/` ไม่ใช่ wiki)
 
+**Scoped vs meta:** patching/testing/debugging rules ใช้ application-source globs — ไม่ trigger จากแก้ `ai-skills/` / `ai-rules/` / `docs/` อย่างเดียว (ดู manifest § Scoped rules vs meta edits)
+
 **ห้ามใน production:** fix เดา, refactor ปน bugfix, เปลี่ยน API/schema แอบ, ทำลาย schema โดยไม่มีแผน
 
 ---
@@ -118,7 +120,9 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | `vault/workday/plans/{slug}.md` | แผน feature จาก `/builder-feature` (opt-in persist) — gitignored |
 | `vault/wiki/pages/{slug}.md` | ความรู้ถาวร — **auto-ingest gate** หรือ **`/wiki-ingest`** |
 
-**เมื่อเขียน issues:** หลังจบงานจริง (code, git, skill, debug) — **ไม่** log ทุกแชท
+**เมื่อเขียน issues:** ระหว่าง close-out (§ Precedence) ก่อนส่ง reply สุดท้าย — **ไม่** log ทุกแชท
+
+**Close-out order:** งานหลัก → **SKILL REPORT** (ถ้ามี) → ประเมิน issues แล้ว wiki gate → บรรทัด `Logged →` / `Wiki →` ท้ายสุด
 
 **เมื่อเขียน wiki:** agent **ประเมินเอง** ท้าย work turn ตาม `wiki-ingest/reference.md` § Auto-ingest gate — **ไม่ถาม** ถ้า PASS · หรือ user สั่ง **`/wiki-ingest`** / เก็บลง wiki · ข้ามถ้า user บอก **อย่าเก็บ wiki**
 
@@ -161,7 +165,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 ### `core/execution-model.mdc`
 
-| globs | `**/*.{ts,tsx,js,jsx,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}` |
+| globs | application-source bundle (รวม `html,css` — ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §9) |
 |-------|---------------------------------------------------------------------|
 
 **ทำอะไร:** บังคับลำดับ 9 ขั้นจาก manifest — **ห้าม** ข้ามไป patch ก่อนขั้น 1–6 พอ  
@@ -202,7 +206,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 ### `core/minimal-change.mdc`
 
-| globs | `**/*` |
+| globs | application-source bundle (APPENDIX §9) |
 
 **แก้เฉพาะสิ่งที่ root cause พิสูจน์แล้วต้องการ**  
 **ห้าม** ปน refactor, cleanup, optimize, feature ใน patch เดียว  
@@ -212,7 +216,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 ### `core/verification-required.mdc`
 
-| globs | `**/*` |
+| globs | application-source bundle (APPENDIX §9) |
 
 **ก่อนบอกว่า “เสร็จ”:**
 
@@ -227,7 +231,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 ## โฟลเดอร์ `debugging/`
 
-ชุดนี้เสริม `/debug` — เปิดเมื่อแก้ bug (มัก glob `**/*`)
+ชุดนี้เสริม `/debug` — เปิดเมื่อแก้ bug (application-source bundle — APPENDIX §9)
 
 ### `debugging/reproduce-before-fix.mdc`
 
@@ -265,7 +269,7 @@ Root cause ต้องอธิบายอาการครบ path — อ�
 
 ### `patching/patch-size-limits.mdc`
 
-| globs | `**/*` |
+| globs | application-source bundle (APPENDIX §9) |
 
 ชอบ fix แคบ: condition, guard, wrapper  
 **ห้าม** ปน refactor/cleanup/feature กับ bugfix — งบ 120 บรรทัด / 5 ไฟล์  
@@ -273,7 +277,7 @@ Root cause ต้องอธิบายอาการครบ path — อ�
 
 ### `patching/no-hidden-side-effects.mdc`
 
-| globs | `**/*` |
+| globs | application-source bundle (APPENDIX §9) |
 
 **ห้ามโดยไม่บอก user:** fallback เงียบ, catch กว้างกลืน error, เปลี่ยน default/flag, แก้แค่ log ให้ error หายจาก UI
 
@@ -337,7 +341,7 @@ Root cause ต้องอธิบายอาการครบ path — อ�
 
 ### `testing/mandatory-validation.mdc`
 
-| globs | `**/*` |
+| globs | application-source bundle (APPENDIX §9) |
 
 ไม่บอก “เสร็จ” โดยไม่มี expected outcome, ขั้น verify, พิจารณา flow ที่ไม่ได้แตะ, ช่องว่างถ้าไม่รัน test
 
@@ -350,13 +354,13 @@ behavior เปลี่ยน → เพิ่ม/อัปเดต test ถ�
 
 ### `testing/unsafe-untested-change.mdc`
 
-| globs | `**/*` |
+| globs | application-source bundle (APPENDIX §9) |
 
 HIGH risk ต้องมี automated test **หรือ** manual steps ชัด — ไม่งั้นติดป้าย **unsafe** ห้ามอ้าง production-ready
 
 ### `testing/manual-test-flows.mdc`
 
-| globs | `**/*` |
+| globs | application-source bundle (APPENDIX §9) |
 
 ไม่มี CI: ให้ขั้นมือแบบ copy-paste ได้ — setup, action, expected, negative case
 
@@ -433,8 +437,8 @@ skill **iron law** ชนะ patch steps 7–8 ของ manifest — ดู `ch
 
 | ประเภท | จำนวน | Token | เมื่อไหร่มีผล |
 |--------|------:|-------|----------------|
-| Always-on | 4 | ทุก turn (~300 บรรทัดรวม) | ทุกคำถาม |
-| Scoped | 30 | เมื่อ glob/intelligent ติด | แก้โค้ด / review / risk สูง |
+| Always-on | **5** | ทุก turn (~350 บรรทัดรวม) | ทุกคำถาม — `change-control-manifest`, `decision-tree`, `vault-issues`, `clean-code`, `bilingual-th-en` |
+| Scoped | **29** | เมื่อ glob/intelligent ติด | แก้ **application source** / review / risk สูง — **ไม่** trigger จาก meta อย่างเดียว (`ai-skills/`, `ai-rules/`, `docs/`) |
 
 ---
 

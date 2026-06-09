@@ -1,6 +1,6 @@
 ---
 description: Prefer safe order — tests/repro first, then minimal fix, then verify
-globs: "**/*"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 

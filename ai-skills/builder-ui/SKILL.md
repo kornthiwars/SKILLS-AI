@@ -1,7 +1,7 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.2.6"
+  version: "1.2.7"
 description: >-
   Design scalable, accessible UI systems from visual references — layout,
   components, responsive behavior, a11y. Accepts slice briefs from
@@ -37,6 +37,7 @@ Do NOT:
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+- Application patches: follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) (patch budget, observe→verify, Active skill precedence).
 
 ## Handoffs (other skills in this pack)
 

@@ -40,7 +40,7 @@ Create `issues/`, `workday/`, `wiki/pages/`, `wiki/sources/` if missing.
 
 ## When to write — issues (no ask-first)
 
-Write **after** finishing the user reply, **only on work turns** — **not every message**.
+Write during close-out (§ Precedence) on **work turns** — **not every message** — before the user receives the final reply.
 
 | Write | Skip |
 |-------|------|
@@ -85,7 +85,20 @@ Follow [`ai-skills/vault-recall/reference.md`](../ai-skills/vault-recall/referen
 
 ## Precedence
 
-- Before the final reply (after main work): evaluate **issues** write, then **wiki** auto-ingest gate — each at most **once per turn**
+### Close-out order (skill + vault)
+
+On **work turns** when a skill is active:
+
+1. Complete main work (patch, plan, review, search, etc.)
+2. Emit **`## SKILL REPORT`** when the skill defines it — labels per [`templates/template.skill-report.md`](../templates/template.skill-report.md); body per `bilingual-th-en.mdc`
+3. Evaluate vault (below) — at most **once** each per turn
+4. Append vault lines (`Logged →`, `Wiki →`) **after** SKILL REPORT, as the **last** lines before the user sees the reply
+
+Vault evaluation (step 3):
+
+- **Issues** — if work turn qualifies (see § When to write — issues)
+- **Wiki** — run auto-ingest gate after issues decision
+
 - If issues written → one line: `Logged → <issues path>`
 - If wiki ingested → one line: `Wiki → <pages path>` (no ask-first when gate passed)
 - If neither → **do not** claim “logged to vault” or “saved to wiki”

@@ -1,6 +1,6 @@
 ---
 description: Validation required before claiming a fix or feature works
-globs: "**/*"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 

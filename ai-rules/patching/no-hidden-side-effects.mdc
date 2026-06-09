@@ -1,6 +1,6 @@
 ---
 description: No silent behavior changes, fallbacks, or broad try/catch without disclosure
-globs: "**/*"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 

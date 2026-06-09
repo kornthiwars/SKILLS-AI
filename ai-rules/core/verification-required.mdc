@@ -1,6 +1,6 @@
 ---
 description: Never claim fixed without validation evidence
-globs: "**/*"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 

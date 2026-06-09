@@ -1,7 +1,7 @@
 ---
 name: workday-review
 metadata:
-  version: "1.2.2"
+  version: "1.2.3"
 description: >-
   End-of-day auditor — fill WORKDAY + write vault/workday with EVIDENCE from git/code.
   Invoke with /workday-review. Never marks complete from conversation alone.
@@ -65,6 +65,7 @@ Output contract: [`templates/template.workday.md`](../../templates/template.work
 
 - No new feature implementation during review
 - No amending git history
+- Do **not** write WORKDAY blocks to `vault/issues/` — use `vault/workday/` only; end-of-turn session Q&A may still log per [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc)
 
 ---
 

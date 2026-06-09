@@ -1,6 +1,6 @@
 ---
 description: Debugging decisions must cite observable evidence
-globs: "**/*"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 

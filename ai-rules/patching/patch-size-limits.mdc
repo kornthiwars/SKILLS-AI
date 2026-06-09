@@ -1,6 +1,6 @@
 ---
 description: Keep debug/fix patches small — no drive-by refactors
-globs: "**/*"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 

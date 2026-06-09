@@ -1,6 +1,6 @@
 ---
 description: When automation is missing, provide concrete manual verification steps
-globs: "**/*"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 

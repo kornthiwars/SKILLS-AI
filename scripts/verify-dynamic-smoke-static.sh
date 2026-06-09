@@ -130,8 +130,11 @@ if search_q 'Active skill precedence' "ai-rules/change-control-manifest.mdc" \
   && search_q 'html,css' "ai-rules/core/diagnosis-first.mdc" \
   && search_q '/workday-init' "ai-rules/workflow/decision-tree.mdc" \
   && search_q '/workday-review' "ai-rules/change-control-manifest.mdc" \
-  && search_q 'manual `/wiki-ingest` only' "ai-skills/wiki-ingest/reference.md"; then
-  pass 'scenario 12 — skill precedence, plan-only routing, monorepo resolve, P9-P10 gates'
+  && search_q 'manual `/wiki-ingest` only' "ai-skills/wiki-ingest/reference.md" \
+  && search_q 'Scoped rules vs meta edits' "ai-rules/change-control-manifest.mdc" \
+  && search_q 'Close-out order' "ai-rules/vault-issues.mdc" \
+  && ! search_q 'globs: "**/*"' "ai-rules/core/minimal-change.mdc"; then
+  pass 'scenario 12 — skill precedence, plan-only routing, monorepo resolve, P9-P10-L4 gates'
 else
   fail 'scenario 12 — rule/skill precedence gates'
 fi

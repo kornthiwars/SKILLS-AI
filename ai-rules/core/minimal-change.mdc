@@ -1,6 +1,6 @@
 ---
 description: Prefer smallest patch that fixes the proven root cause
-globs: "**/*"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 

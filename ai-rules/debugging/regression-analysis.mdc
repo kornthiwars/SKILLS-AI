@@ -1,6 +1,6 @@
 ---
 description: After a fix, analyze regression exposure on dependents and shared behavior
-globs: "**/*"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 

@@ -1,6 +1,6 @@
 ---
 description: Mark high-risk changes unsafe when neither automated nor manual validation exists
-globs: "**/*"
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 

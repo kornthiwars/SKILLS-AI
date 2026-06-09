@@ -1,7 +1,7 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.2.3"
+  version: "1.2.4"
 description: >-
   Design integrity-safe schemas via domain modeling, relationships, indexing,
   and safe evolution. Accepts slice briefs from /builder-feature. Invoke with
@@ -38,6 +38,7 @@ Do NOT:
 - ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
 - ALWAYS state explicit non-goals (what this skill will **not** change in this run).
 - NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+- Application patches: follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) (patch budget, observe→verify, Active skill precedence).
 
 ## Handoffs (other skills in this pack)
 

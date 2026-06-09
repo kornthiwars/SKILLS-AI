@@ -93,6 +93,12 @@ When the user attaches or clearly invokes a skill whose **iron law** conflicts w
 ## Rule layers
 
 - **This file** — always-on gates
-- **`ai-rules/{core,patching,architecture,testing,risk,workflow}/`** — scoped rules (globs / intelligent)
+- **`ai-rules/{core,patching,architecture,testing,risk,workflow}/`** — scoped rules (application-source globs / intelligent)
 - **Skills** — deep workflows on invoke
 - **Scripts** — `smoke-skills.sh`, `change-control-check.sh`, CI
+
+### Scoped rules vs meta edits
+
+Patching, testing, and debugging rules under `ai-rules/` use **application-source globs** (same extensions as [`core/execution-model.mdc`](core/execution-model.mdc)) — they activate when editing app/runtime code, **not** when editing pack meta alone (`ai-skills/`, `ai-rules/`, `docs/`, `scripts/`, `templates/`).
+
+Meta edits in this repo: follow active skill workflow + patch budget in this manifest; use [`/upgrade-ai`](../ai-skills/upgrade-ai/SKILL.md) checklist when changing skills/rules.

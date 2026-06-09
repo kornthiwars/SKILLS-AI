@@ -10,10 +10,10 @@
 |-------|--------|---------|-------------------|
 | debug | `/debug` | 1.3.5 | ใช่ |
 | scrutinize | `/scrutinize` | 1.2.7 | ใช่ |
-| builder-ui | `/builder-ui` | 1.2.6 | ใช่ |
-| builder-api | `/builder-api` | 1.2.4 | ใช่ |
-| builder-schema | `/builder-schema` | 1.2.3 | ใช่ |
-| builder-infrastructure | `/builder-infrastructure` | 1.2.4 | ใช่ |
+| builder-ui | `/builder-ui` | 1.2.7 | ใช่ |
+| builder-api | `/builder-api` | 1.2.5 | ใช่ |
+| builder-schema | `/builder-schema` | 1.2.4 | ใช่ |
+| builder-infrastructure | `/builder-infrastructure` | 1.2.5 | ใช่ |
 | builder-feature | `/builder-feature` | 1.5.3 | ใช่ |
 | fix-record | `/fix-record` | 1.2.4 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.2.7 | ใช่ |
@@ -22,7 +22,7 @@
 | wiki-ingest | `/wiki-ingest` | 1.1.3 | ใช่ |
 | workday-init | `/workday-init` | 1.2.6 | ใช่ |
 | workday-update | `/workday-update` | 1.2.4 | ใช่ |
-| workday-review | `/workday-review` | 1.2.2 | ใช่ |
+| workday-review | `/workday-review` | 1.2.3 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
 
@@ -191,23 +191,26 @@ Template: `templates/template.issue.md`, `templates/template.workday.md`, `templ
 
 ## 9. ตาราง `globs` ครบทุก scoped rule
 
+**Application-source bundle** (patching · testing · debugging · minimal-change · verification-required):  
+`**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}` — **ไม่** trigger เมื่อแก้ meta อย่างเดียว (`ai-skills/`, `ai-rules/`, `docs/`, `scripts/`). ดู manifest § Scoped rules vs meta edits.
+
 | ไฟล์ | globs (สรุป) |
 |------|----------------|
-| `core/execution-model` | `**/*.{ts,tsx,js,jsx,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}` |
-| `core/diagnosis-first` | เหมือนด้านบน + รวม sql |
-| `core/minimal-change` | `**/*` |
-| `core/verification-required` | `**/*` |
+| `core/execution-model` | application-source bundle |
+| `core/diagnosis-first` | application-source bundle |
+| `core/minimal-change` | application-source bundle |
+| `core/verification-required` | application-source bundle |
 | `core/uncertainty-control` | *(ไม่มี — intelligent)* |
-| `debugging/*` (5 ไฟล์) | `**/*` |
+| `debugging/*` (5 ไฟล์) | application-source bundle |
 | `patching/patch-scope-control` | source หลายภาษา (ไม่มี sql) |
-| `patching/*` อื่น (4) | `**/*` |
+| `patching/*` อื่น (4) | application-source bundle |
 | `architecture/architecture-boundaries` | `**/*.{ts,tsx,js,jsx,py,go}` |
 | `architecture/api-contract-safety` | `api/`, `routes/`, `controllers/`, `handlers/`, `*route*` |
 | `architecture/shared-module-protection` | `shared/`, `common/`, `lib/`, `utils/`, `core/` |
 | `architecture/schema-change-protection` | `migrations/`, `schema/`, `prisma/`, `*migration*` |
-| `testing/mandatory-validation` | `**/*` |
-| `testing/manual-test-flows` | `**/*` |
-| `testing/unsafe-untested-change` | `**/*` |
+| `testing/mandatory-validation` | application-source bundle |
+| `testing/manual-test-flows` | application-source bundle |
+| `testing/unsafe-untested-change` | application-source bundle |
 | `testing/regression-test-policy` | `**/*.{test,spec}.{ts,tsx,js,jsx,py,go}` |
 | `risk/production-safety` | `.env*`, `deploy/`, `infra/`, `*prod*`, `k8s/`, `terraform/` |
 | `risk/risk-classification` | intelligent |

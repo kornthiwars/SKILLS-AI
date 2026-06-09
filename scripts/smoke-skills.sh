@@ -135,6 +135,10 @@ check_contains "ai-rules/workflow/decision-tree.mdc" '/workday-init' "decision-t
 check_contains "ai-rules/change-control-manifest.mdc" '/workday-init' "manifest orchestrates workday skills"
 check_contains "ai-rules/change-control-manifest.mdc" '/workday-review' "manifest active precedence includes workday"
 check_contains "ai-rules/core/diagnosis-first.mdc" 'html,css' "diagnosis-first covers html/css"
+check_not_contains "ai-rules/core/minimal-change.mdc" 'globs: "**/*"' "minimal-change no longer uses catch-all glob"
+check_contains "ai-rules/change-control-manifest.mdc" 'Scoped rules vs meta edits' "manifest defines meta vs app scoped rules"
+check_contains "ai-rules/vault-issues.mdc" 'Close-out order' "vault-issues formalizes close-out sequence"
+check_contains "ai-skills/builder-ui/SKILL.md" 'change-control-manifest' "builder-ui links change-control manifest"
 check_file "docs/DYNAMIC-AGENT-SMOKE.md"
 check_file "scripts/verify-dynamic-smoke-static.sh"
 
