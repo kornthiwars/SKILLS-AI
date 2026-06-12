@@ -72,7 +72,17 @@ Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`project
    - **Agent-only:** `Read` `scripts/vault/daily.template.md`, replace `DATE` / `ISO`, `Write` daily file; upsert manifest entry `daily-<today>` (same shape as bootstrap)
 5. Empty Issues table is OK — `/vault-daily` fills rows later
 
-**Day rollover:** first vault skill invoke on a new calendar day creates that day’s file automatically. Re-running `setup` is optional, not required daily.
+**Day rollover:** first vault skill invoke **or** first **vault autolog** after a verified patch on a new calendar day creates that day’s file. Re-running `setup` is optional.
+
+### Autolog after verified work (no slash)
+
+Always-on rule: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc). After patch + verify, agent ensures today’s daily and appends **one bullet** under `## สรุปงานวันนี้`. User typing “แก้หน้านี้…” does **not** require `/vault-daily`.
+
+| User action | Daily shell | สรุปงานวันนี้ | Issues table |
+|-------------|-------------|---------------|--------------|
+| แก้โค้ด / patch + verify | autolog creates if missing | autolog bullet | only bugs/blockers |
+| `/vault-recall` | ensure | read | read |
+| `/vault-daily` | merge | full triage | user confirms promote |
 
 ---
 

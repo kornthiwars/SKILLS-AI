@@ -48,7 +48,7 @@ Agent routes from user intent **without requiring** a slash command unless the u
 
 | search past decisions / vault memory | `/vault-recall` |
 
-| daily task summary / end-of-day report | `/vault-daily` |
+| daily task summary / end-of-day triage + promote | `/vault-daily` (optional — routine work logs via [`vault-autolog.mdc`](./vault-autolog.mdc)) |
 
 | one commit, multiple unrelated fixes | PR description or **one fix-record per root cause** — ask scope |
 
@@ -64,7 +64,7 @@ If multiple apply, use the row for the **active mode**:
 
 |-------------|----------------------------------------|
 
-| **Patch / fix** (default) | diagnose → patch → verify → optional `/fix-record` or `/vault-capture` → git-push |
+| **Patch / fix** (default) | diagnose → patch → verify → **vault autolog** (ensure daily + bullet) → optional `/fix-record` or `/vault-capture` → git-push |
 
 | **Plan-only** (`/builder-feature`) | plan phases → handoff — **no app patch** |
 

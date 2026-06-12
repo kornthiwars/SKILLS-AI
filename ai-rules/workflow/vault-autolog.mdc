@@ -1,0 +1,36 @@
+---
+description: Auto ensure and lightly update today's vault daily after verified work — no slash command required
+alwaysApply: true
+---
+
+# Vault autolog (zero-touch daily)
+
+User does **not** need `/vault-daily` after every task. `/vault-daily` is for **triage, Issues table, promote, end-of-day report** — not routine logging.
+
+## When to run (agent — no user slash)
+
+After **verified** substantive work in the turn:
+
+- User-requested **patch** (app or pack meta) applied and verified
+- Successful commit in this session (including `/git-push`)
+
+**Skip** when: explain-only / read-only with no edits; user says skip vault; trivial one-line copy with no durable value.
+
+## Steps (lightweight)
+
+1. **Ensure today shell** — [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Ensure today daily shell (create `daily/<today>.md` + manifest if missing; never overwrite existing body)
+2. **Append** one bullet under `## สรุปงานวันนี้`:
+   - `- <what changed> (<scope or path>)`
+   - Dedupe: skip if the same bullet already exists
+   - Do **not** fill `## Issues วันนี้` for routine UI/copy fixes
+3. **Issues row** — only for bugs, blockers, or when the user asks to track an issue
+
+## vs vault skills
+
+| Mechanism | Role |
+|-----------|------|
+| **autolog** (this rule) | Automatic shell + one-line summary after verify |
+| `/vault-capture` | Durable session / ADR note |
+| `/vault-daily` | Triage preview, Issues review, promote, สรุปส่งรายงาน |
+
+If vault write fails (missing junction, permissions), **do not block** the user task — mention once in chat.

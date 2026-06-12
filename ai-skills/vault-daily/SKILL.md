@@ -3,14 +3,14 @@ name: vault-daily
 metadata:
   version: "2.0.0"
 description: >-
-  Daily task summary and triage — one file per day, manifest on promote.
-  No Python. Invoke with /vault-daily at end of day.
+  End-of-day triage and promote — Issues table, carry-over, report. Routine
+  bullets autolog after patches (vault-autolog rule). No Python. /vault-daily optional.
 disable-model-invocation: true
 ---
 
 # Vault daily
 
-End-of-day workflow: merge **one** `vault/notes/daily/YYYY-MM-DD.md`, triage, promote after confirm, update manifest.
+**Optional** end-of-day workflow — not required after every task. Routine work is appended automatically per [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc). Use `/vault-daily` for **triage**, **Issues** review, **promote**, and **สรุปส่งรายงาน**.
 
 ## Iron law
 
