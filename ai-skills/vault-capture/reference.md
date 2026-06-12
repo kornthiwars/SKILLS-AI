@@ -8,7 +8,6 @@
 | Session | `templates/vault/notes/template.vault-session.md` | `sessions/SLUG.md` |
 | Decision | `templates/vault/notes/template.vault-decision.md` | `decisions/SLUG.md` |
 | Project | `templates/vault/notes/template.vault-project.md` | `projects/SLUG.md` |
-| Home | `templates/vault/notes/template.vault-home.md` | `Home.md` |
 
 Placeholders: [templates/vault/README.md](../../templates/vault/README.md).
 
@@ -71,7 +70,8 @@ Migration from v1: run `scripts/vault/migrate-vault.ps1`.
 3. If file **exists** → read/merge (never overwrite wholesale)
 4. If **missing** and you need daily (autolog, `/vault-daily`, recall “วันนี้”):
    - `Read` `templates/vault/notes/template.vault-daily.md`
-   - Replace `DATE` / `ISO`
+   - Replace `__VAULT_DATE__` / `__VAULT_ISO__` (literal — **not** PowerShell `-replace 'DATE'`, which corrupts `updated_at`)
+   - Or run `append-daily.ps1` / `.sh` — auto-creates daily from template if missing
    - `Write` `vault/daily/<today>.md`
    - Optional: upsert manifest `daily-<today>` (`tier: ephemeral`)
 5. Then run `append-daily` for bullets, or full `/vault-daily` for triage
@@ -137,4 +137,95 @@ Path: `vault/projects/<slug>.md` — use **`template.vault-project.md`**.
 
 Sections: **Overview**, **Goals**, **Status** (table), **Links**. Manifest: `id: proj-<slug>`, `tier: semantic`.
 
-Used by `/vault-daily` promote (`keep_project`) and `/vault-capture` when tier is `projects`.
+Used by `/vault-daily` promote (`keep_project`), explicit `/vault-capture` tier `projects`, and **auto-ensure** after session/decision capture (below).
+
+---
+
+## Infer project (agent — mandatory for sessions/decisions)
+
+Before writing a session or decision note, agent **infers** the `project` slug — user does not need to name `api` / `web` / `app` each time.
+
+### Signals (combine; no fixed single order)
+
+| Signal | Example |
+|--------|---------|
+| Patched paths in turn | `api/src/auth.ts` → `api`; `web/desktop/` → `web` |
+| Git root / cwd | Repo folder name of work being captured |
+| Conversation topic | "debug mobile login" → `app` |
+| Manifest hubs | Existing `proj-api` + work clearly in api |
+| Dedupe merge | Keep existing frontmatter `project` |
+| Workspace folder | Root folder name as hint only |
+
+### Slug rules
+
+- kebab-case, short (`api`, `web`, `app`)
+- No spaces
+- Monorepo: sub-area when clear (e.g. `web-desktop` from `web/desktop/`)
+
+### When to ask user
+
+Ask **once** only when two candidates tie **or** no signals exist (explain-only capture with no patch paths).
+
+### Transparency
+
+SKILL REPORT must include: `Inferred project: <slug> (<one-line reason>)`.
+
+---
+
+## Project hub auto-ensure (mandatory after sessions/decisions)
+
+After primary note write + manifest upsert, **always** run hub ensure when tier is `sessions/` or `decisions/`. Skip when tier is `projects/` (note is the hub).
+
+### Algorithm
+
+```
+hubPath = vault/projects/<project>.md
+primaryWikilink = [[sessions/<slug>]] or [[decisions/<slug>]]
+
+IF hub file missing:
+  Read templates/vault/notes/template.vault-project.md
+  Replace SLUG, TITLE, PROJECT, CREATED, UPDATED (today YYYY-MM-DD)
+  Overview = one sentence from capture context
+  Links = - primaryWikilink
+  Write hubPath
+  hubAction = created
+ELSE:
+  Read hubPath
+  IF ## Links lacks primaryWikilink line:
+    Append "- primaryWikilink" under ## Links
+  hubAction = updated
+
+Read primary note
+IF Context lacks [[projects/<project>]]:
+  Append "Hub: [[projects/<project>]]" at end of ## Context section
+
+IF vault/daily/<today>.md exists:
+  Read daily
+  IF ## Promoted lacks [[projects/<project>]] or primary wikilink:
+    Append missing wikilinks under ## Promoted
+
+Upsert manifest proj-<project>:
+  path: projects/<project>.md
+  tier: semantic
+  project: <project>
+  tags: [] or [project]
+  updated: today
+
+Report hubAction + inferred project
+```
+
+### Merge rules (never overwrite wholesale)
+
+| File | Rule |
+|------|------|
+| Hub new | From template; Goals/Status may stay empty |
+| Hub existing | Append `## Links` lines only |
+| Primary | Append hub backlink in Context only |
+| Daily | Append `## Promoted` wikilinks only if file exists |
+| Manifest | Upsert by `id`; `tags` required on every entry |
+
+### Multi-repo
+
+One shared vault; separate hubs per inferred project (`projects/api.md`, `projects/web.md`, `projects/app.md`). First capture for a project creates its hub automatically.
+
+**Do not** run `append-daily` in capture — daily bullets stay with autolog / `/vault-daily`.

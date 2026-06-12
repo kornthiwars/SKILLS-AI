@@ -25,7 +25,7 @@ Reload Cursor after rule changes.
 | builder-feature | Plan-only; no `paths` frontmatter; slice handoff |
 | builder-schema | Migration + rollback plan |
 | vault-recall | `grep-vault` or per-file Read; cites line range; no “empty vault” when notes exist |
-| vault-capture | Uses `template.vault-session.md` (or tier template); manifest upsert |
+| vault-capture | Infer project; session/decision → auto hub `projects/<slug>.md`, backlink, Promoted wikilinks; manifest upsert |
 | vault-daily / autolog | New day: `template.vault-daily.md` then `append-daily`; reply has `Vault daily:` |
 
 ## Obsidian (manual)

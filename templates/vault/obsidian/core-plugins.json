@@ -1,6 +1,6 @@
 {
   "daily-notes": true,
-  "templates": true,
+  "templates": false,
   "graph": true,
   "backlink": true,
   "outline": true,

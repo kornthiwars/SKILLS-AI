@@ -15,7 +15,7 @@ All templates: `templates/vault/notes/` — detail in [templates/vault/README.md
 
 Path: `vault/daily/YYYY-MM-DD.md`
 
-**Template:** `templates/vault/notes/template.vault-daily.md` — replace `DATE`, `ISO`; optional `project` in frontmatter.
+**Template:** `templates/vault/notes/template.vault-daily.md` — replace `__VAULT_DATE__`, `__VAULT_ISO__` (literal); optional `project` in frontmatter. Prefer `append-daily` script (auto-creates file).
 
 ## Triage values
 

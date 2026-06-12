@@ -2,8 +2,7 @@
 # Bootstrap Obsidian-native vault layout + _agent catalog (no Python).
 param(
     [string]$RepoRoot = '',
-    [switch]$Verify,
-    [switch]$RefreshTemplates
+    [switch]$Verify
 )
 
 Set-StrictMode -Version Latest
@@ -17,14 +16,21 @@ if (-not $RepoRoot) {
 
 $Vault = Join-Path $RepoRoot 'vault'
 $Agent = Join-Path $Vault '_agent'
-$TemplatesRuntime = Join-Path $Vault 'Templates'
 $TemplatesPack = Join-Path $RepoRoot 'templates\vault'
 $MetaPack = Join-Path $TemplatesPack 'meta'
 $NotesPack = Join-Path $TemplatesPack 'notes'
 $ObsidianPack = Join-Path $TemplatesPack 'obsidian'
 $ObsidianRuntime = Join-Path $Vault '.obsidian'
+$LegacyTemplates = Join-Path $Vault 'Templates'
 
 $NoteDirs = @('daily', 'decisions', 'sessions', 'projects')
+
+$PackTemplateNames = @(
+    'template.vault-daily.md',
+    'template.vault-session.md',
+    'template.vault-decision.md',
+    'template.vault-project.md'
+)
 
 function Ensure-FileFromTemplate([string]$Target, [string]$Template) {
     if (Test-Path -LiteralPath $Target) { return $false }
@@ -52,16 +58,43 @@ function Copy-IfMissing([string]$Source, [string]$Dest) {
     return $true
 }
 
-function Copy-TemplateNote([string]$Name, [switch]$ForceRefresh) {
-    $src = Join-Path $NotesPack $Name
-    $dest = Join-Path $TemplatesRuntime $Name
-    if (-not (Test-Path -LiteralPath $src)) {
-        throw "Missing pack template: $src"
+function Remove-LegacyTemplatesDir {
+    if (-not (Test-Path -LiteralPath $LegacyTemplates)) { return }
+
+    $item = Get-Item -LiteralPath $LegacyTemplates -Force
+    if ($item.LinkType) {
+        Write-Warning "vault/Templates is a link — remove manually if you want pack-only templates."
+        return
     }
-    if ($ForceRefresh -and (Test-Path -LiteralPath $dest)) { return $false }
-    if (Test-Path -LiteralPath $dest) { return $false }
-    Copy-Item -LiteralPath $src -Destination $dest -Force
-    return $true
+
+    $files = Get-ChildItem -LiteralPath $LegacyTemplates -File -ErrorAction SilentlyContinue
+    if (-not $files -or $files.Count -eq 0) {
+        Remove-Item -LiteralPath $LegacyTemplates -Force -Recurse
+        Write-Host "Removed empty vault/Templates/ (schemas live in templates/vault/notes/)."
+        return
+    }
+
+    $unexpected = @()
+    foreach ($file in $files) {
+        $packFile = Join-Path $NotesPack $file.Name
+        if (-not (Test-Path -LiteralPath $packFile)) {
+            $unexpected += $file.Name
+            continue
+        }
+        $packHash = (Get-FileHash -LiteralPath $packFile -Algorithm SHA256).Hash
+        $runtimeHash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash
+        if ($packHash -ne $runtimeHash) {
+            $unexpected += $file.Name
+        }
+    }
+
+    if ($unexpected.Count -gt 0) {
+        Write-Warning "vault/Templates/ has custom or unknown files ($($unexpected -join ', ')) — not removed."
+        return
+    }
+
+    Remove-Item -LiteralPath $LegacyTemplates -Force -Recurse
+    Write-Host "Removed vault/Templates/ copy (use templates/vault/notes/ in git)."
 }
 
 New-Item -ItemType Directory -Path $Vault -Force | Out-Null
@@ -72,41 +105,11 @@ foreach ($name in $NoteDirs) {
     New-Item -ItemType Directory -Path (Join-Path $Vault $name) -Force | Out-Null
 }
 New-Item -ItemType Directory -Path $Agent -Force | Out-Null
-New-Item -ItemType Directory -Path $TemplatesRuntime -Force | Out-Null
 
 Ensure-FileFromTemplate (Join-Path $Agent 'tiers.json') (Join-Path $MetaPack 'tiers.template.json') | Out-Null
 Ensure-FileFromTemplate (Join-Path $Agent 'manifest.json') (Join-Path $MetaPack 'manifest.template.json') | Out-Null
 
-$homeTemplate = Join-Path $NotesPack 'template.vault-home.md'
-$homeTarget = Join-Path $Vault 'Home.md'
-if (-not (Test-Path -LiteralPath $homeTarget)) {
-    if (-not (Test-Path -LiteralPath $homeTemplate)) {
-        throw "Missing template: $homeTemplate"
-    }
-    $today = Get-Date -Format 'yyyy-MM-dd'
-    $content = [System.IO.File]::ReadAllText($homeTemplate)
-    $content = $content -replace 'UPDATED', $today
-    $utf8 = New-Object System.Text.UTF8Encoding $false
-    [System.IO.File]::WriteAllText($homeTarget, $content, $utf8)
-}
-
-$templateNames = @(
-    'template.vault-daily.md',
-    'template.vault-session.md',
-    'template.vault-decision.md',
-    'template.vault-project.md'
-)
-foreach ($t in $templateNames) {
-    if ($RefreshTemplates) {
-        $src = Join-Path $NotesPack $t
-        $dest = Join-Path $TemplatesRuntime $t
-        if (Test-Path -LiteralPath $src) {
-            Copy-Item -LiteralPath $src -Destination $dest -Force
-        }
-    } else {
-        Copy-TemplateNote $t | Out-Null
-    }
-}
+Remove-LegacyTemplatesDir
 
 if (Test-Path -LiteralPath $ObsidianPack) {
     New-Item -ItemType Directory -Path $ObsidianRuntime -Force | Out-Null
@@ -129,7 +132,9 @@ if ($Verify) {
     foreach ($file in @('tiers.json', 'manifest.json')) {
         if (-not (Test-Path -LiteralPath (Join-Path $Agent $file))) { $missing += "_agent/$file" }
     }
-    if (-not (Test-Path -LiteralPath $TemplatesRuntime)) { $missing += 'Templates/' }
+    foreach ($t in $PackTemplateNames) {
+        if (-not (Test-Path -LiteralPath (Join-Path $NotesPack $t))) { $missing += "templates/vault/notes/$t" }
+    }
     if ($missing.Count -gt 0) {
         throw "Verify failed: missing $($missing -join ', ')"
     }

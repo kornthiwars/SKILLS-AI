@@ -14,7 +14,6 @@ Pack schema for Obsidian-native + agent dual-use vault. Runtime notes live in `v
 
 | Tier | Schema | Runtime | Manifest `tier` |
 |------|--------|---------|-----------------|
-| Home | `template.vault-home.md` | `Home.md` | — |
 | Ephemeral | `template.vault-daily.md` | `daily/DATE.md` | `ephemeral` |
 | Episodic | `template.vault-session.md` | `sessions/SLUG.md` | `episodic` |
 | Semantic (ADR) | `template.vault-decision.md` | `decisions/SLUG.md` | `semantic` |
@@ -26,8 +25,8 @@ Manifest paths are relative to `vault/`, e.g. `sessions/auth-fix.md` (no `notes/
 
 | Token | Use in | Meaning |
 |-------|--------|---------|
-| `DATE` | daily | `YYYY-MM-DD` |
-| `ISO` | daily | ISO8601 for `updated_at` |
+| `__VAULT_DATE__` | daily | `YYYY-MM-DD` — literal replace only (`.Replace` / `sed`) |
+| `__VAULT_ISO__` | daily | ISO8601 for `updated_at` |
 | `SLUG` | session, decision, project | kebab-case filename stem |
 | `TITLE` | session, decision, project | Note title |
 | `PROJECT` | session, decision, project | Workspace project id (e.g. `web`) |
@@ -53,10 +52,10 @@ Daily manifest entry is optional. Durable tiers: **always upsert** after `Write`
 
 ## Obsidian conventions
 
-- **Daily Notes:** folder `daily/`, format `YYYY-MM-DD.md`
+- **Daily Notes:** folder `daily/`, format `YYYY-MM-DD.md` (blank file from hotkey; agent fills schema from pack)
 - **Wikilinks:** `[[sessions/slug]]` in body for graph edges (not `notes/` prefix)
 - **`related:` YAML** — agent metadata only; does not create Obsidian graph edges without Dataview
-- **Templates plugin:** folder `vault/Templates/` (copied from `notes/` on bootstrap)
+- **Note schemas (SSoT):** `templates/vault/notes/template.vault-*.md` in git — agent `Read`/`Write`; humans copy from pack or use agent skills (no `vault/Templates/` copy)
 - **Excluded:** `_agent/**` from graph (seed in `obsidian/app.json`)
 
 ## Tag taxonomy (optional)
@@ -76,8 +75,10 @@ Daily manifest entry is optional. Durable tiers: **always upsert** after `Write`
 
 1. Obsidian → Open folder → `SKILLS-AI/vault` (or `.cursor/vault` junction)
 2. Run `scripts/vault/bootstrap-vault.ps1 -Verify` once
-3. Daily notes hotkey → creates/opens `daily/YYYY-MM-DD.md`
-4. Templates → folder `Templates/`
+3. Daily notes hotkey → creates/opens blank `daily/YYYY-MM-DD.md`
+4. Schemas → `templates/vault/notes/` in repo (not inside vault)
+
+**Existing vaults:** re-run bootstrap to remove legacy `vault/Templates/` copy; disable core **Templates** plugin; clear daily-note template path in Settings if set.
 
 ## Migration from v1 (`notes/` + `_meta/`)
 
@@ -92,8 +93,7 @@ Moves `notes/*` → flat folders, `_meta/` → `_agent/`, rewrites manifest path
 | Target | Policy |
 |--------|--------|
 | `vault/.obsidian/*` | Copy-if-missing only (never overwrite user settings) |
-| `vault/Templates/*` | Copy-if-missing; use `bootstrap-vault -RefreshTemplates` to add new pack templates |
-| `vault/Home.md` | Create from template if missing |
+| `vault/Templates/` | **Removed** — bootstrap deletes pack-identical copy; schemas stay in `templates/vault/notes/` |
 | `vault/_agent/*` | Create from meta template if missing |
 
 No script auto-writes daily or durable notes — agent or Obsidian creates them.

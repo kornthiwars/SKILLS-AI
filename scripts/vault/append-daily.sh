@@ -1,22 +1,26 @@
 #!/usr/bin/env bash
-# Append one bullet to today's daily note (vault autolog).
+# Append bullet and/or Issues row to today's daily (vault autolog).
 set -euo pipefail
 
 BULLET=""
+ISSUE=""
 REPO_ROOT=""
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --bullet) BULLET="$2"; shift 2 ;;
+    --issue) ISSUE="$2"; shift 2 ;;
     --repo-root) REPO_ROOT="$2"; shift 2 ;;
     *) echo "Unknown arg: $1" >&2; exit 1 ;;
   esac
 done
 
-[ -n "$BULLET" ] || { echo "Missing --bullet" >&2; exit 1; }
+[ -n "$BULLET$ISSUE" ] || { echo "Provide --bullet and/or --issue" >&2; exit 1; }
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="${REPO_ROOT:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
+NOTES_PACK="$REPO_ROOT/templates/vault/notes"
+TEMPLATE_FILE="$NOTES_PACK/template.vault-daily.md"
 
 date="$(date +%Y-%m-%d)"
 iso="$(date -Iseconds)"
@@ -27,30 +31,56 @@ daily_dir="$(dirname "$daily_file")"
   echo "Vault layout missing: run scripts/vault/bootstrap-vault.sh --verify first" >&2
   exit 1
 }
-[ -f "$daily_file" ] || {
-  echo "Daily file missing: $daily_file — Write from templates/vault/notes/template.vault-daily.md (DATE/ISO) first" >&2
-  exit 1
-}
 
-case "$BULLET" in
-  -*) bullet_line="$BULLET" ;;
-  *) bullet_line="- $BULLET" ;;
-esac
-
-if grep -qF "$bullet_line" "$daily_file"; then
-  echo "SKIP duplicate"
-  echo "$daily_file"
-  exit 0
+if [ ! -f "$daily_file" ]; then
+  [ -f "$TEMPLATE_FILE" ] || { echo "Missing template: $TEMPLATE_FILE" >&2; exit 1; }
+  sed "s/__VAULT_DATE__/$date/g; s/__VAULT_ISO__/$iso/g" "$TEMPLATE_FILE" > "$daily_file"
+  echo "INIT daily created"
 fi
 
 runs="$(grep -E '^runs:' "$daily_file" | sed 's/runs:[[:space:]]*//')"
 runs=$((runs + 1))
 
+bullet_line=""
+if [ -n "$BULLET" ]; then
+  case "$BULLET" in
+    -*) bullet_line="$BULLET" ;;
+    *) bullet_line="- $BULLET" ;;
+  esac
+  if grep -qF "$bullet_line" "$daily_file"; then
+    echo "SKIP duplicate bullet"
+    bullet_line=""
+  fi
+fi
+
+issue_row=""
+if [ -n "$ISSUE" ]; then
+  issue_row="| iss-${date}-${runs} | ${ISSUE} | open | daily_only | |"
+  if grep -qF "$issue_row" "$daily_file"; then
+    echo "SKIP duplicate issue row"
+    issue_row=""
+  fi
+fi
+
 tmp="$(mktemp)"
-awk -v bullet="$bullet_line" -v iso="$iso" -v runs="$runs" '
+awk -v bullet="$bullet_line" -v issue_row="$issue_row" -v iso="$iso" -v runs="$runs" '
   /^updated_at:/ { print "updated_at: \"" iso "\""; next }
   /^runs:/ { print "runs: " runs; next }
-  /^## Issues/ { print bullet; print ""; print; next }
+  /^## Issues/ {
+    if (bullet != "") {
+      print bullet
+      print ""
+    }
+    print
+    next
+  }
+  /^\|----\|/ {
+    print
+    if (issue_row != "") {
+      print issue_row
+    }
+    next
+  }
   { print }
 ' "$daily_file" > "$tmp"
 mv "$tmp" "$daily_file"

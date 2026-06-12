@@ -36,17 +36,18 @@ Canonical daily file — use **first path that exists** on disk:
 
 ## Steps (lightweight)
 
-1. If today's daily **missing** → `Read` `templates/vault/notes/template.vault-daily.md`, `Write` daily file (DATE/ISO); optional manifest upsert — see [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Daily file
-2. **Append bullet (preferred — run via Shell)** — from `SKILLS-AI` repo root:
+1. **Append (preferred — run via Shell)** — from `SKILLS-AI` repo root. Script **auto-creates** today's daily from template if missing:
 
    ```powershell
    powershell -NoProfile -File scripts/vault/append-daily.ps1 -Bullet "<what changed> (<scope or path>)"
+   powershell -NoProfile -File scripts/vault/append-daily.ps1 -Issue "<bug or blocker summary>"
    ```
 
-   macOS/Linux: `./scripts/vault/append-daily.sh --bullet "<what changed> (<scope>)"`
+   macOS/Linux: `./scripts/vault/append-daily.sh --bullet "..."` · `--issue "..."`
 
-   Script dedupes, bumps `runs` + `updated_at`. Fails if daily file missing — complete step 1 first. Fallback: manual `Write` per **Path resolution** above.
-3. **Issues row** — only for bugs, blockers, or when the user asks to track an issue
+   Dedupes, bumps `runs` + `updated_at`. Manual `Write` fallback: [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Daily file — use `__VAULT_DATE__` / `__VAULT_ISO__` placeholders only.
+
+2. **Issues row** — bugs, blockers, or user asks to track: use `-Issue` / `--issue` above (adds row under `## Issues วันนี้`). Routine work uses `-Bullet` only.
 
 ## vs vault skills
 

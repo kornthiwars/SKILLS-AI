@@ -1,9 +1,9 @@
 ---
-id: "daily-DATE"
+id: "daily-__VAULT_DATE__"
 type: daily
-date: "DATE"
+date: "__VAULT_DATE__"
 project: ""
-updated_at: "ISO"
+updated_at: "__VAULT_ISO__"
 runs: 1
 carry_over: []
 promoted: []
