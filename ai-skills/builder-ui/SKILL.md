@@ -1,12 +1,16 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.2.8"
+  version: "1.2.10"
 description: >-
-  Design scalable, accessible UI systems from visual references — layout,
-  components, responsive behavior, a11y. Accepts slice briefs from
-  /builder-feature. Invoke with /builder-ui or "slice N go" for implementation.
+  Use when building or refining UI from mocks, screenshots, or design references —
+  layout, components, responsive behavior, a11y, browser verify. Accepts slice briefs
+  from /builder-feature. Invoke /builder-ui or "slice N go" for implementation.
 paths: "**/*.{tsx,jsx,vue,svelte,css,scss,html,rs}"
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

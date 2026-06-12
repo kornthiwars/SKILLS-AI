@@ -59,18 +59,17 @@ Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`project
 
 ---
 
-## Daily file (agent-created — not bootstrap)
+## Daily file (bootstrap + autolog — not vault-capture)
 
-`daily/` may stay **empty** until you need a daily log. **No script** auto-creates today's file.
+`bootstrap-vault` seeds today's `daily/YYYY-MM-DD.md` from template when missing. `append-daily` also auto-creates if missing. **`/vault-capture`** does not auto-create daily — optional Promoted wikilink only when file exists.
 
 1. `today` = local calendar `YYYY-MM-DD`
 2. Path: resolve per [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) § Path resolution
 3. If file **exists** → read/merge (never overwrite wholesale)
 4. If **missing** and you need daily (autolog, `/vault-daily`, recall “วันนี้”):
-   - `Read` `templates/vault/notes/template.vault-daily.md`
-   - Replace `__VAULT_DATE__` / `__VAULT_ISO__` (literal — **not** PowerShell `-replace 'DATE'`, which corrupts `updated_at`)
-   - Or run `append-daily.ps1` / `.sh` — auto-creates daily from template if missing
-   - `Write` `vault/daily/<today>.md`
+   - Prefer `append-daily.ps1` / `.sh` — auto-creates from template if missing
+   - Or re-run `bootstrap-vault` — seeds today only
+   - Manual fallback: `Read` `templates/vault/notes/template.vault-daily.md` → replace `__VAULT_DATE__` / `__VAULT_ISO__` (literal — **not** PowerShell `-replace 'DATE'`) → `Write`
    - Optional: upsert manifest `daily-<today>` (`tier: ephemeral`)
 5. Then run `append-daily` for bullets, or full `/vault-daily` for triage
 

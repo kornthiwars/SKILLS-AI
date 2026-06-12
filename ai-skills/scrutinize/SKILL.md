@@ -1,10 +1,15 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.2.7"
+  version: "1.2.9"
 description: >-
-  Outsider review — intent, simpler alternatives, end-to-end trace, five-axis and
-  browser UI checks, verification gate before ship. Invoke with /scrutinize.
+  Use before merging or shipping a change — outsider review of intent, simpler alternatives,
+  end-to-end trace, five-axis and browser UI checks. Use on PRs, plans, or skill diffs.
+  Review-only until user approves fixes. Invoke with /scrutinize.
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

@@ -1,10 +1,16 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.2.8"
+  version: "1.3.1"
 description: >-
-  Evidence-based skill diagnosis and minimal upgrades — 8 phases, cheat sheet, handoffs,
-  pack consistency checklist, SKILL REPORT output. Invoke with /upgrade-ai (canonical); /upgrade is shorthand alias.
+  Use when skills or rules need diagnosis, doc drift audit, external parity review,
+  or minimal upgrades — 8 phases, validate-skills preflight, version governance.
+  Use after repeat failures or before shipping pack meta changes. Invoke /upgrade-ai
+  (canonical); /upgrade is shorthand alias.
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 
@@ -24,6 +30,7 @@ Purpose: Continuously improve existing skills through structured diagnosis, fail
 |---------|--------|
 | Repeat failure ≥2× | Phase 1 reproduce (or structural audit if meta-only) |
 | Meta audit (`/upgrade` alias) | Static pack checklist — cap confidence 85 |
+| Before ship | Run `scripts/validate-skills.sh` — see [SKILL-EVAL-PROMPTS.md](../../docs/SKILL-EVAL-PROMPTS.md) |
 | Phase 7 | Minimal fix first · version bump plan per touched skill |
 | Phase 8 | Smoke + pass [reference.md](./reference.md) § Close-out verification gate |
 

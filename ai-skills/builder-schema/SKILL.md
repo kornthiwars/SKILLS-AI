@@ -1,12 +1,16 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.2.4"
+  version: "1.2.6"
 description: >-
-  Design integrity-safe schemas via domain modeling, relationships, indexing,
-  and safe evolution. Accepts slice briefs from /builder-feature. Invoke with
-  /builder-schema or "slice N go" for schema/migration slices.
+  Use when modeling data, migrations, indexes, or schema evolution — integrity-safe
+  plans with rollback. Use before destructive prod changes. Accepts slice briefs from
+  /builder-feature. Invoke /builder-schema or "slice N go" for schema slices.
 paths: "**/{migrations,schema,prisma,db,database}/**/*,**/*.{sql,prisma}"
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

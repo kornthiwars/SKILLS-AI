@@ -43,7 +43,7 @@ Edit **`ai-skills/`** and **`ai-rules/`** in the clone — not inside `.cursor/`
 | [vault-capture](ai-skills/vault-capture/SKILL.md) | Capture session to vault |
 | [vault-recall](ai-skills/vault-recall/SKILL.md) | Search vault memory + cite |
 
-Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Change-control: [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) · **Thai:** [docs/th/README.md](docs/th/README.md) · External catalog: [awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
+Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Change-control: [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) · **Thai:** [docs/th/README.md](docs/th/README.md) · External: [EXTERNAL-PARITY.md](docs/EXTERNAL-PARITY.md) · Catalog listing: [CATALOG-SUBMISSION.md](docs/CATALOG-SUBMISSION.md)
 
 ---
 

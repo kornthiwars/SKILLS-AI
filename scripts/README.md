@@ -3,6 +3,7 @@
 | Script | Purpose |
 |--------|---------|
 | `setup-macos-linux.sh` | Junction `.cursor/skills`, `.cursor/rules`, `.cursor/vault` + vault bootstrap |
+| `validate-skills.sh` / `.ps1` | Static check: frontmatter, version, no absolute paths, line budget |
 | `vault/` | Agent-only vault bootstrap — see [vault/README.md](vault/README.md) |
 | `setup-windows.ps1` | Same on Windows |
 | `setup-windows.bat` | Launcher for PowerShell setup |

@@ -42,3 +42,5 @@ chmod +x scripts/setup-macos-linux.sh
 ### 3 — Reload Cursor
 
 แก้ skills/rules ที่ `ai-skills/` / `ai-rules/` — ไม่แก้ใน junction โดยตรง
+
+**External skills:** ติดตั้ง catalog skills แยกจาก pack — ดู [docs/EXTERNAL-PARITY.md](docs/EXTERNAL-PARITY.md)

@@ -47,9 +47,10 @@ How **agent-skills** (this pack) relates to the wider ecosystem — especially [
 1. **3-layer change-control** — `change-control-manifest.mdc` + scoped `ai-rules/` + manual verification checklists
 2. **SKILL REPORT** contract — [`templates/template.skill-report.md`](../templates/template.skill-report.md)
 3. **Thai docs** — [`docs/th/README.md`](./th/README.md)
-4. **`disable-model-invocation: true`** on all 10 skills
+4. **`disable-model-invocation: true`** on all 13 skills
 5. **Callee redirect cleanup** — rule + dynamic smoke scenario #8
 6. **Plan-only orchestrator** — [`/builder-feature`](../ai-skills/builder-feature/SKILL.md) iron law (no app patches); vertical slices; implement via builder-* per slice
+7. **Static skill validator** — `scripts/validate-skills.sh` + GitHub Actions; eval prompts in [`docs/SKILL-EVAL-PROMPTS.md`](./SKILL-EVAL-PROMPTS.md)
 
 ---
 
@@ -77,18 +78,67 @@ The catalog is **curated, not audited**. Before installing any external skill:
 
 ---
 
+## Using this pack with external skills (install guide)
+
+Use **agent-skills as the base orchestration layer**; add catalog skills for domains this pack deliberately does not cover ([non-goals](#non-goals-for-this-pack)).
+
+### Install order
+
+| Step | Action |
+|------|--------|
+| 1 | Clone this repo; run `scripts/setup-macos-linux.sh` or `setup-windows.ps1` → junctions `.cursor/skills`, `.cursor/rules`, `.cursor/vault` |
+| 2 | **Reload Cursor** |
+| 3 | Install **external** skills separately (read source first — [Security](#security--installing-external-skills)) |
+| 4 | Run `./scripts/validate-skills.sh` after any skill/rule edit |
+
+### Where files live (Cursor)
+
+| Layer | Canonical (git) | Cursor sees |
+|-------|-----------------|-------------|
+| **This pack** | `ai-skills/`, `ai-rules/` | `.cursor/skills`, `.cursor/rules` (junction) |
+| **External skill** | Its own repo | User path — e.g. clone into `~/.cursor/skills/<name>/` **or** project `.cursor/skills/<name>/` **without** replacing the junction target |
+| **Vault notes** | `vault/` (gitignored) | `.cursor/vault` |
+
+**Do not** overwrite the pack junction with a single external skill folder. Add siblings or use Cursor’s user-level skills directory per [Cursor docs](https://cursor.com/docs).
+
+### Pairing examples (link-only — do not bulk-import)
+
+| Your task | This pack | Add external (catalog) |
+|-----------|-----------|-------------------------|
+| Stripe payments API | `/builder-api` slice + `/scrutinize` | [stripe/stripe](https://officialskills.sh/stripe/skills/stripe) — review before install |
+| Playwright CI / E2E farm | `/builder-infrastructure` for CI wiring | [anthropics/webapp-testing](https://officialskills.sh/anthropics/skills/webapp-testing) — not duplicated in pack |
+| Lighthouse / CWV audit | `/builder-ui` + browser MCP verify | [addyosmani/web-quality-audit](https://officialskills.sh/addyosmani/skills/web-quality-audit) |
+| PR CI failed on GitHub | `/debug` or `/builder-infrastructure` | [openai/gh-fix-ci](https://officialskills.sh/openai/skills/gh-fix-ci) on consumer repo |
+| Long-term memory (non-Obsidian) | `/vault-*` optional | [hanfang/claude-memory-skill](https://github.com/hanfang/claude-memory-skill) — pick **one** memory model |
+
+### Conflict avoidance
+
+| Risk | Mitigation |
+|------|------------|
+| Two debug skills active | Prefer pack `/debug` + rules; disable or skip external systematic-debugging when `/debug` attached |
+| Duplicate git push behavior | **Only** pack `/git-push` — uninstall external git-ship skills |
+| `alwaysApply` rule clash | `/scrutinize` before merging external `.mdc` into workspace |
+| Prompt inflation | External skill = reference link in `reference.md`; do not paste into `SKILL.md` |
+
+### Listing this pack in catalogs
+
+When ready for community visibility, follow [CATALOG-SUBMISSION.md](./CATALOG-SUBMISSION.md) (awesome-agent-skills bar).
+
+---
+
 ## Non-goals for this pack
 
 - Bulk-import catalog skills into `ai-skills/`
-- Domain catalogs (marketing, NVIDIA, n8n, legal, …) — use external installs
+- Domain catalogs (marketing, NVIDIA, n8n, legal, …) — use external installs per table above
 - Duplicate Playwright/Browserbase skills when browser MCP suffices
 - Built-in vault corpus / memory-index / workday planner
-- List this repo in awesome-agent-skills before community adoption (see their CONTRIBUTING bar)
+- Submit to awesome-agent-skills **before** usage evidence — see [CATALOG-SUBMISSION.md](./CATALOG-SUBMISSION.md)
 
 ---
 
 ## Related docs
 
 - [AGENTS.md](../AGENTS.md) — entry point + external discovery
+- [CATALOG-SUBMISSION.md](./CATALOG-SUBMISSION.md) — awesome-agent-skills PR kit
 - [CHANGE-CONTROL.md](./CHANGE-CONTROL.md) — gates and CI
 - [upgrade-ai/reference.md](../ai-skills/upgrade-ai/reference.md) — meta audit rubric

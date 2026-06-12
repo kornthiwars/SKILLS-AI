@@ -1,12 +1,16 @@
 ---
 name: builder-api
 metadata:
-  version: "1.2.5"
+  version: "1.2.7"
 description: >-
-  Design scalable, secure, contract-first APIs with validation, auth boundaries,
-  error systems, versioning, and observability. Accepts slice briefs from
-  /builder-feature. Invoke with /builder-api or "slice N go" for API slices.
+  Use when designing or implementing API endpoints, contracts, auth boundaries, or
+  error shapes — validation, versioning, observability. Accepts slice briefs from
+  /builder-feature. Invoke /builder-api or "slice N go" for API slices.
 paths: "**/{api,routes,controllers,handlers,services}/**/*.{ts,js,py,go,rs}"
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

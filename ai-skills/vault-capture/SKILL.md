@@ -1,10 +1,15 @@
 ---
 name: vault-capture
 metadata:
-  version: "2.3.2"
+  version: "2.3.5"
 description: >-
-  Capture session or ADR into local vault — infer project hub, manifest dedupe,
-  agent Write only. No Python. Invoke with /vault-capture.
+  Use after meaningful work to save session notes or ADRs to local vault — infer project
+  hub, manifest dedupe, wikilinks, agent Write only. Use whenever durable context should
+  survive the chat. No Python. Invoke with /vault-capture.
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

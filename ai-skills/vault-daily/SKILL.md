@@ -1,10 +1,15 @@
 ---
 name: vault-daily
 metadata:
-  version: "2.2.1"
+  version: "2.2.3"
 description: >-
-  End-of-day triage and promote — Issues table, carry-over, report. Routine
-  bullets autolog after patches (vault-autolog rule). No Python. /vault-daily optional.
+  Use for end-of-day triage, Issues review, promote to durable tiers, and สรุปส่งรายงาน.
+  Routine bullets autolog after patches (vault-autolog rule). Invoke /vault-daily when
+  triage or promote is needed — not required after every small task.
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

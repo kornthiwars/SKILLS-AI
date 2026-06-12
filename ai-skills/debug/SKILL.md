@@ -1,13 +1,16 @@
 ---
 name: debug
 metadata:
-  version: "1.3.6"
+  version: "1.3.8"
 description: >-
-  Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
-  breadcrumbs. Stop-the-line, reduce, bisection, Prove-It, verification gate, untrusted
-  errors. Phase exit criteria, hypothesis table, instrumentation lifecycle.
-  Read errors and recent changes first. User may attach /debug for mantra; apply four
-  steps silently otherwise. Not for known copy/label-only changes.
+  Use when encountering bugs, test failures, flaky behavior, stack traces, or wrong
+  data before proposing fixes — even under time pressure. Systematic four-step discipline:
+  reproduce, fail path, falsify, ledger; stop-the-line and verification gate. Attach
+  /debug for mantra; apply steps silently otherwise. Not for known copy or label-only changes.
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

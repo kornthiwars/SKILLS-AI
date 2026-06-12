@@ -8,19 +8,19 @@
 
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
-| debug | `/debug` | 1.3.6 | ใช่ |
-| scrutinize | `/scrutinize` | 1.2.7 | ใช่ |
-| builder-ui | `/builder-ui` | 1.2.8 | ใช่ |
-| builder-api | `/builder-api` | 1.2.5 | ใช่ |
-| builder-schema | `/builder-schema` | 1.2.4 | ใช่ |
-| builder-infrastructure | `/builder-infrastructure` | 1.2.5 | ใช่ |
-| builder-feature | `/builder-feature` | 1.5.3 | ใช่ |
-| fix-record | `/fix-record` | 1.2.5 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.2.8 | ใช่ |
-| git-push | `/git-push` | 1.2.3 | ใช่ |
-| vault-daily | `/vault-daily` | 2.2.1 | ใช่ |
-| vault-capture | `/vault-capture` | 2.3.2 | ใช่ |
-| vault-recall | `/vault-recall` | 2.4.1 | ใช่ |
+| debug | `/debug` | 1.3.8 | ใช่ |
+| scrutinize | `/scrutinize` | 1.2.9 | ใช่ |
+| builder-ui | `/builder-ui` | 1.2.10 | ใช่ |
+| builder-api | `/builder-api` | 1.2.7 | ใช่ |
+| builder-schema | `/builder-schema` | 1.2.6 | ใช่ |
+| builder-infrastructure | `/builder-infrastructure` | 1.2.7 | ใช่ |
+| builder-feature | `/builder-feature` | 1.5.5 | ใช่ |
+| fix-record | `/fix-record` | 1.2.7 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.3.1 | ใช่ |
+| git-push | `/git-push` | 1.2.5 | ใช่ |
+| vault-daily | `/vault-daily` | 2.2.3 | ใช่ |
+| vault-capture | `/vault-capture` | 2.3.5 | ใช่ |
+| vault-recall | `/vault-recall` | 2.4.3 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
 
@@ -133,7 +133,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 **Wikilinks:** `[[sessions/slug]]` — ไม่ใส่ `notes/` prefix
 
-**Autolog (หลัง patch+verify):** ไม่มี daily วันนี้ → `Read` `templates/vault/notes/template.vault-daily.md` → `Write` `vault/daily/<today>.md` → `append-daily.ps1`; reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`**
+**Autolog (หลัง patch+verify):** `bootstrap-vault` seed daily วันนี้แล้วถ้ารัน bootstrap; ไม่มี → `append-daily.ps1` (auto-creates จาก template); reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`**
 
 **Skills (เรียกเอง — `disable-model-invocation: true`)**
 
@@ -152,11 +152,12 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | Script | ใช้เมื่อ |
 |--------|----------|
 | `setup-macos-linux.sh` | ครั้งแรกหลัง clone / หลัง pull บน Mac หรือ Linux |
+| `validate-skills.sh` / `.ps1` | ก่อน push — ตรวจ frontmatter, version, path |
 | `setup-windows.ps1` / `.bat` | เหมือนกันบน Windows |
 
 สร้าง junction: `.cursor/skills`, `.cursor/rules`, `.cursor/vault` → โฟลเดอร์ใน pack
 
-งบ patch (≤5 ไฟล์, ≤120 บรรทัด) อยู่ใน [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) — ไม่มีสคริปต์ตรวจอัตโนมัติ
+งบ patch (≤5 ไฟล์, ≤120 บรรทัด) อยู่ใน [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) · static validate: `validate-skills`
 
 ---
 

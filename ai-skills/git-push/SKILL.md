@@ -1,10 +1,15 @@
 ---
 name: git-push
 metadata:
-  version: "1.2.3"
+  version: "1.2.5"
 description: >-
-  Safe inspect, commit (explicit request only), and push; matrix, pre-commit checklist,
-  verification gate. Invoke with /git-push or ยืนยัน after blocked push.
+  Use when the user asks to push, publish, sync to GitHub, or confirms commit+push
+  (ยืนยัน). Safely inspect repo state, commit only on explicit consent, push once,
+  verify remote. Blocks dirty tree without consent. Invoke with /git-push.
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

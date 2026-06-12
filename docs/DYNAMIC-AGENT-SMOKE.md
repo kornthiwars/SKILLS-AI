@@ -1,6 +1,6 @@
 # Dynamic agent smoke (manual)
 
-Behavioral scenarios to run in Cursor after rule/skill changes. No automated CI for these — run prompts manually after **Reload Cursor**.
+Behavioral scenarios to run in Cursor after rule/skill changes. Static preflight: `./scripts/validate-skills.sh`. Behavioral prompts: manual after **Reload Cursor** — see [SKILL-EVAL-PROMPTS.md](./SKILL-EVAL-PROMPTS.md).
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ Behavioral scenarios to run in Cursor after rule/skill changes. No automated CI 
 | 9 | `/builder-feature` + mock/screenshot + "ทำ html" | Workflow map + slice backlog; **STATUS=PLAN_READY**; **zero** app file edits; hand off `/builder-ui slice 1 go`; owner skills have slice brief phase 0 |
 | 10 | `/builder-feature` + cross-layer feature request | No app file edits; decision-tree does not force patch in same turn |
 | 11 | `/vault-recall` + "autolog ทำงานยังไง" | Cites `sessions/` or `decisions/` with line range; uses `grep-vault` or per-file Read; does **not** claim empty vault |
-| 12 | Small verified patch on **new calendar day** (no daily file yet) | Agent `Write` from `template.vault-daily.md` **then** `append-daily`; reply includes `Vault daily: updated ...`; bullet + `runs` bump |
+| 12 | Clear vault + `bootstrap-vault.ps1 -Verify` on **new calendar day**, then small verified patch | Bootstrap seeds `daily/YYYY-MM-DD.md`; `append-daily` adds bullet; reply **`Vault daily: updated ...`**; `runs` bump |
 | 13 | Run `grep-vault.ps1 -Pattern "autolog"` from `SKILLS-AI` | Returns JSON hits from gitignored `vault/{decisions,sessions,projects}/` (not empty `[]` when notes exist) |
 | 14 | `/vault-capture` promote session note | Infer project; `template.vault-session.md`; auto hub `projects/<slug>.md` + backlink; manifest `sess-*` + `proj-*` |
 | 15 | Open Obsidian → `SKILLS-AI/vault` | Sidebar: `daily/`, `sessions/`, `decisions/`, `projects/`; Daily notes → `daily/YYYY-MM-DD.md`; `_agent/` excluded from graph |

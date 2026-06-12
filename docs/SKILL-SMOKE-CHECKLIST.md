@@ -5,6 +5,7 @@ Reload Cursor after rule changes.
 ## Setup
 
 - [ ] `./scripts/setup-macos-linux.sh .` (Windows: `setup-windows.ps1`)
+- [ ] `./scripts/validate-skills.sh` (Windows: `validate-skills.ps1`) — green before ship
 - [ ] `.cursor/rules` → `ai-rules/` (includes subfolders)
 - [ ] `change-control-manifest.mdc` loads (alwaysApply)
 
@@ -26,7 +27,7 @@ Reload Cursor after rule changes.
 | builder-schema | Migration + rollback plan |
 | vault-recall | `grep-vault` or per-file Read; cites line range; no “empty vault” when notes exist |
 | vault-capture | Infer project; session/decision → auto hub `projects/<slug>.md`, backlink, Promoted wikilinks; manifest upsert |
-| vault-daily / autolog | New day: `template.vault-daily.md` then `append-daily`; reply has `Vault daily:` |
+| vault-daily / autolog | New day: bootstrap or `append-daily` creates daily; reply has `Vault daily:` |
 
 ## Obsidian (manual)
 
@@ -37,6 +38,7 @@ Reload Cursor after rule changes.
 ## Docs
 
 - [ ] `docs/th/README.md` present (Thai guides)
+- [ ] [SKILL-EVAL-PROMPTS.md](./SKILL-EVAL-PROMPTS.md) scenarios still valid after skill edits
 
 ## Dynamic
 

@@ -1,12 +1,16 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.2.5"
+  version: "1.2.7"
 description: >-
-  Design reliable infrastructure — workloads, environments, CI/CD, networking,
-  security, observability, DR. Accepts slice briefs from /builder-feature.
-  Invoke with /builder-infrastructure or "slice N go" for infra slices.
+  Use when designing CI/CD, deploy, observability, networking, security, or DR —
+  reliable infrastructure slices. Accepts slice briefs from /builder-feature.
+  Invoke /builder-infrastructure or "slice N go" for infra slices.
 paths: "**/*.{yml,yaml,tf,hcl},**/Dockerfile,**/docker-compose*.{yml,yaml}"
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

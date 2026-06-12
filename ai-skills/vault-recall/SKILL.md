@@ -1,10 +1,15 @@
 ---
 name: vault-recall
 metadata:
-  version: "2.4.1"
+  version: "2.4.3"
 description: >-
-  Search local vault memory via manifest + Grep/Read — daily-by-date, cite paths
-  and lines. No Python. Invoke with /vault-recall and your question.
+  Use when the user asks what was decided, fixed, or captured in vault memory — search
+  via manifest + grep-vault or per-file Read, cite paths and line ranges. Use before
+  RCA, review, or repeating past work. No Python. Invoke /vault-recall with your question.
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

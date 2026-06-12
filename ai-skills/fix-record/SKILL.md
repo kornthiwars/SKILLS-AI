@@ -1,11 +1,15 @@
 ---
 name: fix-record
 metadata:
-  version: "1.2.5"
+  version: "1.2.7"
 description: >-
-  Canonical RCA after a validated fix — mechanism, fix, validation, slip-through.
-  Required-input gate + verification protocol. Invoke with /fix-record when closing
-  a fixed bug (not before fix lands).
+  Use after a validated production fix to write canonical RCA — mechanism, fix,
+  validation, slip-through analysis. Not before the fix lands. Use when closing bugs
+  that others must grep back to. Invoke with /fix-record.
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 

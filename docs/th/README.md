@@ -11,7 +11,9 @@
 | [APPENDIX-TH.md](./APPENDIX-TH.md) | เติมรายละเอียด — versions, reference.md, globs, setup scripts, mantra |
 | [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md) | ลิงก์ไป `reference.md` ภาษาอังกฤษทุก skill |
 | [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | ภาษาอังกฤษ — สถาปัตยกรรม 3 ชั้น (rules + skills + setup) |
-| [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) | ทด agent มือใน Cursor (10 scenarios) |
+| [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) | ทด agent มือใน Cursor (15 scenarios) |
+| [EXTERNAL-PARITY.md](../EXTERNAL-PARITY.md) | ใช้ pack คู่ external skills จาก catalog |
+| [CATALOG-SUBMISSION.md](../CATALOG-SUBMISSION.md) | ส่งเข้า awesome-agent-skills (เมื่อพร้อม) |
 
 ## agent-skills คืออะไร
 

@@ -1,0 +1,22 @@
+name: validate-skills
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ai-skills/**'
+      - 'scripts/validate-skills.*'
+      - '.github/workflows/validate-skills.yml'
+  pull_request:
+    paths:
+      - 'ai-skills/**'
+      - 'scripts/validate-skills.*'
+      - '.github/workflows/validate-skills.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run static skill validator
+        run: chmod +x scripts/validate-skills.sh && ./scripts/validate-skills.sh

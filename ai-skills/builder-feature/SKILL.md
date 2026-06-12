@@ -1,11 +1,15 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.5.3"
+  version: "1.5.5"
 description: >-
-  Plan-only cross-layer feature orchestrator — workflow map, UI-only express
-  lane, slice backlog, delegation to
-  builder-ui/api/schema/infrastructure. Does not write application code.
+  Use when planning a cross-layer feature (UI+API+schema+infra) — workflow map, express
+  lane, slice backlog, handoff to builder-* specialists. Plan-only: does not write
+  application code. Use for mocks, screenshots, or multi-file features. Invoke /builder-feature.
+compatibility: >-
+  Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
+  Requires explicit /slash invoke (disable-model-invocation). Copy ai-skills/ for
+  other Agent Skills-compatible hosts.
 disable-model-invocation: true
 ---
 
