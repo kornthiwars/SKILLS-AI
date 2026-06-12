@@ -1,65 +1,53 @@
 ---
 name: vault-daily
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
 description: >-
-  Daily task summary and triage for local vault — one file per calendar day,
-  preview before promote, index semantic/episodic tiers only. Invoke with
-  /vault-daily at end of day or when reporting tasks.
+  Daily task summary and triage — one file per day, manifest on promote.
+  No Python. Invoke with /vault-daily at end of day.
 disable-model-invocation: true
 ---
 
 # Vault daily
 
-End-of-day workflow: merge into **one** `vault/notes/daily/YYYY-MM-DD.md`, triage issues, promote durable notes after user confirm, index, deliver copy-paste report.
+End-of-day workflow: merge **one** `vault/notes/daily/YYYY-MM-DD.md`, triage, promote after confirm, update manifest.
 
 ## Iron law
 
-**Do not promote** to `vault/notes/decisions/`, `vault/notes/sessions/`, or `vault/notes/projects/` until user confirms triage preview (`ok`, `yes`, `go`).
+**Do not promote** to `vault/notes/decisions/`, `sessions/`, or `projects/` until user confirms triage preview (`ok`, `yes`, `go`).
 
 ## Scope Guardrails
 
-- ALWAYS use exactly one daily file per calendar day: `vault/notes/daily/YYYY-MM-DD.md`
-- ALWAYS merge on re-run same day (increment `runs`, update `updated_at`) — never create a second daily file
-- NEVER embed daily content in index (excluded by design)
-- NEVER store secrets, API keys, or credentials in vault notes
-
-## CLI (run from agent-skills repo root)
-
-```bash
-python scripts/vault/search.py --dedupe "<topic>" --json
-python scripts/vault/index.py
-python scripts/vault/daily.py --date YYYY-MM-DD
-```
+- ALWAYS one daily file per calendar day — merge on re-run (increment `runs`, `updated_at`)
+- NEVER store secrets in vault notes
+- ALWAYS upsert manifest after each promote
+- `inbox/` is scratch only — triage moves content to daily or durable tiers
 
 ## Workflow
 
-1. Resolve today's date → `vault/notes/daily/YYYY-MM-DD.md`
-2. If file exists → load and **merge**; else create from template in [reference.md](./reference.md)
-3. Gather tasks/issues from chat today (+ optional `git log --since=midnight`)
-4. Update sections: สรุปงานวันนี้, Issues วันนี้, carry_over in frontmatter
-5. For each `keep_*` triage → `python scripts/vault/search.py --dedupe "<title>" --json`
-6. Present **Triage preview** table (issue, triage, target path, reason) — **STOP for confirm**
+1. Resolve today → `vault/notes/daily/YYYY-MM-DD.md`
+2. Load and **merge** if exists; else create from [reference.md](./reference.md)
+3. Gather tasks/issues from chat (+ optional `git log --since=midnight`)
+4. Update sections: สรุปงานวันนี้, Issues วันนี้, `carry_over` in frontmatter
+5. `Read` `vault/_meta/manifest.json` — for each `keep_*` triage, dedupe by `id`/slug/title
+6. Present **Triage preview** — **STOP for confirm**
 7. After confirm → promote:
-   - `keep_decision` → `vault/notes/decisions/<topic-slug>.md` (one topic one file; update if exists)
+   - `keep_decision` → `vault/notes/decisions/<topic-slug>.md`
    - `keep_learning` → `vault/notes/sessions/<topic-slug>.md`
    - `keep_project` → `vault/notes/projects/<name>.md`
-   - New promoted decisions default `status: draft` unless user says active
-8. Link from daily `## Promoted` with wikilinks — do not duplicate full decision body
-9. Run `python scripts/vault/index.py` (indexes non-daily tiers only)
+   - New decisions default `status: draft` unless user says active
+8. Upsert manifest for each promoted/updated durable file
+9. Link from daily `## Promoted` — no duplicate full decision body
 10. Output **สรุปส่งรายงาน** block (Thai bullets, copy-paste ready)
 
 ## SKILL REPORT
 
-Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
-
 | Section | `/vault-daily` |
 |---------|----------------|
-| STATUS | BLOCKED = awaiting triage confirm; READY = daily saved + index run |
+| STATUS | BLOCKED = awaiting triage confirm; READY = daily saved + manifest updated |
 | OBJECTIVE | One daily file + optional promotes + task report |
-| ARTIFACTS | `vault/notes/daily/YYYY-MM-DD.md`, promoted paths, index updated |
-| NEXT ACTIONS | User edits preview · missing confirm |
+| ARTIFACTS | daily path, promoted paths, manifest entries |
 
-Pack integration (end-of-day from debug / builder-feature): [vault-capture/reference.md](../vault-capture/reference.md) § Integration with pack skills
+Pack integration: [vault-capture/reference.md](../vault-capture/reference.md) § Integration with pack skills
 
 Detail: [reference.md](./reference.md)

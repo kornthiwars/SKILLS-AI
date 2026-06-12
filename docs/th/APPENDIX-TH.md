@@ -111,29 +111,33 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 ---
 
-## 7. โฟลเดอร์ `vault/` (local RAG memory)
+## 7. โฟลเดอร์ `vault/` (agent-only local memory)
 
 - เนื้อหา `vault/**` gitignore (ยกเว้น `vault/.gitkeep`) — โน้ตส่วนตัวบนเครื่อง
-- setup script: junction `.cursor/vault` → `vault/` + `pip` + `scripts/vault/bootstrap.py` + hook index (ต้องมี Python 3.10+)
-- โครงสร้างหลัก: `vault/notes/{daily,decisions,sessions,projects,inbox}/` · index ที่ `vault/_index/` (rebuild ได้)
+- setup: junction `.cursor/vault` → `vault/` + `bootstrap-vault` — **ไม่ต้องติดตั้ง Python**
+- โครงสร้าง: `vault/notes/{daily,decisions,sessions,projects,inbox}/` · catalog ที่ `vault/_meta/manifest.json`
+- โหมดค้น: agent `Grep`/`Read` + manifest (ไม่มี embedding / `_index/`)
 
 **Memory tiers**
 
-| Tier | โฟลเดอร์ | Embed? |
-|------|----------|--------|
-| Ephemeral | `notes/daily/YYYY-MM-DD.md` (1 วัน 1 ไฟล์) | ไม่ |
+| Tier | โฟลเดอร์ | ใน manifest |
+|------|----------|-------------|
+| Ephemeral | `notes/daily/YYYY-MM-DD.md` | ไม่ |
 | Semantic | `notes/decisions/`, `notes/projects/` | ใช่ |
 | Episodic | `notes/sessions/` | ใช่ |
+| Scratch | `notes/inbox/` | ไม่ |
 
 **Skills (เรียกเอง — `disable-model-invocation: true`)**
 
 | Skill | ใช้เมื่อ |
 |-------|----------|
-| `/vault-daily` | สรุปงานวัน + triage + promote (ต้อง confirm ก่อน promote) |
-| `/vault-capture` | บันทึก session / ADR สั้น — dedupe ก่อนเขียน |
-| `/vault-recall` | ค้น hybrid FTS+vector หรืออ่าน daily ตามวันที่ |
+| `/vault-daily` | สรุปงานวัน + triage + promote (confirm ก่อน) + อัป manifest |
+| `/vault-capture` | บันทึก session / ADR — dedupe ผ่าน manifest |
+| `/vault-recall` | อ่าน manifest → Grep → cite (หรืออ่าน daily ตามวันที่) |
 
-**เชื่อม skill เก่า (handoff ไม่บังคับ):** `/debug` → capture/daily · `/fix-record` → recall/capture (RCA เต็มไม่ duplicate) · `/scrutinize` → recall ก่อน verdict · `/builder-feature` → capture/daily หลัง `PLAN_READY` · ตารางเต็ม → `ai-skills/vault-capture/reference.md` § Integration
+**เชื่อม skill เก่า:** ดู `ai-skills/vault-capture/reference.md` § Integration
+
+**Migration:** `vault/_index/` จากเวอร์ชันเก่า — ละเว้นได้ ลบเมื่อสะดวก
 
 ---
 

@@ -31,11 +31,13 @@ promoted: []
 
 | triage | Action |
 |--------|--------|
-| keep_decision | Update `vault/notes/decisions/<topic-slug>.md` |
-| keep_learning | Update `vault/notes/sessions/<topic-slug>.md` |
-| keep_project | Update `vault/notes/projects/<name>.md` |
+| keep_decision | Update `vault/notes/decisions/<topic-slug>.md` + manifest |
+| keep_learning | Update `vault/notes/sessions/<topic-slug>.md` + manifest |
+| keep_project | Update `vault/notes/projects/<name>.md` + manifest |
 | daily_only | Stay in daily only |
 | carry_over | Add to frontmatter `carry_over` |
+
+Dedupe before promote: `Read` manifest + `Glob` by slug.
 
 ## Decision file (promoted)
 

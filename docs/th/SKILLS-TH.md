@@ -472,7 +472,7 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 | **Invoke** | `/vault-capture` |
 | **บทบาท** | บันทึก episodic / ADR — `vault/notes/sessions/` หรือ `vault/notes/decisions/` |
 
-รัน dedupe ก่อนเขียน · index หลัง save · **ห้าม** copy RCA เต็มจาก `/fix-record`
+dedupe ผ่าน `manifest.json` ก่อนเขียน · อัป manifest หลัง save · **ห้าม** copy RCA เต็มจาก `/fix-record` · **ไม่ใช้ Python**
 
 **Handoffs จาก:** `/debug`, `/fix-record`, `/scrutinize`, `/builder-feature`, builder specialist
 
@@ -483,7 +483,7 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-recall` + คำถาม |
-| **บทบาท** | ค้น memory — hybrid search หรืออ่าน daily ตามวันที่ |
+| **บทบาท** | ค้น memory — manifest + Grep/Read หรืออ่าน daily ตามวันที่ (ไม่ใช้ Python) |
 
 **Handoffs จาก:** `/fix-record` (ก่อนเขียน RCA) · `/scrutinize` (ก่อน verdict เรื่อง architecture)
 

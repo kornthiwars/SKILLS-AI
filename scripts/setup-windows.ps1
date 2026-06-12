@@ -27,7 +27,7 @@ $Skills = Join-Path $RepoRoot 'ai-skills'
 $Rules = Join-Path $RepoRoot 'ai-rules'
 $Vault = Join-Path $RepoRoot 'vault'
 
-foreach ($dir in @($Skills, $Rules, $Vault)) {
+foreach ($dir in @($Skills, $Rules)) {
     if (-not (Test-Path -LiteralPath $dir)) {
         throw "Missing: $dir"
     }
@@ -118,6 +118,18 @@ Write-Host ""
 
 Remove-InRepoCursorIfNeeded
 
+function Bootstrap-Vault {
+    $bootstrap = Join-Path $RepoRoot 'scripts\vault\bootstrap-vault.ps1'
+    if (-not (Test-Path -LiteralPath $bootstrap)) {
+        Write-Host '..  skip vault (bootstrap-vault.ps1 missing)'
+        return
+    }
+    & $bootstrap -RepoRoot $RepoRoot -Verify
+    Write-Host 'OK  vault (agent-only — no Python required)'
+}
+
+Bootstrap-Vault
+
 Set-Junction (Join-Path $InstallRoot '.cursor\skills') $Skills
 Set-Junction (Join-Path $InstallRoot '.cursor\rules')  $Rules
 Set-Junction (Join-Path $InstallRoot '.cursor\vault')  $Vault
@@ -126,63 +138,5 @@ foreach ($subRoot in Get-SubprojectRoots) {
     if ($subRoot) { Wire-SubprojectVault $subRoot }
 }
 
-function Get-PythonCmd {
-    $null = py -3 --version 2>$null
-    if ($LASTEXITCODE -eq 0) { return @('py', '-3') }
-    $null = python --version 2>$null
-    if ($LASTEXITCODE -eq 0) { return @('python') }
-    return $null
-}
-
-function Install-VaultTooling {
-    $vaultReq = Join-Path $RepoRoot 'scripts\vault\requirements.txt'
-    if (-not (Test-Path -LiteralPath $vaultReq)) {
-        Write-Host '..  skip vault (scripts/vault missing)'
-        return
-    }
-
-    $python = Get-PythonCmd
-    if (-not $python) {
-        Write-Host 'WARN  Python 3.10+ not found — vault indexer skipped.'
-        Write-Host '      Install https://www.python.org/downloads/ then re-run setup.'
-        return
-    }
-
-    Write-Host 'Vault: pip install...'
-    & $python -m pip install -r $vaultReq
-    if ($LASTEXITCODE -ne 0) { throw "pip install failed for scripts/vault/requirements.txt" }
-
-    Write-Host 'Vault: bootstrap...'
-    $bootstrap = Join-Path $RepoRoot 'scripts\vault\bootstrap.py'
-    Push-Location $RepoRoot
-    try {
-        & $python $bootstrap
-        if ($LASTEXITCODE -ne 0) { throw 'vault bootstrap failed' }
-    } finally {
-        Pop-Location
-    }
-
-    $hooksSrc = Join-Path $RepoRoot 'scripts\vault\hooks'
-    $hooksDst = Join-Path $InstallRoot '.cursor\hooks'
-    New-Item -ItemType Directory -Path $hooksDst -Force | Out-Null
-    Copy-Item -LiteralPath (Join-Path $hooksSrc 'vault-index.ps1') -Destination $hooksDst -Force
-
-    $hooksFile = Join-Path $InstallRoot '.cursor\hooks.json'
-    $entry = @{
-        command = '.cursor/hooks/vault-index.ps1'
-        matcher = 'vault/notes/**'
-    }
-    if (-not (Test-Path -LiteralPath $hooksFile)) {
-        @{ version = 1; hooks = @{ afterFileEdit = @($entry) } } | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $hooksFile -Encoding UTF8
-        Write-Host 'OK  .cursor/hooks.json (created)'
-    } else {
-        Write-Host 'OK  .cursor/hooks.json (exists — merge vault hook manually if needed)'
-    }
-
-    Write-Host 'OK  vault tooling'
-}
-
-Write-Host ""
-Install-VaultTooling
 Write-Host ""
 Write-Host "Done. Reload Cursor."

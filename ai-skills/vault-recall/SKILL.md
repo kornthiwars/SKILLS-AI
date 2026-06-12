@@ -1,50 +1,52 @@
 ---
 name: vault-recall
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
 description: >-
-  Search local vault memory — hybrid FTS+vector, daily-by-date, cite paths and
-  lines. Invoke with /vault-recall and your question.
+  Search local vault memory via manifest + Grep/Read — daily-by-date, cite paths
+  and lines. No Python. Invoke with /vault-recall and your question.
 disable-model-invocation: true
 ---
 
 # Vault recall
 
-Retrieve context from local vault before answering questions about past work, decisions, or daily summaries.
+Retrieve context from `vault/notes/` using agent tools only — **no CLI scripts**.
 
 ## Scope Guardrails
 
-- ALWAYS run index if stale before hybrid search (not for pure daily-date queries)
-- ALWAYS cite `vault/notes/...md` with line range when using chunk results
-- Prefer reading full source file when excerpt is insufficient
+- ALWAYS search under workspace path `vault/notes/` (junction `.cursor/vault` points here)
+- ALWAYS read `vault/_meta/manifest.json` before hybrid search (skip for pure daily-date reads)
+- ALWAYS cite `vault/notes/...md` with line range
+- NEVER cite `status: superseded` as the primary answer — follow `supersedes` to active doc
 
-## CLI (repo root)
+## Recall iron laws
 
-```bash
-python scripts/vault/index.py --status
-python scripts/vault/index.py
-python scripts/vault/search.py "<query>" --json --top 5 --project <name>
-python scripts/vault/daily.py --date YYYY-MM-DD
-```
+1. **Manifest first** — `Read` `vault/_meta/manifest.json`; shortlist ≤10 docs by `id`/`title`/`tags`/`project` match
+2. **Prune stale** — if manifest `path` missing on disk, remove entry and rewrite `manifest.json` (file wins over manifest)
+3. **Grep scoped** — search manifest shortlist paths, or full tier if manifest empty: `decisions/`, `sessions/`, `projects/` only
+4. **Supersedes** — skip `status: superseded`; if hit has `supersedes`, open the replacement `id`
+5. **Related cap** — expand `related:` max **2 hops**, max **3 extra files**
+6. **Read budget** — full body `Read` for ≤5 files per query
+7. **Thai/EN** — if query is Thai, also Grep English keywords from `tags`/`title`; vice versa
 
 ## Workflow
 
 1. Classify query:
-   - **Daily / date** ("เมื่อวาน", `YYYY-MM-DD`, "สรุปวันนี้") → `search.py` (date mode) or `daily.py --date`
-   - **Decision / technical** → hybrid search
-2. If hybrid: check staleness → `index.py` if needed
-3. `python scripts/vault/search.py "<query>" --json --top 5` (+ `--project` if known)
-4. Follow `related:` in frontmatter for linked decisions when helpful
-5. Open cited files under `.cursor/vault` or `vault/notes/`
-6. Answer in Thai ~60% / English ~40% with citations
+   - **Daily / date** ("เมื่อวาน", `YYYY-MM-DD`, "สรุปวันนี้") → `Read` `vault/notes/daily/<date>.md` (no manifest required)
+   - **Decision / technical** → steps 2–8
+2. `Read` `vault/_meta/manifest.json`
+3. Build keyword list from user query (+ EN/TH variants for technical terms)
+4. Shortlist manifest `docs` where `id`, `title`, `tags`, or `project` match (≤10)
+5. `Grep` keywords in shortlist paths (or tier folders if manifest empty)
+6. `Read` frontmatter of top candidates — drop `status: superseded`
+7. `Read` body of winners (≤5 files); expand `related:` within cap
+8. Answer Thai ~60% / English ~40% with citations
 
 ## SKILL REPORT
 
 | Section | `/vault-recall` |
 |---------|-----------------|
 | STATUS | READY when results cited or daily loaded |
-| ARTIFACTS | search JSON, cited paths |
+| ARTIFACTS | manifest shortlist, cited paths + line ranges |
 
-Pack integration (when other skills call recall first): [vault-capture/reference.md](../vault-capture/reference.md) § Integration with pack skills
-
-Detail: [reference.md](./reference.md)
+Detail: [reference.md](./reference.md) · Pack integration: [vault-capture/reference.md](../vault-capture/reference.md) § Integration with pack skills

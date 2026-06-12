@@ -19,7 +19,7 @@ Creates under `<workspace>/.cursor/`:
 
 - `skills` → `ai-skills/`
 - `rules` → `ai-rules/`
-- `vault` → `vault/` (local notes + RAG index; run setup script for indexer)
+- `vault` → `vault/` (local notes + manifest; agent-only — no Python)
 
 Edit **`ai-skills/`** and **`ai-rules/`** in the clone — not inside `.cursor/` junctions.
 

@@ -25,15 +25,42 @@ related: []
 ## FollowUps
 ```
 
-## Dedupe
+## Dedupe (agent-only)
 
-`search.py --dedupe` returns `match: true` when score ≥ 0.85 (config). Merge into existing note instead of creating duplicate.
+1. `Read` `vault/_meta/manifest.json`
+2. Match `id` or slug in `path` (`notes/sessions/<slug>.md`)
+3. `Grep` `title:` in `vault/notes/sessions/` if ambiguous
+4. Merge into existing file — do not create duplicate slug
+
+## Manifest v1 (file: `vault/_meta/manifest.json`)
+
+```json
+{
+  "schema_version": 1,
+  "updated_at": "ISO8601",
+  "docs": []
+}
+```
+
+Each doc entry (upsert by `id`):
+
+```json
+{
+  "id": "sess-<topic-slug>",
+  "path": "notes/sessions/<topic-slug>.md",
+  "title": "<title>",
+  "tier": "episodic",
+  "project": "<project>",
+  "status": "active",
+  "updated": "YYYY-MM-DD"
+}
+```
+
+Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`projects/`, `episodic` for `sessions/`.
 
 ---
 
 ## Integration with pack skills
-
-Master matrix — which skills hand off to vault and which do not.
 
 | Skill | Integration | Vault skill | Notes |
 |-------|-------------|-------------|-------|
@@ -45,9 +72,9 @@ Master matrix — which skills hand off to vault and which do not.
 | `/builder-api` | **light** | recall, capture | Before contract break; ADR after slice verify |
 | `/builder-infrastructure` | **light** | capture | Runbook / infra decision after verify |
 | `/builder-ui` | **none** | daily only | Copy/layout tweaks → `/vault-daily` `daily_only`, not capture |
-| `/git-push` | **none** | — | `vault/_index/` gitignored; no memory handoff |
+| `/git-push` | **none** | — | `vault/**` gitignored; no memory handoff |
 | `/upgrade-ai` | **none** | — | Meta skill — no app memory |
-| `/vault-capture` | — | — | Destination; dedupe before write |
+| `/vault-capture` | — | — | Destination; dedupe + manifest upsert |
 | `/vault-recall` | — | — | Read path; cite sources |
 | `/vault-daily` | — | — | Ephemeral tier; triage before promote |
 
@@ -109,3 +136,8 @@ intent: keep_decision
 ```
 
 Path for ADR: `vault/notes/decisions/<slug>.md` (one topic per file).
+
+### Inbox workflow
+
+- Quick scratch → `vault/notes/inbox/<slug>.md` (not in manifest)
+- `/vault-daily` triage moves to daily or promotes to durable tier + manifest
