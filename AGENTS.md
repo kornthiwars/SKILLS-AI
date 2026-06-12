@@ -60,4 +60,4 @@ Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Chang
 
 ## Git in this repo
 
-Ship changes with **`@git-push`** only. The `vault/` folder is gitignored except `.gitkeep` — notes from [templates/vault/README.md](templates/vault/README.md); bootstrap creates dirs + Obsidian seed (no auto daily seed). Migrate v1 layout: `scripts/vault/migrate-vault.ps1`.
+Ship changes with **`@git-push`** only. The `vault/` folder is gitignored except `.gitkeep` — notes from [templates/vault/README.md](templates/vault/README.md); bootstrap creates dirs + Obsidian seed + today's daily if missing.

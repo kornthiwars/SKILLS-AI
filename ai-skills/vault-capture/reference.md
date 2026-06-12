@@ -57,8 +57,6 @@ Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`project
 
 **Required:** every upsert includes `"tags": []` or a string array — omitting `tags` breaks `/vault-recall` shortlist consistency.
 
-Migration from v1: run `scripts/vault/migrate-vault.ps1`.
-
 ---
 
 ## Daily file (agent-created — not bootstrap)

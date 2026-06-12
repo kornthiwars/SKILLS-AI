@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Bootstrap Obsidian-native vault layout + _agent catalog (no Python).
+# Seeds vault/daily/YYYY-MM-DD.md from template when missing.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -20,7 +21,6 @@ META_PACK="$TEMPLATES_PACK/meta"
 NOTES_PACK="$TEMPLATES_PACK/notes"
 OBSIDIAN_PACK="$TEMPLATES_PACK/obsidian"
 OBSIDIAN_RUNTIME="$VAULT/.obsidian"
-LEGACY_TEMPLATES="$VAULT/Templates"
 
 NOTE_DIRS=(daily decisions sessions projects)
 PACK_TEMPLATES=(
@@ -48,39 +48,17 @@ copy_if_missing() {
   cp "$source" "$dest"
 }
 
-remove_legacy_templates_dir() {
-  [ -d "$LEGACY_TEMPLATES" ] || return 0
-  if [ -L "$LEGACY_TEMPLATES" ]; then
-    echo "WARN: vault/Templates is a link — remove manually if you want pack-only templates." >&2
-    return 0
-  fi
-
-  local unexpected=0
-  local f name pack
-  shopt -s nullglob
-  local files=("$LEGACY_TEMPLATES"/*)
-  shopt -u nullglob
-
-  if [ "${#files[@]}" -eq 0 ]; then
-    rmdir "$LEGACY_TEMPLATES" 2>/dev/null || rm -rf "$LEGACY_TEMPLATES"
-    echo "Removed empty vault/Templates/ (schemas live in templates/vault/notes/)."
-    return 0
-  fi
-
-  for f in "${files[@]}"; do
-    [ -f "$f" ] || continue
-    name="$(basename "$f")"
-    pack="$NOTES_PACK/$name"
-    if [ ! -f "$pack" ] || ! cmp -s "$f" "$pack"; then
-      unexpected=1
-      echo "WARN: vault/Templates/$name differs from pack or is unknown — not removed." >&2
-    fi
-  done
-
-  if [ "$unexpected" -eq 0 ]; then
-    rm -rf "$LEGACY_TEMPLATES"
-    echo "Removed vault/Templates/ copy (use templates/vault/notes/ in git)."
-  fi
+ensure_today_daily() {
+  local daily_dir="$1"
+  local template_file="$2"
+  local date iso daily_file
+  date="$(date +%Y-%m-%d)"
+  iso="$(date -Iseconds)"
+  daily_file="$daily_dir/$date.md"
+  [ -f "$daily_file" ] && return 0
+  [ -f "$template_file" ] || { echo "Missing template: $template_file" >&2; exit 1; }
+  sed "s/__VAULT_DATE__/$date/g; s/__VAULT_ISO__/$iso/g" "$template_file" > "$daily_file"
+  echo "INIT daily created: $daily_file"
 }
 
 mkdir -p "$VAULT"
@@ -94,8 +72,6 @@ mkdir -p "$AGENT"
 ensure_file_from_template "$AGENT/tiers.json" "$META_PACK/tiers.template.json"
 ensure_file_from_template "$AGENT/manifest.json" "$META_PACK/manifest.template.json"
 
-remove_legacy_templates_dir
-
 if [ -d "$OBSIDIAN_PACK" ]; then
   mkdir -p "$OBSIDIAN_RUNTIME"
   for f in "$OBSIDIAN_PACK"/*; do
@@ -104,9 +80,7 @@ if [ -d "$OBSIDIAN_PACK" ]; then
   done
 fi
 
-if [ -d "$VAULT/notes" ] || [ -d "$VAULT/_meta" ]; then
-  echo "WARN: Legacy layout detected (vault/notes/ or vault/_meta/). Run: scripts/vault/migrate-vault.sh" >&2
-fi
+ensure_today_daily "$VAULT/daily" "$NOTES_PACK/template.vault-daily.md"
 
 if [ "$VERIFY" -eq 1 ]; then
   for name in "${NOTE_DIRS[@]}"; do

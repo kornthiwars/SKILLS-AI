@@ -19,7 +19,7 @@
 | upgrade-ai | `/upgrade-ai` | 1.2.8 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
 | vault-daily | `/vault-daily` | 2.2.1 | ใช่ |
-| vault-capture | `/vault-capture` | 2.3.1 | ใช่ |
+| vault-capture | `/vault-capture` | 2.3.2 | ใช่ |
 | vault-recall | `/vault-recall` | 2.4.1 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
@@ -118,10 +118,9 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 - เนื้อหา `vault/**` gitignore (ยกเว้น `vault/.gitkeep`) — โน้ตส่วนตัวบนเครื่อง
 - **Obsidian:** เปิด folder → `SKILLS-AI/vault` (หรือ `.cursor/vault` junction)
-- setup: junction `.cursor/vault` → `vault/` + `bootstrap-vault` — สร้างโฟลเดอร์ + `_agent/` + `.obsidian/` seed (**ไม่** seed daily อัตโนมัติ)
+- setup: junction `.cursor/vault` → `vault/` + `bootstrap-vault` — สร้างโฟลเดอร์ + `_agent/` + `.obsidian/` seed + `daily/YYYY-MM-DD.md` วันนี้ถ้ายังไม่มี
 - โครงสร้าง: `vault/{daily,decisions,sessions,projects}/` · catalog ที่ `vault/_agent/manifest.json`
 - templates (git): `templates/vault/notes/template.vault-*.md` — agent `Read` → replace placeholders → `Write`
-- migration v1: `scripts/vault/migrate-vault.ps1` (จาก `notes/` + `_meta/`)
 - โหมดค้น: `grep-vault.ps1` (gitignore-safe, อ่าน `_agent/tiers.json`) หรือ manifest + per-file `Read`
 
 **Memory tiers**
@@ -145,8 +144,6 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | `/vault-recall` | อ่าน manifest → `grep-vault` / Read → cite |
 
 **เชื่อม skill เก่า:** ดู `ai-skills/vault-capture/reference.md` § Integration
-
-**Migration:** `vault/_index/` จากเวอร์ชันเก่า — ละเว้นได้ ลบเมื่อสะดวก
 
 ---
 

@@ -1,5 +1,6 @@
 #Requires -Version 5.1
 # Bootstrap Obsidian-native vault layout + _agent catalog (no Python).
+# Seeds vault/daily/YYYY-MM-DD.md from template when missing.
 param(
     [string]$RepoRoot = '',
     [switch]$Verify
@@ -21,7 +22,6 @@ $MetaPack = Join-Path $TemplatesPack 'meta'
 $NotesPack = Join-Path $TemplatesPack 'notes'
 $ObsidianPack = Join-Path $TemplatesPack 'obsidian'
 $ObsidianRuntime = Join-Path $Vault '.obsidian'
-$LegacyTemplates = Join-Path $Vault 'Templates'
 
 $NoteDirs = @('daily', 'decisions', 'sessions', 'projects')
 
@@ -58,43 +58,21 @@ function Copy-IfMissing([string]$Source, [string]$Dest) {
     return $true
 }
 
-function Remove-LegacyTemplatesDir {
-    if (-not (Test-Path -LiteralPath $LegacyTemplates)) { return }
-
-    $item = Get-Item -LiteralPath $LegacyTemplates -Force
-    if ($item.LinkType) {
-        Write-Warning "vault/Templates is a link — remove manually if you want pack-only templates."
-        return
+function Ensure-TodayDaily {
+    param([string]$DailyDir, [string]$TemplateFile)
+    $date = Get-Date -Format 'yyyy-MM-dd'
+    $iso = Get-Date -Format 'yyyy-MM-ddTHH:mm:sszzz'
+    $dailyFile = Join-Path $DailyDir "$date.md"
+    if (Test-Path -LiteralPath $dailyFile) { return $false }
+    if (-not (Test-Path -LiteralPath $TemplateFile)) {
+        throw "Missing template: $TemplateFile"
     }
-
-    $files = Get-ChildItem -LiteralPath $LegacyTemplates -File -ErrorAction SilentlyContinue
-    if (-not $files -or $files.Count -eq 0) {
-        Remove-Item -LiteralPath $LegacyTemplates -Force -Recurse
-        Write-Host "Removed empty vault/Templates/ (schemas live in templates/vault/notes/)."
-        return
-    }
-
-    $unexpected = @()
-    foreach ($file in $files) {
-        $packFile = Join-Path $NotesPack $file.Name
-        if (-not (Test-Path -LiteralPath $packFile)) {
-            $unexpected += $file.Name
-            continue
-        }
-        $packHash = (Get-FileHash -LiteralPath $packFile -Algorithm SHA256).Hash
-        $runtimeHash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash
-        if ($packHash -ne $runtimeHash) {
-            $unexpected += $file.Name
-        }
-    }
-
-    if ($unexpected.Count -gt 0) {
-        Write-Warning "vault/Templates/ has custom or unknown files ($($unexpected -join ', ')) — not removed."
-        return
-    }
-
-    Remove-Item -LiteralPath $LegacyTemplates -Force -Recurse
-    Write-Host "Removed vault/Templates/ copy (use templates/vault/notes/ in git)."
+    $utf8 = New-Object System.Text.UTF8Encoding $false
+    $content = [System.IO.File]::ReadAllText($TemplateFile, $utf8)
+    $content = $content.Replace('__VAULT_DATE__', $date).Replace('__VAULT_ISO__', $iso)
+    [System.IO.File]::WriteAllText($dailyFile, $content, $utf8)
+    Write-Host "INIT daily created: $dailyFile"
+    return $true
 }
 
 New-Item -ItemType Directory -Path $Vault -Force | Out-Null
@@ -109,8 +87,6 @@ New-Item -ItemType Directory -Path $Agent -Force | Out-Null
 Ensure-FileFromTemplate (Join-Path $Agent 'tiers.json') (Join-Path $MetaPack 'tiers.template.json') | Out-Null
 Ensure-FileFromTemplate (Join-Path $Agent 'manifest.json') (Join-Path $MetaPack 'manifest.template.json') | Out-Null
 
-Remove-LegacyTemplatesDir
-
 if (Test-Path -LiteralPath $ObsidianPack) {
     New-Item -ItemType Directory -Path $ObsidianRuntime -Force | Out-Null
     Get-ChildItem -LiteralPath $ObsidianPack -File | ForEach-Object {
@@ -118,11 +94,9 @@ if (Test-Path -LiteralPath $ObsidianPack) {
     }
 }
 
-$legacyNotes = Join-Path $Vault 'notes'
-$legacyMeta = Join-Path $Vault '_meta'
-if ((Test-Path -LiteralPath $legacyNotes) -or (Test-Path -LiteralPath $legacyMeta)) {
-    Write-Warning "Legacy layout detected (vault/notes/ or vault/_meta/). Run: scripts/vault/migrate-vault.ps1"
-}
+$dailyDir = Join-Path $Vault 'daily'
+$dailyTemplate = Join-Path $NotesPack 'template.vault-daily.md'
+Ensure-TodayDaily -DailyDir $dailyDir -TemplateFile $dailyTemplate | Out-Null
 
 if ($Verify) {
     $missing = @()

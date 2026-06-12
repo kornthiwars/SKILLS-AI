@@ -55,7 +55,7 @@ Daily manifest entry is optional. Durable tiers: **always upsert** after `Write`
 - **Daily Notes:** folder `daily/`, format `YYYY-MM-DD.md` (blank file from hotkey; agent fills schema from pack)
 - **Wikilinks:** `[[sessions/slug]]` in body for graph edges (not `notes/` prefix)
 - **`related:` YAML** — agent metadata only; does not create Obsidian graph edges without Dataview
-- **Note schemas (SSoT):** `templates/vault/notes/template.vault-*.md` in git — agent `Read`/`Write`; humans copy from pack or use agent skills (no `vault/Templates/` copy)
+- **Note schemas (SSoT):** `templates/vault/notes/template.vault-*.md` in git — agent `Read`/`Write`
 - **Excluded:** `_agent/**` from graph (seed in `obsidian/app.json`)
 
 ## Tag taxonomy (optional)
@@ -78,22 +78,12 @@ Daily manifest entry is optional. Durable tiers: **always upsert** after `Write`
 3. Daily notes hotkey → creates/opens blank `daily/YYYY-MM-DD.md`
 4. Schemas → `templates/vault/notes/` in repo (not inside vault)
 
-**Existing vaults:** re-run bootstrap to remove legacy `vault/Templates/` copy; disable core **Templates** plugin; clear daily-note template path in Settings if set.
-
-## Migration from v1 (`notes/` + `_meta/`)
-
-```powershell
-powershell -File scripts/vault/migrate-vault.ps1
-```
-
-Moves `notes/*` → flat folders, `_meta/` → `_agent/`, rewrites manifest paths. Fails on file collision.
-
 ## Seed policy
 
 | Target | Policy |
 |--------|--------|
 | `vault/.obsidian/*` | Copy-if-missing only (never overwrite user settings) |
-| `vault/Templates/` | **Removed** — bootstrap deletes pack-identical copy; schemas stay in `templates/vault/notes/` |
 | `vault/_agent/*` | Create from meta template if missing |
+| `vault/daily/YYYY-MM-DD.md` | Bootstrap seeds from template if missing (today only) |
 
-No script auto-writes daily or durable notes — agent or Obsidian creates them.
+Durable notes (sessions, decisions, projects) — agent or Obsidian creates them.
