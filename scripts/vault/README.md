@@ -1,6 +1,6 @@
-# Vault (agent-only local memory)
+# Vault (Obsidian-native + agent memory)
 
-Markdown notes under `vault/notes/` — **no Python**, no embeddings, no indexer.
+Markdown notes under `vault/` — **no Python**, no embeddings, no indexer. Open as Obsidian vault root.
 
 ## User setup
 
@@ -11,14 +11,20 @@ Run once after clone (from repo root):
 
 Creates:
 
-- `vault/notes/{daily,decisions,sessions,projects}/` (empty dirs OK)
-- `vault/_meta/{manifest.json,tiers.json}`
+- `vault/{daily,decisions,sessions,projects}/` (empty dirs OK)
+- `vault/_agent/{manifest.json,tiers.json}`
+- `vault/Templates/` (Obsidian Templates plugin)
+- `vault/Home.md` (MOC landing)
+- `vault/.obsidian/` (seed — copy-if-missing)
 
-Does **not** create `notes/daily/YYYY-MM-DD.md` — agent `Write` from `daily.template.md` when needed (`/vault-daily`, autolog).
+Does **not** create `daily/YYYY-MM-DD.md` — agent `Write` from `templates/vault/notes/template.vault-daily.md` when needed (`/vault-daily`, autolog).
 
-Content (tasks, Issues rows, triage) comes from **`/vault-daily`** and **autolog** (`append-daily`).
+**Migration from v1 (`notes/` + `_meta/`):**
 
-**New calendar day:** create today's daily from template before first autolog or `/vault-daily` — bootstrap/setup does not seed it.
+```powershell
+powershell -File scripts/vault/migrate-vault.ps1
+powershell -File scripts/vault/bootstrap-vault.ps1 -Verify
+```
 
 ## Skills
 
@@ -30,30 +36,50 @@ Content (tasks, Issues rows, triage) comes from **`/vault-daily`** and **autolog
 
 | Script | Purpose |
 |--------|---------|
-| `append-daily.ps1` / `.sh` | **Autolog** — append daily bullet (**requires** existing daily file + vault layout from bootstrap) |
+| `bootstrap-vault.ps1` / `.sh` | Layout + Obsidian seed + Templates copy |
+| `migrate-vault.ps1` / `.sh` | v1 → flat layout + `_agent/` |
+| `append-daily.ps1` / `.sh` | **Autolog** — append daily bullet |
 | `grep-vault.ps1` / `.sh` | **Recall** — search gitignored notes (`rg --no-ignore`) |
 
-| Template | Path | Output |
-|----------|------|--------|
-| Daily | `daily.template.md` | `notes/daily/DATE.md` |
-| Session | `session.template.md` | `notes/sessions/SLUG.md` |
-| Decision (ADR) | `decision.template.md` | `notes/decisions/SLUG.md` |
-| Project | `project.template.md` | `notes/projects/SLUG.md` |
+## Schema (git)
 
-Placeholders: see [TEMPLATES.md](./TEMPLATES.md). Agent `Read` → replace → `Write` — no auto-seed scripts.
+Templates: [`templates/vault/`](../../templates/vault/README.md) — not in `scripts/vault/`.
 
-## Migration from Python indexer
+| Template | Runtime path |
+|----------|--------------|
+| `template.vault-daily.md` | `daily/DATE.md` |
+| `template.vault-session.md` | `sessions/SLUG.md` |
+| `template.vault-decision.md` | `decisions/SLUG.md` |
+| `template.vault-project.md` | `projects/SLUG.md` |
+| `template.vault-home.md` | `Home.md` |
 
-If you have `vault/_index/` from an older setup, it is **ignored**. Notes in `vault/notes/` still work; delete `_index/` when convenient.
+Agent `Read` → replace placeholders → `Write` — no auto-seed scripts.
+
+## Obsidian
+
+1. Open folder → `SKILLS-AI/vault` (or `.cursor/vault` junction)
+2. Daily notes → `daily/`, format `YYYY-MM-DD`
+3. Wikilinks: `[[sessions/slug]]` (no `notes/` prefix)
+4. `_agent/` excluded from graph (agent catalog only)
+
+### Seed policy
+
+| Target | Policy |
+|--------|--------|
+| `.obsidian/*` | Copy-if-missing (never overwrite user settings) |
+| `Templates/*` | Copy-if-missing; `-RefreshTemplates` adds new pack files |
+| `Home.md` | Create if missing |
 
 ## Manual bootstrap
 
 ```powershell
 powershell -File scripts/vault/bootstrap-vault.ps1 -Verify
+powershell -File scripts/vault/bootstrap-vault.ps1 -RefreshTemplates
 ```
 
 ```bash
 ./scripts/vault/bootstrap-vault.sh --verify
+./scripts/vault/bootstrap-vault.sh --refresh-templates
 ```
 
 ## Troubleshooting
@@ -61,9 +87,7 @@ powershell -File scripts/vault/bootstrap-vault.ps1 -Verify
 | Issue | Fix |
 |-------|-----|
 | `Missing: vault` | Re-run setup or `bootstrap-vault.ps1 -Verify` |
-| `append-daily` / vault path error | Run `bootstrap-vault` once (creates `notes/*` dirs); then `Write` daily from `daily.template.md` if today's file missing |
-| Recall empty | Re-run setup + `/vault-capture`; recall uses per-file paths (directory Grep skipped — gitignore) |
-| Grep vault returns 0 | Use `grep-vault.ps1 -Pattern "..."` (not directory Grep) |
-| Autolog skipped | Create today's daily from `daily.template.md` if missing, then `append-daily.ps1 -Bullet "..."`; include `Vault daily:` in reply |
-| “Issue วันนี้” ว่าง | สร้าง `notes/daily/<today>.md` จาก `daily.template.md` หรือรัน `/vault-daily` |
-| Duplicate decisions | Check `vault/_meta/manifest.json` — merge by `id` |
+| Legacy `vault/notes/` | Run `migrate-vault.ps1` then bootstrap |
+| `append-daily` path error | Bootstrap + Write daily from `template.vault-daily.md` if missing |
+| Recall empty | Use `grep-vault.ps1 -Pattern "..."` (not directory Grep) |
+| Duplicate decisions | Check `vault/_agent/manifest.json` — merge by `id` |

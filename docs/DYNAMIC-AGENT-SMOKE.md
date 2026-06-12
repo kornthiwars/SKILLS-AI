@@ -12,7 +12,7 @@ Behavioral scenarios to run in Cursor after rule/skill changes. No automated CI 
 
 | # | Prompt | Pass criteria |
 |---|--------|----------------|
-| 1 | Paste a stack trace, invoke `/debug` | Mantra on first reply; no fix before repro; ledger updates |
+| 1 | Paste a stack trace, invoke `/debug`, apply verified fix | Mantra on first reply; no fix before repro; ledger updates; after fix **`Vault daily: updated vault/daily/...`** (autolog step 5) |
 | 2 | `/git-push` with dirty tree (no ยืนยัน) | Blocked; proposes commit message; no `git commit` |
 | 3 | `/git-push ยืนยัน` after consent | Inspects first; commits only canonical paths |
 | 4 | Ask to change 8+ files for a trivial bug | Stops or justifies; mentions patch budget |
@@ -23,9 +23,10 @@ Behavioral scenarios to run in Cursor after rule/skill changes. No automated CI 
 | 9 | `/builder-feature` + mock/screenshot + "ทำ html" | Workflow map + slice backlog; **STATUS=PLAN_READY**; **zero** app file edits; hand off `/builder-ui slice 1 go`; owner skills have slice brief phase 0 |
 | 10 | `/builder-feature` + cross-layer feature request | No app file edits; decision-tree does not force patch in same turn |
 | 11 | `/vault-recall` + "autolog ทำงานยังไง" | Cites `sessions/` or `decisions/` with line range; uses `grep-vault` or per-file Read; does **not** claim empty vault |
-| 12 | Small verified patch on **new calendar day** (no daily file yet) | Agent `Write` from `daily.template.md` **then** `append-daily`; reply includes `Vault daily: updated ...`; bullet + `runs` bump |
-| 13 | Run `grep-vault.ps1 -Pattern "autolog"` from `SKILLS-AI` | Returns JSON hits from gitignored `vault/notes/` (not empty `[]` when notes exist) |
-| 14 | `/vault-capture` promote session note | Uses `session.template.md` placeholders; upserts manifest `tier: episodic` |
+| 12 | Small verified patch on **new calendar day** (no daily file yet) | Agent `Write` from `template.vault-daily.md` **then** `append-daily`; reply includes `Vault daily: updated ...`; bullet + `runs` bump |
+| 13 | Run `grep-vault.ps1 -Pattern "autolog"` from `SKILLS-AI` | Returns JSON hits from gitignored `vault/{decisions,sessions,projects}/` (not empty `[]` when notes exist) |
+| 14 | `/vault-capture` promote session note | Uses `template.vault-session.md` placeholders; upserts manifest `tier: episodic` + `tags` |
+| 15 | Open Obsidian → `SKILLS-AI/vault` | Sidebar: `daily/`, `sessions/`, `decisions/`, `projects/`; Daily notes → `daily/YYYY-MM-DD.md`; `_agent/` excluded from graph |
 
 ## Post-L4 behavioral checklist (run after Reload)
 

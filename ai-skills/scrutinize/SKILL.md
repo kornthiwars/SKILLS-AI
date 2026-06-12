@@ -33,7 +33,7 @@ PR checklist + five-axis + verification: [reference.md](./reference.md).
 
 | Situation | Skill |
 |-----------|--------|
-| Review touches architecture / past decisions | [`/vault-recall`](../vault-recall/SKILL.md) **before** verdict — check `vault/notes/decisions/` for conflicts |
+| Review touches architecture / past decisions | [`/vault-recall`](../vault-recall/SKILL.md) **before** verdict — check `vault/decisions/` for conflicts |
 | Runtime bug while reviewing | [`/debug`](../debug/SKILL.md) |
 | RCA after validated fix | [`/fix-record`](../fix-record/SKILL.md) |
 | Validated fix needs memory | [`/vault-capture`](../vault-capture/SKILL.md) |
@@ -75,7 +75,7 @@ Run these in order. Do not skip ahead.
 
 ### 1. Intent — what is this actually trying to do?
 
-- If the PR touches **policy, API contract, auth, or architecture** — run [`/vault-recall`](../vault-recall/SKILL.md) first to surface prior `vault/notes/decisions/` that may conflict.
+- If the PR touches **policy, API contract, auth, or architecture** — run [`/vault-recall`](../vault-recall/SKILL.md) first to surface prior `vault/decisions/` that may conflict.
 - State the goal in one sentence, in your own words. If you cannot, the artifact is underspecified — say so and stop.
 - Ask: **is there a simpler, smaller, or more elegant way to achieve the same goal?** Consider:
   - Doing nothing (is the problem real / load-bearing?).

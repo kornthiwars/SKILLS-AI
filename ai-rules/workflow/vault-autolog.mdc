@@ -11,7 +11,7 @@ User does **not** need `/vault-daily` after every task. `/vault-daily` is for **
 
 1. After **any verified patch** in the turn → run **Steps 1–2** below **before** the final user reply.
 2. Do **not** claim work is **done**, **READY**, or **verified** until autolog ran or an explicit **skip reason** is documented in chat.
-3. Final reply **must** include one line: **`Vault daily:`** `updated vault/notes/daily/YYYY-MM-DD.md` **or** `skipped — <reason>`.
+3. Final reply **must** include one line: **`Vault daily:`** `updated vault/daily/YYYY-MM-DD.md` **or** `skipped — <reason>`.
 4. Applies to **every** skill and direct patch — including `/builder-ui`, `/debug`, `/upgrade-ai` on pack meta, not only vault skills.
 
 ## When to run (agent — no user slash)
@@ -29,14 +29,14 @@ Canonical daily file — use **first path that exists** on disk:
 
 | Workspace layout | Daily path | Manifest path |
 |------------------|------------|---------------|
-| Parent `web/` (junction) | `SKILLS-AI/vault/notes/daily/<today>.md` **or** `.cursor/vault/notes/daily/<today>.md` | `SKILLS-AI/vault/_meta/manifest.json` |
-| Pack repo root (`SKILLS-AI/`) | `vault/notes/daily/<today>.md` | `vault/_meta/manifest.json` |
+| Parent `web/` (junction) | `SKILLS-AI/vault/daily/<today>.md` **or** `.cursor/vault/daily/<today>.md` | `SKILLS-AI/vault/_agent/manifest.json` |
+| Pack repo root (`SKILLS-AI/`) | `vault/daily/<today>.md` | `vault/_agent/manifest.json` |
 
 **Do not** assume `vault/` at the parent workspace root — it may not exist. Both junction paths above resolve to the same file.
 
 ## Steps (lightweight)
 
-1. If today's daily **missing** → `Read` `scripts/vault/daily.template.md`, `Write` daily file (DATE/ISO); optional manifest upsert — see [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Daily file
+1. If today's daily **missing** → `Read` `templates/vault/notes/template.vault-daily.md`, `Write` daily file (DATE/ISO); optional manifest upsert — see [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Daily file
 2. **Append bullet (preferred — run via Shell)** — from `SKILLS-AI` repo root:
 
    ```powershell

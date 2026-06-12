@@ -1,0 +1,7 @@
+{
+  "showLineNumber": false,
+  "readableLineLength": true,
+  "userIgnoreFilters": [
+    "_agent/"
+  ]
+}

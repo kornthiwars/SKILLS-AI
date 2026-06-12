@@ -2,6 +2,7 @@
 id: "proj-SLUG"
 title: "TITLE"
 tags: []
+aliases: []
 project: "PROJECT"
 created: "CREATED"
 updated: "UPDATED"
@@ -25,4 +26,5 @@ _(one paragraph — scope and why this project note exists)_
 
 ## Links
 
-- 
+- [[sessions/slug]] — example session wikilink
+- [[decisions/slug]] — example ADR wikilink

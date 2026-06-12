@@ -2,29 +2,29 @@
 
 ## Path resolution (read before any tool call)
 
-`vault/**` is **gitignored** — directory `Grep` / `Glob` on `vault/notes/` often returns **empty** even when files exist.
+`vault/**` is **gitignored** — directory `Grep` / `Glob` on vault note folders often returns **empty** even when files exist.
 
 Resolve disk path — use **first that exists**:
 
 | Workspace | Manifest | Note file (`manifest.path`) |
 |-----------|----------|----------------------------|
-| Parent `web/` | `SKILLS-AI/vault/_meta/manifest.json` | `SKILLS-AI/vault/{path}` or `.cursor/vault/{path}` |
-| Pack root `SKILLS-AI/` | `vault/_meta/manifest.json` | `vault/{path}` |
+| Parent `web/` | `SKILLS-AI/vault/_agent/manifest.json` | `SKILLS-AI/vault/{path}` or `.cursor/vault/{path}` |
+| Pack root `SKILLS-AI/` | `vault/_agent/manifest.json` | `vault/{path}` |
 
 SSoT: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) § Path resolution.
 
 ## Note templates
 
-Creating or interpreting note shape: [scripts/vault/TEMPLATES.md](../../scripts/vault/TEMPLATES.md) (`daily`, `session`, `decision`, `project` templates). Recall reads existing files only — does not create notes.
+Creating or interpreting note shape: [templates/vault/README.md](../../templates/vault/README.md). Recall reads existing files only — does not create notes.
 
 ## Search modes
 
 | mode | Trigger | Tool |
 |------|---------|------|
-| daily | date in query, เมื่อวาน, สรุปวันนี้ | `Read` resolved `.../notes/daily/YYYY-MM-DD.md` |
+| daily | date in query, เมื่อวาน, สรุปวันนี้ | `Read` resolved `.../daily/YYYY-MM-DD.md` |
 | hybrid | decisions, architecture, how did we | manifest → **per-file** Grep or Read → cite |
 
-**Never** rely on Cursor directory `Grep` on `vault/notes/` — gitignored, returns empty.
+**Never** rely on Cursor directory `Grep` on gitignored vault folders — returns empty.
 
 ## Hybrid search (gitignore-safe)
 
@@ -36,14 +36,14 @@ Creating or interpreting note shape: [scripts/vault/TEMPLATES.md](../../scripts/
    powershell -NoProfile -File scripts/vault/grep-vault.ps1 -Pattern "<keywords>" -Tier all
    ```
 
-   Returns JSON `[{path,line,excerpt},...]` via `rg --no-ignore`. Fallback: per-file `Grep` / `Read` on manifest paths only.
+   Returns JSON `[{path,line,excerpt},...]` via `rg --no-ignore`. Roots from `_agent/tiers.json`. Fallback: per-file `Grep` / `Read` on manifest paths only.
 
 4. `Read` winners (≤5); expand `related:` per cap below
 5. Cite `SKILLS-AI/vault/{path}` or `.cursor/vault/{path}` with line range
 
 ## Citation format
 
-`SKILLS-AI/vault/notes/decisions/auth-refresh-policy.md` lines 12–28
+`SKILLS-AI/vault/decisions/auth-refresh-policy.md` lines 12–28
 
 ## Manifest shortlist
 
@@ -74,3 +74,9 @@ Do not cite superseded file as final answer — open doc with matching `id`.
 If `path` in manifest but file missing on disk → drop entry when rewriting manifest; do not cite missing path.
 
 Daily files: `Read` by date path; listed in manifest as `tier: ephemeral` for bookkeeping only.
+
+## Obsidian
+
+Open `SKILLS-AI/vault` as vault root. Wikilinks in notes use `[[tier/slug]]` without `notes/` prefix.
+
+**Graph vs agent metadata:** `related:` in frontmatter does **not** create Obsidian graph edges (core). For graph/backlink answers, cite wikilinks in the note body. Use `related:` only for agent recall expansion (manifest `id` refs).

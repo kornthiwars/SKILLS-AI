@@ -20,7 +20,7 @@ REPO_ROOT="${REPO_ROOT:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
 
 date="$(date +%Y-%m-%d)"
 iso="$(date -Iseconds)"
-daily_file="$REPO_ROOT/vault/notes/daily/$date.md"
+daily_file="$REPO_ROOT/vault/daily/$date.md"
 daily_dir="$(dirname "$daily_file")"
 
 [ -d "$daily_dir" ] || {
@@ -28,7 +28,7 @@ daily_dir="$(dirname "$daily_file")"
   exit 1
 }
 [ -f "$daily_file" ] || {
-  echo "Daily file missing: $daily_file — Write from scripts/vault/daily.template.md (DATE/ISO) first" >&2
+  echo "Daily file missing: $daily_file — Write from templates/vault/notes/template.vault-daily.md (DATE/ISO) first" >&2
   exit 1
 }
 

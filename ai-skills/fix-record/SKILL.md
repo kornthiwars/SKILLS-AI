@@ -1,7 +1,7 @@
 ---
 name: fix-record
 metadata:
-  version: "1.2.4"
+  version: "1.2.5"
 description: >-
   Canonical RCA after a validated fix — mechanism, fix, validation, slip-through.
   Required-input gate + verification protocol. Invoke with /fix-record when closing

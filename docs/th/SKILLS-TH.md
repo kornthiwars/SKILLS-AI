@@ -455,7 +455,7 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-daily` |
-| **บทบาท** | สรุปงานประจำวัน — **1 วัน 1 ไฟล์** `vault/notes/daily/YYYY-MM-DD.md` (จาก `daily.template.md` ถ้ายังไม่มี) |
+| **บทบาท** | สรุปงานประจำวัน — **1 วัน 1 ไฟล์** `vault/daily/YYYY-MM-DD.md` (จาก `template.vault-daily.md` ถ้ายังไม่มี) |
 
 **Iron law:** ห้าม promote ไป `decisions/` / `sessions/` / `projects/` จนกว่า user confirm triage preview
 
@@ -470,7 +470,7 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-capture` |
-| **บทบาท** | บันทึก episodic / ADR / project — `sessions/`, `decisions/`, `projects/` จาก `scripts/vault/*.template.md` |
+| **บทบาท** | บันทึก episodic / ADR / project — `sessions/`, `decisions/`, `projects/` จาก `templates/vault/notes/template.vault-*.md` |
 
 dedupe ผ่าน `manifest.json` ก่อนเขียน · อัป manifest หลัง save · **ห้าม** copy RCA เต็มจาก `/fix-record` · **ไม่ใช้ Python**
 
@@ -483,7 +483,7 @@ dedupe ผ่าน `manifest.json` ก่อนเขียน · อัป man
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-recall` + คำถาม |
-| **บทบาท** | ค้น memory — manifest + `grep-vault.ps1` / per-file Read (ห้าม directory Grep บน gitignored `vault/notes/`) |
+| **บทบาท** | ค้น memory — manifest + `grep-vault.ps1` / per-file Read (ห้าม directory Grep บน gitignored vault) |
 
 **Handoffs จาก:** `/fix-record` (ก่อนเขียน RCA) · `/scrutinize` (ก่อน verdict เรื่อง architecture)
 

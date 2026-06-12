@@ -94,7 +94,7 @@ Detail: [reference.md](./reference.md) § UI-only express lane · § Plan-only g
 | Bug during build | [`/debug`](../debug/SKILL.md) |
 | Review implemented slice PR | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Ship after slices verified | [`/git-push`](../git-push/SKILL.md) |
-| Plan has durable decisions (ADR) — **after plan complete only** | [`/vault-capture`](../vault-capture/SKILL.md) → `vault/notes/decisions/<slug>.md` |
+| Plan has durable decisions (ADR) — **after plan complete only** | [`/vault-capture`](../vault-capture/SKILL.md) → `vault/decisions/<slug>.md` |
 | End of planning day | [`/vault-daily`](../vault-daily/SKILL.md) — promote `keep_decision` |
 
 Vault handoffs apply **after** phase 7 + slice backlog (`PLAN_READY`) — never during plan-only phases.

@@ -8,16 +8,19 @@
 
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
-| debug | `/debug` | 1.3.5 | ใช่ |
+| debug | `/debug` | 1.3.6 | ใช่ |
 | scrutinize | `/scrutinize` | 1.2.7 | ใช่ |
-| builder-ui | `/builder-ui` | 1.2.7 | ใช่ |
+| builder-ui | `/builder-ui` | 1.2.8 | ใช่ |
 | builder-api | `/builder-api` | 1.2.5 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.4 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.5 | ใช่ |
 | builder-feature | `/builder-feature` | 1.5.3 | ใช่ |
-| fix-record | `/fix-record` | 1.2.4 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.2.7 | ใช่ |
+| fix-record | `/fix-record` | 1.2.5 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.2.8 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
+| vault-daily | `/vault-daily` | 2.2.1 | ใช่ |
+| vault-capture | `/vault-capture` | 2.2.1 | ใช่ |
+| vault-recall | `/vault-recall` | 2.4.1 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
 
@@ -27,7 +30,7 @@
 
 | ไฟล์ | เนื้อหาลึก |
 |------|------------|
-| `debug/reference.md` | phase 1 exit criteria, edit lock, hypothesis table, verification + callee cleanup |
+| `debug/reference.md` | phase 1 exit criteria, edit lock, hypothesis table, verification + callee cleanup + § Vault boundary |
 | `git-push/reference.md` | push matrix, commit gate, SSH multi-account, ตาราง error |
 | `scrutinize/reference.md` | agent-skills PR checklist, NeoLabHQ lenses, browser MCP, verification gate |
 | `fix-record/reference.md` | section guide, worked example, publish + close-out verification |
@@ -111,23 +114,27 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 ---
 
-## 7. โฟลเดอร์ `vault/` (agent-only local memory)
+## 7. โฟลเดอร์ `vault/` (Obsidian + agent dual-use)
 
 - เนื้อหา `vault/**` gitignore (ยกเว้น `vault/.gitkeep`) — โน้ตส่วนตัวบนเครื่อง
-- setup: junction `.cursor/vault` → `vault/` + `bootstrap-vault` — สร้างโฟลเดอร์ + `_meta/` เท่านั้น (**ไม่** seed daily อัตโนมัติ)
-- โครงสร้าง: `vault/notes/{daily,decisions,sessions,projects}/` · catalog ที่ `vault/_meta/manifest.json`
-- templates: `scripts/vault/*.template.md` + [TEMPLATES.md](../../scripts/vault/TEMPLATES.md) — agent `Read` → replace placeholders → `Write`
-- โหมดค้น: `grep-vault.ps1` (gitignore-safe) หรือ manifest + per-file `Read` (ห้าม directory `Grep` บน `vault/notes/`)
+- **Obsidian:** เปิด folder → `SKILLS-AI/vault` (หรือ `.cursor/vault` junction)
+- setup: junction `.cursor/vault` → `vault/` + `bootstrap-vault` — สร้างโฟลเดอร์ + `_agent/` + `.obsidian/` seed (**ไม่** seed daily อัตโนมัติ)
+- โครงสร้าง: `vault/{daily,decisions,sessions,projects}/` · catalog ที่ `vault/_agent/manifest.json`
+- templates (git): `templates/vault/notes/template.vault-*.md` — agent `Read` → replace placeholders → `Write`
+- migration v1: `scripts/vault/migrate-vault.ps1` (จาก `notes/` + `_meta/`)
+- โหมดค้น: `grep-vault.ps1` (gitignore-safe, อ่าน `_agent/tiers.json`) หรือ manifest + per-file `Read`
 
 **Memory tiers**
 
 | Tier | โฟลเดอร์ | ใน manifest |
 |------|----------|-------------|
-| Ephemeral | `notes/daily/YYYY-MM-DD.md` | ไม่บังคับ (upsert ได้) |
-| Semantic | `notes/decisions/`, `notes/projects/` | ใช่ |
-| Episodic | `notes/sessions/` | ใช่ |
+| Ephemeral | `daily/YYYY-MM-DD.md` | ไม่บังคับ (upsert ได้) |
+| Semantic | `decisions/`, `projects/` | ใช่ |
+| Episodic | `sessions/` | ใช่ |
 
-**Autolog (หลัง patch+verify):** ไม่มี daily วันนี้ → `daily.template.md` ก่อน → `append-daily.ps1`
+**Wikilinks:** `[[sessions/slug]]` — ไม่ใส่ `notes/` prefix
+
+**Autolog (หลัง patch+verify):** ไม่มี daily วันนี้ → `Read` `templates/vault/notes/template.vault-daily.md` → `Write` `vault/daily/<today>.md` → `append-daily.ps1`; reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`**
 
 **Skills (เรียกเอง — `disable-model-invocation: true`)**
 

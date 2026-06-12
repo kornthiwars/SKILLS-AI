@@ -2,44 +2,48 @@
 
 ## Note templates (SSoT)
 
-All templates: `scripts/vault/` — detail in [TEMPLATES.md](../../scripts/vault/TEMPLATES.md).
+All templates: `templates/vault/notes/` — detail in [templates/vault/README.md](../../templates/vault/README.md).
 
 | Tier | Template | Output |
 |------|----------|--------|
-| Daily | `daily.template.md` | `notes/daily/DATE.md` |
-| Session | `session.template.md` | `notes/sessions/SLUG.md` |
-| Decision | `decision.template.md` | `notes/decisions/SLUG.md` |
-| Project | `project.template.md` | `notes/projects/SLUG.md` |
+| Daily | `template.vault-daily.md` | `daily/DATE.md` |
+| Session | `template.vault-session.md` | `sessions/SLUG.md` |
+| Decision | `template.vault-decision.md` | `decisions/SLUG.md` |
+| Project | `template.vault-project.md` | `projects/SLUG.md` |
 
 ## Daily file
 
-Path: `vault/notes/daily/YYYY-MM-DD.md`
+Path: `vault/daily/YYYY-MM-DD.md`
 
-**Template:** `scripts/vault/daily.template.md` — replace `DATE`, `ISO`; optional `project` in frontmatter.
+**Template:** `templates/vault/notes/template.vault-daily.md` — replace `DATE`, `ISO`; optional `project` in frontmatter.
 
 ## Triage values
 
 | triage | Action |
 |--------|--------|
-| keep_decision | `decision.template.md` → `notes/decisions/<slug>.md` + manifest |
-| keep_learning | `session.template.md` → `notes/sessions/<slug>.md` + manifest |
-| keep_project | `project.template.md` → `notes/projects/<slug>.md` + manifest |
+| keep_decision | `template.vault-decision.md` → `decisions/<slug>.md` + manifest |
+| keep_learning | `template.vault-session.md` → `sessions/<slug>.md` + manifest |
+| keep_project | `template.vault-project.md` → `projects/<slug>.md` + manifest |
 | daily_only | Stay in daily only |
 | carry_over | Add to frontmatter `carry_over` |
 
-Dedupe before promote: `Read` manifest + match slug in `path`.
+Dedupe before promote: `Read` `vault/_agent/manifest.json` + match slug in `path`.
+
+## Promoted wikilinks
+
+In daily `## Promoted`, use Obsidian wikilinks: `[[decisions/slug]]`, `[[sessions/slug]]`, `[[projects/slug]]`.
 
 ## Decision file (promoted)
 
-**Template:** `decision.template.md` — `SLUG`, `TITLE`, `PROJECT`, `CREATED`, `UPDATED`. Default `status: draft` unless user says active.
+**Template:** `template.vault-decision.md` — `SLUG`, `TITLE`, `PROJECT`, `CREATED`, `UPDATED`. Default `status: draft` unless user says active.
 
 ## Session file (promoted)
 
-**Template:** `session.template.md` — same placeholders.
+**Template:** `template.vault-session.md` — same placeholders.
 
 ## Project file (promoted)
 
-**Template:** `project.template.md` — same placeholders. Manifest: `tier: semantic`, `id: proj-<slug>`.
+**Template:** `template.vault-project.md` — same placeholders. Manifest: `tier: semantic`, `id: proj-<slug>`.
 
 ## Merge same day
 

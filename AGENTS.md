@@ -19,7 +19,7 @@ Creates under `<workspace>/.cursor/`:
 
 - `skills` → `ai-skills/`
 - `rules` → `ai-rules/`
-- `vault` → `vault/` (local notes; templates in `scripts/vault/` — see [TEMPLATES.md](scripts/vault/TEMPLATES.md))
+- `vault` → `vault/` (Obsidian vault root; schemas in `templates/vault/` — see [templates/vault/README.md](templates/vault/README.md))
 
 Edit **`ai-skills/`** and **`ai-rules/`** in the clone — not inside `.cursor/` junctions.
 
@@ -60,4 +60,4 @@ Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Chang
 
 ## Git in this repo
 
-Ship changes with **`@git-push`** only. The `vault/` folder is gitignored except `.gitkeep` — notes from [scripts/vault/TEMPLATES.md](scripts/vault/TEMPLATES.md); bootstrap creates dirs only (no auto daily seed).
+Ship changes with **`@git-push`** only. The `vault/` folder is gitignored except `.gitkeep` — notes from [templates/vault/README.md](templates/vault/README.md); bootstrap creates dirs + Obsidian seed (no auto daily seed). Migrate v1 layout: `scripts/vault/migrate-vault.ps1`.

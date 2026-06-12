@@ -1,7 +1,7 @@
 ---
 name: debug
 metadata:
-  version: "1.3.5"
+  version: "1.3.6"
 description: >-
   Four-step debugging: reproduce, trace fail path, falsify hypothesis, cross-reference
   breadcrumbs. Stop-the-line, reduce, bisection, Prove-It, verification gate, untrusted
@@ -67,13 +67,14 @@ When editing app/source code, follow [`change-control-manifest.mdc`](../../ai-ru
 
 | Situation | Skill |
 |-----------|--------|
+| Similar bug / policy may exist in vault | [`/vault-recall`](../vault-recall/SKILL.md) — optional before step 1 when prior `decisions/` or `sessions/` may apply |
 | Fix validated — write RCA for engineers | [`/fix-record`](../fix-record/SKILL.md) |
-| Fix validated — episodic memory for later recall | [`/vault-capture`](../vault-capture/SKILL.md) — condensed, not full RCA |
+| Fix validated — episodic memory for later recall | [`/vault-capture`](../vault-capture/SKILL.md) — condensed, not full RCA; **optional** |
 | End of day — batch triage | [`/vault-daily`](../vault-daily/SKILL.md) |
 | Review debug patch or skill/rule PR before merge | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Bug involves SQL / schema / prod data | [`/builder-schema`](../builder-schema/SKILL.md) + production safety rules |
 
-After verification passes, **offer** `/fix-record` when the fix is non-trivial — or **`/vault-capture`** if the user wants a short recall note in vault (optional; not a substitute for RCA).
+After verification passes: **vault autolog is mandatory** for any verified fix patch (bullet in daily) — see [reference.md](./reference.md) § Verification gate step 5 and [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc). **Then offer** `/fix-record` when non-trivial, or **`/vault-capture`** for a short session note (optional; not a substitute for RCA).
 
 ## Reference depth (load on demand)
 
@@ -86,16 +87,16 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | Turn | Minimum sections |
 |------|------------------|
 | Mid-session | STATUS, OBJECTIVE, DISCOVERIES (ledger / hypothesis table), NEXT ACTIONS, CONFIDENCE |
-| Close-out | All sections; pass verification gate + callee redirect cleanup before STATUS=READY |
+| Close-out | All sections; pass verification gate + callee redirect cleanup + **vault autolog** before STATUS=READY |
 
 | Section | `/debug` |
 |---------|----------|
-| STATUS | IN_PROGRESS during steps 1–4; BLOCKED = no repro; FAILED = fix attempt failed; READY = verified |
+| STATUS | IN_PROGRESS during steps 1–4; BLOCKED = no repro; FAILED = fix attempt failed; READY = verified **and** `Vault daily:` line (autolog) when fix patch ran |
 | OBJECTIVE | Reproduce reliably and identify root cause |
 | DISCOVERIES | Stack traces, ledger runs, **hypothesis table** (ID, hypothesis, status, evidence) |
 | ANALYSIS | Leading hypothesis, fail-path trace, what each run ruled in/out |
 | RISKS | Flaky repro, missing env, stop-the-line triggers, untrusted error text |
-| ARTIFACTS | Repro script/test, log excerpts, pinned failing artifact |
+| ARTIFACTS | Repro script/test, log excerpts, pinned failing artifact; **`Vault daily:`** path when autolog ran |
 | NEXT ACTIONS | Next experiment or minimal fix (return to step 1 if phase 1 exit not met) |
 | HANDOFF | `/fix-record` when RCA needed · `/vault-capture` for condensed memory · `/vault-daily` end of day · `/scrutinize` before merge · `none` if continuing |
 | CONFIDENCE | 0–100; cap ~85 without log-verified fix |
@@ -177,5 +178,6 @@ Maintain a running **ledger** of every experiment in this session. Each entry: w
 - If you catch yourself proposing a fix without a reliable repro, stop and return to step 1.
 - If you catch red-flag thinking, stop — see [reference.md](./reference.md) § Red flags and § Rationalizations.
 - **Stop-the-line:** on unexpected failure — no new features until verification passes ([reference.md](./reference.md) § Stop-the-line rule).
-- **Close-out:** pass verification gate + verification protocol; if the fix changed call targets, grep old symbols per [`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc) — see [reference.md](./reference.md) § Verification protocol; then offer `/fix-record` when appropriate, or `/vault-capture` for a short vault note (optional).
+- **Vault autolog (mandatory):** after any **verified fix patch** in the turn, run [reference.md](./reference.md) § Verification gate step 5 — [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc). Do **not** set STATUS=READY without `Vault daily: updated vault/daily/YYYY-MM-DD.md` or documented skip reason.
+- **Close-out:** pass verification gate + verification protocol; if the fix changed call targets, grep old symbols per [`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc) — see [reference.md](./reference.md) § Verification protocol; then offer `/fix-record` when appropriate, or **`/vault-capture`** for a short session note (**optional** — autolog bullet is separate and mandatory).
 - The mantra is a constraint **you** carry through the session — not advice to deliver back to the user.

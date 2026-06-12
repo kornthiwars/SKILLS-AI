@@ -17,14 +17,14 @@ if (-not $RepoRoot) {
 
 $date = Get-Date -Format 'yyyy-MM-dd'
 $iso = Get-Date -Format 'yyyy-MM-ddTHH:mm:sszzz'
-$dailyFile = Join-Path $RepoRoot "vault\notes\daily\$date.md"
+$dailyFile = Join-Path $RepoRoot "vault\daily\$date.md"
 $dailyDir = Split-Path -Parent $dailyFile
 
 if (-not (Test-Path -LiteralPath $dailyDir)) {
     throw "Vault layout missing: run scripts/vault/bootstrap-vault.ps1 -Verify first"
 }
 if (-not (Test-Path -LiteralPath $dailyFile)) {
-    throw "Daily file missing: $dailyFile - create from scripts/vault/daily.template.md (DATE/ISO) first"
+    throw "Daily file missing: $dailyFile - create from templates/vault/notes/template.vault-daily.md (DATE/ISO) first"
 }
 
 $bulletLine = if ($Bullet.TrimStart().StartsWith('-')) { $Bullet.Trim() } else { "- $Bullet" }

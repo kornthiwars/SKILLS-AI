@@ -81,7 +81,7 @@ When diagnosing or upgrading **this** repository:
 
 - **Do not** treat `.cursor/skills` as source of truth in the clone — it points at `ai-skills/`.
 - **Do not** commit user content under `vault/` (gitignored except `.gitkeep`).
-- Vault notes: agent `Read`/`Write` from [scripts/vault/TEMPLATES.md](../../scripts/vault/TEMPLATES.md); bootstrap creates dirs only (no auto daily seed).
+- Vault notes: agent `Read`/`Write` from [templates/vault/README.md](../../templates/vault/README.md); bootstrap creates dirs only (no auto daily seed).
 - New clone: run `scripts/setup-macos-linux.sh` or Windows equivalent before testing skills in Cursor.
 - Authoring guide: [`../SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) · agent entry: [`../../AGENTS.md`](../../AGENTS.md).
 
@@ -262,7 +262,7 @@ Before claiming pack or skill upgrade **complete** ([verification-before-complet
 | 1 IDENTIFY | Which skills changed · pack checklist rows |
 | 2 RUN | [SKILL-SMOKE-CHECKLIST.md](../../docs/SKILL-SMOKE-CHECKLIST.md) + behavioral scenarios in [DYNAMIC-AGENT-SMOKE.md](../../docs/DYNAMIC-AGENT-SMOKE.md) |
 | 3 READ | Cite checklist results in session · list skills still below 9.0 with next action in SKILL REPORT |
-| 4 AUTOLOG | After verified meta patch → [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): create daily from `daily.template.md` if missing, then `append-daily`; `Vault daily:` line in reply |
+| 4 AUTOLOG | After verified meta patch → [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): `Read` `templates/vault/notes/template.vault-daily.md` if missing → `Write` `vault/daily/<today>.md` → `append-daily`; reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`** |
 
 Do not claim "all skills at 9.0" without inline score table or explicit blocker list in the session. Do not claim READY until step 4 when files were patched.
 

@@ -4,35 +4,36 @@
 
 | Tier | Template file | Path |
 |------|---------------|------|
-| Daily | `scripts/vault/daily.template.md` | `notes/daily/DATE.md` |
-| Session | `scripts/vault/session.template.md` | `notes/sessions/SLUG.md` |
-| Decision | `scripts/vault/decision.template.md` | `notes/decisions/SLUG.md` |
-| Project | `scripts/vault/project.template.md` | `notes/projects/SLUG.md` |
+| Daily | `templates/vault/notes/template.vault-daily.md` | `daily/DATE.md` |
+| Session | `templates/vault/notes/template.vault-session.md` | `sessions/SLUG.md` |
+| Decision | `templates/vault/notes/template.vault-decision.md` | `decisions/SLUG.md` |
+| Project | `templates/vault/notes/template.vault-project.md` | `projects/SLUG.md` |
+| Home | `templates/vault/notes/template.vault-home.md` | `Home.md` |
 
-Placeholders: [scripts/vault/TEMPLATES.md](../../scripts/vault/TEMPLATES.md).
+Placeholders: [templates/vault/README.md](../../templates/vault/README.md).
 
 ## Session note
 
-Path: `vault/notes/sessions/<slug>.md` — use **`session.template.md`** (`SLUG`, `TITLE`, `PROJECT`, `CREATED`, `UPDATED`).
+Path: `vault/sessions/<slug>.md` — use **`template.vault-session.md`** (`SLUG`, `TITLE`, `PROJECT`, `CREATED`, `UPDATED`).
 
-Sections: **Context**, **WhatChanged**, **Decisions**, **FollowUps**.
+Sections: **Context**, **WhatChanged**, **Decisions**, **FollowUps**. Link ADRs with `[[decisions/slug]]`.
 
 ## Gitignore note
 
-`vault/**` is gitignored — **do not** `Grep` directories under `vault/notes/`. Use `Read`/`Write` on resolved paths; recall uses per-file `Grep` only ([vault-recall/reference.md](../vault-recall/reference.md)).
+`vault/**` is gitignored — **do not** directory `Grep` on `vault/` note folders. Use `Read`/`Write` on resolved paths; recall uses `grep-vault` or per-file `Grep` ([vault-recall/reference.md](../vault-recall/reference.md)).
 
 ## Dedupe (agent-only)
 
-1. `Read` resolved `.../vault/_meta/manifest.json`
-2. Match `id` or slug in `path` (`notes/sessions/<slug>.md`)
-3. `Grep` `title:` in `vault/notes/sessions/` if ambiguous
+1. `Read` resolved `.../vault/_agent/manifest.json`
+2. Match `id` or slug in `path` (`sessions/<slug>.md`)
+3. `Grep` `title:` in `vault/sessions/` if ambiguous
 4. Merge into existing file — do not create duplicate slug
 
-## Manifest v1 (file: `vault/_meta/manifest.json`)
+## Manifest v2 (file: `vault/_agent/manifest.json`)
 
 ```json
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "updated_at": "ISO8601",
   "docs": []
 }
@@ -43,30 +44,35 @@ Each doc entry (upsert by `id`):
 ```json
 {
   "id": "sess-<topic-slug>",
-  "path": "notes/sessions/<topic-slug>.md",
+  "path": "sessions/<topic-slug>.md",
   "title": "<title>",
   "tier": "episodic",
   "project": "<project>",
   "status": "active",
-  "updated": "YYYY-MM-DD"
+  "updated": "YYYY-MM-DD",
+  "tags": []
 }
 ```
 
 Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`projects/`, `episodic` for `sessions/`.
 
+**Required:** every upsert includes `"tags": []` or a string array — omitting `tags` breaks `/vault-recall` shortlist consistency.
+
+Migration from v1: run `scripts/vault/migrate-vault.ps1`.
+
 ---
 
 ## Daily file (agent-created — not bootstrap)
 
-`notes/daily/` may stay **empty** until you need a daily log. **No script** auto-creates today's file.
+`daily/` may stay **empty** until you need a daily log. **No script** auto-creates today's file.
 
 1. `today` = local calendar `YYYY-MM-DD`
 2. Path: resolve per [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) § Path resolution
 3. If file **exists** → read/merge (never overwrite wholesale)
 4. If **missing** and you need daily (autolog, `/vault-daily`, recall “วันนี้”):
-   - `Read` `scripts/vault/daily.template.md`
+   - `Read` `templates/vault/notes/template.vault-daily.md`
    - Replace `DATE` / `ISO`
-   - `Write` `vault/notes/daily/<today>.md`
+   - `Write` `vault/daily/<today>.md`
    - Optional: upsert manifest `daily-<today>` (`tier: ephemeral`)
 5. Then run `append-daily` for bullets, or full `/vault-daily` for triage
 
@@ -89,7 +95,7 @@ Always-on rule: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc)
 | `/debug` | **full** | capture, daily | After verified fix — condensed memory or end-of-day triage |
 | `/fix-record` | **full** | recall, capture | RCA is canonical; vault stores short recall summary only |
 | `/scrutinize` | **full** | recall, capture | Recall before architecture/policy verdict |
-| `/builder-feature` | **full** | capture, daily | After `PLAN_READY` — ADR to `vault/notes/decisions/` |
+| `/builder-feature` | **full** | capture, daily | After `PLAN_READY` — ADR to `vault/decisions/` |
 | `/builder-schema` | **light** | recall, capture | Before destructive migration; durable schema decision |
 | `/builder-api` | **light** | recall, capture | Before contract break; ADR after slice verify |
 | `/builder-infrastructure` | **light** | capture | Runbook / infra decision after verify |
@@ -104,7 +110,7 @@ Always-on rule: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc)
 
 ### Frontmatter when sourced from `/fix-record`
 
-Start from **`session.template.md`** — add to frontmatter:
+Start from **`template.vault-session.md`** — add to frontmatter:
 
 - `tags: [bugfix, learning]`
 - `related: ["fix-record:JIRA-12345", "pr:org/repo#5751"]` (or PR id)
@@ -121,13 +127,13 @@ Sections (keep concise — full RCA stays in fix-record):
 
 ### Frontmatter when sourced from `/builder-feature`
 
-Use **`decision.template.md`** — add `intent: keep_decision` to frontmatter when promoting from `/vault-daily`.
+Use **`template.vault-decision.md`** — add `intent: keep_decision` to frontmatter when promoting from `/vault-daily`.
 
-Path: `vault/notes/decisions/<slug>.md` (one topic per file).
+Path: `vault/decisions/<slug>.md` (one topic per file).
 
 ### Project note
 
-Path: `vault/notes/projects/<slug>.md` — use **`project.template.md`**.
+Path: `vault/projects/<slug>.md` — use **`template.vault-project.md`**.
 
 Sections: **Overview**, **Goals**, **Status** (table), **Links**. Manifest: `id: proj-<slug>`, `tier: semantic`.
 

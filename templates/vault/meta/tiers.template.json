@@ -1,0 +1,11 @@
+{
+  "schema_version": 2,
+  "mode": "agent-only",
+  "tiers": {
+    "ephemeral": "daily",
+    "semantic": ["decisions", "projects"],
+    "episodic": "sessions"
+  },
+  "index_exclude": ["daily/**"],
+  "recall_search_tiers": ["decisions", "sessions", "projects"]
+}

@@ -17,7 +17,7 @@ agent-skills treats the agent as a **change-control system**, not only a coding 
 6. Assess impact and risk
 7. Propose minimal patch
 8. Verify
-9. **Vault autolog** — [`workflow/vault-autolog.mdc`](workflow/vault-autolog.mdc): if today's `notes/daily/YYYY-MM-DD.md` **missing**, `Read` `scripts/vault/daily.template.md` → `Write` daily (DATE/ISO) first; then **run** `scripts/vault/append-daily.ps1 -Bullet "..."` (or `.sh`) from `SKILLS-AI` root. Reply must include `Vault daily: updated ...`. **Mandatory** after any verified patch. Skip only: read-only; plan-only/review-only iron law; user says skip vault.
+9. **Vault autolog** — [`workflow/vault-autolog.mdc`](workflow/vault-autolog.mdc): if today's `daily/YYYY-MM-DD.md` **missing**, `Read` `templates/vault/notes/template.vault-daily.md` → `Write` daily (DATE/ISO) first; then **run** `scripts/vault/append-daily.ps1 -Bullet "..."` (or `.sh`) from `SKILLS-AI` root. Reply must include `Vault daily: updated ...`. **Mandatory** after any verified patch. Skip only: read-only; plan-only/review-only iron law; user says skip vault.
 10. Regression check — if the patch **redirected callers**, grep old symbols and remove zero-ref orphans per [`patching/callee-redirect-cleanup.mdc`](patching/callee-redirect-cleanup.mdc) before claiming done
 
 **Never patch before diagnosis for unknown behavior.** Follow debug steps 1–4 (reproduce → trace → falsify → ledger). Use full **`/debug`** (mantra + ledger) when the user attaches it or the failure is non-trivial. For **known changes** (copy, labels, styling, remove `*`, small UX) — patch directly after observe; do not recite the debug mantra.

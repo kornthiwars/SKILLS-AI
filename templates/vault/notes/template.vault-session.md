@@ -2,6 +2,7 @@
 id: "sess-SLUG"
 title: "TITLE"
 tags: []
+aliases: []
 project: "PROJECT"
 created: "CREATED"
 updated: "UPDATED"
@@ -19,7 +20,7 @@ _(files, PR, commit pointers — not full diff)_
 
 ## Decisions
 
-_(key choices in one or two sentences)_
+_(key choices in one or two sentences — link ADRs: [[decisions/slug]])_
 
 ## FollowUps
 

@@ -2,6 +2,7 @@
 id: "dec-SLUG"
 title: "TITLE"
 tags: []
+aliases: []
 project: "PROJECT"
 created: "CREATED"
 updated: "UPDATED"
@@ -24,4 +25,4 @@ _(what was chosen)_
 
 ## Consequences
 
-_(trade-offs, follow-up work)_
+_(trade-offs, follow-up work — link sessions: [[sessions/slug]])_

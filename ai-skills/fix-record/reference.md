@@ -24,11 +24,11 @@ Maps to [`debug`](../debug/SKILL.md) steps 1–4 and hypothesis **CONFIRMED** in
 | Artifact | Owner | Location |
 |----------|-------|----------|
 | Full RCA (mechanism, validation, slip-through) | `/fix-record` | JIRA / PR / `docs/fix-records/` |
-| Recall-friendly episodic summary | `/vault-capture` | `vault/notes/sessions/<topic>.md` |
+| Recall-friendly episodic summary | `/vault-capture` | `vault/sessions/<topic>.md` |
 
 After RCA is published and signed off, **optionally** offer `/vault-capture` with 5–10 lines: Context, root cause in one sentence, fix pointer (PR/commit/JIRA). **Link** to the RCA — never paste the full record into vault.
 
-Before drafting, run `/vault-recall` when prior `vault/notes/decisions/` may constrain the fix narrative.
+Before drafting, run `/vault-recall` when prior `vault/decisions/` may constrain the fix narrative.
 
 ---
 
@@ -70,7 +70,7 @@ Before STATUS=READY or publish ([verification-before-completion](https://github.
 | 2 RUN | Re-execute repro or cite fresh debug session output |
 | 3 READ | Pass signal — exit code, green test, or explicit flake waiver |
 | 4 VERIFY | All four required inputs + protocol checks 1–5 above |
-| 5 AUTOLOG | [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): create daily from `daily.template.md` if missing, then `append-daily` (fix summary); `Vault daily:` in reply |
+| 5 AUTOLOG | [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): `Read` `templates/vault/notes/template.vault-daily.md` if missing → `Write` `vault/daily/<today>.md` → `append-daily` (fix summary); reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`** |
 | 6 CLAIM | Only then READY / offer POST |
 
 Forbidden without step 2–3: "RCA complete", "validated", "ready to post". Forbidden without step 5 when a verified fix patch ran in the same turn.

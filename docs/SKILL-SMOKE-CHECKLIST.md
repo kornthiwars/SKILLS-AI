@@ -19,14 +19,20 @@ Reload Cursor after rule changes.
 
 | Skill | Check |
 |-------|--------|
-| debug | Mantra + manifest |
+| debug | Mantra + manifest; verified fix → `Vault daily:` in reply |
 | scrutinize | Skill PR checklist + manifest |
 | git-push | Blocked without ยืนยัน |
 | builder-feature | Plan-only; no `paths` frontmatter; slice handoff |
 | builder-schema | Migration + rollback plan |
 | vault-recall | `grep-vault` or per-file Read; cites line range; no “empty vault” when notes exist |
-| vault-capture | Uses `session.template.md` (or tier template); manifest upsert |
-| vault-daily / autolog | New day: `daily.template.md` then `append-daily`; reply has `Vault daily:` |
+| vault-capture | Uses `template.vault-session.md` (or tier template); manifest upsert |
+| vault-daily / autolog | New day: `template.vault-daily.md` then `append-daily`; reply has `Vault daily:` |
+
+## Obsidian (manual)
+
+- [ ] Open `SKILLS-AI/vault` (or `.cursor/vault`) in Obsidian — sidebar shows `daily/`, `sessions/`, `decisions/`, `projects/`
+- [ ] Daily notes hotkey creates/opens `daily/YYYY-MM-DD.md`
+- [ ] `_agent/` excluded from graph (Settings or seed `app.json`)
 
 ## Docs
 
