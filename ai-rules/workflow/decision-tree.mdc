@@ -64,7 +64,7 @@ If multiple apply, use the row for the **active mode**:
 
 |-------------|----------------------------------------|
 
-| **Patch / fix** (default) | diagnose → patch → verify → **vault autolog** (ensure daily + bullet) → optional `/fix-record` or `/vault-capture` → git-push |
+| **Patch / fix** (default) | diagnose → patch → verify → **vault autolog** (mandatory — [`change-control-manifest.mdc`](../change-control-manifest.mdc) step 9) → optional `/fix-record` or `/vault-capture` → git-push |
 
 | **Plan-only** (`/builder-feature`) | plan phases → handoff — **no app patch** |
 

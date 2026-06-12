@@ -24,6 +24,9 @@ Reload Cursor after rule changes.
 | git-push | Blocked without ยืนยัน |
 | builder-feature | Plan-only; no `paths` frontmatter; slice handoff |
 | builder-schema | Migration + rollback plan |
+| vault-recall | `grep-vault` or per-file Read; cites line range; no “empty vault” when notes exist |
+| vault-capture | Uses `session.template.md` (or tier template); manifest upsert |
+| vault-daily / autolog | New day: `daily.template.md` then `append-daily`; reply has `Vault daily:` |
 
 ## Docs
 

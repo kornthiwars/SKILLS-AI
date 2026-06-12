@@ -6,7 +6,7 @@
 agent-skills/
 ├── ai-skills/<name>/   # SKILL.md + optional reference.md
 ├── ai-rules/           # .mdc rules
-├── vault/              # empty folder — your local notes (gitignored)
+├── vault/              # local notes (gitignored); templates in scripts/vault/
 ├── templates/
 └── scripts/
 ```

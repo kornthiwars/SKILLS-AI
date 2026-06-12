@@ -70,9 +70,10 @@ Before STATUS=READY or publish ([verification-before-completion](https://github.
 | 2 RUN | Re-execute repro or cite fresh debug session output |
 | 3 READ | Pass signal — exit code, green test, or explicit flake waiver |
 | 4 VERIFY | All four required inputs + protocol checks 1–5 above |
-| 5 CLAIM | Only then READY / offer POST |
+| 5 AUTOLOG | [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): create daily from `daily.template.md` if missing, then `append-daily` (fix summary); `Vault daily:` in reply |
+| 6 CLAIM | Only then READY / offer POST |
 
-Forbidden without step 2–3: "RCA complete", "validated", "ready to post".
+Forbidden without step 2–3: "RCA complete", "validated", "ready to post". Forbidden without step 5 when a verified fix patch ran in the same turn.
 
 Pull evidence from [`debug`](../debug/SKILL.md) ledger hypothesis **CONFIRMED** when available.
 

@@ -11,7 +11,7 @@ promoted: []
 
 ## สรุปงานวันนี้
 
-_(bootstrap — รัน `/vault-daily` เพื่อเติมสรุปและ triage)_
+_(สร้างจาก daily.template.md — รัน `/vault-daily` หรือ autolog เพื่อเติมสรุปและ triage)_
 
 ## Issues วันนี้
 

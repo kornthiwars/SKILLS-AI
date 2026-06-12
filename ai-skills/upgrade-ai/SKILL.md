@@ -116,6 +116,7 @@ Run sequentially. Stop early only if Phase 1 **failure diagnosis** cannot reprod
 - Test original failing case + edge cases + historical behavior + regressions
 - Standards: `reference.md` § Verification Standards and success criteria there
 - **Pack-wide audit:** static checklist + inline scores in SKILL REPORT `ARTIFACTS`
+- **Vault autolog:** after verified meta patch → [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) (close-out step 4 in `reference.md`)
 
 ---
 

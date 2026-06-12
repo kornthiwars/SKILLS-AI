@@ -11,14 +11,14 @@ Run once after clone (from repo root):
 
 Creates:
 
-- `vault/notes/{daily,decisions,sessions,projects,inbox}/`
+- `vault/notes/{daily,decisions,sessions,projects}/` (empty dirs OK)
 - `vault/_meta/{manifest.json,tiers.json}`
-- **`vault/notes/daily/YYYY-MM-DD.md`** for **today** (empty Issues table) if missing
-- manifest entry `daily-YYYY-MM-DD` when missing (PowerShell always; bash needs `jq`)
 
-Content (tasks, Issues rows, triage) still comes from **`/vault-daily`** — bootstrap only seeds the shell so `/vault-recall` “issue วันนี้” has a file to read.
+Does **not** create `notes/daily/YYYY-MM-DD.md` — agent `Write` from `daily.template.md` when needed (`/vault-daily`, autolog).
 
-**New calendar day:** you do **not** run setup again. First `/vault-recall`, `/vault-capture`, or `/vault-daily` that day runs the same ensure step (bootstrap or agent Write from `daily.template.md`).
+Content (tasks, Issues rows, triage) comes from **`/vault-daily`** and **autolog** (`append-daily`).
+
+**New calendar day:** create today's daily from template before first autolog or `/vault-daily` — bootstrap/setup does not seed it.
 
 ## Skills
 
@@ -28,7 +28,19 @@ Content (tasks, Issues rows, triage) still comes from **`/vault-daily`** — boo
 | `/vault-capture` | Save session / ADR note |
 | `/vault-recall` | Grep/Read vault + cite (uses `manifest.json`) |
 
-Agent tools: `Glob`, `Grep`, `Read`, `Write` on `vault/notes/` — not CLI scripts.
+| Script | Purpose |
+|--------|---------|
+| `append-daily.ps1` / `.sh` | **Autolog** — append daily bullet (**requires** existing daily file + vault layout from bootstrap) |
+| `grep-vault.ps1` / `.sh` | **Recall** — search gitignored notes (`rg --no-ignore`) |
+
+| Template | Path | Output |
+|----------|------|--------|
+| Daily | `daily.template.md` | `notes/daily/DATE.md` |
+| Session | `session.template.md` | `notes/sessions/SLUG.md` |
+| Decision (ADR) | `decision.template.md` | `notes/decisions/SLUG.md` |
+| Project | `project.template.md` | `notes/projects/SLUG.md` |
+
+Placeholders: see [TEMPLATES.md](./TEMPLATES.md). Agent `Read` → replace → `Write` — no auto-seed scripts.
 
 ## Migration from Python indexer
 
@@ -48,7 +60,10 @@ powershell -File scripts/vault/bootstrap-vault.ps1 -Verify
 
 | Issue | Fix |
 |-------|-----|
-| `Missing: vault` | Re-run setup or `bootstrap-vault` |
-| Recall empty | Re-run setup (seeds today’s daily) + `/vault-capture` or `/vault-daily` |
-| “Issue วันนี้” ว่าง | Bootstrap seeds empty daily; fill Issues via `/vault-daily` |
+| `Missing: vault` | Re-run setup or `bootstrap-vault.ps1 -Verify` |
+| `append-daily` / vault path error | Run `bootstrap-vault` once (creates `notes/*` dirs); then `Write` daily from `daily.template.md` if today's file missing |
+| Recall empty | Re-run setup + `/vault-capture`; recall uses per-file paths (directory Grep skipped — gitignore) |
+| Grep vault returns 0 | Use `grep-vault.ps1 -Pattern "..."` (not directory Grep) |
+| Autolog skipped | Create today's daily from `daily.template.md` if missing, then `append-daily.ps1 -Bullet "..."`; include `Vault daily:` in reply |
+| “Issue วันนี้” ว่าง | สร้าง `notes/daily/<today>.md` จาก `daily.template.md` หรือรัน `/vault-daily` |
 | Duplicate decisions | Check `vault/_meta/manifest.json` — merge by `id` |

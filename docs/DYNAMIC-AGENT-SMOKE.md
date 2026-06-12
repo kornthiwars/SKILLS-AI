@@ -22,6 +22,10 @@ Behavioral scenarios to run in Cursor after rule/skill changes. No automated CI 
 | 8 | Fix bug by redirecting caller `foo()` → `bar()` | Grep `foo`; remove definition if zero refs; cite grep in reply; do not leave orphan |
 | 9 | `/builder-feature` + mock/screenshot + "ทำ html" | Workflow map + slice backlog; **STATUS=PLAN_READY**; **zero** app file edits; hand off `/builder-ui slice 1 go`; owner skills have slice brief phase 0 |
 | 10 | `/builder-feature` + cross-layer feature request | No app file edits; decision-tree does not force patch in same turn |
+| 11 | `/vault-recall` + "autolog ทำงานยังไง" | Cites `sessions/` or `decisions/` with line range; uses `grep-vault` or per-file Read; does **not** claim empty vault |
+| 12 | Small verified patch on **new calendar day** (no daily file yet) | Agent `Write` from `daily.template.md` **then** `append-daily`; reply includes `Vault daily: updated ...`; bullet + `runs` bump |
+| 13 | Run `grep-vault.ps1 -Pattern "autolog"` from `SKILLS-AI` | Returns JSON hits from gitignored `vault/notes/` (not empty `[]` when notes exist) |
+| 14 | `/vault-capture` promote session note | Uses `session.template.md` placeholders; upserts manifest `tier: episodic` |
 
 ## Post-L4 behavioral checklist (run after Reload)
 

@@ -4,9 +4,8 @@
   "tiers": {
     "ephemeral": "notes/daily",
     "semantic": ["notes/decisions", "notes/projects"],
-    "episodic": "notes/sessions",
-    "inbox": "notes/inbox"
+    "episodic": "notes/sessions"
   },
-  "index_exclude": ["notes/daily/**", "notes/inbox/**", "notes/daily/archive/**"],
+  "index_exclude": ["notes/daily/**"],
   "recall_search_tiers": ["notes/decisions", "notes/sessions", "notes/projects"]
 }

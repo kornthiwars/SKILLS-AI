@@ -1,33 +1,29 @@
 # vault-capture reference
 
-## Session note template
+## Note templates (SSoT)
 
-Path: `vault/notes/sessions/<topic-slug>.md`
+| Tier | Template file | Path |
+|------|---------------|------|
+| Daily | `scripts/vault/daily.template.md` | `notes/daily/DATE.md` |
+| Session | `scripts/vault/session.template.md` | `notes/sessions/SLUG.md` |
+| Decision | `scripts/vault/decision.template.md` | `notes/decisions/SLUG.md` |
+| Project | `scripts/vault/project.template.md` | `notes/projects/SLUG.md` |
 
-```markdown
----
-id: "sess-<topic-slug>"
-title: "<title>"
-tags: []
-project: "<project>"
-created: "YYYY-MM-DD"
-updated: "YYYY-MM-DD"
-status: active
-related: []
----
+Placeholders: [scripts/vault/TEMPLATES.md](../../scripts/vault/TEMPLATES.md).
 
-## Context
+## Session note
 
-## WhatChanged
+Path: `vault/notes/sessions/<slug>.md` — use **`session.template.md`** (`SLUG`, `TITLE`, `PROJECT`, `CREATED`, `UPDATED`).
 
-## Decisions
+Sections: **Context**, **WhatChanged**, **Decisions**, **FollowUps**.
 
-## FollowUps
-```
+## Gitignore note
+
+`vault/**` is gitignored — **do not** `Grep` directories under `vault/notes/`. Use `Read`/`Write` on resolved paths; recall uses per-file `Grep` only ([vault-recall/reference.md](../vault-recall/reference.md)).
 
 ## Dedupe (agent-only)
 
-1. `Read` `vault/_meta/manifest.json`
+1. `Read` resolved `.../vault/_meta/manifest.json`
 2. Match `id` or slug in `path` (`notes/sessions/<slug>.md`)
 3. `Grep` `title:` in `vault/notes/sessions/` if ambiguous
 4. Merge into existing file — do not create duplicate slug
@@ -60,29 +56,29 @@ Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`project
 
 ---
 
-## Ensure today daily shell (all vault skills)
+## Daily file (agent-created — not bootstrap)
 
-**Idempotent** — run at the start of `/vault-recall`, `/vault-capture`, and `/vault-daily`. User does **not** create a new file each morning.
+`notes/daily/` may stay **empty** until you need a daily log. **No script** auto-creates today's file.
 
 1. `today` = local calendar `YYYY-MM-DD`
-2. Path: `vault/notes/daily/<today>.md`
-3. If file **exists** → continue (never overwrite)
-4. If **missing** → either:
-   - **Preferred:** from pack repo root, run `scripts/vault/bootstrap-vault.ps1 -Verify` (Windows) or `./scripts/vault/bootstrap-vault.sh --verify` (macOS/Linux), **or**
-   - **Agent-only:** `Read` `scripts/vault/daily.template.md`, replace `DATE` / `ISO`, `Write` daily file; upsert manifest entry `daily-<today>` (same shape as bootstrap)
-5. Empty Issues table is OK — `/vault-daily` fills rows later
-
-**Day rollover:** first vault skill invoke **or** first **vault autolog** after a verified patch on a new calendar day creates that day’s file. Re-running `setup` is optional.
+2. Path: resolve per [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) § Path resolution
+3. If file **exists** → read/merge (never overwrite wholesale)
+4. If **missing** and you need daily (autolog, `/vault-daily`, recall “วันนี้”):
+   - `Read` `scripts/vault/daily.template.md`
+   - Replace `DATE` / `ISO`
+   - `Write` `vault/notes/daily/<today>.md`
+   - Optional: upsert manifest `daily-<today>` (`tier: ephemeral`)
+5. Then run `append-daily` for bullets, or full `/vault-daily` for triage
 
 ### Autolog after verified work (no slash)
 
-Always-on rule: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc). After patch + verify, agent ensures today’s daily and appends **one bullet** under `## สรุปงานวันนี้`. User typing “แก้หน้านี้…” does **not** require `/vault-daily`.
+Always-on rule: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc). After patch + verify: create today's daily **if missing** (step 4), then `append-daily` bullet.
 
-| User action | Daily shell | สรุปงานวันนี้ | Issues table |
-|-------------|-------------|---------------|--------------|
-| แก้โค้ด / patch + verify | autolog creates if missing | autolog bullet | only bugs/blockers |
-| `/vault-recall` | ensure | read | read |
-| `/vault-daily` | merge | full triage | user confirms promote |
+| User action | Daily file | สรุปงานวันนี้ | Issues table |
+|-------------|------------|---------------|--------------|
+| แก้โค้ด / patch + verify | agent Write if missing | `append-daily` | only bugs/blockers |
+| `/vault-recall` | read if exists | read | read |
+| `/vault-daily` | create if missing, then merge | full triage | user confirms promote |
 
 ---
 
@@ -97,7 +93,7 @@ Always-on rule: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc)
 | `/builder-schema` | **light** | recall, capture | Before destructive migration; durable schema decision |
 | `/builder-api` | **light** | recall, capture | Before contract break; ADR after slice verify |
 | `/builder-infrastructure` | **light** | capture | Runbook / infra decision after verify |
-| `/builder-ui` | **none** | daily only | Copy/layout tweaks → `/vault-daily` `daily_only`, not capture |
+| `/builder-ui` | **autolog** | daily only | After verify → [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc); `/vault-daily` for triage only |
 | `/git-push` | **none** | — | `vault/**` gitignored; no memory handoff |
 | `/upgrade-ai` | **none** | — | Meta skill — no app memory |
 | `/vault-capture` | — | — | Destination; dedupe + manifest upsert |
@@ -108,62 +104,31 @@ Always-on rule: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc)
 
 ### Frontmatter when sourced from `/fix-record`
 
-```markdown
----
-id: "sess-<topic-slug>"
-title: "<short title>"
-tags: [bugfix, learning]
-project: "<project>"
-created: "YYYY-MM-DD"
-updated: "YYYY-MM-DD"
-status: active
-related: ["fix-record:JIRA-12345", "pr:org/repo#5751"]
-intent: keep_learning
----
+Start from **`session.template.md`** — add to frontmatter:
 
-## Context
-{1–2 sentences — symptom scope}
+- `tags: [bugfix, learning]`
+- `related: ["fix-record:JIRA-12345", "pr:org/repo#5751"]` (or PR id)
+- `intent: keep_learning`
 
-## WhatChanged
-{fix pointer — PR/commit; not full diff}
+Sections (keep concise — full RCA stays in fix-record):
 
-## Decisions
-{root cause mechanism in one sentence}
-
-## FollowUps
-- Full RCA: {JIRA or PR link}
-```
+| Section | Content |
+|---------|---------|
+| Context | 1–2 sentences — symptom scope |
+| WhatChanged | fix pointer — PR/commit; not full diff |
+| Decisions | root cause mechanism in one sentence |
+| FollowUps | `- Full RCA: {JIRA or PR link}` |
 
 ### Frontmatter when sourced from `/builder-feature`
 
-```markdown
----
-id: "dec-<slug>"
-title: "<ADR title>"
-tags: [adr, architecture]
-project: "<project>"
-created: "YYYY-MM-DD"
-status: active
-related: []
-intent: keep_decision
----
+Use **`decision.template.md`** — add `intent: keep_decision` to frontmatter when promoting from `/vault-daily`.
 
-## Context
-{why this decision was needed}
+Path: `vault/notes/decisions/<slug>.md` (one topic per file).
 
-## Decision
-{what was chosen}
+### Project note
 
-## Alternatives considered
-{one line each}
+Path: `vault/notes/projects/<slug>.md` — use **`project.template.md`**.
 
-## Consequences
-{trade-offs, follow-up slices}
-```
+Sections: **Overview**, **Goals**, **Status** (table), **Links**. Manifest: `id: proj-<slug>`, `tier: semantic`.
 
-Path for ADR: `vault/notes/decisions/<slug>.md` (one topic per file).
-
-### Inbox workflow
-
-- Quick scratch → `vault/notes/inbox/<slug>.md` (not in manifest)
-- `/vault-daily` triage moves to daily or promotes to durable tier + manifest
+Used by `/vault-daily` promote (`keep_project`) and `/vault-capture` when tier is `projects`.

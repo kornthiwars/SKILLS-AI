@@ -1,59 +1,45 @@
 # vault-daily reference
 
-## Daily file template
+## Note templates (SSoT)
+
+All templates: `scripts/vault/` — detail in [TEMPLATES.md](../../scripts/vault/TEMPLATES.md).
+
+| Tier | Template | Output |
+|------|----------|--------|
+| Daily | `daily.template.md` | `notes/daily/DATE.md` |
+| Session | `session.template.md` | `notes/sessions/SLUG.md` |
+| Decision | `decision.template.md` | `notes/decisions/SLUG.md` |
+| Project | `project.template.md` | `notes/projects/SLUG.md` |
+
+## Daily file
 
 Path: `vault/notes/daily/YYYY-MM-DD.md`
 
-```markdown
----
-id: "daily-YYYY-MM-DD"
-type: daily
-date: "YYYY-MM-DD"
-project: "<project-or-empty>"
-updated_at: "<ISO8601>"
-runs: 1
-carry_over: []
-promoted: []
----
-
-## สรุปงานวันนี้
-
-## Issues วันนี้
-| id | Issue | สถานะ | triage | เหตุผล |
-|----|-------|-------|--------|--------|
-
-## Promoted (ลิงก์ถาวร)
-
-## สรุปวันอย่างเดียว
-```
+**Template:** `scripts/vault/daily.template.md` — replace `DATE`, `ISO`; optional `project` in frontmatter.
 
 ## Triage values
 
 | triage | Action |
 |--------|--------|
-| keep_decision | Update `vault/notes/decisions/<topic-slug>.md` + manifest |
-| keep_learning | Update `vault/notes/sessions/<topic-slug>.md` + manifest |
-| keep_project | Update `vault/notes/projects/<name>.md` + manifest |
+| keep_decision | `decision.template.md` → `notes/decisions/<slug>.md` + manifest |
+| keep_learning | `session.template.md` → `notes/sessions/<slug>.md` + manifest |
+| keep_project | `project.template.md` → `notes/projects/<slug>.md` + manifest |
 | daily_only | Stay in daily only |
 | carry_over | Add to frontmatter `carry_over` |
 
-Dedupe before promote: `Read` manifest + `Glob` by slug.
+Dedupe before promote: `Read` manifest + match slug in `path`.
 
 ## Decision file (promoted)
 
-```yaml
----
-id: "dec-<topic-slug>"
-title: "<title>"
-tags: []
-project: "<project>"
-created: "YYYY-MM-DD"
-updated: "YYYY-MM-DD"
-status: draft
-supersedes: null
-related: []
----
-```
+**Template:** `decision.template.md` — `SLUG`, `TITLE`, `PROJECT`, `CREATED`, `UPDATED`. Default `status: draft` unless user says active.
+
+## Session file (promoted)
+
+**Template:** `session.template.md` — same placeholders.
+
+## Project file (promoted)
+
+**Template:** `project.template.md` — same placeholders. Manifest: `tier: semantic`, `id: proj-<slug>`.
 
 ## Merge same day
 

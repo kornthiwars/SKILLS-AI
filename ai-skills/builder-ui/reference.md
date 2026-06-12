@@ -154,6 +154,7 @@ This pack owns **component architecture + tokens + a11y checklist** in phases 1�
 | 3 | Responsive breakpoints defined — not one width only |
 | 4 | Browser/runtime check on critical path if UI behavior claimed — use Cursor browser MCP (`browser_snapshot`, `browser_take_screenshot`) per [scrutinize/reference.md](../scrutinize/reference.md) § Browser / UI review |
 | 5 | **Callee redirect cleanup** — if implementation changed call targets, grep old symbols per [`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc) |
-| 6 | `/scrutinize` before merge |
+| 6 | **Vault autolog** — [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): create daily from `daily.template.md` if missing, then `append-daily`; cite path in reply |
+| 7 | `/scrutinize` before merge |
 
-IDENTIFY → RUN (snapshot/test/story) → READ output → then pass/reject.
+IDENTIFY → RUN (snapshot/test/story) → READ output → autolog → then pass/reject.

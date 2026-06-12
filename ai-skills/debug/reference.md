@@ -317,9 +317,10 @@ Before claiming bug fixed ([obra/superpowers verification-before-completion](htt
 | 2 RUN | Execute fresh in this session |
 | 3 READ | Full output + exit code |
 | 4 VERIFY | Output matches claim? If no → state actual status |
-| 5 CLAIM | Only then say fixed / passing |
+| 5 AUTOLOG | After verified fix patch → [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): create daily from `daily.template.md` if missing, then `append-daily`; `Vault daily:` in reply |
+| 6 CLAIM | Only then say fixed / passing |
 
-Forbidden without step 2–3: “should work”, “looks correct”, “done”, “perfect”.
+Forbidden without step 2–3: “should work”, “looks correct”, “done”, “perfect”. Forbidden without step 5 when a verified fix patch ran in the same turn.
 
 ---
 

@@ -114,26 +114,28 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 ## 7. โฟลเดอร์ `vault/` (agent-only local memory)
 
 - เนื้อหา `vault/**` gitignore (ยกเว้น `vault/.gitkeep`) — โน้ตส่วนตัวบนเครื่อง
-- setup: junction `.cursor/vault` → `vault/` + `bootstrap-vault` — **ไม่ต้องติดตั้ง Python**
-- โครงสร้าง: `vault/notes/{daily,decisions,sessions,projects,inbox}/` · catalog ที่ `vault/_meta/manifest.json`
-- โหมดค้น: agent `Grep`/`Read` + manifest (ไม่มี embedding / `_index/`)
+- setup: junction `.cursor/vault` → `vault/` + `bootstrap-vault` — สร้างโฟลเดอร์ + `_meta/` เท่านั้น (**ไม่** seed daily อัตโนมัติ)
+- โครงสร้าง: `vault/notes/{daily,decisions,sessions,projects}/` · catalog ที่ `vault/_meta/manifest.json`
+- templates: `scripts/vault/*.template.md` + [TEMPLATES.md](../../scripts/vault/TEMPLATES.md) — agent `Read` → replace placeholders → `Write`
+- โหมดค้น: `grep-vault.ps1` (gitignore-safe) หรือ manifest + per-file `Read` (ห้าม directory `Grep` บน `vault/notes/`)
 
 **Memory tiers**
 
 | Tier | โฟลเดอร์ | ใน manifest |
 |------|----------|-------------|
-| Ephemeral | `notes/daily/YYYY-MM-DD.md` | ไม่ |
+| Ephemeral | `notes/daily/YYYY-MM-DD.md` | ไม่บังคับ (upsert ได้) |
 | Semantic | `notes/decisions/`, `notes/projects/` | ใช่ |
 | Episodic | `notes/sessions/` | ใช่ |
-| Scratch | `notes/inbox/` | ไม่ |
+
+**Autolog (หลัง patch+verify):** ไม่มี daily วันนี้ → `daily.template.md` ก่อน → `append-daily.ps1`
 
 **Skills (เรียกเอง — `disable-model-invocation: true`)**
 
 | Skill | ใช้เมื่อ |
 |-------|----------|
 | `/vault-daily` | สรุปงานวัน + triage + promote (confirm ก่อน) + อัป manifest |
-| `/vault-capture` | บันทึก session / ADR — dedupe ผ่าน manifest |
-| `/vault-recall` | อ่าน manifest → Grep → cite (หรืออ่าน daily ตามวันที่) |
+| `/vault-capture` | บันทึก session / ADR / project — dedupe ผ่าน manifest |
+| `/vault-recall` | อ่าน manifest → `grep-vault` / Read → cite |
 
 **เชื่อม skill เก่า:** ดู `ai-skills/vault-capture/reference.md` § Integration
 

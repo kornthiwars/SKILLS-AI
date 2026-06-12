@@ -109,7 +109,7 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 | 4 | Design-system inference | tokens, variant rules |
 | 5 | Interaction + state | interaction contract, state notes |
 | 6 | Accessibility review | a11y concerns and fixes |
-| 7 | Verification | pass/reject per checklist |
+| 7 | Verification + vault autolog | pass/reject per checklist; [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) (daily template if missing → `append-daily`) |
 
 ---
 
@@ -119,7 +119,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 
 | Section | `/builder-ui` |
 |---------|---------------|
-| STATUS | IN_PROGRESS = phase N; READY = close-out gate passed; BLOCKED = missing reference/input |
+| STATUS | IN_PROGRESS = phase N; READY = close-out gate **and** vault autolog passed; BLOCKED = missing reference/input |
 | OBJECTIVE | UI architecture from references — components, design system, responsive plan |
 | DISCOVERIES | Reference patterns, hierarchy, reuse opportunities, a11y/responsive concerns |
 | ANALYSIS | Architecture choices, state boundaries, duplication risks |

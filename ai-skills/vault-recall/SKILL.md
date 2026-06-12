@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "2.0.0"
+  version: "2.3.1"
 description: >-
   Search local vault memory via manifest + Grep/Read — daily-by-date, cite paths
   and lines. No Python. Invoke with /vault-recall and your question.
@@ -10,13 +10,16 @@ disable-model-invocation: true
 
 # Vault recall
 
-Retrieve context from `vault/notes/` using agent tools only — **no CLI scripts**.
+Retrieve context from local vault using agent tools — **`grep-vault` shell script** for gitignored tier search; otherwise `Read` / per-file tools (no Python).
 
 ## Scope Guardrails
 
-- ALWAYS search under workspace path `vault/notes/` (junction `.cursor/vault` points here)
-- ALWAYS read `vault/_meta/manifest.json` before hybrid search (skip for pure daily-date reads)
-- ALWAYS cite `vault/notes/...md` with line range
+- ALWAYS resolve paths per [reference.md](./reference.md) § Path resolution (`SKILLS-AI/vault/` or `.cursor/vault/` in parent workspace `web/`)
+- ALWAYS `Read` manifest before hybrid search (skip for pure daily-date reads)
+- ALWAYS cite resolved vault path with line range
+- For **tier-wide keyword search** → run `scripts/vault/grep-vault.ps1 -Pattern "..."` (or `.sh`) — searches gitignored notes via `rg --no-ignore`
+- Else `Grep` each manifest file path individually, or `Read` then match in context
+- NEVER rely on directory `Grep` alone on `vault/notes/` — Cursor `Grep` skips gitignored paths
 - NEVER cite `status: superseded` as the primary answer — follow `supersedes` to active doc
 
 ## Recall iron laws
@@ -31,17 +34,16 @@ Retrieve context from `vault/notes/` using agent tools only — **no CLI scripts
 
 ## Workflow
 
-0. **Ensure today shell** — per [vault-capture/reference.md](../vault-capture/reference.md) § Ensure today daily shell (create `daily/<today>.md` + manifest if missing; never overwrite)
-1. Classify query:
-   - **Daily / date** ("เมื่อวาน", `YYYY-MM-DD`, "สรุปวันนี้") → `Read` `vault/notes/daily/<date>.md` (no manifest required)
-   - **Decision / technical** → steps 2–8
-2. `Read` `vault/_meta/manifest.json`
-3. Build keyword list from user query (+ EN/TH variants for technical terms)
-4. Shortlist manifest `docs` where `id`, `title`, `tags`, or `project` match (≤10)
-5. `Grep` keywords in shortlist paths (or tier folders if manifest empty)
-6. `Read` frontmatter of top candidates — drop `status: superseded`
-7. `Read` body of winners (≤5 files); expand `related:` within cap
-8. Answer Thai ~60% / English ~40% with citations
+0. Classify query:
+   - **Daily / date** ("เมื่อวาน", `YYYY-MM-DD`, "สรุปวันนี้") → `Read` resolved `.../notes/daily/<date>.md`; if missing, say no daily for that date
+   - **Decision / technical** → steps 1–7
+1. `Read` resolved `.../_meta/manifest.json`
+2. Build keyword list from user query (+ EN/TH variants for technical terms)
+3. Shortlist manifest `docs` where `id`, `title`, `tags`, or `project` match (≤10)
+4. **Search** — manifest shortlist: per-file `Grep` or `Read`; **broad tier scan**: `grep-vault.ps1 -Pattern "<keywords>"` (gitignore-safe)
+5. `Read` frontmatter of top candidates — drop `status: superseded`
+6. `Read` body of winners (≤5 files); expand `related:` within cap
+7. Answer Thai ~60% / English ~40% with citations
 
 ## SKILL REPORT
 

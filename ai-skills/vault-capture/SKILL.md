@@ -1,7 +1,7 @@
 ---
 name: vault-capture
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
 description: >-
   Capture session or ADR into local vault — manifest dedupe, agent Write only.
   No Python. Invoke with /vault-capture.
@@ -22,7 +22,7 @@ Save meaningful context to `vault/notes/` and update `vault/_meta/manifest.json`
 
 ## Workflow
 
-0. **Ensure today shell** — per [reference.md](./reference.md) § Ensure today daily shell (before optional daily link in step 6)
+0. **Optional daily link** — if `vault/notes/daily/<today>.md` exists, may wikilink in step 6; do not auto-create
 1. Infer topic slug and tier (`sessions` episodic, `decisions` semantic ADR, `projects` semantic)
 2. `Read` `vault/_meta/manifest.json`
 3. Dedupe:
@@ -30,7 +30,10 @@ Save meaningful context to `vault/notes/` and update `vault/_meta/manifest.json`
    - `Grep` `title` in target tier if unsure
    - If match → update existing file at `path`; else create new
 4. Write frontmatter: `id`, `title`, `tags`, `project`, `related`, `status` (+ `intent` when from fix-record/builder)
-5. Sections: Context, WhatChanged, Decisions, FollowUps (or ADR sections per [reference.md](./reference.md))
+5. Sections — by tier (`scripts/vault/*.template.md`):
+   - `sessions`: `session.template.md`
+   - `decisions`: `decision.template.md`
+   - `projects`: `project.template.md`
 6. Optional: wikilink in `vault/notes/daily/<today>.md`
 7. Upsert manifest entry: `{id, path, title, tier, project, status, updated}` — set `updated_at` on manifest
 8. Report saved path
