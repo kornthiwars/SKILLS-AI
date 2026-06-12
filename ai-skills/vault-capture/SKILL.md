@@ -22,6 +22,7 @@ Save meaningful context to `vault/notes/` and update `vault/_meta/manifest.json`
 
 ## Workflow
 
+0. **Ensure today shell** — per [reference.md](./reference.md) § Ensure today daily shell (before optional daily link in step 6)
 1. Infer topic slug and tier (`sessions` episodic, `decisions` semantic ADR, `projects` semantic)
 2. `Read` `vault/_meta/manifest.json`
 3. Dedupe:

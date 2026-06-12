@@ -31,6 +31,7 @@ Retrieve context from `vault/notes/` using agent tools only — **no CLI scripts
 
 ## Workflow
 
+0. **Ensure today shell** — per [vault-capture/reference.md](../vault-capture/reference.md) § Ensure today daily shell (create `daily/<today>.md` + manifest if missing; never overwrite)
 1. Classify query:
    - **Daily / date** ("เมื่อวาน", `YYYY-MM-DD`, "สรุปวันนี้") → `Read` `vault/notes/daily/<date>.md` (no manifest required)
    - **Decision / technical** → steps 2–8

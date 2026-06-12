@@ -60,6 +60,22 @@ Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`project
 
 ---
 
+## Ensure today daily shell (all vault skills)
+
+**Idempotent** — run at the start of `/vault-recall`, `/vault-capture`, and `/vault-daily`. User does **not** create a new file each morning.
+
+1. `today` = local calendar `YYYY-MM-DD`
+2. Path: `vault/notes/daily/<today>.md`
+3. If file **exists** → continue (never overwrite)
+4. If **missing** → either:
+   - **Preferred:** from pack repo root, run `scripts/vault/bootstrap-vault.ps1 -Verify` (Windows) or `./scripts/vault/bootstrap-vault.sh --verify` (macOS/Linux), **or**
+   - **Agent-only:** `Read` `scripts/vault/daily.template.md`, replace `DATE` / `ISO`, `Write` daily file; upsert manifest entry `daily-<today>` (same shape as bootstrap)
+5. Empty Issues table is OK — `/vault-daily` fills rows later
+
+**Day rollover:** first vault skill invoke on a new calendar day creates that day’s file automatically. Re-running `setup` is optional, not required daily.
+
+---
+
 ## Integration with pack skills
 
 | Skill | Integration | Vault skill | Notes |

@@ -25,6 +25,7 @@ End-of-day workflow: merge **one** `vault/notes/daily/YYYY-MM-DD.md`, triage, pr
 
 ## Workflow
 
+0. **Ensure today shell** — per [vault-capture/reference.md](../vault-capture/reference.md) § Ensure today daily shell (same as step 1–2 when missing)
 1. Resolve today → `vault/notes/daily/YYYY-MM-DD.md`
 2. Load and **merge** if exists; else create from [reference.md](./reference.md)
 3. Gather tasks/issues from chat (+ optional `git log --since=midnight`)

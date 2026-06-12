@@ -39,6 +39,54 @@ mkdir -p "$ASSETS" "$META"
 ensure_file_from_template "$META/tiers.json" "$SCRIPT_VAULT/tiers.template.json"
 ensure_file_from_template "$META/manifest.json" "$SCRIPT_VAULT/manifest.template.json"
 
+ensure_today_daily() {
+  local date iso daily_file template daily_id
+  date="$(date +%Y-%m-%d)"
+  iso="$(date -Iseconds 2>/dev/null || date '+%Y-%m-%dT%H:%M:%S%z')"
+  daily_file="$NOTES/daily/$date.md"
+  template="$SCRIPT_VAULT/daily.template.md"
+  daily_id="daily-$date"
+
+  if [ ! -f "$daily_file" ]; then
+    [ -f "$template" ] || { echo "Missing template: $template" >&2; exit 1; }
+    sed "s/DATE/$date/g; s/ISO/$iso/g" "$template" > "$daily_file"
+    printf 'OK  daily seeded: notes/daily/%s.md\n' "$date"
+  fi
+
+  if [ ! -f "$META/manifest.json" ]; then
+    return 0
+  fi
+  if grep -q "\"id\": \"$daily_id\"" "$META/manifest.json"; then
+    return 0
+  fi
+
+  if command -v jq >/dev/null 2>&1; then
+    local tmp
+    tmp="$(mktemp)"
+    jq --arg id "$daily_id" \
+      --arg path "notes/daily/$date.md" \
+      --arg title "Daily $date" \
+      --arg date "$date" \
+      --arg iso "$iso" \
+      '.updated_at = $iso
+       | .docs += [{
+           id: $id,
+           path: $path,
+           title: $title,
+           tier: "episodic",
+           project: "",
+           status: "active",
+           updated: $date
+         }]' "$META/manifest.json" > "$tmp"
+    mv "$tmp" "$META/manifest.json"
+    printf 'OK  manifest: %s\n' "$daily_id"
+  else
+    printf '..  manifest: install jq to auto-register %s (or run /vault-daily)\n' "$daily_id" >&2
+  fi
+}
+
+ensure_today_daily
+
 if [ "$VERIFY" -eq 1 ]; then
   for name in "${NOTE_DIRS[@]}"; do
     [ -d "$NOTES/$name" ] || { echo "Verify failed: missing notes/$name" >&2; exit 1; }

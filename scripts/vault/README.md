@@ -9,7 +9,16 @@ Run once after clone (from repo root):
 - Windows: `scripts\setup-windows.bat`
 - macOS/Linux: `./scripts/setup-macos-linux.sh`
 
-Creates `vault/notes/{daily,decisions,sessions,projects,inbox}/` and `vault/_meta/{manifest.json,tiers.json}`.
+Creates:
+
+- `vault/notes/{daily,decisions,sessions,projects,inbox}/`
+- `vault/_meta/{manifest.json,tiers.json}`
+- **`vault/notes/daily/YYYY-MM-DD.md`** for **today** (empty Issues table) if missing
+- manifest entry `daily-YYYY-MM-DD` when missing (PowerShell always; bash needs `jq`)
+
+Content (tasks, Issues rows, triage) still comes from **`/vault-daily`** — bootstrap only seeds the shell so `/vault-recall` “issue วันนี้” has a file to read.
+
+**New calendar day:** you do **not** run setup again. First `/vault-recall`, `/vault-capture`, or `/vault-daily` that day runs the same ensure step (bootstrap or agent Write from `daily.template.md`).
 
 ## Skills
 
@@ -40,5 +49,6 @@ powershell -File scripts/vault/bootstrap-vault.ps1 -Verify
 | Issue | Fix |
 |-------|-----|
 | `Missing: vault` | Re-run setup or `bootstrap-vault` |
-| Recall empty | Run `/vault-capture` or promote via `/vault-daily` |
+| Recall empty | Re-run setup (seeds today’s daily) + `/vault-capture` or `/vault-daily` |
+| “Issue วันนี้” ว่าง | Bootstrap seeds empty daily; fill Issues via `/vault-daily` |
 | Duplicate decisions | Check `vault/_meta/manifest.json` — merge by `id` |
