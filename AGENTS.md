@@ -2,7 +2,7 @@
 
 Universal agent entry point for **agent-skills**
 
-Canonical: [`ai-skills/`](ai-skills/README.md) · [`ai-rules/`](ai-rules/README.md) · [`vault/`](vault/README.md)
+Canonical: [`ai-skills/`](ai-skills/README.md) · [`ai-rules/`](ai-rules/README.md)
 
 ---
 
@@ -13,21 +13,15 @@ Pass **install root** = the folder you open in Cursor (workspace root). See [scr
 | OS | Command |
 |----|---------|
 | Windows | `.\scripts\setup-windows.ps1 -InstallRoot <workspace>` |
-| macOS / Linux | `./scripts/setup-macos-linux.sh` (requires `python3`; default = parent folder) |
-
-| Cursor workspace | From inside agent-skills clone |
-|------------------|-------------------------------|
-| Parent project (default) | `./scripts/setup-macos-linux.sh` |
-| Repo root only | `./scripts/setup-macos-linux.sh .` |
+| macOS / Linux | `./scripts/setup-macos-linux.sh` (default = parent folder) |
 
 Creates under `<workspace>/.cursor/`:
 
 - `skills` → `ai-skills/`
 - `rules` → `ai-rules/`
-- `vault` → `vault/`
-- `ai-skills-vault.json`
+- `vault` → `vault/` (empty folder for your local notes)
 
-Edit **`ai-skills/`**, **`ai-rules/`**, **`vault/`** in the clone — not inside `.cursor/` junctions/symlinks.
+Edit **`ai-skills/`** and **`ai-rules/`** in the clone — not inside `.cursor/` junctions.
 
 ---
 
@@ -41,31 +35,12 @@ Edit **`ai-skills/`**, **`ai-rules/`**, **`vault/`** in the clone — not inside
 | [builder-api](ai-skills/builder-api/SKILL.md) | API contracts and backend boundaries |
 | [builder-schema](ai-skills/builder-schema/SKILL.md) | Data modeling and migrations |
 | [builder-infrastructure](ai-skills/builder-infrastructure/SKILL.md) | IaC, CI/CD, observability |
-| [builder-feature](ai-skills/builder-feature/SKILL.md) | Plan-only cross-layer design — slice backlog; **no app code**; implement via builder-* |
+| [builder-feature](ai-skills/builder-feature/SKILL.md) | Plan-only cross-layer design — slice backlog; **no app code** |
 | [fix-record](ai-skills/fix-record/SKILL.md) | RCA after validated fix |
 | [upgrade-ai](ai-skills/upgrade-ai/SKILL.md) | Improve skills in this repo |
 | [git-push](ai-skills/git-push/SKILL.md) | Safe commit + push (sole git skill) |
-| [vault-recall](ai-skills/vault-recall/SKILL.md) | **When:** `/vault-recall` · Search SSoT: [reference.md](ai-skills/vault-recall/reference.md) |
-| [wiki-ingest](ai-skills/wiki-ingest/SKILL.md) | Wiki curator — auto-ingest via `vault-issues.mdc` gate or manual `/wiki-ingest` |
-| [workday-init](ai-skills/workday-init/SKILL.md) | Morning plan from raw intentions (API/WEB/SKILL/DOCS/OPS) |
-| [workday-update](ai-skills/workday-update/SKILL.md) | Mid-day plan updates — bugs, scope changes, no duplicates |
-| [workday-review](ai-skills/workday-review/SKILL.md) | End-of-day audit — git/code evidence vs plan |
 
-Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Change-control: [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) · Smoke: [docs/SKILL-SMOKE-CHECKLIST.md](docs/SKILL-SMOKE-CHECKLIST.md) · **Thai:** [docs/th/README.md](docs/th/README.md) ([APPENDIX](docs/th/APPENDIX-TH.md))
-
----
-
-## External discovery
-
-This pack is a **cohesive engineering system** (15 skills + change-control rules) — not a skill catalog.
-
-| Resource | Use |
-|----------|-----|
-| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | Curated index of community/official skills — discovery only |
-| [docs/EXTERNAL-PARITY.md](docs/EXTERNAL-PARITY.md) | Crosswalk: catalog category → pack skill → when to install external |
-| [Snyk Agent Scan](https://github.com/snyk/agent-scan) · [Agent Trust Hub](https://ai.gendigital.com/agent-trust-hub) | Review external skills before install — catalog is not audited |
-
-**Rule:** link external patterns into `reference.md`; do not copy wholesale skills into `ai-skills/` unless `/upgrade-ai` approves scope.
+Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Change-control: [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) · **Thai:** [docs/th/README.md](docs/th/README.md) · External catalog: [awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
 
 ---
 
@@ -75,12 +50,11 @@ This pack is a **cohesive engineering system** (15 skills + change-control rules
 |------|------|
 | [change-control-manifest.mdc](ai-rules/change-control-manifest.mdc) | **Production AI** — observe→verify, patch budget, confidence gates |
 | [bilingual-th-en.mdc](ai-rules/bilingual-th-en.mdc) | Thai ~60% / English ~40% replies |
-| [vault-issues.mdc](ai-rules/vault-issues.mdc) | Work Q&A in `vault/issues/`; wiki auto-ingest when durable (no ask-first) |
 | [clean-code.mdc](ai-rules/clean-code.mdc) | Code style for generated application code |
-| `ai-rules/{core,debugging,patching,architecture,testing,risk,workflow}/` | Scoped production rules — see [CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) |
+| `ai-rules/{core,debugging,patching,architecture,testing,risk,workflow}/` | Scoped production rules |
 
 ---
 
 ## Git in this repo
 
-Ship changes with **`@git-push`** only. Commit canonical paths — not daily vault content (`vault/issues/*.md`, `vault/workday/*.md`, `vault/wiki/**` except README are gitignored).
+Ship changes with **`@git-push`** only. The `vault/` folder is gitignored except `.gitkeep` — use it for local notes only.

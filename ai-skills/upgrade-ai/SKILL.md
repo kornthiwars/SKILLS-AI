@@ -44,7 +44,6 @@ Use this skill only for **skills and rules** in agent-skills (or the user's skil
 | App bug, stack trace, failing behavior | [`/debug`](../debug/SKILL.md) |
 | Review plan, PR, or diff before merge | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Long RCA after a validated production fix | [`/fix-record`](../fix-record/SKILL.md) |
-| Search vault only (no upgrade) | [`/vault-recall`](../vault-recall/SKILL.md) |
 | Ship skill changes | [`/git-push`](../git-push/SKILL.md) |
 
 Application-code patches: follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) — do not duplicate its full gate list here.
@@ -95,7 +94,7 @@ Run sequentially. Stop early only if Phase 1 **failure diagnosis** cannot reprod
 ### Phase 1 — Reproduce
 
 - Confirm target skill/rules files and constraints from the user request.
-- When diagnosing **this** repo (agent-skills): search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 wiki pages · ≤2 plan files from `workday/plans/` when feature keyword · then issues if needed).
+- When diagnosing **this** repo (agent-skills): grep `ai-skills/` and `ai-rules/` for prior art; read relevant `SKILL.md` / `reference.md` files.
 - **Failure diagnosis:** reproduce ≥ 2 times under controlled conditions; capture actual vs expected behavior.
 - **Structural / meta audit** (no repeat failure — e.g. “wrong structure?”, token review): scope + static file analysis only; use SKILL REPORT; cap CONFIDENCE 85; do **not** force artificial repro.
 
@@ -128,11 +127,11 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 |---------|---------------|
 | STATUS | IN_PROGRESS = phase N; READY = verified upgrade; BLOCKED = insufficient evidence |
 | OBJECTIVE | Diagnose failure layer and propose minimal skill/rule upgrade |
-| DISCOVERIES | Repro steps, layer signals, vault hits, rejected hypotheses |
+| DISCOVERIES | Repro steps, layer signals, prior art hits, rejected hypotheses |
 | ANALYSIS | Root cause, blast radius, regression risk, non-goals |
 | RISKS | Prompt inflation, skipped verification, wrong layer, pack drift |
 | ARTIFACTS | Upgrade proposal, version bump plan, audit scores if pack-wide |
-| NEXT ACTIONS | Repro, patch plan, smoke, or read `reference.md` |
+| NEXT ACTIONS | Repro, patch plan, checklist, or read `reference.md` |
 | HANDOFF | `/scrutinize` before merge · `/git-push` to ship · `none` |
 | CONFIDENCE | 0–100; cap 85 for structural audit only; pass close-out gate before READY |
 

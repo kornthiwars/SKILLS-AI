@@ -44,7 +44,7 @@ When pushing **this** repository:
 
 - Edit and commit **`ai-skills/`**, **`ai-rules/`**, **`scripts/`**, **`templates/`**, **`docs/`** — not files only under `.cursor/` junctions.
 - After clone, run `./scripts/setup-macos-linux.sh .` so Cursor loads linked skills.
-- `vault/issues/*.md` and `vault/wiki/**` (except README) are **gitignored** — local only.
+- `vault/**` (except `.gitkeep`) is **gitignored** — local notes only.
 
 ## Scope Guardrails
 
@@ -56,13 +56,12 @@ When pushing **this** repository:
 
 | Situation | Skill |
 |-----------|--------|
-| Blocked push / SSH friction | [`/vault-recall`](../vault-recall/SKILL.md) (Phase 0) |
 | Review before merge | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Skill/rule changes in commit | [`/upgrade-ai`](../upgrade-ai/SKILL.md) checklist via scrutinize |
 
 ## Change-control
 
-Before commit: run `./scripts/change-control-check.sh` when available. Respect patch budget and [`approval-gates`](../../ai-rules/risk/approval-gates.mdc) in [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc).
+Before commit: respect patch budget and [`approval-gates`](../../ai-rules/risk/approval-gates.mdc) in [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc).
 
 ---
 
@@ -88,10 +87,6 @@ Do NOT activate for: general coding tasks unrelated to git remote sync.
 ---
 
 # Workflow
-
-## Phase 0 — Vault recall (blocked push or git friction)
-
-When push is **blocked**, failed before, or symptoms match SSH/remote/dirty-tree: run search per [`vault-recall/reference.md`](../vault-recall/reference.md), apply documented fixes, then continue Phase 1. Optional: `/vault-recall` for a user-facing summary.
 
 ## Phase 1 — Inspect
 
@@ -131,7 +126,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | RISKS | Secrets in diff, force-push, wrong remote identity, hook failures |
 | ARTIFACTS | Branch, remote, commit range pushed, command output snippets |
 | NEXT ACTIONS | User phrase to unblock (e.g. ยืนยัน) or exact command |
-| HANDOFF | `/vault-recall` on SSH friction · `/scrutinize` before merge · `none` |
+| HANDOFF | `/scrutinize` before merge · `none` |
 | CONFIDENCE | 0–100; no READY without fresh push/status output |
 
 Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE. Close-out: all sections.

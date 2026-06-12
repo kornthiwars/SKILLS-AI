@@ -20,7 +20,7 @@ Every reply to the user must mix **Thai and English** in roughly this split:
 - **Code blocks:** commands and code stay as-is (usually English). Explain surrounding text in Thai.
 - **Tables/headers:** Either language is fine; body cells favor Thai with English terms where precise.
 - **Skills invoked** (`/debug`, `/git-push`): follow the skill workflow; still keep the 60/40 voice in user-facing prose.
-- **Skill `## SKILL REPORT`:** use English section labels from [`templates/template.skill-report.md`](../../templates/template.skill-report.md); body prose Thai ~60%. Do **not** write two full duplicate versions of the same content in Thai and English.
+- **Skill `## SKILL REPORT`:** use English section labels from [`templates/template.skill-report.md`](../templates/template.skill-report.md); body prose Thai ~60%. Do **not** write two full duplicate versions of the same content in Thai and English.
 
 ## Examples
 
@@ -37,5 +37,5 @@ Every reply to the user must mix **Thai and English** in roughly this split:
 
 - User asks for **one language only** → follow that request for that turn.
 - Quoted logs, stderr, or UI strings → keep original language.
-- Vault files (`vault/issues/`, `vault/workday/`, `vault/wiki/`): body may be Thai-primary; `tags` / `title:` stay English. Logging follows `vault-issues.mdc` (work-related only — not every chat message).
+- Local notes under `vault/` (if any): user-owned; not part of pack behavior.
 - Task-specific skills (`/debug`, `/git-push`, …) override voice style for workflow steps; keep the user-facing summary bilingual.

@@ -77,13 +77,10 @@ When diagnosing or upgrading **this** repository:
 |-------------------------|---------------------------|
 | `ai-skills/<name>/` | `.cursor/skills/<name>/` (symlink/junction) |
 | `ai-rules/*.mdc` | `.cursor/rules/` |
-| `vault/` | `.cursor/vault/` |
-| `templates/template.issue.md` | used by scripts + `vault-issues.mdc` |
-| `templates/template.wiki-page.md` | concept page for `vault/wiki/pages/` via `/wiki-ingest` |
-| `templates/template.wiki-source.md` | source note for `vault/wiki/sources/` |
+| `vault/` | `.cursor/vault/` (empty folder — local notes, gitignored) |
 
 - **Do not** treat `.cursor/skills` as source of truth in the clone — it points at `ai-skills/`.
-- **Do not** commit `vault/issues/YYYY-MM-DD.md` (gitignored).
+- **Do not** commit user content under `vault/` (gitignored except `.gitkeep`).
 - New clone: run `scripts/setup-macos-linux.sh` or Windows equivalent before testing skills in Cursor.
 - Authoring guide: [`../SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) · agent entry: [`../../AGENTS.md`](../../AGENTS.md).
 
@@ -149,7 +146,7 @@ Without significantly degrading others.
 - nearby edge cases
 - historical working behavior
 - regression scenarios
-- structural audit path: smoke/authoring checks when no runtime repro exists
+- structural audit path: [SKILL-SMOKE-CHECKLIST.md](../../docs/SKILL-SMOKE-CHECKLIST.md) + authoring checks when no runtime repro exists
 
 ---
 
@@ -167,19 +164,15 @@ Avoid and watch for these recurring traps:
 | overengineering / unjustified redesign | unstable decomposition |
 | skipped verification | role ambiguity |
 | adding abstraction without measurable benefit | — |
-| **vault search drift** — grep tables copied outside [`vault-recall/reference.md`](../vault-recall/reference.md) | link instead of copy-paste |
-| **issues vs wiki confusion** — daily Q&A format in `wiki/pages/` | issues → `vault-issues.mdc`; durable wiki → auto-ingest gate + [`template.wiki-page.md`](../../templates/template.wiki-page.md) |
-
 Use this table to bias diagnoses toward known traps.
 
-### Vault recall (diagnosis aid)
+### Prior art (diagnosis aid)
 
 When upgrading skills in agent-skills:
 
-1. Run search per [`vault-recall/reference.md`](../vault-recall/reference.md) (≤3 wiki page files · ≤2 plan files from `workday/plans/` when feature keyword)
-2. Check `vault/issues/` last 2 days for repeat topics
-3. In other skills: **link** `reference.md` — do not duplicate the grep table; keep `/vault-recall` for explicit user search
-4. After `/scrutinize` on skill PRs: verify checklist in [`scrutinize/SKILL.md`](../scrutinize/SKILL.md) § agent-skills skill / rule PRs
+1. Grep `ai-skills/` and `ai-rules/` for related keywords
+2. Read peer `SKILL.md` / `reference.md` — link instead of copy-paste tables
+3. After `/scrutinize` on skill PRs: verify checklist in [`scrutinize/SKILL.md`](../scrutinize/SKILL.md) § agent-skills skill / rule PRs
 
 ### Production change-control (rules)
 
@@ -188,7 +181,7 @@ When upgrading governance in agent-skills:
 - Prefer [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) as the always-on parent — do not duplicate its gates across many `alwaysApply` files
 - Add scoped rules under `ai-rules/{core,patching,architecture,testing,risk,workflow}/` with `globs` or intelligent activation
 - Wire skills to the manifest (1–3 lines); keep deep workflow in `SKILL.md`
-- Extend `scripts/smoke-skills.sh` and `scripts/change-control-check.sh`; add CI in `.github/workflows/`
+- Keep `scripts/setup-*` accurate when junction paths change
 
 ---
 
@@ -203,9 +196,9 @@ When upgrading **any** skill in this repo, verify peer skills stay aligned:
 | SKILL REPORT | All skills link `templates/template.skill-report.md`; field mapping in each `SKILL.md` |
 | reference.md | Depth on demand; `SKILL.md` < ~300 lines |
 | Verification | Close-out gate in reference or operating rules |
-| Vault | Search links `vault-recall/reference.md` — no copied grep tables |
+| Handoffs | No orphan workflows — link peer skills |
 | Version | `metadata.version` bumped on every content edit |
-| Smoke | `./scripts/smoke-skills.sh` + dynamic preflight strings preserved |
+| Dynamic smoke | [DYNAMIC-AGENT-SMOKE.md](../../docs/DYNAMIC-AGENT-SMOKE.md) scenarios still valid after changes |
 | Thai docs | `docs/th/APPENDIX-TH.md` §1 version row updated when shipping |
 
 Patterns to import from external repos (link, do not copy wholesale): [superpowers verification-before-completion](https://github.com/obra/superpowers), [addyosmani incremental-implementation](https://github.com/addyosmani/agent-skills), [millionco debug-agent](https://github.com/millionco/debug-agent) runtime log discipline.
@@ -231,7 +224,7 @@ When prompts grow unstable or context noise rises ([muratcankoylan/Agent-Skills-
 | Signal | Upgrade bias |
 |--------|--------------|
 | Lost-in-middle / instruction clash | Decompose to `reference.md`; reduce `alwaysApply` rules |
-| Long sessions, repeated vault grep | Link [`vault-recall/reference.md`](../vault-recall/reference.md) — no copied tables |
+| Long sessions, repeated grep | Move tables to `reference.md`; reduce `alwaysApply` rules |
 | Multi-agent overlap | Handoffs table; one skill per responsibility |
 | Skill > 300 lines or > 5 duties | Phase 7 decomposition per § Complexity governance |
 
@@ -245,7 +238,7 @@ After upgrading one or more skills, score in **SKILL REPORT** `ARTIFACTS` (inlin
 
 1. Score each skill before/after using dimensions below
 2. List blockers still below 9 with next action
-3. Re-run `./scripts/smoke-skills.sh` when bash available
+3. Re-run [DYNAMIC-AGENT-SMOKE.md](../../docs/DYNAMIC-AGENT-SMOKE.md) scenarios after major rule/skill edits
 
 | Dimension (/10) | Question |
 |-----------------|----------|
@@ -265,9 +258,9 @@ Before claiming pack or skill upgrade **complete** ([verification-before-complet
 
 | Step | Action |
 |------|--------|
-| 1 IDENTIFY | Which skills changed · smoke strings · pack checklist rows |
-| 2 RUN | `./scripts/smoke-skills.sh` when bash available; else grep `scripts/verify-dynamic-smoke-static.sh` patterns |
-| 3 READ | Cite output in session · list skills still below 9.0 with next action in SKILL REPORT |
+| 1 IDENTIFY | Which skills changed · pack checklist rows |
+| 2 RUN | [SKILL-SMOKE-CHECKLIST.md](../../docs/SKILL-SMOKE-CHECKLIST.md) + behavioral scenarios in [DYNAMIC-AGENT-SMOKE.md](../../docs/DYNAMIC-AGENT-SMOKE.md) |
+| 3 READ | Cite checklist results in session · list skills still below 9.0 with next action in SKILL REPORT |
 
 Do not claim "all skills at 9.0" without inline score table or explicit blocker list in the session.
 

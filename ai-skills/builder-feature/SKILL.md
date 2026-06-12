@@ -4,7 +4,7 @@ metadata:
   version: "1.5.3"
 description: >-
   Plan-only cross-layer feature orchestrator — workflow map, UI-only express
-  lane, slice backlog, optional vault plan persist, delegation to
+  lane, slice backlog, delegation to
   builder-ui/api/schema/infrastructure. Does not write application code.
 disable-model-invocation: true
 ---
@@ -23,13 +23,13 @@ Mission: Design user flows, boundaries, and vertical slices — then **hand off*
 |---------|-----------|
 | Read / grep / trace existing code | Edit `.ts`, `.tsx`, `.js`, `.py`, `.go`, `.rs`, `.vue`, `.css`, `.html`, SQL migrations, IaC |
 | Workflow map, slice backlog, ownership tables | Scaffolding, "quick stub", "I'll start while we plan" |
-| Offer handoff to `/builder-ui`, … · **optional** `vault/workday/plans/` persist (user opt-in) | Claim feature is built or READY with code changes |
+| Offer handoff to `/builder-ui`, … per slice backlog | Claim feature is built or READY with code changes |
 
 **Never edit application files** in this skill — implementation belongs in `/builder-ui`, `/builder-api`, `/builder-schema`, or `/builder-infrastructure`.
 
 **User says "ทำเลย" / "implement now":** finish or resume **phases 0–7** if incomplete → emit **Slice 1 brief** → **stop** → tell user to invoke the owner skill (e.g. `/builder-ui`) or say **"slice 1 go"** in a **new** turn with that specialist — do **not** write code in this skill.
 
-Detail: [reference.md](./reference.md) § UI-only express lane · § Plan persistence · [`templates/template.slice-brief.md`](../../templates/template.slice-brief.md).
+Detail: [reference.md](./reference.md) § UI-only express lane · [`templates/template.slice-brief.md`](../../templates/template.slice-brief.md).
 
 **Change-control:** while active, **plan-only iron law overrides** [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) steps 7–8 (propose/verify app patches). Read/grep only — orchestration row in manifest § Skill orchestration.
 
@@ -92,7 +92,6 @@ Detail: [reference.md](./reference.md) § UI-only express lane · § Plan-only g
 | Implement slice (infra) | [`/builder-infrastructure`](../builder-infrastructure/SKILL.md) |
 | UI-only scope after phase 0 | [`/builder-ui`](../builder-ui/SKILL.md) — use **express lane** here if still planning; specialist implements after slice brief |
 | Bug during build | [`/debug`](../debug/SKILL.md) |
-| Prior art | [`/vault-recall`](../vault-recall/SKILL.md) |
 | Review implemented slice PR | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Ship after slices verified | [`/git-push`](../git-push/SKILL.md) |
 
@@ -147,8 +146,8 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | DISCOVERIES | **Workflow map**, reuse, integration surfaces, risks |
 | ANALYSIS | Orchestration plan, ownership, rollout |
 | RISKS | Duplication, integration gaps, agent jump-to-code |
-| ARTIFACTS | Workflow map · Orchestration plan · **Slice backlog** · optional `vault/workday/plans/{slug}.md` · Slice brief per [`template.slice-brief.md`](../../templates/template.slice-brief.md) |
-| NEXT ACTIONS | User approves slice N → invoke owner skill · offer plan persist |
+| ARTIFACTS | Workflow map · Orchestration plan · **Slice backlog** · Slice brief per [`template.slice-brief.md`](../../templates/template.slice-brief.md) |
+| NEXT ACTIONS | User approves slice N → invoke owner skill |
 | HANDOFF | `/builder-ui` · `/builder-api` · `/builder-schema` · `/builder-infrastructure` · `none` after plan |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Plan close-out gate before PLAN_READY |
 

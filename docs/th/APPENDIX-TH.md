@@ -18,11 +18,6 @@
 | fix-record | `/fix-record` | 1.2.4 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.2.7 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
-| vault-recall | `/vault-recall` | 1.3.7 | ใช่ |
-| wiki-ingest | `/wiki-ingest` | 1.1.3 | ใช่ |
-| workday-init | `/workday-init` | 1.2.6 | ใช่ |
-| workday-update | `/workday-update` | 1.2.4 | ใช่ |
-| workday-review | `/workday-review` | 1.2.3 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
 
@@ -32,26 +27,18 @@
 
 | ไฟล์ | เนื้อหาลึก |
 |------|------------|
-| `vault-recall/reference.md` | resolve vault root, wiki ≤3, **workday/plans/** feature plans, issues |
-| `wiki-ingest/reference.md` | merge pages, index, log, close-out verification |
 | `debug/reference.md` | phase 1 exit criteria, edit lock, hypothesis table, verification + callee cleanup |
 | `git-push/reference.md` | push matrix, commit gate, SSH multi-account, ตาราง error |
 | `scrutinize/reference.md` | agent-skills PR checklist, NeoLabHQ lenses, browser MCP, verification gate |
 | `fix-record/reference.md` | section guide, worked example, publish + close-out verification |
 | `upgrade-ai/reference.md` | external discovery, context engineering, version governance, anti-patterns |
-| `workday-update/reference.md` | dedupe, DISCOVERED TODAY, close-out verification |
 | `docs/EXTERNAL-PARITY.md` | catalog crosswalk, security, non-goals |
 | `builder-api/reference.md` | slice brief intake, API phases, close-out |
 | `builder-schema/reference.md` | slice brief intake, schema phases |
 | `builder-infrastructure/reference.md` | slice brief intake, CI/gh-fix-ci, close-out |
-| `builder-feature/reference.md` | plan-only, express lane, slice backlog, **plan persist** |
+| `builder-feature/reference.md` | plan-only, express lane, slice backlog |
 | `builder-ui/reference.md` | slice brief intake, [`template.slice-brief.md`](../../templates/template.slice-brief.md) |
 | `templates/template.slice-brief.md` | slice handoff contract (feature → builder-*) |
-| `templates/template.feature-plan.md` | PLAN_READY persist → `vault/workday/plans/` |
-| `templates/template.workday.md` | WORKDAY block SSoT — section ownership init/update/review |
-| `templates/template.workday-file.md` | Vault file wrapper (frontmatter + block) |
-| `workday-init/reference.md` | Persistence path, in-place overwrite, load protocol |
-| `workday-review/reference.md` | evidence mapping, DAY SCORE rubric |
 
 **หลัก:** `SKILL.md` = workflow + guardrails · `reference.md` = ตาราง/ตัวอย่างยาว (อย่า copy ซ้ำใน rule อื่น)
 
@@ -107,8 +94,8 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 - [ ] `metadata.version` bump ตาม upgrade-ai governance  
 - [ ] `disable-model-invocation: true` (ยกเว้นที่ document ไว้)  
 - [ ] `SKILL.md` ไม่ยาวเกิน ~300 บรรทัด — phase ยาวย้ายไป `reference.md`  
-- [ ] ขั้นค้น vault **ลิงก์** `vault-recall/reference.md` ไม่ copy ตารางซ้ำ  
-- [ ] แยก artifact: issues (รายวัน) · workday (แผน) · `/fix-record` (RCA) · wiki/pages (auto-ingest gate)
+- [ ] Handoffs ลิงก์ skill ที่เกี่ยวข้อง — ไม่ orphan workflow  
+- [ ] RCA ยาว → `/fix-record` แยกจาก daily Q&A ในแชท
 
 ---
 
@@ -119,73 +106,29 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | JIRA comment | **default** — ต้อง sign-off ก่อน POST |
 | PR description | ได้ |
 | `docs/fix-records/<ticket>.md` | ได้ |
-| wiki | ได้ |
 
 **ห้าม** โพสต์ JIRA โดยไม่ได้รับ *"post it"* / *"go ahead"* / *"yes"*
 
 ---
 
-## 7. Vault — ค้น vs เขียน
+## 7. โฟลเดอร์ `vault/` (local notes)
 
-### ค้น (อ่าน)
-
-→ `vault-recall/reference.md` หรือ `/vault-recall`
-
-| ขั้น | การทำ |
-|------|--------|
-| resolve root | `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → agent-skills clone → **parent walk** (monorepo subproject เปิดโฟลเดอร์ลูกอย่างเดียว) |
-| 1 | grep `wiki/pages/` (keywords, `title:`, tags, wikilinks) |
-| 2 | อ่านเต็ม ≤ **3** หน้า (ไม่นับ README) |
-| 3 | query ชื่อ **feature / plan / slice** → grep `workday/plans/` · อ่าน ≤ **2** ไฟล์ |
-| 4 | ถ้าไม่พอ → grep `issues/` วันนี้ + เมื่อวาน |
-| 5 | (optional) `workday/` วันนี้ — context งานค้าง |
-
-### เขียน (บันทึก)
-
-→ rule `vault-issues.mdc` (issues + wiki auto-ingest) · skills `workday-*` (แผน)
-
-| ประเภท | path | รูปแบบ |
-|--------|------|--------|
-| issues | `vault/issues/YYYY-MM-DD.md` | `## N. title` + Question / Answer |
-| workday | `vault/workday/YYYY-MM-DD.md` | WORKDAY block — `/workday-init` · update · review |
-| feature plan | `vault/workday/plans/{slug}.md` | `/builder-feature` PLAN_READY — opt-in · gitignored |
-| wiki | `vault/wiki/pages/{slug}.md` | concept page — auto-ingest gate หรือ `/wiki-ingest` |
-
-Template: `templates/template.issue.md`, `templates/template.workday.md`, `templates/template.feature-plan.md`, `templates/template.slice-brief.md`, `templates/template.wiki-page.md`, `templates/template.wiki-source.md`  
-รายละเอียด Obsidian: `vault/README.md`
-
-**ห้าม** ใส่ secret ใน vault
+- โฟลเดอร์ว่างใน repo — track แค่ `vault/.gitkeep`
+- setup สร้าง junction `.cursor/vault` → `vault/` สำหรับโน้ตส่วนตัว (gitignore)
+- **ไม่มี** agent behavior สำหรับ vault ใน pack นี้
 
 ---
 
-## 8. Scripts และ CI (ภาษาไทย)
+## 8. Scripts (ภาษาไทย)
 
-### `smoke-skills.sh`
+| Script | ใช้เมื่อ |
+|--------|----------|
+| `setup-macos-linux.sh` | ครั้งแรกหลัง clone / หลัง pull บน Mac หรือ Linux |
+| `setup-windows.ps1` / `.bat` | เหมือนกันบน Windows |
 
-| ตรวจ | รายละเอียด |
-|------|------------|
-| ไฟล์สำคัญ | manifest, vault rule, docs CHANGE-CONTROL, … |
-| rule tree | ≥ 25 ไฟล์ `.mdc` + ไฟล์ขั้นต่ำใน core/patching/risk/workflow |
-| ทุก skill | `disable-model-invocation: true` + `## Scope Guardrails` |
-| ลิงก์ | debug, git-push, AGENTS อ้าง change-control |
+สร้าง junction: `.cursor/skills`, `.cursor/rules`, `.cursor/vault` → โฟลเดอร์ใน pack
 
-**FAIL → exit 1** (ใช้ก่อน commit / CI step แรก)
-
-### `change-control-check.sh`
-
-| ตรวจ | ค่า default |
-|------|-------------|
-| ไฟล์ใน diff | ≤ 5 |
-| บรรทัด add+del | ≤ 120 |
-| override | `[BUDGET-OVERRIDE]` ใน commit message HEAD |
-
-`SKIP_CHANGE_CONTROL=1` ข้ามได้ (local)
-
-### `skills-quality.yml` (GitHub Actions)
-
-- trigger: push/PR → `main`  
-- step 1: `smoke-skills.sh` — **ล้ม CI ได้**  
-- step 2: แจ้ง WARN งบ PR + `change-control-check.sh || true` — **ไม่ล้ม CI** จากงบ
+งบ patch (≤5 ไฟล์, ≤120 บรรทัด) อยู่ใน [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) — ไม่มีสคริปต์ตรวจอัตโนมัติ
 
 ---
 
@@ -239,8 +182,8 @@ Template: `templates/template.issue.md`, `templates/template.workday.md`, `templ
 | `examples/` UI mock (RiskPro HTML) | **ถอดออกจาก repo แล้ว** — mock อยู่ที่ consumer project ถ้าต้องการ |
 | `test-builder` skill | ยังไม่มี — `builder-feature` วางแผน test ใน phase 7 เอง |
 | Cursor Automations | แยกจาก agent-skills |
-| เนื้อหา `vault/issues/*.md` | gitignore — เป็นของ local |
-| พฤติกรรม agent จริงใน Cursor | ทดมือตาม [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md); preflight ไฟล์ → `./scripts/verify-dynamic-smoke-static.sh` |
+| เนื้อหา `vault/**` (ยกเว้น `.gitkeep`) | gitignore — local notes only |
+| พฤติกรรม agent จริงใน Cursor | ทดมือตาม [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) |
 
 ---
 
@@ -248,16 +191,16 @@ Template: `templates/template.issue.md`, `templates/template.workday.md`, `templ
 
 | รายการ | สถานะ |
 |--------|--------|
-| 11/11 skills มีหัวข้อใน SKILLS-TH | ครบ |
+| 10/10 skills มีหัวข้อใน SKILLS-TH | ครบ |
 | 34/34 rules มีหัวข้อใน RULES-TH | ครบ |
 | reference.md อธิบาย | ครบ (ไฟล์นี้ §2) |
 | Mantra / flaky / skip mantra | ครบ (§4) |
-| vault ค้น vs เขียน + templates | ครบ (§7) |
-| smoke / budget / CI | ครบ (§8) |
+| โฟลเดอร์ `vault/` local | ครบ (§7) |
+| setup scripts / patch budget | ครบ (§8) |
 | globs ทุก rule | ครบ (§9) |
 | SKILL-AUTHORING / SKILL-PATTERN (EN) | ลิงก์ใน README — ยังไม่แปลทั้งไฟล์ |
 | แปล `reference.md` ทีละไฟล์ | ดัชนีไทย → [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md) (ลิงก์ EN) |
-| Dynamic agent smoke | [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) + `./scripts/verify-dynamic-smoke-static.sh` |
+| Dynamic agent smoke | [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) |
 
 ---
 
@@ -269,4 +212,3 @@ Template: `templates/template.issue.md`, `templates/template.workday.md`, `templ
 | [SKILL-PATTERN.md](../SKILL-PATTERN.md) | โครง SKILL.md + template index |
 | [SKILL-SMOKE-CHECKLIST.md](../SKILL-SMOKE-CHECKLIST.md) | ทดสอบมือหลังแก้ rule |
 | [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | 3 layers EN |
-| [docs/examples/change-control-wiki-page.md](../examples/change-control-wiki-page.md) | ตัวอย่าง wiki page |

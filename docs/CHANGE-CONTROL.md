@@ -8,7 +8,7 @@ agent-skills uses **change-control**, not “fast coding only.”
 |-------|----------|------|
 | **1 — Rules** | `ai-rules/` | Gates, budgets, risk, stop conditions |
 | **2 — Skills** | `ai-skills/` | Deep workflows on invoke (`/debug`, …) |
-| **3 — Verification** | `scripts/`, CI | Automated checks before merge |
+| **3 — Setup** | `scripts/setup-*` | Junction install once per clone; manual checklist in [SKILL-SMOKE-CHECKLIST.md](./SKILL-SMOKE-CHECKLIST.md) and [DYNAMIC-AGENT-SMOKE.md](./DYNAMIC-AGENT-SMOKE.md) after major pack edits |
 
 ## Always-on manifest
 
@@ -29,17 +29,6 @@ ai-rules/
 ```
 
 Most sub-rules use **globs** or intelligent activation — not `alwaysApply`, to save context.
-
-## Commands
-
-```bash
-./scripts/smoke-skills.sh          # static baseline (+ dynamic-smoke preflight)
-./scripts/verify-dynamic-smoke-static.sh  # optional standalone
-./scripts/change-control-check.sh  # patch budget on working tree (HEAD)
-DIFF_BASE=origin/main...HEAD ./scripts/change-control-check.sh  # PR range (CI)
-```
-
-**CI** (`.github/workflows/skills-quality.yml`): `smoke-skills.sh` + `verify-dynamic-smoke-static.sh` hard-fail; PR budget fails unless `[BUDGET-OVERRIDE]` appears in a commit on the branch.
 
 ## Patch budget (default)
 

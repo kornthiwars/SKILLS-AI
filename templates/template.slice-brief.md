@@ -14,7 +14,7 @@ Emit this block in chat when user approves slice **N** (fill placeholders; remov
 ## Slice {{N}} brief (from /builder-feature)
 
 **Feature:** {{FEATURE_NAME}}
-**Plan ref:** vault/workday/plans/{{FEATURE_SLUG}}.md (if persisted)
+**Plan ref:** {{link to PLAN_READY block in chat — or —}}
 
 **Outcome:** {{one sentence — user-visible result of this slice}}
 
@@ -54,7 +54,7 @@ Optional: Workflow steps covered, Files likely touched, Contracts, Depends on sl
 ## Slice 1 brief (from /builder-feature)
 
 **Feature:** Maxwell Plans page
-**Plan ref:** vault/workday/plans/maxwell-plans.md
+**Plan ref:** PLAN_READY block in chat (Maxwell Plans feature plan)
 
 **Outcome:** Static pricing page matching mock — nav, hero, toggle, three cards.
 

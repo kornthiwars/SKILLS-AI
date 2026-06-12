@@ -6,12 +6,12 @@
 
 | เอกสาร | เนื้อหา |
 |--------|---------|
-| [SKILLS-TH.md](./SKILLS-TH.md) | 11 skills — เรียกด้วย `/ชื่อ-skill` |
+| [SKILLS-TH.md](./SKILLS-TH.md) | 10 skills — เรียกด้วย `/ชื่อ-skill` |
 | [RULES-TH.md](./RULES-TH.md) | 34 rules — โหลดอัตโนมัติตาม Cursor |
-| [APPENDIX-TH.md](./APPENDIX-TH.md) | เติมรายละเอียด — versions, reference.md, vault, globs, smoke/CI, mantra |
+| [APPENDIX-TH.md](./APPENDIX-TH.md) | เติมรายละเอียด — versions, reference.md, globs, setup scripts, mantra |
 | [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md) | ลิงก์ไป `reference.md` ภาษาอังกฤษทุก skill |
-| [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | ภาษาอังกฤษ — สถาปัตยกรรม 3 ชั้น (rules + skills + scripts) |
-| [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) | สคริปต์ทดสอบ agent มือ (8 scenarios) |
+| [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | ภาษาอังกฤษ — สถาปัตยกรรม 3 ชั้น (rules + skills + setup) |
+| [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) | ทด agent มือใน Cursor (10 scenarios) |
 
 ## agent-skills คืออะไร
 
@@ -33,22 +33,23 @@
 
 ## ติดตั้ง (ครั้งเดียวต่อ workspace)
 
+**macOS / Linux** — เปิดโฟลเดอร์ workspace ใน Cursor แล้วรัน:
+
 ```bash
 ./scripts/setup-macos-linux.sh .
 ```
 
-สร้าง `.cursor/skills` → `ai-skills/`, `.cursor/rules` → `ai-rules/`
+**Windows** (PowerShell) — แทน `<workspace>` ด้วยโฟลเดอร์ที่เปิดใน Cursor (เช่น `C:\Users\you\project`):
 
-หลัง pull ใหม่: **Reload Cursor** หรือรัน setup อีกครั้ง
-
-## ตรวจคุณภาพ repo
-
-```bash
-./scripts/smoke-skills.sh
-./scripts/change-control-check.sh
+```powershell
+.\scripts\setup-windows.ps1 -InstallRoot <workspace>
 ```
 
-CI: `.github/workflows/skills-quality.yml`
+หรือ `scripts\setup-windows.bat`
+
+สร้าง junction: `.cursor/skills` → `ai-skills/`, `.cursor/rules` → `ai-rules/`, `.cursor/vault` → `vault/` (โน้ต local)
+
+หลัง pull ใหม่: **Reload Cursor** หรือรัน setup อีกครั้ง
 
 ## ดัชนี skill (สรุป)
 
@@ -56,8 +57,7 @@ CI: `.github/workflows/skills-quality.yml`
 |--------|----------|
 | `/debug` | bug, stack trace, พฤติกรรมผิด |
 | `/scrutinize` | review PR / แผน / diff |
-| `/builder-schema` | schema/migration design for DB work |
-| `/builder-ui` | สถาปัตยกรรม UI |
+| `/builder-ui` | สถาปัตยกรรม UI / mock |
 | `/builder-api` | สัญญา API / backend |
 | `/builder-schema` | schema / migration |
 | `/builder-infrastructure` | deploy, IaC, observability |
@@ -65,7 +65,6 @@ CI: `.github/workflows/skills-quality.yml`
 | `/fix-record` | RCA หลัง fix จริง |
 | `/upgrade-ai` | ปรับ skill/rule ใน repo นี้ |
 | `/git-push` | commit/push ปลอดภัย |
-| `/vault-recall` | ค้น vault ก่อนทำซ้ำ |
 
 รายละเอียดเต็ม → [SKILLS-TH.md](./SKILLS-TH.md)
 
@@ -73,7 +72,7 @@ CI: `.github/workflows/skills-quality.yml`
 
 | โฟลเดอร์ | จำนวน | บทบาท |
 |----------|------:|--------|
-| root (always-on) | 4 | manifest, ภาษา, vault, clean code |
+| root (always-on) | 4 | manifest, ภาษา, clean code, decision-tree |
 | `core/` | 5 | ลำดับทำงาน, วินิจฉัย, patch เล็ก, verify |
 | `debugging/` | 5 | repro, หลักฐาน, ทางเลือกอื่น |
 | `patching/` | 5 | ขอบเขตไฟล์, ขนาด diff, side effect |

@@ -18,10 +18,6 @@
 9. [fix-record](#9-fix-record)
 10. [upgrade-ai](#10-upgrade-ai)
 11. [git-push](#11-git-push)
-12. [vault-recall](#12-vault-recall)
-13. [workday-init](#13-workday-init)
-14. [workday-update](#14-workday-update)
-15. [workday-review](#15-workday-review)
 
 ---
 
@@ -62,7 +58,6 @@
 
 | Phase | ชื่อ | ทำอะไร |
 |-------|------|--------|
-| 0 | Vault recall | ค้น `vault/wiki/pages/` และ `vault/issues/` ตาม `vault-recall/reference.md` |
 | 1 | Reproduce reliably | สร้างสัญญาณ pass/fail ที่ทำซ้ำได้เร็ว (สคริปต์, test, ขั้นตอนมือ) |
 | 2 | Know the fail path | debugger / trace / instrumentation ในโค้ด — รู้ว่า execution ไปทางไหนจนล้ม |
 | 3 | Falsify hypothesis | สมมติฐาน 3–5 อันจัดอันดับ — **พยายามพิสูจน์ว่าผิด** ก่อนเชื่ออันใดอันหนึ่ง |
@@ -107,7 +102,7 @@
 
 - ก่อน **merge PR**
 - ต้องการ **second opinion** บนแผน, diff, หรือสถาปัตยกรรม
-- review skill/rule ใน agent-skills เอง (version bump, guardrails, vault links)
+- review skill/rule ใน agent-skills เอง (version bump, guardrails, handoffs)
 
 ### ไม่ใช้เมื่อไหร่
 
@@ -134,7 +129,7 @@
 ### ผลลัพธ์
 
 - แต่ละ finding: ปัญหา, ทำไมสำคัญ, **หลักฐาน file:line**, แนวแก้
-- **PR ของ agent-skills** (เมื่อแตะ skill/rule): bump `metadata.version`, `disable-model-invocation`, SKILL.md ≤~300 บรรทัด, ลิงก์ `vault-recall/reference.md` (ไม่ copy ตารางค้น), แยก issues / workday / fix-record / wiki — ดู checklist เต็มใน [APPENDIX-TH.md](./APPENDIX-TH.md) §5
+- **PR ของ agent-skills** (เมื่อแตะ skill/rule): bump `metadata.version`, `disable-model-invocation`, SKILL.md ≤~300 บรรทัด, handoffs ครบ — ดู checklist เต็มใน [APPENDIX-TH.md](./APPENDIX-TH.md) §5
 
 ### ตัวอย่าง
 
@@ -319,7 +314,7 @@
 1. **Workflow map** (บังคับก่อน slice backlog)  
 2–6. Reuse, boundaries, integration, rollout (express lane: defer N/A ได้)  
 7. Plan verification  
-→ Slice backlog → **`PLAN_READY`** → optional save [`template.feature-plan.md`](../templates/template.feature-plan.md) → user สั่ง **`/builder-ui slice N go`** ([`template.slice-brief.md`](../templates/template.slice-brief.md))
+→ Slice backlog → **`PLAN_READY`** (ในแชท) → user สั่ง **`/builder-ui slice N go`** ([`template.slice-brief.md`](../templates/template.slice-brief.md))
 
 ### ผลลัพธ์
 
@@ -328,7 +323,7 @@
 
 ### Smoke
 
-- Scenario **#10** ใน [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) — plan-only ห้าม patch
+- Scenario **#9** ใน [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) — plan-only ห้าม patch
 
 ---
 
@@ -348,7 +343,6 @@
 
 - bug ยังไม่ fix / ยังไม่ validate
 - typo ชัดๆ ไม่ต้อง ceremony
-- แทน wiki page สั้นใน vault (คนละ artifact — ใช้ `/wiki-ingest`)
 - โพสต์ JIRA โดยไม่ sign-off
 
 ### input ที่ต้องครบ (4 อย่าง)
@@ -365,14 +359,6 @@
 **บังคับ:** Summary, Root cause, Fix, Validation  
 
 **ตามบริบท:** Symptom, Why symptom, How found, Why slipped, Action items
-
-### ความต่างจาก vault
-
-| Artifact | ที่เก็บ | ใช้เมื่อ |
-|----------|---------|----------|
-| `vault/issues/` | บันทึกรายวัน Q&A | ทำงานประจำวัน |
-| `vault/wiki/pages/` | ความรู้ระยะยาว (concept) | auto-ingest gate · `/wiki-ingest` |
-| fix-record | RCA เต็ม | ส่งทีม / JIRA / PR |
 
 ---
 
@@ -398,7 +384,7 @@
 
 ### ขั้นตอน (8 phase)
 
-1. Reproduce (รวม vault search ถ้าเป็น agent-skills)  
+1. Reproduce (grep `ai-skills/` / `ai-rules/` ถ้าเป็น agent-skills)  
 2. Localize layer  
 3. Isolate component  
 4. Competing hypotheses (≥2)  
@@ -437,7 +423,6 @@
 
 | Phase | ทำอะไร |
 |-------|--------|
-| 0 | Vault recall ถ้า push เคยติด / git friction |
 | 1 | Inspect — `status`, `diff`, branch, remote, log |
 | 2 | Commit gate — ตาม matrix ใน `reference.md` |
 | 3 | Remote & identity — SSH ต้องตรง account ที่มีสิทธิ์ repo |
@@ -457,132 +442,8 @@
 
 commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `docs/` — **ไม่** commit แค่ junction ใต้ `.cursor/`
 
-ก่อน commit: `./scripts/change-control-check.sh`  
-เกินงบ 5 ไฟล์ / 120 บรรทัด → `[BUDGET-OVERRIDE]` + user approval
-
----
-
-## 12. vault-recall
-
-| รายการ | ค่า |
-|--------|-----|
-| **Invoke** | `/vault-recall` |
-| **บทบาท** | บรรณารักษ์ vault — **ค้น** wiki / feature plans / issues ไม่เขียน |
-
-### ใช้เมื่อไหร่
-
-- “ค้น vault”, “เคยเจออาการนี้ไหม”
-- ก่อน debug ยาว หรือ git friction ซ้ำ
-
-### ไม่ใช้เมื่อไหร่
-
-- เขียน issues (rule `vault-issues.mdc`) — wiki ผ่าน auto-ingest gate หรือ `/wiki-ingest`
-- อ่าน wiki page เกิน 3 ไฟล์ หรือ plan เกิน 2 ไฟล์ต่อการค้นหา
-- ทุกข้อความแชทสบายๆ
-
-### ขั้นตอน
-
-1. ทำตาม `vault-recall/reference.md` (resolve root → grep wiki/pages → **workday/plans/** เมื่อ query ชื่อ feature/plan → issues วันนี้/เมื่อวาน)  
-2. รายงาน: สรุป, top matches (wiki + plan + issues); ปิดเรื่องแล้ว durable insight → wiki auto-ingest ท้าย work turn
-
-### Handoff
-
-- แผน feature เดิม → `/builder-feature` ต่อจาก recall
-
-### ถูกเรียกแบบ inline
-
-- `/debug` phase 0  
-- `/git-push` phase 0  
-- ไม่จำเป็นต้องพิมพ์ `/vault-recall` แยกถ้า skill อื่นรันอยู่แล้ว
-
----
-
-## 13. workday-init
-
-| รายการ | ค่า |
-|--------|-----|
-| **Invoke** | `/workday-init` |
-| **บทบาท** | วางแผนงานรายวัน — แปลงความตั้งใจดิบเป็นแผนที่ทำได้ทันที |
-
-### ใช้เมื่อไหร่
-
-- เริ่มวัน — มี bullet, note, ความคิดกระจัดกระจาย
-- ต้องการจัดกลุ่มงานตาม domain: **API · WEB · SKILL · DOCS · OPS**
-
-### ไม่ใช้เมื่อไหร่
-
-- งานเพิ่มกลางวัน → `/workday-update`
-- สรุปท้ายวัน → `/workday-review`
-- **วางแผน cross-layer feature** → `/builder-feature` (plan only)
-- **implement slice ที่อนุมัติแล้ว** → `/builder-ui` · `/builder-api` · `/builder-schema` · `/builder-infrastructure` ตาม owner ในแผน
-
-### ผลลัพธ์ — บล็อก WORKDAY
-
-รูปแบบมาตรฐาน: `templates/template.workday.md`
-
-```
-WORKDAY → DATE · MISSION · ACTIVE TASKS · PROGRESS · PROBLEMS
-       · DISCOVERED TODAY · NEXT · EVIDENCE · DAY SCORE
-```
-
-**init กรอก:** DATE, MISSION, ACTIVE TASKS, PROBLEMS, NEXT, DAY SCORE  
-**ไฟล์ (บังคับ):** `vault/workday/YYYY-MM-DD.md` — ไม่ใช่ `issues/`  
-**Task ID:** `{DOMAIN}-{NNN}` เช่น `API-001`, `WEB-002`
-
-**กฎ:** ไม่เขียนโค้ด · PROGRESS/EVIDENCE ว่าง (`—`) จนกว่าจะ review
-
----
-
-## 14. workday-update
-
-| รายการ | ค่า |
-|--------|-----|
-| **Invoke** | `/workday-update` |
-| **บทบาท** | อัปเดตแผนกลางวัน — งานใหม่, bug, client request |
-
-### ใช้เมื่อไหร่
-
-- พบ bug, scope change, refactor ระหว่างทำ
-- ต้องเปลี่ยน priority หรือ dependency
-
-### ไม่ใช้เมื่อไหร่
-
-- ยังไม่มีแผนเช้า → `/workday-init` ก่อน
-- สรุปท้ายวัน → `/workday-review`
-
-### ผลลัพธ์ — WORKDAY ฉบับอัปเดต (เต็มบล็อก)
-
-**update เปลี่ยน:** DISCOVERED TODAY, ACTIVE TASKS, PROBLEMS, NEXT · overwrite ไฟล์เดิม + bump `plan_version`  
-**ไฟล์:** อัปเดต `vault/workday/YYYY-MM-DD.md` (bump `plan_version`)
-
-**กฎ:** ห้าม task ซ้ำ · ทุก discovery มี source + reason · ไม่ `[x]` โดยไม่มี evidence review
-
----
-
-## 15. workday-review
-
-| รายการ | ค่า |
-|--------|-----|
-| **Invoke** | `/workday-review` |
-| **บทบาท** | audit ท้ายวันจาก **git + codebase** เทียบแผนเช้า |
-
-### ใช้เมื่อไหร่
-
-- ปิดวัน — ต้องการรู้ว่าทำอะไรจริง vs แผน
-- เตรียม input ให้ `/workday-init` พรุ่งนี้
-
-### หลักฐาน (ลำดับความสำคัญ)
-
-1. Codebase 2. Git 3. แผนรายวัน 4. User notes 5. Conversation
-
-**ห้าม** mark complete จากแค่บทสนทนา — ต้อง cite file/commit/test
-
-### ผลลัพธ์ — WORKDAY ปิดวัน (เต็มบล็อก)
-
-**review กรอก:** PROGRESS, EVIDENCE, DAY SCORE · `status: closed` ใน frontmatter  
-**ไฟล์:** `vault/workday/YYYY-MM-DD.md`
-
-รายละเอียด → `workday-review/reference.md` · template → `templates/template.workday.md`
+ก่อน commit: ตรวจงบ patch ตาม manifest (≤5 ไฟล์ / ≤120 บรรทัด)  
+เกินงบ → `[BUDGET-OVERRIDE]` + user approval
 
 ---
 
@@ -605,11 +466,6 @@ flowchart TD
   F -->|ไม่| G{push / ปรับ skill?}
   G -->|push| GP[/git-push]
   G -->|ปรับ skill| UA[/upgrade-ai]
-  G -->|ค้นอดีต| VR[/vault-recall]
-  A --> WI{วางแผนวัน?}
-  WI -->|เริ่มวัน| WDI[/workday-init]
-  WI -->|กลางวัน| WDU[/workday-update]
-  WI -->|ท้ายวัน| WDR[/workday-review]
 ```
 
 ---

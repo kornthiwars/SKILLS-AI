@@ -63,12 +63,6 @@ Then begin work.
 
 When editing app/source code, follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) (patch budget, confidence, no patch before diagnosis). This skill owns steps 1–4 of that sequence.
 
-## Vault recall (before step 1)
-
-**Before** building a repro, run vault search per [`vault-recall/reference.md`](../vault-recall/reference.md) (same steps as `/vault-recall`). Fold hits into the ledger; do not re-run fixes already documented.
-
-Optional: user may run `/vault-recall` first for a dedicated summary.
-
 ## Handoffs (other skills in this pack)
 
 | Situation | Skill |
@@ -76,8 +70,6 @@ Optional: user may run `/vault-recall` first for a dedicated summary.
 | Fix validated — write RCA for engineers | [`/fix-record`](../fix-record/SKILL.md) |
 | Review debug patch or skill/rule PR before merge | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Bug involves SQL / schema / prod data | [`/builder-schema`](../builder-schema/SKILL.md) + production safety rules |
-| Search prior fixes only (no full debug) | [`/vault-recall`](../vault-recall/SKILL.md) |
-
 After verification passes, **offer** `/fix-record` when the fix is non-trivial.
 
 ## Reference depth (load on demand)

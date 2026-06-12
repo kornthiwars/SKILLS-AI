@@ -109,7 +109,7 @@ Output one tight section per finding. Order by severity (blocker → major → n
 
 Close with a one-line verdict: ship / fix-then-ship / rework / reject — with the single biggest reason.
 
-**agent-skills skill / rule PRs:** run [reference.md](./reference.md) § agent-skills skill / rule PR checklist (`metadata.version`, handoffs, vault links).
+**agent-skills skill / rule PRs:** run [reference.md](./reference.md) § agent-skills skill / rule PR checklist (`metadata.version`, handoffs).
 
 ## Operating rules
 

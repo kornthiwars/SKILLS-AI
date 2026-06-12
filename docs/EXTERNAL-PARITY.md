@@ -2,7 +2,7 @@
 
 How **agent-skills** (this pack) relates to the wider ecosystem — especially [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) (curated index, ~1400+ entries, not a single pack).
 
-**Principle:** link patterns from external repos; do **not** copy wholesale into `ai-skills/`. This pack is opinionated: change-control + vault/wiki/workday + SKILL REPORT.
+**Principle:** link patterns from external repos; do **not** copy wholesale into `ai-skills/`. This pack is opinionated: change-control + SKILL REPORT.
 
 ---
 
@@ -14,11 +14,10 @@ How **agent-skills** (this pack) relates to the wider ecosystem — especially [
 | Review PR / plan before merge | `/scrutinize` |
 | Ship skill or rule changes | `/git-push` (explicit consent) |
 | Improve skills in **this** repo | `/upgrade-ai` |
-| Daily Q&A | `vault/issues/` (rule) |
-| Durable knowledge | `vault-issues.mdc` auto-ingest → `vault/wiki/pages/` · manual `/wiki-ingest` |
-| Daily plan | `/workday-init` · `/workday-update` · `/workday-review` |
+| Cross-layer feature plan | `/builder-feature` (plan-only) |
 | Domain-specific official skill (Stripe, Terraform vendor, …) | Install from catalog — **review source first** |
 | Browser E2E at scale (Playwright CI farm) | External skill + your CI — not duplicate Cursor browser MCP in pack |
+| Daily notes / memory | External memory skills or your own `vault/` folder (local, not pack behavior) |
 
 ---
 
@@ -26,17 +25,17 @@ How **agent-skills** (this pack) relates to the wider ecosystem — especially [
 
 | Catalog area | Examples in awesome-agent-skills | Pack skill / rule | Gap / external when |
 |--------------|----------------------------------|-------------------|---------------------|
-| Systematic debugging | [obra/systematic-debugging](https://github.com/obra/superpowers), [garrytan/investigate](https://officialskills.sh/garrytan/skills/investigate), [millionco/debug-agent](https://github.com/millionco/debug-agent) | `/debug` + `ai-rules/debugging/` | Pack adds vault ledger, callee cleanup #7, change-control gates |
+| Systematic debugging | [obra/systematic-debugging](https://github.com/obra/superpowers), [garrytan/investigate](https://officialskills.sh/garrytan/skills/investigate), [millionco/debug-agent](https://github.com/millionco/debug-agent) | `/debug` + `ai-rules/debugging/` | Pack adds callee cleanup #7, change-control gates |
 | Edit lock while debugging | [garrytan/freeze](https://officialskills.sh/garrytan/skills/freeze) | `/debug` reference § Edit lock | Optional discipline — link only |
 | Code review | [coderabbitai/code-review](https://officialskills.sh/coderabbitai/skills/code-review), [NeoLabHQ/code-review](https://github.com/NeoLabHQ/context-engineering-kit/tree/master/plugins/code-review) | `/scrutinize` | Pack adds agent-skills PR checklist, browser MCP for UI |
 | Verification before done | [obra/verification-before-completion](https://github.com/obra/superpowers) | Manifest + all close-out gates | Embedded across skills |
 | Git / ship | [obra/finishing-a-development-branch](https://github.com/obra/superpowers), [fvadicamo/dev-agent-skills](https://github.com/fvadicamo/dev-agent-skills) | `/git-push` only | Sole git skill; explicit user consent |
-| CI / infra failures | [openai/gh-fix-ci](https://officialskills.sh/openai/skills/gh-fix-ci) | `/builder-infrastructure` reference | Use `gh` log triage for PR checks; pack CI is `skills-quality.yml` |
+| CI / infra failures | [openai/gh-fix-ci](https://officialskills.sh/openai/skills/gh-fix-ci) | `/builder-infrastructure` reference | Use `gh` log triage for PR checks on consumer projects |
 | UI quality | [addyosmani/web-quality-audit](https://officialskills.sh/addyosmani/skills/web-quality-audit) (+ a11y, CWV children) | `/builder-ui` · `/scrutinize` § Browser | Cursor browser MCP for runtime; external for Lighthouse-style audits |
 | Incremental delivery | [addyosmani/incremental-implementation](https://github.com/addyosmani/agent-skills) | `/builder-feature` reference | Plan-only orchestrator + thin vertical slices; implement per owner skill |
 | Deprecation / migration | [addyosmani/deprecation-and-migration](https://github.com/addyosmani/agent-skills/tree/main/skills/deprecation-and-migration) | `callee-redirect-cleanup.mdc` | Redirect + grep dead callers |
-| Planning | [obra/writing-plans](https://github.com/obra/superpowers), [garrytan/plan-eng-review](https://officialskills.sh/garrytan/skills/plan-eng-review) | `/workday-*` | Vault `workday/` persistence — not chat-only plans |
-| Memory / wiki | [hanfang/claude-memory-skill](https://github.com/hanfang/claude-memory-skill), [RoundTable02/tutor-skills](https://github.com/RoundTable02/tutor-skills) | `/vault-recall` · auto-ingest wiki | issues vs wiki split; no ask-first when gate passes |
+| Planning | [obra/writing-plans](https://github.com/obra/superpowers), [garrytan/plan-eng-review](https://officialskills.sh/garrytan/skills/plan-eng-review) | `/builder-feature` | Chat plan + slice backlog — not a separate daily planner skill |
+| Memory / recall | [hanfang/claude-memory-skill](https://github.com/hanfang/claude-memory-skill), [RoundTable02/tutor-skills](https://github.com/RoundTable02/tutor-skills) | **Non-goal** in pack | Use external skill or local `vault/` notes |
 | Skill authoring | [anthropics/skill-creator](https://officialskills.sh/anthropics/skills/skill-creator), [hqhq1025/skill-optimizer](https://github.com/hqhq1025/skill-optimizer) | `/upgrade-ai` | 8-phase diagnosis + version governance |
 | Context engineering | [muratcankoylan/Agent-Skills-for-Context-Engineering](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering) | `/upgrade-ai` reference | Meta only — long sessions, decomposition |
 | Playwright / Browserbase | [anthropics/webapp-testing](https://officialskills.sh/anthropics/skills/webapp-testing), [browserbase/ui-test](https://officialskills.sh/browserbase/skills/ui-test) | **Non-goal** in pack | Use Cursor browser MCP or install external skill |
@@ -45,13 +44,12 @@ How **agent-skills** (this pack) relates to the wider ecosystem — especially [
 
 ## Pack strengths (not typical in catalog entries)
 
-1. **3-layer change-control** — `change-control-manifest.mdc` + scoped `ai-rules/` + CI smoke
-2. **Vault triangle** — `issues/` (daily) · `workday/` + `workday/plans/` (feature plans) · `wiki/pages/` (durable)
-3. **SKILL REPORT** contract — [`templates/template.skill-report.md`](../templates/template.skill-report.md)
-4. **Thai docs** — [`docs/th/README.md`](./th/README.md)
-5. **`disable-model-invocation: true`** on all 15 skills
-6. **Callee redirect cleanup** — rule + dynamic smoke scenario #9
-7. **Plan-only orchestrator** — [`/builder-feature`](../ai-skills/builder-feature/SKILL.md) iron law (no app patches); vertical slices + optional vault plan persist; implement via builder-* per slice
+1. **3-layer change-control** — `change-control-manifest.mdc` + scoped `ai-rules/` + manual verification checklists
+2. **SKILL REPORT** contract — [`templates/template.skill-report.md`](../templates/template.skill-report.md)
+3. **Thai docs** — [`docs/th/README.md`](./th/README.md)
+4. **`disable-model-invocation: true`** on all 10 skills
+5. **Callee redirect cleanup** — rule + dynamic smoke scenario #8
+6. **Plan-only orchestrator** — [`/builder-feature`](../ai-skills/builder-feature/SKILL.md) iron law (no app patches); vertical slices; implement via builder-* per slice
 
 ---
 
@@ -84,6 +82,7 @@ The catalog is **curated, not audited**. Before installing any external skill:
 - Bulk-import catalog skills into `ai-skills/`
 - Domain catalogs (marketing, NVIDIA, n8n, legal, …) — use external installs
 - Duplicate Playwright/Browserbase skills when browser MCP suffices
+- Built-in vault corpus / memory-index / workday planner
 - List this repo in awesome-agent-skills before community adoption (see their CONTRIBUTING bar)
 
 ---

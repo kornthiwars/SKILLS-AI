@@ -37,8 +37,6 @@ agent-skills treats the agent as a **change-control system**, not only a coding 
 If exceeded: justify each file/region in chat, or stop and split work.  
 Commit may include `[BUDGET-OVERRIDE]` only with explicit user approval.
 
-Run `./scripts/change-control-check.sh` before commit when available.
-
 ## Confidence-weighted permissions
 
 | Confidence | Risk | Action |
@@ -62,8 +60,6 @@ See also [`workflow/decision-tree.mdc`](workflow/decision-tree.mdc) (always-on r
 | Review plan or PR | `/scrutinize` |
 | Database | `/builder-schema` |
 | Git publish | `/git-push` |
-| Prior vault notes | `/vault-recall` |
-| Daily WORKDAY plan (init / update / review) | `/workday-init` · `/workday-update` · `/workday-review` — **no app code** |
 | Skill/rule upgrades | `/upgrade-ai` |
 | Long RCA after validated fix (one root cause) | `/fix-record` |
 
@@ -74,12 +70,10 @@ When the user attaches or clearly invokes a skill whose **iron law** conflicts w
 | Skill mode | Overrides |
 |------------|-----------|
 | `/builder-feature` (plan-only) | Steps 7–8 — **no application source patches**; hand off to builder-* per slice |
-| `/workday-init` · `/workday-update` · `/workday-review` | Steps 7–8 — **no app patches**; write `vault/workday/` only per skill reference |
-| `/vault-recall` | Writes — search/report only |
 | `/scrutinize` (review-only) | **No patch** until review complete; recommend only until user approves changes |
 | `/upgrade-ai` on this pack | App patch budget N/A; skill/rule edits follow upgrade-ai + patch budget for meta files |
 
-**Always-on rules** (this manifest, [`decision-tree.mdc`](workflow/decision-tree.mdc), [`vault-issues.mdc`](vault-issues.mdc)) still apply for routing and end-of-turn vault — unless the active skill explicitly forbids a **specific artifact** (e.g. feature plan → `workday/plans/` not wiki). Skill `reference.md` wins for that artifact only; it does not disable `vault-issues.mdc` for unrelated session Q&A.
+**Always-on rules** (this manifest, [`decision-tree.mdc`](workflow/decision-tree.mdc)) apply for routing unless an active skill's iron law overrides steps 7–8.
 
 ## Production prohibitions
 
@@ -95,7 +89,7 @@ When the user attaches or clearly invokes a skill whose **iron law** conflicts w
 - **This file** — always-on gates
 - **`ai-rules/{core,patching,architecture,testing,risk,workflow}/`** — scoped rules (application-source globs / intelligent)
 - **Skills** — deep workflows on invoke
-- **Scripts** — `smoke-skills.sh`, `change-control-check.sh`, CI
+- **Scripts** — `setup-macos-linux.sh`, `setup-windows.ps1` (junction install)
 
 ### Scoped rules vs meta edits
 

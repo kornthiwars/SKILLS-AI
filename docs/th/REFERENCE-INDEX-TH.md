@@ -4,7 +4,6 @@
 
 | Skill | ไฟล์ | อ่านเมื่อ |
 |-------|------|----------|
-| vault-recall | [vault-recall/reference.md](../../ai-skills/vault-recall/reference.md) | ค้น vault, Phase 0 ของ debug/git-push |
 | debug | [debug/reference.md](../../ai-skills/debug/reference.md) | phase 1 exit, hypothesis table, instrumentation lifecycle, verification |
 | git-push | [git-push/reference.md](../../ai-skills/git-push/reference.md) | matrix, SSH, commit gate, errors |
 | scrutinize | [scrutinize/reference.md](../../ai-skills/scrutinize/reference.md) | PR checklist, verification protocol |
@@ -16,4 +15,4 @@
 | builder-infrastructure | [builder-infrastructure/reference.md](../../ai-skills/builder-infrastructure/reference.md) | infra phases |
 | builder-feature | [builder-feature/reference.md](../../ai-skills/builder-feature/reference.md) | plan-only, express lane, slice backlog |
 
-Skills ที่ไม่มี `reference.md`: none — ทุก skill มี `reference.md` หรือเนื้อหาหลัก + reference ครบ
+ทุก skill ใน pack มี `reference.md` (หรือเนื้อหาหลัก + reference ครบ)

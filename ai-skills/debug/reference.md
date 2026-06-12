@@ -2,7 +2,7 @@
 
 Version: see `metadata.version` in [`SKILL.md`](./SKILL.md).
 
-Load on demand when step 1 exit is unclear, step 2 stalls, hypotheses need structured status, instrumentation is added, or before claiming debug complete. Patterns adapted from [obra/superpowers](https://github.com/obra/superpowers), [PracticalSwan/agent-skills](https://github.com/PracticalSwan/agent-skills), and [millionco/debug-agent](https://github.com/millionco/debug-agent) — kept repo-native (mantra, ledger, vault, change-control).
+Load on demand when step 1 exit is unclear, step 2 stalls, hypotheses need structured status, instrumentation is added, or before claiming debug complete. Patterns adapted from [obra/superpowers](https://github.com/obra/superpowers), [PracticalSwan/agent-skills](https://github.com/PracticalSwan/agent-skills), and [millionco/debug-agent](https://github.com/millionco/debug-agent) — kept repo-native (mantra, ledger, change-control).
 
 ---
 
@@ -196,7 +196,7 @@ Pass/fail before claiming the bug is fixed — includes **Verification gate** ab
 
 If any check fails → report blocked state; do not claim success.
 
-**After pass:** offer [`/fix-record`](../fix-record/SKILL.md); closed reusable mechanism → wiki auto-ingest per [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) at turn end (no ask-first).
+**After pass:** offer [`/fix-record`](../fix-record/SKILL.md) when the fix is non-trivial.
 
 ---
 
@@ -303,7 +303,7 @@ When the failure is localized to one module or directory, optionally restrict ed
 | User reports scope creep | Pause feature work; resume only after verification or explicit user redirect |
 | Hand off to fix | Remove lock — fix patch may touch callers per change-control |
 
-Pair with [`minimal-change.mdc`](../../ai-rules/patching/minimal-change.mdc) — lock is investigation discipline, not an excuse to skip callee cleanup after redirect.
+Pair with [`minimal-change.mdc`](../../ai-rules/core/minimal-change.mdc) — lock is investigation discipline, not an excuse to skip callee cleanup after redirect.
 
 ---
 

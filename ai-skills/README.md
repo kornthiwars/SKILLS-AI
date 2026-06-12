@@ -1,6 +1,6 @@
 # ai-skills
 
-Canonical Cursor skills for agent-skills. After clone, run [scripts/setup-macos-linux.sh](../scripts/setup-macos-linux.sh) (or Windows equivalent) so `.cursor/skills` points here.
+Canonical Cursor skills for agent-skills. After clone, run [scripts/setup-macos-linux.sh](../scripts/setup-macos-linux.sh) (or Windows equivalent).
 
 Authoring: [SKILL-AUTHORING.md](SKILL-AUTHORING.md) · Agents: [AGENTS.md](../AGENTS.md) · **คู่มือไทย:** [docs/th/SKILLS-TH.md](../docs/th/SKILLS-TH.md)
 
@@ -16,8 +16,3 @@ Authoring: [SKILL-AUTHORING.md](SKILL-AUTHORING.md) · Agents: [AGENTS.md](../AG
 | fix-record | `/fix-record` |
 | upgrade-ai | `/upgrade-ai` |
 | git-push | `/git-push` |
-| vault-recall | `/vault-recall` |
-| wiki-ingest | Auto-ingest gate + `/wiki-ingest` manual |
-| workday-init | `/workday-init` |
-| workday-update | `/workday-update` |
-| workday-review | `/workday-review` |

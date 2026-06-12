@@ -1,39 +1,72 @@
 ---
+
 description: Route work to the right skill before acting
+
 alwaysApply: true
+
 ---
+
+
 
 # Decision tree
 
+
+
 Agent routes from user intent **without requiring** a slash command unless the user wants the full skill ritual.
 
+
+
 | User intent | First action |
+
 |-------------|--------------|
+
 | bug, error, stack trace, wrong data, flaky | Debug discipline ([`change-control-manifest.mdc`](../change-control-manifest.mdc) steps 1–4); `/debug` if user attached or non-trivial |
+
 | copy, label, known small UI (outcome clear) | Direct minimal patch — **no** `/debug` mantra |
+
 | new screen / mock / component architecture | `/builder-ui` |
+
 | cross-layer / full-stack **feature** (UI+API+schema) | `/builder-feature` — **plan only**; implement via specialist per approved slice |
+
 | review PR / plan | `/scrutinize` |
+
 | database / SQL | `/builder-schema` |
+
+| API contract, backend, REST, endpoint design | `/builder-api` |
+
+| deploy, CI/CD, IaC, observability, infra | `/builder-infrastructure` |
+
 | push / commit | `/git-push` — if several git roots in the workspace, `cd` the repo the user means first |
+
 | mobile / native client bug (login, API error, crash) | Debug discipline in that **client repo** — **not** `/builder-feature` |
-| search past vault notes | `/vault-recall` |
-| first daily plan, morning WORKDAY, start my day | `/workday-init` |
-| mid-day plan change, new task, "update my plan" / "มีงานเพิ่ม" | `/workday-update` |
-| end-of-day audit, review plan vs evidence | `/workday-review` |
+
 | improve skills in this repo | `/upgrade-ai` |
+
 | RCA after **one** validated fix | `/fix-record` |
+
 | one commit, multiple unrelated fixes | PR description or **one fix-record per root cause** — ask scope |
+
 | unsure bug vs copy | One clarifying question, then row above |
 
-If multiple apply, use the row for the **active mode** — do not force patch when the skill is plan-only or read-only:
+
+
+If multiple apply, use the row for the **active mode**:
+
+
 
 | Active mode | Sequence (skip steps that do not apply) |
+
 |-------------|----------------------------------------|
-| **Patch / fix** (default) | recall → diagnose → patch → verify → git-push |
-| **Plan-only** (`/builder-feature`) | recall (optional) → plan phases → handoff — **no app patch** |
-| **WORKDAY** (`/workday-init`, `/workday-update`, `/workday-review`) | plan maintenance → write `vault/workday/` only — **no app patch** |
-| **Read-only** (`/vault-recall`, `/scrutinize` review-only) | recall / review → report — **no patch** unless user approves fixes |
+
+| **Patch / fix** (default) | diagnose → patch → verify → git-push |
+
+| **Plan-only** (`/builder-feature`) | plan phases → handoff — **no app patch** |
+
+| **Read-only** (`/scrutinize` review-only) | review → report — **no patch** unless user approves fixes |
+
 | **Meta upgrade** (`/upgrade-ai` on skills/rules) | diagnose → minimal skill/rule edit → verify — app patch sequence N/A |
 
-When a skill with an **iron law** is active (e.g. plan-only, no app edits), that skill **overrides** patch steps 7–8 and conflicting routing for the turn. End-of-turn vault writes still follow [`vault-issues.mdc`](../vault-issues.mdc) unless the skill forbids a specific artifact — see skill `reference.md`.
+
+
+When a skill with an **iron law** is active (e.g. plan-only, no app edits), that skill **overrides** patch steps 7–8 and conflicting routing for the turn.
+

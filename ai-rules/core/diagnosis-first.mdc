@@ -16,4 +16,4 @@ Before modifying code, state:
 
 Do not patch speculative causes. If evidence is missing, gather it or ask.
 
-When an active skill **iron law** forbids app patches (e.g. `/builder-feature`, `/workday-*`), follow [`change-control-manifest.mdc`](../change-control-manifest.mdc) § Active skill precedence — diagnosis applies to reads and plan output, not application source edits.
+When an active skill **iron law** forbids app patches (e.g. `/builder-feature` plan-only), follow [`change-control-manifest.mdc`](../change-control-manifest.mdc) § Active skill precedence — diagnosis applies to reads and plan output, not application source edits.

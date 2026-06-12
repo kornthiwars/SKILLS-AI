@@ -71,14 +71,15 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 |-----------|--------|
 | bug | `/debug` |
 | review PR | `/scrutinize` |
+| UI / mock | `/builder-ui` |
+| API / backend | `/builder-api` |
 | DB | `/builder-schema` |
+| infra / CI | `/builder-infrastructure` |
 | git | `/git-push` |
-| ค้น vault | `/vault-recall` |
-| แผน WORKDAY (เช้า / กลางวัน / ท้ายวัน) | `/workday-init` · `/workday-update` · `/workday-review` |
 | ปรับ skill | `/upgrade-ai` |
 | RCA ยาว | `/fix-record` |
 
-**Active skill precedence:** เมื่อ skill มี iron law (เช่น `/builder-feature` plan-only) — **override** ขั้น 7–8 ของลำดับ 9 ขั้น; vault ท้าย turn ยังตาม `vault-issues.mdc` ยกเว้น artifact ที่ skill ห้ามชัด (plan → `workday/plans/` ไม่ใช่ wiki)
+**Active skill precedence:** เมื่อ skill มี iron law (เช่น `/builder-feature` plan-only) — **override** ขั้น 7–8 ของลำดับ 9 ขั้น
 
 **Scoped vs meta:** patching/testing/debugging rules ใช้ application-source globs — ไม่ trigger จากแก้ `ai-skills/` / `ai-rules/` / `docs/` อย่างเดียว (ดู manifest § Scoped rules vs meta edits)
 
@@ -99,40 +100,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 - **ห้าม** เขียนย่อหน้าไทยเต็มแล้วตามด้วยย่อหน้าอังกฤษเต็มซ้ำ  
 - code block คงภาษาเดิม (มักเป็น English)
 
-**ข้อยกเว้น:** user ขอภาษาเดียว; ข้อความ quote จาก log/UI; ไฟล์ vault (metadata ภาษาอังกฤษ)
-
----
-
-### `vault-issues.mdc`
-
-| | |
-|--|--|
-| **โหลด** | alwaysApply |
-
-**จุดประสงค์:** นโยบาย **เขียน vault** (Obsidian) — แยก issues · workday · wiki
-
-**ที่เก็บ:**
-
-| โฟลเดอร์ | ใช้ทำอะไร |
-|----------|-----------|
-| `vault/issues/YYYY-MM-DD.md` | บันทึกงานรายวัน — หัวข้อ `## N.` + Question/Answer |
-| `vault/workday/YYYY-MM-DD.md` | แผน WORKDAY — skills `workday-init` · update · review |
-| `vault/workday/plans/{slug}.md` | แผน feature จาก `/builder-feature` (opt-in persist) — gitignored |
-| `vault/wiki/pages/{slug}.md` | ความรู้ถาวร — **auto-ingest gate** หรือ **`/wiki-ingest`** |
-
-**เมื่อเขียน issues:** ระหว่าง close-out (§ Precedence) ก่อนส่ง reply สุดท้าย — **ไม่** log ทุกแชท
-
-**Close-out order:** งานหลัก → **SKILL REPORT** (ถ้ามี) → ประเมิน issues แล้ว wiki gate → บรรทัด `Logged →` / `Wiki →` ท้ายสุด
-
-**เมื่อเขียน wiki:** agent **ประเมินเอง** ท้าย work turn ตาม `wiki-ingest/reference.md` § Auto-ingest gate — **ไม่ถาม** ถ้า PASS · หรือ user สั่ง **`/wiki-ingest`** / เก็บลง wiki · ข้ามถ้า user บอก **อย่าเก็บ wiki**
-
-**Resolve vault root (5 ขั้น):** `ai-skills-vault.json` → `.cursor/vault/` → `vault/` → โฟลเดอร์ที่มี `ai-skills/` + setup script → **parent walk** เมื่อเปิด monorepo subproject อย่างเดียว (ดู `vault-recall/reference.md` § Resolve step 5 · `workday-init/reference.md`)
-
-**ก่อน debug/git ติด:** ค้นตาม `vault-recall/reference.md` (ลำดับ wiki/pages ≤3 ไฟล์ → **workday/plans/** เมื่อ query ชื่อ feature/plan → issues วันนี้/เมื่อวาน) — รายละเอียด [APPENDIX-TH.md](./APPENDIX-TH.md) §7
-
-**Wiki page:** Summary, Key points, Related — template `templates/template.wiki-page.md`
-
-**ภาษาใน vault:** เนื้อหาไทยหรืออังกฤษได้; `tags`, `title`, `symptoms` ใช้ **English**
+**ข้อยกเว้น:** user ขอภาษาเดียว; ข้อความ quote จาก log/UI
 
 ---
 
@@ -409,11 +377,10 @@ HIGH risk ต้องมี automated test **หรือ** manual steps ชั
 
 | โหมด | ลำดับ |
 |------|--------|
-| patch/fix (default) | recall → diagnose → patch → verify → git-push |
+| patch/fix (default) | diagnose → patch → verify → git-push |
 | plan-only (`/builder-feature`) | plan → handoff — **ไม่ patch app** |
-| WORKDAY (`/workday-*`) | plan maintenance → `vault/workday/` — **ไม่ patch app** |
-| read-only (`/vault-recall`, scrutinize review) | recall/review → report |
-| meta (`/upgrade-ai`) | diagnose skill/rule → verify smoke |
+| read-only (`/scrutinize` review-only) | review → report |
+| meta (`/upgrade-ai`) | diagnose skill/rule → checklist + [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) เมื่อแก้ใหญ่ |
 
 skill **iron law** ชนะ patch steps 7–8 ของ manifest — ดู `change-control-manifest.mdc` § Active skill precedence
 
@@ -437,7 +404,7 @@ skill **iron law** ชนะ patch steps 7–8 ของ manifest — ดู `ch
 
 | ประเภท | จำนวน | Token | เมื่อไหร่มีผล |
 |--------|------:|-------|----------------|
-| Always-on | **5** | ทุก turn (~350 บรรทัดรวม) | ทุกคำถาม — `change-control-manifest`, `decision-tree`, `vault-issues`, `clean-code`, `bilingual-th-en` |
+| Always-on | **4** | ทุก turn | ทุกคำถาม — `change-control-manifest`, `decision-tree`, `clean-code`, `bilingual-th-en` |
 | Scoped | **29** | เมื่อ glob/intelligent ติด | แก้ **application source** / review / risk สูง — **ไม่** trigger จาก meta อย่างเดียว (`ai-skills/`, `ai-rules/`, `docs/`) |
 
 ---
@@ -445,26 +412,16 @@ skill **iron law** ชนะ patch steps 7–8 ของ manifest — ดู `ch
 ## ความสัมพันธ์ 3 ชั้น
 
 ```
-Rules (สั้น, บังคับ)  →  Skills (ลึก, invoke)  →  Scripts/CI (ตรวจอัตโนมัติ)
+Rules (สั้น, บังคับ)  →  Skills (ลึก, invoke)  →  Setup scripts (junction)
      ↑                        ↑                           ↑
-  ai-rules/              ai-skills/                  smoke-skills.sh
+  ai-rules/              ai-skills/              setup-macos-linux / setup-windows
 ```
-
----
-
-## คำสั่งตรวจว่า rules ยังครบ
-
-```bash
-./scripts/smoke-skills.sh
-```
-
----
 
 ---
 
 ## ภาคผนวก
 
 - ตาราง **globs ครบ 30 scoped rules** → [APPENDIX-TH.md](./APPENDIX-TH.md) §9  
-- smoke / change-control-check / CI → APPENDIX §8  
+- setup scripts / patch budget → APPENDIX §8  
 
-*อัปเดตตาม tree 34 ไฟล์ `.mdc` — ถ้าเพิ่ม rule ให้อัปเดต RULES-TH + APPENDIX §9 แล้วรัน smoke*
+*อัปเดตตาม tree 34 ไฟล์ `.mdc` — ถ้าเพิ่ม rule ให้อัปเดต RULES-TH + APPENDIX §9*

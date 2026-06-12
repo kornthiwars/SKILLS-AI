@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
-# Symlink .cursor/skills, .cursor/rules, .cursor/vault + ai-skills-vault.json
+# Symlink .cursor/skills, .cursor/rules, .cursor/vault
 # Usage: ./scripts/setup-macos-linux.sh [install-root] [--subprojects dir1,dir2] [--no-auto-subprojects]
-# Default (no install-root): parent of agent-skills — typical when Cursor opens the project folder.
-# Use "." or "--here" when Cursor opens agent-skills/ itself.
-# Subprojects: vault-only wire for monorepo siblings (e.g. exat-web/) — auto when agent-skills is child of install root.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -86,34 +83,6 @@ link_dir() {
   printf 'OK  %s -> %s\n' "$link_path" "$target_abs"
 }
 
-write_vault_pointer_at() {
-  local cursor_dir="$1"
-  local vault_abs json_path
-
-  mkdir -p "$cursor_dir"
-  vault_abs="$(cd "$VAULT" && pwd)"
-
-  json_path="$cursor_dir/ai-skills-vault.json"
-  python3 - "$json_path" "$REPO_ROOT" "$vault_abs" <<'PY'
-import json, sys
-path, repo_root, vault_root = sys.argv[1:4]
-data = {
-    "repoRoot": repo_root,
-    "vaultRoot": vault_root,
-    "issuesRelative": ".cursor/vault/issues",
-    "workdayRelative": ".cursor/vault/workday",
-    "wikiRelative": ".cursor/vault/wiki",
-}
-with open(path, "w", encoding="utf-8") as f:
-    json.dump(data, f, ensure_ascii=False)
-PY
-  printf 'OK  %s\n' "$json_path"
-}
-
-write_vault_pointer() {
-  write_vault_pointer_at "$INSTALL_ROOT/.cursor"
-}
-
 wire_subproject_vault() {
   local sub_root="$1"
   local cursor_dir
@@ -124,12 +93,11 @@ wire_subproject_vault() {
 
   cursor_dir="$sub_root/.cursor"
   link_dir "$cursor_dir/vault" "$VAULT"
-  write_vault_pointer_at "$cursor_dir"
   printf 'OK  subproject vault: %s\n' "$sub_root"
 }
 
 collect_subproject_roots() {
-  local name dir agent_skills_in_install sibling
+  local name agent_skills_in_install sibling
 
   if [ -n "$SUBPROJECTS" ]; then
     IFS=',' read -r -a _subs <<<"$SUBPROJECTS"
@@ -161,69 +129,6 @@ collect_subproject_roots() {
   done
 }
 
-ensure_vault_folders() {
-  local rel path
-  for rel in issues workday workday/plans wiki wiki/pages wiki/sources; do
-    path="$VAULT/$rel"
-    if [ ! -d "$path" ]; then
-      mkdir -p "$path"
-      printf 'OK  created vault/%s\n' "$rel"
-    fi
-  done
-}
-
-bootstrap_wiki_files() {
-  local today index_file log_file template
-
-  today="$(date +%Y-%m-%d)"
-  index_file="$VAULT/wiki/index.md"
-  log_file="$VAULT/wiki/log.md"
-
-  if [ -f "$index_file" ]; then
-    printf 'OK  vault/wiki/index.md\n'
-  else
-    template="$REPO_ROOT/templates/template.wiki-index.md"
-    if [ ! -f "$template" ]; then
-      printf '..  skip wiki index (no template)\n'
-    else
-      sed "s/{{YYYY-MM-DD}}/$today/g" "$template" >"$index_file"
-      printf 'OK  created vault/wiki/index.md\n'
-    fi
-  fi
-
-  if [ -f "$log_file" ]; then
-    printf 'OK  vault/wiki/log.md\n'
-  else
-    template="$REPO_ROOT/templates/template.wiki-log.md"
-    if [ ! -f "$template" ]; then
-      printf '..  skip wiki log (no template)\n'
-    else
-      sed "s/{{YYYY-MM-DD}}/$today/g" "$template" >"$log_file"
-      printf 'OK  created vault/wiki/log.md\n'
-    fi
-  fi
-}
-
-bootstrap_daily_issues() {
-  local today file template
-  today="$(date +%Y-%m-%d)"
-  file="$VAULT/issues/$today.md"
-
-  if [ -f "$file" ]; then
-    printf 'OK  vault/issues/%s.md\n' "$today"
-    return 0
-  fi
-
-  template="$REPO_ROOT/templates/template.issue.md"
-  if [ ! -f "$template" ]; then
-    printf '..  skip daily issues (no template)\n'
-    return 0
-  fi
-
-  sed "s/{{YYYY-MM-DD}}/$today/g" "$template" >"$file"
-  printf 'OK  created vault/issues/%s.md\n' "$today"
-}
-
 cleanup_in_repo_cursor() {
   local skills_link="$REPO_ROOT/.cursor/skills"
   local skills_target
@@ -246,11 +151,6 @@ cleanup_in_repo_cursor
 link_dir "$INSTALL_ROOT/.cursor/skills" "$SKILLS"
 link_dir "$INSTALL_ROOT/.cursor/rules" "$RULES"
 link_dir "$INSTALL_ROOT/.cursor/vault" "$VAULT"
-
-write_vault_pointer
-ensure_vault_folders
-bootstrap_wiki_files
-bootstrap_daily_issues
 
 while IFS= read -r sub_root; do
   [ -n "$sub_root" ] || continue

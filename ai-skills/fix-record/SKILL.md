@@ -22,7 +22,7 @@ Executive summaries reframe the same facts in plain language — this skill owns
 | **Inputs** | Repro + root cause + fix pointer + validation — all four |
 | **Draft** | Sections per [reference.md](./reference.md) § Structure |
 | **Verify** | [reference.md](./reference.md) § Verification protocol + § Close-out verification gate |
-| **After** | Reusable mechanism → wiki auto-ingest gate at turn end (no ask) · or `/wiki-ingest` manual |
+| **Publish** | Sign-off before JIRA POST when applicable |
 
 ## Scope Guardrails
 
@@ -35,7 +35,6 @@ Executive summaries reframe the same facts in plain language — this skill owns
 | Situation | Skill |
 |-----------|--------|
 | Bug not fixed yet | [`/debug`](../debug/SKILL.md) — refuse fix-record until validation |
-| Prior art before debug | [`/vault-recall`](../vault-recall/SKILL.md) |
 | Review RCA or related PR | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Skill pack RCA | Same structure; ship via [`/git-push`](../git-push/SKILL.md) |
 
@@ -56,14 +55,6 @@ Executive summaries reframe the same facts in plain language — this skill owns
 1. Ask which root cause this record covers — or one record per cause.
 2. Default: PR lists changes; `/fix-record` only for the bug the user names.
 3. Refuse a monolithic RCA inventing one root cause for unrelated fixes.
-
-## Vault (different artifacts)
-
-| Artifact | Use |
-|----------|-----|
-| `vault/wiki/pages/` | Durable wiki — auto-ingest gate or `/wiki-ingest` |
-| `/fix-record` | Long engineering RCA **after** validated fix |
-| `vault/issues/` | Daily Q&A — not substitute for RCA |
 
 ## Required inputs — refuse without all four
 
@@ -86,7 +77,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | ANALYSIS | Root cause chain — mechanism over narrative |
 | RISKS | Invented owners, unvalidated fix, missing repro, hedging |
 | ARTIFACTS | Draft sections: Summary, Root cause, Fix, Validation (+ optional sections per reference) |
-| NEXT ACTIONS | Missing input to collect · sign-off before POST · wiki export |
+| NEXT ACTIONS | Missing input to collect · sign-off before POST |
 | HANDOFF | `/debug` if inputs incomplete · `none` when published |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Verification protocol before READY |
 
@@ -103,12 +94,12 @@ Engineer-to-engineer: code identifiers first-class; mechanism over narrative; ac
 ## Output flow
 
 1. Confirm all four inputs — stop if any missing.
-2. Confirm destination (JIRA, PR body, `docs/fix-records/`, wiki).
+2. Confirm destination (JIRA, PR body, `docs/fix-records/`).
 3. Produce draft in chat.
 4. Sign-off before JIRA POST — wait for explicit *post it* / *go ahead*.
 5. Optional leadership summary only if user asks.
 
-Pass [reference.md](./reference.md) § Verification protocol before publish. Offer [wiki export](./reference.md) § Wiki export when reusable.
+Pass [reference.md](./reference.md) § Verification protocol before publish.
 
 ## Rules
 

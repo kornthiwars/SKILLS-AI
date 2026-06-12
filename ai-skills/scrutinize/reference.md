@@ -13,23 +13,20 @@ When the diff touches `ai-skills/*/SKILL.md`, `*/reference.md`, or `ai-rules/*.m
 - [ ] `metadata.version` bumped per [upgrade-ai/reference.md](../upgrade-ai/reference.md) § Version governance
 - [ ] `disable-model-invocation: true` on manual skills (unless documented exception)
 - [ ] `SKILL.md` under ~300 lines; new phase prose → `reference.md`
-- [ ] Vault grep steps **link** [`vault-recall/reference.md`](../vault-recall/reference.md) — no duplicated search tables
 - [ ] Handoffs section links related skills (not orphan workflows)
-- [ ] Write vs RCA: daily Q&A → `vault-issues.mdc`; long RCA → `/fix-record`; durable wiki → `vault-issues.mdc` auto-ingest gate → `wiki/pages/`
+- [ ] Long RCA → `/fix-record` — not mixed into unrelated skills
 - [ ] Rule/skill hierarchy: [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) § **Active skill precedence** + [`decision-tree.mdc`](../../ai-rules/workflow/decision-tree.mdc) active modes stay aligned when touching routing
 
 When the diff touches **`decision-tree.mdc`**, **`change-control-manifest.mdc`**, or skill orchestration rows:
 
-- [ ] **workday-*** routes present (`/workday-init`, `/workday-update`, `/workday-review`) — plan-only, no app code
-- [ ] Plan-only / read-only / WORKDAY / meta modes not regressed to forced patch sequence
+- [ ] Plan-only / read-only / meta modes not regressed to forced patch sequence
 
-When the diff touches **`builder-feature`**, **`templates/template.slice-brief.md`**, **`templates/template.feature-plan.md`**, or **`vault/workday/plans/`**:
+When the diff touches **`builder-feature`** or **`templates/template.slice-brief.md`**:
 
 - [ ] **Plan-only iron law** preserved — orchestrator must not patch app source
 - [ ] Slice brief uses [`template.slice-brief.md`](../../templates/template.slice-brief.md) — no alternate shape
 - [ ] **`builder-ui` / `builder-api` / `builder-schema` / `builder-infrastructure`** link slice intake — no duplicate full protocol in each `SKILL.md`
-- [ ] [`vault-recall/reference.md`](../vault-recall/reference.md) search order includes `workday/plans/` — table not copied into skills
-- [ ] Smoke: `Plan-only iron law` in builder-feature · scenario **#10** in [`DYNAMIC-AGENT-SMOKE.md`](../../docs/DYNAMIC-AGENT-SMOKE.md)
+- [ ] Smoke: `Plan-only iron law` in builder-feature · scenario **#9** in [`DYNAMIC-AGENT-SMOKE.md`](../../docs/DYNAMIC-AGENT-SMOKE.md)
 
 ---
 
@@ -84,7 +81,7 @@ For large or high-risk PRs, mentally rotate lenses from [NeoLabHQ/code-review](h
 | **security-auditor** | AuthZ, injection, secrets, supply chain in diff |
 | **test-coverage-reviewer** | New behavior has asserting test — not snapshot-only |
 | **contracts-reviewer** | API/schema breaking changes, consumer impact |
-| **historical-context-reviewer** | Prior incidents, wiki pages, reverted commits |
+| **historical-context-reviewer** | Prior incidents, git history, reverted commits |
 | **code-quality-reviewer** | Coupling, naming, dead code after redirect |
 
 Fold findings into the five-axis table — do not emit six duplicate verdicts.

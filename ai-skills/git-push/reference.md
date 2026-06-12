@@ -123,11 +123,10 @@ Before `git commit` on this library:
 
 | # | Check |
 |---|--------|
-| 1 | `./scripts/change-control-check.sh` PASS or documented `[BUDGET-OVERRIDE]` |
+| 1 | Patch budget respected or documented `[BUDGET-OVERRIDE]` |
 | 2 | Only canonical paths: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `docs/` |
 | 3 | Each touched skill: `metadata.version` bumped |
 | 4 | No secrets in diff (`.env`, keys, tokens) |
-| 5 | Optional: `./scripts/smoke-skills.sh` when skill/rules content changed |
 
 ---
 

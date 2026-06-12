@@ -186,49 +186,6 @@ Do not invent a alternate brief shape; owner skills parse this contract ([`build
 
 ---
 
-## Plan persistence (optional on PLAN_READY)
-
-Plans survive chat loss when written under **`vault/workday/plans/`** (local, gitignored like other workday content).
-
-### When to persist
-
-| Trigger | Action |
-|---------|--------|
-| PLAN_READY close-out | **Offer** in NEXT ACTIONS: "Save plan to vault?" |
-| User says save / remember / เก็บแผน | Write plan file |
-| Active `vault/workday/YYYY-MM-DD.md` exists | Offer persist + suggest `+` line in **DISCOVERED TODAY** on next `/workday-update` |
-
-Do **not** auto-write vault on every plan unless user opts in or same-session workday is active.
-
-### Resolve directory
-
-Same workday root as [`workday-init/reference.md`](../workday-init/reference.md) § Persistence → `{workday}/plans/`.
-
-Create `plans/` if missing.
-
-### Write protocol
-
-1. Derive **`feature_slug`** — kebab-case from feature name (`Maxwell Plans` → `maxwell-plans`).
-2. Load [`templates/template.feature-plan.md`](../../templates/template.feature-plan.md):
-   - Replace `{{YYYY-MM-DD}}`, `{{FEATURE_NAME}}`, `{{FEATURE_SLUG}}`, `{{OWNER_SKILL}}` (slice 1 owner).
-   - Paste workflow map, component outline, slice backlog table into template sections.
-3. Write UTF-8 to `vault/workday/plans/{feature_slug}.md` (overwrite same slug same day if re-plan).
-4. Report **absolute or workspace-relative path** in chat.
-5. Slice briefs should cite **Plan ref:** path in `template.slice-brief.md` block.
-6. Recall saved plans via [`/vault-recall`](../vault-recall/SKILL.md) — grep `workday/plans/` per [`vault-recall/reference.md`](../vault-recall/reference.md).
-
-### Workday cross-link (optional)
-
-If user uses WORKDAY same day, suggest appending to **DISCOVERED TODAY**:
-
-`+ {DOMAIN}-{NNN} feature plan — source: /builder-feature — vault/workday/plans/{feature_slug}.md`
-
-Do **not** put **plan artifacts** in `vault/issues/` or `vault/wiki/` — use **`vault/workday/plans/{feature_slug}.md`** (opt-in persist) per § Plan persistence above.
-
-Session Q&A during planning may still log to `issues/` per [`vault-issues.mdc`](../../ai-rules/vault-issues.mdc) when the turn is work-related. Wiki auto-ingest skips feature plans — gate #6 in [`wiki-ingest/reference.md`](../wiki-ingest/reference.md).
-
----
-
 ## Incremental vertical slices
 
 | Slice | Deliver |
@@ -295,7 +252,7 @@ Before STATUS **PLAN_READY**:
 | 4 | Rollback + monitoring stated — not TBD |
 | 5 | Reuse checklist passed |
 | 6 | **Zero application file edits** in this session under this skill |
-| 7 | NEXT ACTIONS = user picks slice → invoke owner skill · **offer** plan persist per [reference.md](./reference.md) § Plan persistence |
+| 7 | NEXT ACTIONS = user picks slice → invoke owner skill (slice brief in chat) |
 
 Do **not** require integration test RUN at plan close-out — that happens after specialist implements slice N.
 

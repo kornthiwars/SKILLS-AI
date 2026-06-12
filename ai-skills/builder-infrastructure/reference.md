@@ -171,7 +171,7 @@ When a PR check fails ([openai/gh-fix-ci](https://officialskills.sh/openai/skill
 | 4 LOCALIZE | Infra config vs app vs flaky external |
 | 5 FIX | Minimal patch; re-run same check |
 
-Pack CI reference: `.github/workflows/skills-quality.yml` — smoke + budget checks. Hand off app-runtime failures to [`/debug`](../debug/SKILL.md).
+Hand off app-runtime failures to [`/debug`](../debug/SKILL.md).
 
 ---
 
