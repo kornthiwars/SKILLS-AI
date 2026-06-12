@@ -49,6 +49,7 @@ Do NOT:
 | Plan and execute migrations safely | project DB toolchain + production confirmation gates |
 | API layer impact | [`/builder-api`](../builder-api/SKILL.md) |
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
+| Destructive migration approved | [`/vault-recall`](../vault-recall/SKILL.md) before migrate · durable schema decision → [`/vault-capture`](../vault-capture/SKILL.md) |
 
 Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
 
@@ -126,7 +127,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | RISKS | Integrity gaps, unsafe migrations, scalability bottlenecks |
 | ARTIFACTS | Close-out: Domain Analysis, Entity Architecture, Relationship Architecture, Query & Indexing Plan, Integrity & Evolution Plan, Verification Plan |
 | NEXT ACTIONS | Next workflow phase or open question |
-| HANDOFF | `/builder-api` · `/builder-feature` · `/scrutinize` · `none` |
+| HANDOFF | `/builder-api` · `/builder-feature` · `/scrutinize` · `/vault-recall` · `/vault-capture` · `none` |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |
 
 Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.

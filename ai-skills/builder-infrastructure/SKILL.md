@@ -52,6 +52,7 @@ Do NOT:
 | Deploy/runtime bug | [`/debug`](../debug/SKILL.md) |
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Ship infra changes | [`/git-push`](../git-push/SKILL.md) |
+| Durable runbook / infra decision | [`/vault-capture`](../vault-capture/SKILL.md) after slice verify |
 
 Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
 
@@ -130,7 +131,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | RISKS | Single points of failure, cost blowout, weak recovery/backup |
 | ARTIFACTS | Close-out: Infrastructure Analysis, Infrastructure Architecture, Security & Reliability, Observability Plan, Scalability & Cost Plan, Infrastructure as Code, Verification Plan |
 | NEXT ACTIONS | Next workflow phase or open question |
-| HANDOFF | `/builder-feature` · `/scrutinize` · `none` |
+| HANDOFF | `/builder-feature` · `/scrutinize` · `/vault-capture` · `none` |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |
 
 Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.

@@ -68,9 +68,12 @@ When editing app/source code, follow [`change-control-manifest.mdc`](../../ai-ru
 | Situation | Skill |
 |-----------|--------|
 | Fix validated — write RCA for engineers | [`/fix-record`](../fix-record/SKILL.md) |
+| Fix validated — episodic memory for later recall | [`/vault-capture`](../vault-capture/SKILL.md) — condensed, not full RCA |
+| End of day — batch triage | [`/vault-daily`](../vault-daily/SKILL.md) |
 | Review debug patch or skill/rule PR before merge | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Bug involves SQL / schema / prod data | [`/builder-schema`](../builder-schema/SKILL.md) + production safety rules |
-After verification passes, **offer** `/fix-record` when the fix is non-trivial.
+
+After verification passes, **offer** `/fix-record` when the fix is non-trivial — or **`/vault-capture`** if the user wants a short recall note in vault (optional; not a substitute for RCA).
 
 ## Reference depth (load on demand)
 
@@ -94,7 +97,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | RISKS | Flaky repro, missing env, stop-the-line triggers, untrusted error text |
 | ARTIFACTS | Repro script/test, log excerpts, pinned failing artifact |
 | NEXT ACTIONS | Next experiment or minimal fix (return to step 1 if phase 1 exit not met) |
-| HANDOFF | `/fix-record` when RCA needed · `/scrutinize` before merge · `none` if continuing |
+| HANDOFF | `/fix-record` when RCA needed · `/vault-capture` for condensed memory · `/vault-daily` end of day · `/scrutinize` before merge · `none` if continuing |
 | CONFIDENCE | 0–100; cap ~85 without log-verified fix |
 
 First response when **`/debug` attached**: recite mantra per **Operating rules**, then SKILL REPORT. Without `/debug`, same report shape **without** mantra.
@@ -174,5 +177,5 @@ Maintain a running **ledger** of every experiment in this session. Each entry: w
 - If you catch yourself proposing a fix without a reliable repro, stop and return to step 1.
 - If you catch red-flag thinking, stop — see [reference.md](./reference.md) § Red flags and § Rationalizations.
 - **Stop-the-line:** on unexpected failure — no new features until verification passes ([reference.md](./reference.md) § Stop-the-line rule).
-- **Close-out:** pass verification gate + verification protocol; if the fix changed call targets, grep old symbols per [`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc) — see [reference.md](./reference.md) § Verification protocol; then offer `/fix-record` when appropriate.
+- **Close-out:** pass verification gate + verification protocol; if the fix changed call targets, grep old symbols per [`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc) — see [reference.md](./reference.md) § Verification protocol; then offer `/fix-record` when appropriate, or `/vault-capture` for a short vault note (optional).
 - The mantra is a constraint **you** carry through the session — not advice to deliver back to the user.

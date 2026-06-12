@@ -157,4 +157,55 @@ while IFS= read -r sub_root; do
   wire_subproject_vault "$sub_root"
 done < <(collect_subproject_roots)
 
+install_vault_tooling() {
+  local vault_req="$REPO_ROOT/scripts/vault/requirements.txt"
+  local bootstrap="$REPO_ROOT/scripts/vault/bootstrap.py"
+  local py_cmd=""
+
+  [ -f "$vault_req" ] || { printf '..  skip vault (scripts/vault missing)\n'; return 0; }
+
+  if command -v python3 >/dev/null 2>&1; then
+    py_cmd="python3"
+  elif command -v python >/dev/null 2>&1; then
+    py_cmd="python"
+  else
+    printf 'WARN  Python 3.10+ not found — vault indexer skipped.\n'
+    printf '      Install Python then re-run setup.\n'
+    return 0
+  fi
+
+  printf 'Vault: pip install...\n'
+  "$py_cmd" -m pip install -r "$vault_req" || return 1
+
+  printf 'Vault: bootstrap...\n'
+  (cd "$REPO_ROOT" && "$py_cmd" "$bootstrap") || return 1
+
+  mkdir -p "$INSTALL_ROOT/.cursor/hooks"
+  cp "$REPO_ROOT/scripts/vault/hooks/vault-index.sh" "$INSTALL_ROOT/.cursor/hooks/vault-index.sh"
+  chmod +x "$INSTALL_ROOT/.cursor/hooks/vault-index.sh"
+
+  if [ ! -f "$INSTALL_ROOT/.cursor/hooks.json" ]; then
+    cat >"$INSTALL_ROOT/.cursor/hooks.json" <<'EOF'
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": ".cursor/hooks/vault-index.sh",
+        "matcher": "vault/notes/**"
+      }
+    ]
+  }
+}
+EOF
+    printf 'OK  .cursor/hooks.json (created)\n'
+  else
+    printf 'OK  .cursor/hooks.json (exists — merge vault hook manually if needed)\n'
+  fi
+
+  printf 'OK  vault tooling\n'
+}
+
+printf '\n'
+install_vault_tooling
 printf '\nDone. Reload Cursor.\n'

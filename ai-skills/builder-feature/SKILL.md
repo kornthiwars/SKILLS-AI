@@ -94,6 +94,10 @@ Detail: [reference.md](./reference.md) § UI-only express lane · § Plan-only g
 | Bug during build | [`/debug`](../debug/SKILL.md) |
 | Review implemented slice PR | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Ship after slices verified | [`/git-push`](../git-push/SKILL.md) |
+| Plan has durable decisions (ADR) — **after plan complete only** | [`/vault-capture`](../vault-capture/SKILL.md) → `vault/notes/decisions/<slug>.md` |
+| End of planning day | [`/vault-daily`](../vault-daily/SKILL.md) — promote `keep_decision` |
+
+Vault handoffs apply **after** phase 7 + slice backlog (`PLAN_READY`) — never during plan-only phases.
 
 ---
 
@@ -148,7 +152,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | RISKS | Duplication, integration gaps, agent jump-to-code |
 | ARTIFACTS | Workflow map · Orchestration plan · **Slice backlog** · Slice brief per [`template.slice-brief.md`](../../templates/template.slice-brief.md) |
 | NEXT ACTIONS | User approves slice N → invoke owner skill |
-| HANDOFF | `/builder-ui` · `/builder-api` · `/builder-schema` · `/builder-infrastructure` · `none` after plan |
+| HANDOFF | `/builder-ui` · `/builder-api` · `/builder-schema` · `/builder-infrastructure` · `/vault-capture` · `/vault-daily` · `none` after plan |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Plan close-out gate before PLAN_READY |
 
 Mid-session: STATUS, OBJECTIVE, DISCOVERIES (include workflow map), NEXT ACTIONS, CONFIDENCE.

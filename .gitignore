@@ -27,3 +27,4 @@ ai-skills/.local/
 # Vault — user-local content only (.gitkeep tracks the folder)
 vault/**
 !vault/.gitkeep
+vault/_index/

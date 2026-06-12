@@ -18,6 +18,9 @@
 9. [fix-record](#9-fix-record)
 10. [upgrade-ai](#10-upgrade-ai)
 11. [git-push](#11-git-push)
+12. [vault-daily](#12-vault-daily)
+13. [vault-capture](#13-vault-capture)
+14. [vault-recall](#14-vault-recall)
 
 ---
 
@@ -63,7 +66,7 @@
 | 3 | Falsify hypothesis | สมมติฐาน 3–5 อันจัดอันดับ — **พยายามพิสูจน์ว่าผิด** ก่อนเชื่ออันใดอันหนึ่ง |
 | 4 | Breadcrumb ledger | ทุกการรัน = บันทึก + **ตาราง H1/H2… CONFIRMED/REJECTED/INCONCLUSIVE** พร้อม cite evidence |
 
-**Handoffs:** fix ยืนยันแล้ว → `/fix-record` · review patch → `/scrutinize` · schema/data plan → `/builder-schema`  
+**Handoffs:** fix ยืนยันแล้ว → `/fix-record` หรือ `/vault-capture` (สั้น, ไม่แทน RCA) · จบวัน → `/vault-daily` · review patch → `/scrutinize` · schema/data plan → `/builder-schema`  
 **Cheatsheet + รายละเอียด:** `debug/reference.md` (exit criteria, instrumentation lifecycle, verification protocol รวม callee redirect cleanup)
 
 ### สิ่งที่ skill ห้ามทำ
@@ -447,6 +450,45 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 
 ---
 
+## 12. vault-daily
+
+| รายการ | ค่า |
+|--------|-----|
+| **Invoke** | `/vault-daily` |
+| **บทบาท** | สรุปงานประจำวัน — **1 วัน 1 ไฟล์** `vault/notes/daily/YYYY-MM-DD.md` |
+
+**Iron law:** ห้าม promote ไป `decisions/` / `sessions/` / `projects/` จนกว่า user confirm triage preview
+
+**Handoffs จาก skill อื่น:** `/debug` (จบวัน) · `/builder-feature` (หลัง plan)
+
+รายละเอียด → `ai-skills/vault-daily/SKILL.md` · integration → `vault-capture/reference.md`
+
+---
+
+## 13. vault-capture
+
+| รายการ | ค่า |
+|--------|-----|
+| **Invoke** | `/vault-capture` |
+| **บทบาท** | บันทึก episodic / ADR — `vault/notes/sessions/` หรือ `vault/notes/decisions/` |
+
+รัน dedupe ก่อนเขียน · index หลัง save · **ห้าม** copy RCA เต็มจาก `/fix-record`
+
+**Handoffs จาก:** `/debug`, `/fix-record`, `/scrutinize`, `/builder-feature`, builder specialist
+
+---
+
+## 14. vault-recall
+
+| รายการ | ค่า |
+|--------|-----|
+| **Invoke** | `/vault-recall` + คำถาม |
+| **บทบาท** | ค้น memory — hybrid search หรืออ่าน daily ตามวันที่ |
+
+**Handoffs จาก:** `/fix-record` (ก่อนเขียน RCA) · `/scrutinize` (ก่อน verdict เรื่อง architecture)
+
+---
+
 ## สรุป: เลือก skill อย่างไร
 
 ```mermaid
@@ -466,6 +508,8 @@ flowchart TD
   F -->|ไม่| G{push / ปรับ skill?}
   G -->|push| GP[/git-push]
   G -->|ปรับ skill| UA[/upgrade-ai]
+  G -->|จำงาน / สรุปวัน| V[/vault-daily หรือ vault-capture]
+  G -->|ถามความจำเก่า| R[/vault-recall]
 ```
 
 ---

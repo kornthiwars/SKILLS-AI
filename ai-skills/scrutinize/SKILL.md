@@ -33,8 +33,10 @@ PR checklist + five-axis + verification: [reference.md](./reference.md).
 
 | Situation | Skill |
 |-----------|--------|
+| Review touches architecture / past decisions | [`/vault-recall`](../vault-recall/SKILL.md) **before** verdict — check `vault/notes/decisions/` for conflicts |
 | Runtime bug while reviewing | [`/debug`](../debug/SKILL.md) |
 | RCA after validated fix | [`/fix-record`](../fix-record/SKILL.md) |
+| Validated fix needs memory | [`/vault-capture`](../vault-capture/SKILL.md) |
 | Skill/rule upgrade in diff | [`/upgrade-ai`](../upgrade-ai/SKILL.md) |
 | SQL or schema in diff | [`/builder-schema`](../builder-schema/SKILL.md) |
 | Ship approved changes | [`/git-push`](../git-push/SKILL.md) |
@@ -62,7 +64,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | RISKS | Untested paths, contract breaks, missing tests, scope creep |
 | ARTIFACTS | Ordered findings (severity), evidence, suggested minimal change |
 | NEXT ACTIONS | Single biggest fix or next trace target |
-| HANDOFF | `/debug` if bug found · `/fix-record` for RCA · `/git-push` to ship · `none` |
+| HANDOFF | `/vault-recall` before architecture verdict · `/debug` if bug found · `/fix-record` for RCA · `/vault-capture` for memory · `/git-push` to ship · `none` |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Verification protocol before READY |
 
 When review complete (step 4), close-out SKILL REPORT — not three bullets only. **agent-skills PRs:** run reference § agent-skills skill / rule PR checklist.
@@ -73,6 +75,7 @@ Run these in order. Do not skip ahead.
 
 ### 1. Intent — what is this actually trying to do?
 
+- If the PR touches **policy, API contract, auth, or architecture** — run [`/vault-recall`](../vault-recall/SKILL.md) first to surface prior `vault/notes/decisions/` that may conflict.
 - State the goal in one sentence, in your own words. If you cannot, the artifact is underspecified — say so and stop.
 - Ask: **is there a simpler, smaller, or more elegant way to achieve the same goal?** Consider:
   - Doing nothing (is the problem real / load-bearing?).

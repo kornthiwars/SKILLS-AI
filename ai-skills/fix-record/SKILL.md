@@ -35,6 +35,8 @@ Executive summaries reframe the same facts in plain language — this skill owns
 | Situation | Skill |
 |-----------|--------|
 | Bug not fixed yet | [`/debug`](../debug/SKILL.md) — refuse fix-record until validation |
+| Check prior decisions before writing RCA | [`/vault-recall`](../vault-recall/SKILL.md) |
+| RCA published — store recall-friendly summary | [`/vault-capture`](../vault-capture/SKILL.md) with `keep_learning` intent |
 | Review RCA or related PR | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Skill pack RCA | Same structure; ship via [`/git-push`](../git-push/SKILL.md) |
 
@@ -78,7 +80,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | RISKS | Invented owners, unvalidated fix, missing repro, hedging |
 | ARTIFACTS | Draft sections: Summary, Root cause, Fix, Validation (+ optional sections per reference) |
 | NEXT ACTIONS | Missing input to collect · sign-off before POST |
-| HANDOFF | `/debug` if inputs incomplete · `none` when published |
+| HANDOFF | `/debug` if inputs incomplete · `/vault-recall` before draft when prior decisions matter · `/vault-capture` optional after publish · `none` when published |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Verification protocol before READY |
 
 Before inputs satisfied: STATUS=BLOCKED, list missing items in DISCOVERIES. After satisfied: close-out with full ARTIFACTS draft.
@@ -98,6 +100,7 @@ Engineer-to-engineer: code identifiers first-class; mechanism over narrative; ac
 3. Produce draft in chat.
 4. Sign-off before JIRA POST — wait for explicit *post it* / *go ahead*.
 5. Optional leadership summary only if user asks.
+6. **Optional** after sign-off: offer [`/vault-capture`](../vault-capture/SKILL.md) — 5–10 line condensed summary (Context, root cause in one sentence, fix pointer). **Cite** this RCA; do not duplicate the full record. See [reference.md](./reference.md) § Vault boundary.
 
 Pass [reference.md](./reference.md) § Verification protocol before publish.
 

@@ -19,7 +19,7 @@ Creates under `<workspace>/.cursor/`:
 
 - `skills` → `ai-skills/`
 - `rules` → `ai-rules/`
-- `vault` → `vault/` (empty folder for your local notes)
+- `vault` → `vault/` (local notes + RAG index; run setup script for indexer)
 
 Edit **`ai-skills/`** and **`ai-rules/`** in the clone — not inside `.cursor/` junctions.
 
@@ -39,6 +39,9 @@ Edit **`ai-skills/`** and **`ai-rules/`** in the clone — not inside `.cursor/`
 | [fix-record](ai-skills/fix-record/SKILL.md) | RCA after validated fix |
 | [upgrade-ai](ai-skills/upgrade-ai/SKILL.md) | Improve skills in this repo |
 | [git-push](ai-skills/git-push/SKILL.md) | Safe commit + push (sole git skill) |
+| [vault-daily](ai-skills/vault-daily/SKILL.md) | Daily task summary + triage (local vault) |
+| [vault-capture](ai-skills/vault-capture/SKILL.md) | Capture session to vault |
+| [vault-recall](ai-skills/vault-recall/SKILL.md) | Search vault memory + cite |
 
 Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Change-control: [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) · **Thai:** [docs/th/README.md](docs/th/README.md) · External catalog: [awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
 

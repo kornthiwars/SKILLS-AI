@@ -50,6 +50,7 @@ Do NOT:
 | Execute migration plan / schema evolution | [`/builder-schema`](../builder-schema/SKILL.md) + project DB toolchain |
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
 | API runtime bug | [`/debug`](../debug/SKILL.md) |
+| Contract change | [`/vault-recall`](../vault-recall/SKILL.md) before breaking change · ADR after slice verify → [`/vault-capture`](../vault-capture/SKILL.md) |
 
 Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
 
@@ -128,7 +129,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | RISKS | Auth gaps, breaking contracts, missing validation layers |
 | ARTIFACTS | Close-out: API Analysis, Resource Architecture, API Contracts, Security Architecture, Backend Structure, Reliability Plan, Verification Plan |
 | NEXT ACTIONS | Next workflow phase or open question |
-| HANDOFF | `/builder-feature` · `/builder-schema` · `/scrutinize` · `none` |
+| HANDOFF | `/builder-feature` · `/builder-schema` · `/scrutinize` · `/vault-recall` · `/vault-capture` · `none` |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |
 
 Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.

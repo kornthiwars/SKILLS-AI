@@ -19,6 +19,19 @@ Maps to [`debug`](../debug/SKILL.md) steps 1–4 and hypothesis **CONFIRMED** in
 
 ---
 
+## Vault boundary
+
+| Artifact | Owner | Location |
+|----------|-------|----------|
+| Full RCA (mechanism, validation, slip-through) | `/fix-record` | JIRA / PR / `docs/fix-records/` |
+| Recall-friendly episodic summary | `/vault-capture` | `vault/notes/sessions/<topic>.md` |
+
+After RCA is published and signed off, **optionally** offer `/vault-capture` with 5–10 lines: Context, root cause in one sentence, fix pointer (PR/commit/JIRA). **Link** to the RCA — never paste the full record into vault.
+
+Before drafting, run `/vault-recall` when prior `vault/notes/decisions/` may constrain the fix narrative.
+
+---
+
 ## Structure (section guide)
 
 | # | Section | Required | Content |

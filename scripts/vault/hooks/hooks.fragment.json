@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": ".cursor/hooks/vault-index.ps1",
+        "matcher": "vault/notes/**"
+      }
+    ]
+  }
+}

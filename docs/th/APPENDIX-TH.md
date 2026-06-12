@@ -111,11 +111,29 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 ---
 
-## 7. โฟลเดอร์ `vault/` (local notes)
+## 7. โฟลเดอร์ `vault/` (local RAG memory)
 
-- โฟลเดอร์ว่างใน repo — track แค่ `vault/.gitkeep`
-- setup สร้าง junction `.cursor/vault` → `vault/` สำหรับโน้ตส่วนตัว (gitignore)
-- **ไม่มี** agent behavior สำหรับ vault ใน pack นี้
+- เนื้อหา `vault/**` gitignore (ยกเว้น `vault/.gitkeep`) — โน้ตส่วนตัวบนเครื่อง
+- setup script: junction `.cursor/vault` → `vault/` + `pip` + `scripts/vault/bootstrap.py` + hook index (ต้องมี Python 3.10+)
+- โครงสร้างหลัก: `vault/notes/{daily,decisions,sessions,projects,inbox}/` · index ที่ `vault/_index/` (rebuild ได้)
+
+**Memory tiers**
+
+| Tier | โฟลเดอร์ | Embed? |
+|------|----------|--------|
+| Ephemeral | `notes/daily/YYYY-MM-DD.md` (1 วัน 1 ไฟล์) | ไม่ |
+| Semantic | `notes/decisions/`, `notes/projects/` | ใช่ |
+| Episodic | `notes/sessions/` | ใช่ |
+
+**Skills (เรียกเอง — `disable-model-invocation: true`)**
+
+| Skill | ใช้เมื่อ |
+|-------|----------|
+| `/vault-daily` | สรุปงานวัน + triage + promote (ต้อง confirm ก่อน promote) |
+| `/vault-capture` | บันทึก session / ADR สั้น — dedupe ก่อนเขียน |
+| `/vault-recall` | ค้น hybrid FTS+vector หรืออ่าน daily ตามวันที่ |
+
+**เชื่อม skill เก่า (handoff ไม่บังคับ):** `/debug` → capture/daily · `/fix-record` → recall/capture (RCA เต็มไม่ duplicate) · `/scrutinize` → recall ก่อน verdict · `/builder-feature` → capture/daily หลัง `PLAN_READY` · ตารางเต็ม → `ai-skills/vault-capture/reference.md` § Integration
 
 ---
 
@@ -191,11 +209,11 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 | รายการ | สถานะ |
 |--------|--------|
-| 10/10 skills มีหัวข้อใน SKILLS-TH | ครบ |
+| 14 skills มีหัวข้อใน SKILLS-TH (รวม vault 3 ตัว) | ครบ |
 | 34/34 rules มีหัวข้อใน RULES-TH | ครบ |
 | reference.md อธิบาย | ครบ (ไฟล์นี้ §2) |
 | Mantra / flaky / skip mantra | ครบ (§4) |
-| โฟลเดอร์ `vault/` local | ครบ (§7) |
+| โฟลเดอร์ `vault/` + RAG skills | ครบ (§7) |
 | setup scripts / patch budget | ครบ (§8) |
 | globs ทุก rule | ครบ (§9) |
 | SKILL-AUTHORING / SKILL-PATTERN (EN) | ลิงก์ใน README — ยังไม่แปลทั้งไฟล์ |

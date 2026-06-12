@@ -44,6 +44,12 @@ Agent routes from user intent **without requiring** a slash command unless the u
 
 | RCA after **one** validated fix | `/fix-record` |
 
+| short recall memory after fix (not full RCA) | `/vault-capture` — optional; cite fix-record/PR, do not duplicate RCA |
+
+| search past decisions / vault memory | `/vault-recall` |
+
+| daily task summary / end-of-day report | `/vault-daily` |
+
 | one commit, multiple unrelated fixes | PR description or **one fix-record per root cause** — ask scope |
 
 | unsure bug vs copy | One clarifying question, then row above |
@@ -58,7 +64,7 @@ If multiple apply, use the row for the **active mode**:
 
 |-------------|----------------------------------------|
 
-| **Patch / fix** (default) | diagnose → patch → verify → git-push |
+| **Patch / fix** (default) | diagnose → patch → verify → optional `/fix-record` or `/vault-capture` → git-push |
 
 | **Plan-only** (`/builder-feature`) | plan phases → handoff — **no app patch** |
 
