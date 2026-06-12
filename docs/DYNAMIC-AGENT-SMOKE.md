@@ -25,7 +25,7 @@ Behavioral scenarios to run in Cursor after rule/skill changes. No automated CI 
 | 11 | `/vault-recall` + "autolog ทำงานยังไง" | Cites `sessions/` or `decisions/` with line range; uses `grep-vault` or per-file Read; does **not** claim empty vault |
 | 12 | Small verified patch on **new calendar day** (no daily file yet) | Agent `Write` from `template.vault-daily.md` **then** `append-daily`; reply includes `Vault daily: updated ...`; bullet + `runs` bump |
 | 13 | Run `grep-vault.ps1 -Pattern "autolog"` from `SKILLS-AI` | Returns JSON hits from gitignored `vault/{decisions,sessions,projects}/` (not empty `[]` when notes exist) |
-| 14 | `/vault-capture` promote session note | Uses `template.vault-session.md` placeholders; upserts manifest `tier: episodic` + `tags` |
+| 14 | `/vault-capture` promote session note | Infer project; `template.vault-session.md`; auto hub `projects/<slug>.md` + backlink; manifest `sess-*` + `proj-*` |
 | 15 | Open Obsidian → `SKILLS-AI/vault` | Sidebar: `daily/`, `sessions/`, `decisions/`, `projects/`; Daily notes → `daily/YYYY-MM-DD.md`; `_agent/` excluded from graph |
 
 ## Post-L4 behavioral checklist (run after Reload)

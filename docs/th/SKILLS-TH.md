@@ -470,9 +470,9 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-capture` |
-| **บทบาท** | บันทึก episodic / ADR / project — `sessions/`, `decisions/`, `projects/` จาก `templates/vault/notes/template.vault-*.md` |
+| **บทบาท** | บันทึก episodic / ADR — infer `project` เอง; auto-ensure hub `projects/<slug>.md`; link + backlink + manifest |
 
-dedupe ผ่าน `manifest.json` ก่อนเขียน · อัป manifest หลัง save · **ห้าม** copy RCA เต็มจาก `/fix-record` · **ไม่ใช้ Python**
+dedupe ผ่าน `manifest.json` ก่อนเขียน · hub ensure หลัง session/decision · **ห้าม** copy RCA เต็มจาก `/fix-record` · **ไม่ใช้ Python**
 
 **Handoffs จาก:** `/debug`, `/fix-record`, `/scrutinize`, `/builder-feature`, builder specialist
 

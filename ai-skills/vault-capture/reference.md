@@ -102,7 +102,7 @@ Always-on rule: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc)
 | `/builder-ui` | **autolog** | daily only | After verify → [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc); `/vault-daily` for triage only |
 | `/git-push` | **none** | — | `vault/**` gitignored; no memory handoff |
 | `/upgrade-ai` | **none** | — | Meta skill — no app memory |
-| `/vault-capture` | — | — | Destination; dedupe + manifest upsert |
+| `/vault-capture` | — | — | Destination; infer project + hub ensure + manifest upsert |
 | `/vault-recall` | — | — | Read path; cite sources |
 | `/vault-daily` | — | — | Ephemeral tier; triage before promote |
 

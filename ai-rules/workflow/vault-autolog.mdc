@@ -54,7 +54,7 @@ Canonical daily file — use **first path that exists** on disk:
 | Mechanism | Role |
 |-----------|------|
 | **autolog** (this rule) | Automatic shell + one-line summary after verify |
-| `/vault-capture` | Durable session / ADR note |
+| `/vault-capture` | Durable session / ADR + auto project hub (`projects/<slug>.md`) |
 | `/vault-daily` | Triage preview, Issues review, promote, สรุปส่งรายงาน |
 
 If vault write fails (missing junction, permissions), **do not block** the user task — mention once in chat with skip reason.

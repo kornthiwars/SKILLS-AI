@@ -29,7 +29,7 @@ powershell -File scripts/vault/bootstrap-vault.ps1 -Verify
 | Skill | Purpose |
 |-------|---------|
 | `/vault-daily` | Daily task summary + triage (1 file per day) |
-| `/vault-capture` | Save session / ADR note |
+| `/vault-capture` | Session / ADR + infer project + auto hub ensure |
 | `/vault-recall` | Grep/Read vault + cite (uses `manifest.json`) |
 
 | Script | Purpose |

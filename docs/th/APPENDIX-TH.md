@@ -19,7 +19,7 @@
 | upgrade-ai | `/upgrade-ai` | 1.2.8 | ใช่ |
 | git-push | `/git-push` | 1.2.3 | ใช่ |
 | vault-daily | `/vault-daily` | 2.2.1 | ใช่ |
-| vault-capture | `/vault-capture` | 2.2.1 | ใช่ |
+| vault-capture | `/vault-capture` | 2.3.1 | ใช่ |
 | vault-recall | `/vault-recall` | 2.4.1 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
@@ -141,7 +141,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | Skill | ใช้เมื่อ |
 |-------|----------|
 | `/vault-daily` | สรุปงานวัน + triage + promote (confirm ก่อน) + อัป manifest |
-| `/vault-capture` | บันทึก session / ADR / project — dedupe ผ่าน manifest |
+| `/vault-capture` | บันทึก session / ADR — infer project + auto hub `projects/<slug>.md`; dedupe manifest |
 | `/vault-recall` | อ่าน manifest → `grep-vault` / Read → cite |
 
 **เชื่อม skill เก่า:** ดู `ai-skills/vault-capture/reference.md` § Integration

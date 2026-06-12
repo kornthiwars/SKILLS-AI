@@ -1,7 +1,7 @@
 ---
 name: vault-capture
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
 description: >-
   Capture session or ADR into local vault — infer project hub, manifest dedupe,
   agent Write only. No Python. Invoke with /vault-capture.
