@@ -1,7 +1,7 @@
 ---
 name: vault-daily
 metadata:
-  version: "2.2.4"
+  version: "2.2.5"
 description: >-
   Use for end-of-day triage, Issues review, promote to durable tiers, and สรุปส่งรายงาน.
   Routine bullets autolog after patches (vault-autolog rule). Invoke /vault-daily when
@@ -68,11 +68,15 @@ Obsidian users may open today's daily via **Daily notes** hotkey (`daily/YYYY-MM
 
 ## SKILL REPORT
 
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
+
 | Section | `/vault-daily` |
 |---------|----------------|
 | STATUS | BLOCKED = awaiting triage confirm; READY = daily saved + manifest updated |
-| OBJECTIVE | One daily file + optional promotes + task report |
-| ARTIFACTS | daily path, promoted paths, manifest entries |
+| OBJECTIVE | One daily file + optional promotes + **สรุปส่งรายงาน** |
+| ARTIFACTS | daily path, promoted paths, manifest entries, triage preview summary |
+| HANDOFF | `/vault-capture` · `/vault-recall` · `/fix-record` · `none` |
+| CONFIDENCE | 0–100; BLOCKED until user confirms promote |
 
 Pack integration: [vault-capture/reference.md](../vault-capture/reference.md) § Integration with pack skills
 

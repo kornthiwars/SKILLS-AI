@@ -1,7 +1,7 @@
 ---
 name: vault-capture
 metadata:
-  version: "2.3.6"
+  version: "2.3.7"
 description: >-
   Use after meaningful work to save session notes or ADRs to local vault — infer project
   hub, manifest dedupe, wikilinks, agent Write only. Use whenever durable context should
@@ -81,9 +81,14 @@ Path in manifest is relative to `vault/`, e.g. `sessions/auth-fix.md`.
 
 ## SKILL REPORT
 
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
+
 | Section | `/vault-capture` |
 |---------|------------------|
-| STATUS | READY when primary + hub (if applicable) written + manifest updated |
-| ARTIFACTS | `Inferred project: <slug> (<reason>)`, note path(s), manifest entries |
+| STATUS | READY when primary + hub (if applicable) written + manifest updated; BLOCKED when project inference tie / missing manifest |
+| OBJECTIVE | Persist session/ADR/project note with dedupe, hub link, manifest upsert |
+| ARTIFACTS | `Inferred project: <slug> (<reason>)`, note path(s), hub path (`created` \| `updated`), manifest ids |
+| HANDOFF | `/vault-recall` · `/vault-daily` · `/fix-record` · `/debug` · `none` |
+| CONFIDENCE | 0–100; lower if dedupe ambiguous or hub path conflict |
 
 Detail: [reference.md](./reference.md)

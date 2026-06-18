@@ -18,8 +18,8 @@
 | fix-record | `/fix-record` | 1.2.7 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.3.1 | ใช่ |
 | git-push | `/git-push` | 1.2.5 | ใช่ |
-| vault-daily | `/vault-daily` | 2.2.4 | ใช่ |
-| vault-capture | `/vault-capture` | 2.3.6 | ใช่ |
+| vault-daily | `/vault-daily` | 2.2.5 | ใช่ |
+| vault-capture | `/vault-capture` | 2.3.7 | ใช่ |
 | vault-recall | `/vault-recall` | 2.4.4 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`

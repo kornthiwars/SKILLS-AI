@@ -288,7 +288,7 @@
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/builder-feature` |
-| **Version** | 1.7.5 |
+| **Version** | 1.8.0 (ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §1) |
 | **บทบาท** | **Plan-only orchestrator** — design reasoning + flow + slice backlog **ไม่เขียนโค้ด** |
 | **Activation** | Manual `/builder-feature` — **ไม่มี** `paths` frontmatter (ไม่ auto-invoke ตอนแก้ app code) |
 
