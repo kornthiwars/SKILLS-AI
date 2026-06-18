@@ -32,6 +32,14 @@ Creating or interpreting note shape: [templates/vault/README.md](../../templates
 2. Shortlist ≤10 `docs` by `id`, `title`, `tags`, `project`, `tier`
 3. **Broad keyword scan** (tier-wide or manifest empty):
 
+   macOS/Linux:
+
+   ```bash
+   ./scripts/vault/grep-vault.sh --pattern "<keywords>" --tier all
+   ```
+
+   Windows:
+
    ```powershell
    powershell -NoProfile -File scripts/vault/grep-vault.ps1 -Pattern "<keywords>" -Tier all
    ```

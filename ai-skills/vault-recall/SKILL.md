@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "2.4.3"
+  version: "2.4.4"
 description: >-
   Use when the user asks what was decided, fixed, or captured in vault memory — search
   via manifest + grep-vault or per-file Read, cite paths and line ranges. Use before
@@ -15,14 +15,31 @@ disable-model-invocation: true
 
 # Vault recall
 
-Retrieve context from local vault using agent tools — **`grep-vault` shell script** for gitignored tier search; otherwise `Read` / per-file tools (no Python).
+Retrieve context from local vault using agent tools — **`grep-vault`** shell script for gitignored tier search; otherwise `Read` / per-file tools (no Python).
+
+## Quick cheat sheet
+
+| Query type | First action |
+|------------|--------------|
+| Date / "เมื่อวาน" / daily summary | `Read` resolved `vault/daily/<date>.md` |
+| Decision / technical keyword | Manifest shortlist → `grep-vault` or per-file Grep |
+| Architecture / policy before change | Manifest + `decisions/` tier first |
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Save new durable context after recall | [`/vault-capture`](../vault-capture/SKILL.md) |
+| End-of-day triage | [`/vault-daily`](../vault-daily/SKILL.md) |
+| Review plan/PR with past context | [`/scrutinize`](../scrutinize/SKILL.md) |
+| Bug found while recalling | [`/debug`](../debug/SKILL.md) |
 
 ## Scope Guardrails
 
 - ALWAYS resolve paths per [reference.md](./reference.md) § Path resolution (`SKILLS-AI/vault/` or `.cursor/vault/` in parent workspace `web/`)
 - ALWAYS `Read` manifest before hybrid search (skip for pure daily-date reads)
 - ALWAYS cite resolved vault path with line range
-- For **tier-wide keyword search** → run `scripts/vault/grep-vault.ps1 -Pattern "..."` (or `.sh`) — searches gitignored notes via `rg --no-ignore`
+- For **tier-wide keyword search** → run `scripts/vault/grep-vault.sh --pattern "..."` (macOS/Linux) or `grep-vault.ps1 -Pattern "..."` (Windows) — searches gitignored notes via `rg --no-ignore`
 - Else `Grep` each manifest file path individually, or `Read` then match in context
 - NEVER rely on directory `Grep` alone on `vault/` note folders — Cursor `Grep` skips gitignored paths
 - NEVER cite `status: superseded` as the primary answer — follow `supersedes` to active doc
@@ -46,16 +63,21 @@ Retrieve context from local vault using agent tools — **`grep-vault` shell scr
 1. `Read` resolved `.../_agent/manifest.json`
 2. Build keyword list from user query (+ EN/TH variants for technical terms)
 3. Shortlist manifest `docs` where `id`, `title`, `tags`, or `project` match (≤10)
-4. **Search** — manifest shortlist: per-file `Grep` or `Read`; **broad tier scan**: `grep-vault.ps1 -Pattern "<keywords>"` (gitignore-safe)
+4. **Search** — manifest shortlist: per-file `Grep` or `Read`; **broad tier scan**: `grep-vault.sh --pattern "<keywords>"` or `grep-vault.ps1 -Pattern "<keywords>"` (gitignore-safe)
 5. `Read` frontmatter of top candidates — drop `status: superseded`
 6. `Read` body of winners (≤5 files); expand `related:` within cap
 7. Answer Thai ~60% / English ~40% with citations
 
 ## SKILL REPORT
 
-| Section   | `/vault-recall`                               |
-| --------- | --------------------------------------------- |
-| STATUS    | READY when results cited or daily loaded      |
+Contract: [`templates/template.skill-report.md`](../../templates/template.skill-report.md).
+
+| Section | `/vault-recall` |
+|---------|-----------------|
+| STATUS | READY when results cited or daily loaded; BLOCKED when vault path unresolved |
+| OBJECTIVE | Answer from vault with cited paths + line ranges |
 | ARTIFACTS | manifest shortlist, cited paths + line ranges |
+| HANDOFF | `/vault-capture` · `/vault-daily` · `/scrutinize` · `/debug` · `none` |
+| CONFIDENCE | 0–100; lower if manifest empty but notes likely exist on disk |
 
 Detail: [reference.md](./reference.md) · Pack integration: [vault-capture/reference.md](../vault-capture/reference.md) § Integration with pack skills

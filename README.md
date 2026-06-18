@@ -170,9 +170,9 @@ Copy / label ชัด → agent patch ตรงๆ ได้โดยไม่�
 | fix-record | `/fix-record` | 1.2.7 | Canonical RCA หลัง validated fix |
 | upgrade-ai | `/upgrade-ai` | 1.3.1 | Diagnose skill layer · doc drift · external parity |
 | git-push | `/git-push` | 1.2.5 | Inspect · commit เมื่อ user ยืนยัน · push · verify |
-| vault-capture | `/vault-capture` | 2.3.5 | Session/ADR · infer project · auto hub |
-| vault-recall | `/vault-recall` | 2.4.3 | grep-vault / Read · cite line range |
-| vault-daily | `/vault-daily` | 2.2.3 | End-of-day triage · Issues · promote |
+| vault-capture | `/vault-capture` | 2.3.6 | Session/ADR · infer project · auto hub |
+| vault-recall | `/vault-recall` | 2.4.4 | grep-vault / Read · cite line range |
+| vault-daily | `/vault-daily` | 2.2.4 | End-of-day triage · Issues · promote |
 
 Index → [ai-skills/README.md](ai-skills/README.md) · รายละเอียดไทย → [docs/th/SKILLS-TH.md](docs/th/SKILLS-TH.md)
 

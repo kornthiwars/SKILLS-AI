@@ -527,9 +527,13 @@ dedupe ผ่าน `manifest.json` ก่อนเขียน · hub ensure �
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-recall` + คำถาม |
-| **บทบาท** | ค้น memory — manifest + `grep-vault.ps1` / per-file Read (ห้าม directory Grep บน gitignored vault) |
+| **เวอร์ชัน** | 2.4.4 (ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §1) |
+| **บทบาท** | ค้น memory — manifest + `grep-vault` / per-file Read (ห้าม directory Grep บน gitignored vault) |
 
-**Handoffs จาก:** `/fix-record` (ก่อนเขียน RCA) · `/scrutinize` (ก่อน verdict เรื่อง architecture)
+**Cheat sheet:** วันที่ → `Read` daily · คำถามเทคนิค → manifest shortlist → `grep-vault.sh --pattern` (macOS) หรือ `grep-vault.ps1` (Windows)
+
+**Handoffs ออก:** `/vault-capture` · `/vault-daily` · `/scrutinize` · `/debug`  
+**Handoffs เข้า:** `/fix-record` (ก่อน RCA) · `/scrutinize` (ก่อน architecture verdict) · builder-* (ก่อน breaking change)
 
 ---
 
