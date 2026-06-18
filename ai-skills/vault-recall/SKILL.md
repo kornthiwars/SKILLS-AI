@@ -53,9 +53,9 @@ Retrieve context from local vault using agent tools — **`grep-vault` shell scr
 
 ## SKILL REPORT
 
-| Section | `/vault-recall` |
-|---------|-----------------|
-| STATUS | READY when results cited or daily loaded |
+| Section   | `/vault-recall`                               |
+| --------- | --------------------------------------------- |
+| STATUS    | READY when results cited or daily loaded      |
 | ARTIFACTS | manifest shortlist, cited paths + line ranges |
 
 Detail: [reference.md](./reference.md) · Pack integration: [vault-capture/reference.md](../vault-capture/reference.md) § Integration with pack skills

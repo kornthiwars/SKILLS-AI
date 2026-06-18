@@ -162,7 +162,7 @@ Copy / label ชัด → agent patch ตรงๆ ได้โดยไม่�
 |-------|--------|------|----------|
 | debug | `/debug` | 1.3.8 | Four-step diagnosis · mantra · hypothesis ledger |
 | scrutinize | `/scrutinize` | 1.2.9 | Outsider review · browser UI · review-only จนกว่า user อนุมัติ |
-| builder-feature | `/builder-feature` | 1.5.5 | Plan-only orchestrator · slice backlog · **ห้าม** patch app |
+| builder-feature | `/builder-feature` | 1.7.5 | Plan-only · plan file · design reasoning · slice handoff · **ห้าม** patch app |
 | builder-ui | `/builder-ui` | 1.2.10 | UI architecture · a11y · browser verify |
 | builder-api | `/builder-api` | 1.2.7 | Contract-first API · auth boundaries |
 | builder-schema | `/builder-schema` | 1.2.6 | Schema evolution · migration + rollback plan |

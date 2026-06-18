@@ -34,7 +34,7 @@ How **agent-skills** (this pack) relates to the wider ecosystem — especially [
 | UI quality | [addyosmani/web-quality-audit](https://officialskills.sh/addyosmani/skills/web-quality-audit) (+ a11y, CWV children) | `/builder-ui` · `/scrutinize` § Browser | Cursor browser MCP for runtime; external for Lighthouse-style audits |
 | Incremental delivery | [addyosmani/incremental-implementation](https://github.com/addyosmani/agent-skills) | `/builder-feature` reference | Plan-only orchestrator + thin vertical slices; implement per owner skill |
 | Deprecation / migration | [addyosmani/deprecation-and-migration](https://github.com/addyosmani/agent-skills/tree/main/skills/deprecation-and-migration) | `callee-redirect-cleanup.mdc` | Redirect + grep dead callers |
-| Planning | [obra/writing-plans](https://github.com/obra/superpowers), [garrytan/plan-eng-review](https://officialskills.sh/garrytan/skills/plan-eng-review) | `/builder-feature` | Chat plan + slice backlog — not a separate daily planner skill |
+| Planning | [obra/writing-plans](https://github.com/obra/superpowers), [garrytan/plan-eng-review](https://officialskills.sh/garrytan/skills/plan-eng-review) | `/builder-feature` | Durable `*.plan.md` (`template.feature-plan.md`) + slice backlog — not a separate daily planner skill |
 | Memory / recall | [hanfang/claude-memory-skill](https://github.com/hanfang/claude-memory-skill), [RoundTable02/tutor-skills](https://github.com/RoundTable02/tutor-skills) | **Non-goal** in pack | Use external skill or local `vault/` notes |
 | Skill authoring | [anthropics/skill-creator](https://officialskills.sh/anthropics/skills/skill-creator), [hqhq1025/skill-optimizer](https://github.com/hqhq1025/skill-optimizer) | `/upgrade-ai` | 8-phase diagnosis + version governance |
 | Context engineering | [muratcankoylan/Agent-Skills-for-Context-Engineering](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering) | `/upgrade-ai` reference | Meta only — long sessions, decomposition |
@@ -50,7 +50,7 @@ How **agent-skills** (this pack) relates to the wider ecosystem — especially [
 4. **`disable-model-invocation: true`** on all 13 skills
 5. **Callee redirect cleanup** — rule + dynamic smoke scenario #8
 6. **Plan-only orchestrator** — [`/builder-feature`](../ai-skills/builder-feature/SKILL.md) iron law (no app patches); vertical slices; implement via builder-* per slice
-7. **Static skill validator** — `scripts/validate-skills.sh` + GitHub Actions; eval prompts in [`docs/SKILL-EVAL-PROMPTS.md`](./SKILL-EVAL-PROMPTS.md)
+7. **Static skill validator** — `scripts/validate-skills.sh` (reference.md required, `metadata.version` ↔ `APPENDIX-TH.md`, description ≤1024, progressive-disclosure warn) + GitHub Actions; eval prompts in [`docs/SKILL-EVAL-PROMPTS.md`](./SKILL-EVAL-PROMPTS.md)
 
 ---
 

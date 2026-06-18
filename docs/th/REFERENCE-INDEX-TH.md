@@ -13,6 +13,9 @@
 | builder-api | [builder-api/reference.md](../../ai-skills/builder-api/reference.md) | API phases |
 | builder-schema | [builder-schema/reference.md](../../ai-skills/builder-schema/reference.md) | schema phases |
 | builder-infrastructure | [builder-infrastructure/reference.md](../../ai-skills/builder-infrastructure/reference.md) | infra phases |
-| builder-feature | [builder-feature/reference.md](../../ai-skills/builder-feature/reference.md) | plan-only, express lane, slice backlog |
+| builder-feature | [builder-feature/reference.md](../../ai-skills/builder-feature/reference.md) (index) · [reference-design-reasoning.md](../../ai-skills/builder-feature/reference-design-reasoning.md) · [reference-workflow.md](../../ai-skills/builder-feature/reference-workflow.md) · [reference-slice-handoff.md](../../ai-skills/builder-feature/reference-slice-handoff.md) | plan-only, Plan mode, design reasoning, express lane, slice backlog |
+| vault-capture | [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) | session/ADR capture, project hub autolink |
+| vault-daily | [vault-daily/reference.md](../../ai-skills/vault-daily/reference.md) | daily triage, Issues table, promote |
+| vault-recall | [vault-recall/reference.md](../../ai-skills/vault-recall/reference.md) | path resolution, grep-vault, cite line range |
 
-ทุก skill ใน pack มี `reference.md` (หรือเนื้อหาหลัก + reference ครบ)
+ทุก skill ใน pack มี `reference.md` (required — `validate-skills` จะ fail ถ้าขาด)

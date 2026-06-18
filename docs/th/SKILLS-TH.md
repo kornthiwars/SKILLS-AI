@@ -29,7 +29,7 @@
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/debug` |
-| **เวอร์ชัน** | 1.3.1 (ดูใน `SKILL.md`) |
+| **เวอร์ชัน** | 1.3.8 (ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §1) |
 | **บทบาท** | วิศวกร debug แบบมีวินัย — repro → trace → หักล้างสมมติฐาน → breadcrumb |
 
 ### ใช้เมื่อไหร่
@@ -288,45 +288,89 @@
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/builder-feature` |
-| **Version** | 1.5.1 |
-| **บทบาท** | **Plan-only orchestrator** — วาง flow + slice backlog **ไม่เขียนโค้ด** |
+| **Version** | 1.7.5 |
+| **บทบาท** | **Plan-only orchestrator** — design reasoning + flow + slice backlog **ไม่เขียนโค้ด** |
 | **Activation** | Manual `/builder-feature` — **ไม่มี** `paths` frontmatter (ไม่ auto-invoke ตอนแก้ app code) |
 
 ### ใช้เมื่อไหร่
 
 - วางแผน **feature ข้าม layer** (UI + API + schema + infra)
-- วางแผน **UI mock / static HTML** ผ่าน **express lane** (workflow สั้น + slice backlog)
+- วางแผน **UI mock / static HTML** ผ่าน **express lane** (`Path: ui-only-express`)
 
 ### ไม่ใช้เมื่อไหร่
 
 - implement เองใน skill นี้ (รวม HTML/CSS)
 - บั๊กจุดเดียว → `/debug`
-- layer เดียวพร้อม implement → `/builder-ui` ฯลฯ โดยตรง
+- layer เดียวพร้อม implement ทันที (ไม่ต้อง plan) → `/builder-ui` ฯลฯ โดยตรง
+
+### Design reasoning (บังคับ — ไม่ใช่ชื่อ framework ภายนอก)
+
+```text
+Goal → Hypotheses → Hierarchy → Constraints → Consistency → Self-review
+```
+
+| Lens | Phase | ใน plan file |
+|------|-------|----------------|
+| Goal-driven | 0, 1 | `**Goal:**`, requirements, gap |
+| Hypothesis | 2 | approach table ≥2 แถว → **chosen** หนึ่งเดียว |
+| Hierarchy | 2–3 | infra → API → app → UI |
+| Constraints | 0, 6 | constraints table + re-check |
+| Consistency | ทุก phase | `overview` = goal; ledger ใน SKILL REPORT |
+| Self-review | 7 | `### Recursive review` |
+
+**Iron law:** ห้าม lock slice backlog จนกว่า hypothesis จะเหลือทางเดียวและผ่าน constraints
 
 ### โหมด
 
 | โหมด | ผลลัพธ์ |
 |------|---------|
-| **PLAN** | Phase 0–7 + slice backlog → `PLAN_READY` |
-| **Express** | UI-only mock — workflow map ≥3 ขั้น + component outline + slice backlog |
+| **PLAN** | Phase 0–7 + slice backlog → `plan_ready` |
+| **Express** | `Path: ui-only-express` — plan สั้น (Phase 2 UI hypotheses, defer 4–6) |
+| **Iterate** | แก้ plan file อย่างเดียว |
 | **Handoff** | Slice brief → `/builder-ui` · `/builder-api` · … |
+
+### Path (Phase 0)
+
+| `Path:` | การทำงาน |
+|---------|----------|
+| `cross-layer` | phases 1–7 ใน builder-feature |
+| `ui-only-express` | express lane — **อยู่** ใน builder-feature จน `slice N go` |
+| UI-only + implement now | exit → `/builder-ui` (ไม่ผ่าน orchestrator) |
 
 ### ขั้นตอน (plan)
 
-0. Discovery (scope, non-goals, UI-only vs cross-layer)  
+0. Discovery — **Goal**, constraints, gap, `Path:`  
 1. **Workflow map** (บังคับก่อน slice backlog)  
-2–6. Reuse, boundaries, integration, rollout (express lane: defer N/A ได้)  
-7. Plan verification  
-→ Slice backlog → **`PLAN_READY`** (ในแชท) → user สั่ง **`/builder-ui slice N go`** ([`template.slice-brief.md`](../templates/template.slice-brief.md))
+2. Existing systems — **hypothesis table** + hierarchical layers + reuse  
+3–6. Boundaries, delegation, integration, rollout (express: defer **4–6** N/A; Phase 6 rollback ยกเว้นได้เมื่อ express)  
+7. Plan verification + **recursive review**  
+→ Slice backlog + plan file **`.cursor/plans/<slug>.plan.md`** ([`template.feature-plan.md`](../templates/template.feature-plan.md))  
+→ **`plan_ready`** → user ยืนยัน → **`slice N go`** ([`template.slice-brief.md`](../templates/template.slice-brief.md))
+
+Close-out: [`template.feature-plan.md`](../templates/template.feature-plan.md) § Close-out gate (11 ข้อ)
 
 ### ผลลัพธ์
 
-- Workflow map, Orchestration plan, **Slice backlog table**, Slice N brief  
+- Plan file path, workflow map, hypothesis table, **Slice backlog**, Slice N brief  
 - **ไม่มี** diff ใน repo จาก skill นี้
+
+### Handoff ไป owner skills
+
+Vertical slice rules: [builder-feature/reference-slice-handoff.md](../../ai-skills/builder-feature/reference-slice-handoff.md) § Slice backlog
 
 ### Smoke
 
-- Scenario **#9** ใน [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) — plan-only ห้าม patch
+- Scenario **#9** (express) · **#10** (cross-layer) ใน [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md)
+- Pass criteria: [SKILL-EVAL-PROMPTS.md](../SKILL-EVAL-PROMPTS.md) § builder-feature
+
+### แผนเก่า (legacy migration)
+
+แผนก่อน template 1.7.x ยัง execute slice ได้ — revise เมื่อต้องการ Goal/hypothesis/recursive review (ดู reference § Legacy plan migration)
+
+### เอกสารลึก
+
+- [reference-design-reasoning.md](../../ai-skills/builder-feature/reference-design-reasoning.md) · [reference-workflow.md](../../ai-skills/builder-feature/reference-workflow.md) § UI-only express lane  
+- [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md)
 
 ---
 

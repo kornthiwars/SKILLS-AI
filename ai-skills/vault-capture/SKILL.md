@@ -1,7 +1,7 @@
 ---
 name: vault-capture
 metadata:
-  version: "2.3.5"
+  version: "2.3.6"
 description: >-
   Use after meaningful work to save session notes or ADRs to local vault — infer project
   hub, manifest dedupe, wikilinks, agent Write only. Use whenever durable context should
@@ -16,6 +16,24 @@ disable-model-invocation: true
 # Vault capture
 
 Save meaningful context to `vault/{daily,sessions,decisions,projects}/` and update `vault/_agent/manifest.json`.
+
+## Quick cheat sheet
+
+| When | Action | Daily bullets? |
+|------|--------|----------------|
+| After verified fix / substantive session | Session or decision note + project hub | **No** — autolog owns daily |
+| After `/fix-record` or builder plan complete | ADR or session with `intent` | **No** |
+| User asks durable memory only | Infer project → write → manifest upsert | **No** |
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Recall before breaking change | [`/vault-recall`](../vault-recall/SKILL.md) |
+| Full RCA after production fix | [`/fix-record`](../fix-record/SKILL.md) then capture |
+| End-of-day triage / promote | [`/vault-daily`](../vault-daily/SKILL.md) |
+| Routine patch bullet | [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) — not this skill |
+| Bug during capture session | [`/debug`](../debug/SKILL.md) |
 
 ## Scope Guardrails
 

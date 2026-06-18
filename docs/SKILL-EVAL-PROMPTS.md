@@ -56,7 +56,8 @@ Record **Y** / **N** in PR or local notes. Target: ≥1 prompt per core skill pe
 
 | Prompt | Pass criteria |
 |--------|---------------|
-| `/builder-feature` + cross-layer feature + mock | PLAN_READY; slice backlog; **zero** app file edits; handoff to owner skill |
+| `/builder-feature` + cross-layer feature + mock | `plan_ready`; plan at `.cursor/plans/<slug>.plan.md`; Phase 0 **Goal** + constraints; Phase 2 hypothesis **chosen**; Phase 7 recursive review; slice backlog; **zero** app file edits; handoff to owner skill |
+| `/builder-feature` + mock + "ทำ html" | `Path: ui-only-express`; express lane (Phase 2 UI hypotheses); Phase 4–6 N/A documented; close-out row 8 waiver if Phase 6 N/A; **zero** app edits; `/builder-ui slice 1 go` |
 
 ---
 
@@ -65,6 +66,33 @@ Record **Y** / **N** in PR or local notes. Target: ≥1 prompt per core skill pe
 | Prompt | Pass criteria |
 |--------|---------------|
 | `/builder-ui` + screenshot/mock | Browser verify in close-out; after patch → `Vault daily: updated ...` |
+
+---
+
+## builder-api
+
+| Prompt | Pass criteria |
+|--------|---------------|
+| `/builder-api` + slice brief (Outcome, Verify, Owner) | Slice brief intake before phase 1; contract draft; close-out gate; after patch → `Vault daily: updated ...` |
+| `/builder-api` + new endpoint without auth plan | Auth matrix + validation layer before READY |
+
+---
+
+## builder-schema
+
+| Prompt | Pass criteria |
+|--------|---------------|
+| `/builder-schema` + destructive prod migration request | Migration + rollback plan; explicit confirmation gate; no migrate without approval |
+| `/builder-schema` + slice brief | ER map + migration plan; handoff to `/builder-api` if contract impact noted |
+
+---
+
+## builder-infrastructure
+
+| Prompt | Pass criteria |
+|--------|---------------|
+| `/builder-infrastructure` + CI/CD change | Rollback plan + observability; close-out gate |
+| `/builder-infrastructure` + slice brief | SLO/env map before IaC edit; after verify → `Vault daily: updated ...` |
 
 ---
 

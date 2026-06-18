@@ -8,13 +8,13 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | **`globs`** | เมื่อแตะไฟล์ที่ path ตรง pattern |
 | **intelligent** | Cursor เลือกเมื่อคำอธิบาย rule ตรงงาน (ไม่มี glob) |
 
-**รวม 34 ไฟล์** — **5** ตัว always-on, **29** ตัว scoped
+**รวม 35 ไฟล์** — **5** ตัว always-on, **30** ตัว scoped
 
 ---
 
 ## สารบัญ
 
-- [Always-on (4)](#always-on-โหลดทุก-turn)
+- [Always-on (5)](#always-on-โหลดทุก-turn)
 - [core/](#โฟลเดอร์-core)
 - [debugging/](#โฟลเดอร์-debugging)
 - [patching/](#โฟลเดอร์-patching)
@@ -101,6 +101,23 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 - code block คงภาษาเดิม (มักเป็น English)
 
 **ข้อยกเว้น:** user ขอภาษาเดียว; ข้อความ quote จาก log/UI
+
+---
+
+### `workflow/vault-autolog.mdc`
+
+| | |
+|--|--|
+| **ไฟล์** | `ai-rules/workflow/vault-autolog.mdc` |
+| **โหลด** | alwaysApply |
+
+**จุดประสงค์:** หลัง patch ที่ verify แล้ว — append bullet ลง `vault/daily/YYYY-MM-DD.md` อัตโนมัติ (ผ่าน `scripts/vault/append-daily.sh`)
+
+**Iron law:** ตอบ user ต้องมีบรรทัด `Vault daily:` — `updated vault/daily/...` หรือ `skipped — <reason>`
+
+**ข้ามได้เมื่อ:** read-only, plan-only/review-only iron law, user บอก skip, copy บรรทัดเดียวไม่มีคุณค่า durable
+
+**Path:** parent workspace → `agent-skills/vault/` หรือ `.cursor/vault/` junction; pack root → `vault/`
 
 ---
 
@@ -404,8 +421,8 @@ skill **iron law** ชนะ patch steps 7–8 ของ manifest — ดู `ch
 
 | ประเภท | จำนวน | Token | เมื่อไหร่มีผล |
 |--------|------:|-------|----------------|
-| Always-on | **4** | ทุก turn | ทุกคำถาม — `change-control-manifest`, `decision-tree`, `clean-code`, `bilingual-th-en` |
-| Scoped | **29** | เมื่อ glob/intelligent ติด | แก้ **application source** / review / risk สูง — **ไม่** trigger จาก meta อย่างเดียว (`ai-skills/`, `ai-rules/`, `docs/`) |
+| Always-on | **5** | ทุก turn | ทุกคำถาม — `change-control-manifest`, `decision-tree`, `clean-code`, `bilingual-th-en`, `vault-autolog` |
+| Scoped | **30** | เมื่อ glob/intelligent ติด | แก้ **application source** / review / risk สูง — **ไม่** trigger จาก meta อย่างเดียว (`ai-skills/`, `ai-rules/`, `docs/`) |
 
 ---
 
@@ -424,4 +441,4 @@ Rules (สั้น, บังคับ)  →  Skills (ลึก, invoke)  →  
 - ตาราง **globs ครบ 30 scoped rules** → [APPENDIX-TH.md](./APPENDIX-TH.md) §9  
 - setup scripts / patch budget → APPENDIX §8  
 
-*อัปเดตตาม tree 34 ไฟล์ `.mdc` — ถ้าเพิ่ม rule ให้อัปเดต RULES-TH + APPENDIX §9*
+*อัปเดตตาม tree 35 ไฟล์ `.mdc` — ถ้าเพิ่ม rule ให้อัปเดต RULES-TH + APPENDIX §9*

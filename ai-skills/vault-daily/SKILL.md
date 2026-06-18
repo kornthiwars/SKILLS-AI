@@ -1,7 +1,7 @@
 ---
 name: vault-daily
 metadata:
-  version: "2.2.3"
+  version: "2.2.4"
 description: >-
   Use for end-of-day triage, Issues review, promote to durable tiers, and สรุปส่งรายงาน.
   Routine bullets autolog after patches (vault-autolog rule). Invoke /vault-daily when
@@ -16,6 +16,23 @@ disable-model-invocation: true
 # Vault daily
 
 **Optional** end-of-day workflow — not required after every task. Routine work is appended automatically per [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc). Use `/vault-daily` for **triage**, **Issues** review, **promote**, and **สรุปส่งรายงาน**.
+
+## Quick cheat sheet
+
+| When | Action | Promote? |
+|------|--------|----------|
+| End of day / สรุปส่งรายงาน | Triage preview → confirm → daily update | Only after `ok` / `yes` |
+| Issues review | Merge into `## Issues วันนี้` | — |
+| `keep_decision` / `keep_learning` | Promote to `decisions/` or `sessions/` | After confirm |
+
+## Handoffs (other skills in this pack)
+
+| Situation | Skill |
+|-----------|--------|
+| Durable note without full triage | [`/vault-capture`](../vault-capture/SKILL.md) |
+| Search past decisions before triage | [`/vault-recall`](../vault-recall/SKILL.md) |
+| Routine patch logging | [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) — automatic |
+| RCA from today's fixes | [`/fix-record`](../fix-record/SKILL.md) |
 
 ## Iron law
 

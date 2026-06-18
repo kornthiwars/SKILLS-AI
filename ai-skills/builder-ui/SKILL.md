@@ -53,7 +53,7 @@ Do NOT:
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Runtime UI bug | [`/debug`](../debug/SKILL.md) |
 
-Deliver in **vertical slices** — [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
+Deliver in **vertical slices** — [builder-feature/reference-slice-handoff.md](../builder-feature/reference-slice-handoff.md) § Slice backlog.
 
 ## Quick cheat sheet
 

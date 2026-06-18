@@ -55,7 +55,7 @@ Do NOT:
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
 | Destructive migration approved | [`/vault-recall`](../vault-recall/SKILL.md) before migrate · durable schema decision → [`/vault-capture`](../vault-capture/SKILL.md) |
 
-Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
+Vertical slices: [builder-feature/reference-slice-handoff.md](../builder-feature/reference-slice-handoff.md) § Slice backlog.
 
 ## Quick cheat sheet
 

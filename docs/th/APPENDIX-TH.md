@@ -14,13 +14,13 @@
 | builder-api | `/builder-api` | 1.2.7 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.6 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.7 | ใช่ |
-| builder-feature | `/builder-feature` | 1.5.5 | ใช่ |
+| builder-feature | `/builder-feature` | 1.8.0 | ใช่ |
 | fix-record | `/fix-record` | 1.2.7 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.3.1 | ใช่ |
 | git-push | `/git-push` | 1.2.5 | ใช่ |
-| vault-daily | `/vault-daily` | 2.2.3 | ใช่ |
-| vault-capture | `/vault-capture` | 2.3.5 | ใช่ |
-| vault-recall | `/vault-recall` | 2.4.3 | ใช่ |
+| vault-daily | `/vault-daily` | 2.2.4 | ใช่ |
+| vault-capture | `/vault-capture` | 2.3.6 | ใช่ |
+| vault-recall | `/vault-recall` | 2.4.4 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
 
@@ -39,7 +39,11 @@
 | `builder-api/reference.md` | slice brief intake, API phases, close-out |
 | `builder-schema/reference.md` | slice brief intake, schema phases |
 | `builder-infrastructure/reference.md` | slice brief intake, CI/gh-fix-ci, close-out |
-| `builder-feature/reference.md` | plan-only, express lane, slice backlog |
+| `builder-feature/reference.md` | index — plan-only gate, Plan mode path resolution |
+| `builder-feature/reference-design-reasoning.md` | goal, hypotheses, hierarchy, constraints, recursive review |
+| `builder-feature/reference-workflow.md` | workflow map, express lane, phases 0–8 |
+| `builder-feature/reference-slice-handoff.md` | slice backlog, slice brief, close-out, anti-rationalization |
+| `templates/template.feature-plan.md` | durable plan — `.cursor/plans/` skeleton, phases 0–7, close-out gate, slice backlog |
 | `builder-ui/reference.md` | slice brief intake, [`template.slice-brief.md`](../../templates/template.slice-brief.md) |
 | `templates/template.slice-brief.md` | slice handoff contract (feature → builder-*) |
 
@@ -221,7 +225,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | รายการ | สถานะ |
 |--------|--------|
 | 14 skills มีหัวข้อใน SKILLS-TH (รวม vault 3 ตัว) | ครบ |
-| 34/34 rules มีหัวข้อใน RULES-TH | ครบ |
+| 35/35 rules มีหัวข้อใน RULES-TH | ครบ |
 | reference.md อธิบาย | ครบ (ไฟล์นี้ §2) |
 | Mantra / flaky / skip mantra | ครบ (§4) |
 | โฟลเดอร์ `vault/` + RAG skills | ครบ (§7) |

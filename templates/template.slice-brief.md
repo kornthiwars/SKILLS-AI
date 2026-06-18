@@ -2,7 +2,7 @@
 
 Handoff payload from **`/builder-feature`** to owner skills (`/builder-ui`, `/builder-api`, …).
 
-Link from [`builder-feature/reference.md`](../ai-skills/builder-feature/reference.md) § Slice brief · [`builder-ui/reference.md`](../ai-skills/builder-ui/reference.md) § Slice brief intake.
+Link from [`builder-feature/reference-slice-handoff.md`](../ai-skills/builder-feature/reference-slice-handoff.md) § Slice brief · [`template.feature-plan.md`](./template.feature-plan.md) · [`builder-ui/reference.md`](../ai-skills/builder-ui/reference.md) § Slice brief intake.
 
 ---
 
@@ -14,7 +14,7 @@ Emit this block in chat when user approves slice **N** (fill placeholders; remov
 ## Slice {{N}} brief (from /builder-feature)
 
 **Feature:** {{FEATURE_NAME}}
-**Plan ref:** {{link to PLAN_READY block in chat — or —}}
+**Plan ref:** {{path to *.plan.md or plan slug — required when plan file exists}}
 
 **Outcome:** {{one sentence — user-visible result of this slice}}
 
@@ -54,7 +54,7 @@ Optional: Workflow steps covered, Files likely touched, Contracts, Depends on sl
 ## Slice 1 brief (from /builder-feature)
 
 **Feature:** Maxwell Plans page
-**Plan ref:** PLAN_READY block in chat (Maxwell Plans feature plan)
+**Plan ref:** `.cursor/plans/maxwell-plans.plan.md`
 
 **Outcome:** Static pricing page matching mock — nav, hero, toggle, three cards.
 

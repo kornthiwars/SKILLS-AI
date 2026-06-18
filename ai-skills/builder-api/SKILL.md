@@ -56,7 +56,7 @@ Do NOT:
 | API runtime bug | [`/debug`](../debug/SKILL.md) |
 | Contract change | [`/vault-recall`](../vault-recall/SKILL.md) before breaking change · ADR after slice verify → [`/vault-capture`](../vault-capture/SKILL.md) |
 
-Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
+Vertical slices: [builder-feature/reference-slice-handoff.md](../builder-feature/reference-slice-handoff.md) § Slice backlog.
 
 ## Quick cheat sheet
 

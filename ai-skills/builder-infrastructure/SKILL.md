@@ -58,7 +58,7 @@ Do NOT:
 | Ship infra changes | [`/git-push`](../git-push/SKILL.md) |
 | Durable runbook / infra decision | [`/vault-capture`](../vault-capture/SKILL.md) after slice verify |
 
-Vertical slices: [builder-feature/reference.md](../builder-feature/reference.md) § Incremental vertical slices.
+Vertical slices: [builder-feature/reference-slice-handoff.md](../builder-feature/reference-slice-handoff.md) § Slice backlog.
 
 ## Quick cheat sheet
 

@@ -23,16 +23,17 @@ disable-model-invocation: true
 2. `## Scope Guardrails`
 3. Activate / workflow
 4. `## SKILL REPORT` (link [`templates/template.skill-report.md`](../templates/template.skill-report.md))
-5. `# Success criteria`
+5. `# Success criteria` — **recommended** for implement/git skills (`builder-ui`, `git-push`, …); **optional** for plan-only/meta (`builder-feature`, `vault-*`, `upgrade-ai`)
 
 ## Template index
 
 | Template | Use |
 |----------|-----|
 | [`template.skill-report.md`](../templates/template.skill-report.md) | Close-out contract for all skills |
+| [`template.feature-plan.md`](../templates/template.feature-plan.md) | `/builder-feature` durable plan (`*.plan.md`) |
 | [`template.slice-brief.md`](../templates/template.slice-brief.md) | `/builder-feature` → builder-* slice handoff |
 
-Depth: [`builder-feature/reference.md`](../ai-skills/builder-feature/reference.md) · [`builder-ui/reference.md`](../ai-skills/builder-ui/reference.md) § Slice brief intake.
+Depth: [`builder-feature/reference.md`](../ai-skills/builder-feature/reference.md) (index) · [`builder-ui/reference.md`](../ai-skills/builder-ui/reference.md) § Slice brief intake.
 
 ## Pre-merge
 
