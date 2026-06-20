@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.2.6"
+  version: "1.2.8"
 description: >-
   Use when the user asks to push, publish, sync to GitHub, or confirms commit+push
   (ยืนยัน). Safely inspect repo state, commit only on explicit consent, push once,
@@ -53,9 +53,7 @@ When pushing **this** repository:
 
 ## Scope Guardrails
 
-- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
-- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
-- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails.
 
 ## Handoffs (other skills in this pack)
 

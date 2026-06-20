@@ -1,7 +1,7 @@
 ---
 name: vault-capture
 metadata:
-  version: "2.3.9"
+  version: "2.4.0"
 description: >-
   Use after meaningful work to save session notes or ADRs to local vault — infer project
   hub, manifest dedupe, wikilinks, agent Write only. Use whenever durable context should
@@ -36,6 +36,8 @@ Save meaningful context to `vault/{daily,sessions,decisions,projects}/` and upda
 | Bug during capture session | [`/debug`](../debug/SKILL.md) |
 
 ## Scope Guardrails
+
+Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails. Skill-specific:
 
 - ALWAYS dedupe via manifest `id` + slug in `path` before creating a new file
 - ALWAYS one topic per file (`<topic-slug>.md`, not date-prefixed for sessions/decisions)

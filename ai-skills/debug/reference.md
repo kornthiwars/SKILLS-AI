@@ -182,7 +182,7 @@ User may **waive** the failing-test gate for hotfix with explicit consent — do
 
 ## Verification protocol (before "debug done")
 
-Pass/fail before claiming the bug is fixed — includes **Verification gate** above:
+Pass/fail before claiming the bug is fixed — includes **Close-out verification gate** above:
 
 | # | Check |
 |---|--------|
@@ -320,7 +320,7 @@ Pair with [`minimal-change.mdc`](../../ai-rules/core/minimal-change.mdc) — loc
 
 ---
 
-## Verification gate (evidence before claims)
+## Close-out verification gate (evidence before claims)
 
 Before claiming bug fixed (verification-before-completion — IDENTIFY → RUN → READ):
 

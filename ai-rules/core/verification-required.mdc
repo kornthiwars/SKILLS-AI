@@ -8,7 +8,7 @@ alwaysApply: false
 
 Before claiming success:
 
-- **Gate:** IDENTIFY proof command → RUN fresh → READ full output → VERIFY → then claim ([debug/reference.md](../../ai-skills/debug/reference.md) § Verification gate)
+- **Gate:** IDENTIFY proof command → RUN fresh → READ full output → VERIFY → then claim ([debug/reference.md](../../ai-skills/debug/reference.md) § Close-out verification gate)
 - state expected outcome after the patch
 - run or describe verification (test, repro, lint) for the affected flow
 - note what was **not** run and why

@@ -59,29 +59,11 @@ Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`project
 
 ---
 
-## Daily file (bootstrap + autolog — not vault-capture)
+## Daily file (not vault-capture)
 
-`bootstrap-vault` seeds today's `daily/YYYY-MM-DD.md` from template when missing. `append-daily` also auto-creates if missing. **`/vault-capture`** does not auto-create daily — optional Promoted wikilink only when file exists.
+**SSoT:** [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) (create + append bullets) · [`vault-daily/reference.md`](../vault-daily/reference.md) (triage, promote, สรุปส่งรายงาน).
 
-1. `today` = local calendar `YYYY-MM-DD`
-2. Path: resolve per [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) § Path resolution
-3. If file **exists** → read/merge (never overwrite wholesale)
-4. If **missing** and you need daily (autolog, `/vault-daily`, recall “วันนี้”):
-   - Prefer `append-daily.ps1` / `.sh` — auto-creates from template if missing
-   - Or re-run `bootstrap-vault` — seeds today only
-   - Manual fallback: `Read` `templates/vault/notes/template.vault-daily.md` → replace `__VAULT_DATE__` / `__VAULT_ISO__` (literal — **not** PowerShell `-replace 'DATE'`) → `Write`
-   - Optional: upsert manifest `daily-<today>` (`tier: ephemeral`)
-5. Then run `append-daily` for bullets, or full `/vault-daily` for triage
-
-### Autolog after verified work (no slash)
-
-Always-on rule: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc). After patch + verify: create today's daily **if missing** (step 4), then `append-daily` bullet.
-
-| User action | Daily file | สรุปงานวันนี้ | Issues table |
-|-------------|------------|---------------|--------------|
-| แก้โค้ด / patch + verify | agent Write if missing | `append-daily` | only bugs/blockers |
-| `/vault-recall` | read if exists | read | read |
-| `/vault-daily` | create if missing, then merge | full triage | user confirms promote |
+**`/vault-capture`** does not auto-create daily — optional `## Promoted` wikilink only when `vault/daily/<today>.md` exists.
 
 ---
 

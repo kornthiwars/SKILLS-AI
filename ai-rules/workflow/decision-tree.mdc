@@ -1,78 +1,33 @@
 ---
-
 description: Route work to the right skill before acting
-
 alwaysApply: true
-
 ---
-
-
 
 # Decision tree
 
-
-
 Agent routes from user intent **without requiring** a slash command unless the user wants the full skill ritual.
 
+**Core routing:** [`change-control-manifest.mdc`](../change-control-manifest.mdc) § Skill orchestration (debug, builder-*, scrutinize, git-push, upgrade-ai, fix-record).
 
+**Additional intents** (not repeated in manifest):
 
 | User intent | First action |
-
 |-------------|--------------|
+| API / backend / REST | [`/builder-backend`](../ai-skills/builder-backend/SKILL.md) |
+| deploy, CI/CD, IaC, observability | [`/builder-infrastructure`](../ai-skills/builder-infrastructure/SKILL.md) |
+| mobile / native client bug | Debug discipline in **client repo** — not `/builder-feature` |
+| durable vault memory | [`/vault-capture`](../ai-skills/vault-capture/SKILL.md) · recall [`/vault-recall`](../ai-skills/vault-recall/SKILL.md) |
+| end-of-day triage / promote | [`/vault-daily`](../ai-skills/vault-daily/SKILL.md) — routine bullets via [`vault-autolog.mdc`](./vault-autolog.mdc) |
+| one commit, multiple unrelated fixes | One fix-record per root cause — ask scope |
+| unsure bug vs copy | One clarifying question, then manifest row |
 
-| bug, error, stack trace, wrong data, flaky | Debug discipline ([`change-control-manifest.mdc`](../change-control-manifest.mdc) steps 1–4); `/debug` if user attached or non-trivial |
+**Active mode** (when multiple apply):
 
-| copy, label, known small UI (outcome clear) | Direct minimal patch — **no** `/debug` mantra |
+| Mode | Sequence |
+|------|----------|
+| Patch / fix (default) | diagnose → patch → verify → **vault autolog** ([manifest](../change-control-manifest.mdc) step 9) → optional capture/fix-record → git-push |
+| Plan-only (`/builder-feature`) | plan → handoff — **no app patch** |
+| Read-only (`/scrutinize`) | review → report — **no patch** until user approves |
+| Meta upgrade (`/upgrade-ai`) | diagnose → minimal meta edit → verify — app sequence N/A |
 
-| new screen / mock / component architecture | `/builder-ui` |
-
-| cross-layer / full-stack **feature** (UI+API+schema) | `/builder-feature` — **plan only**; implement via specialist per approved slice |
-
-| review PR / plan | `/scrutinize` |
-
-| database / SQL | `/builder-schema` |
-
-| API contract, backend, REST, endpoint design | `/builder-api` |
-
-| deploy, CI/CD, IaC, observability, infra | `/builder-infrastructure` |
-
-| push / commit | `/git-push` — if several git roots in the workspace, `cd` the repo the user means first |
-
-| mobile / native client bug (login, API error, crash) | Debug discipline in that **client repo** — **not** `/builder-feature` |
-
-| improve skills in this repo | `/upgrade-ai` |
-
-| RCA after **one** validated fix | `/fix-record` |
-
-| short recall memory after fix (not full RCA) | `/vault-capture` — optional; cite fix-record/PR, do not duplicate RCA |
-
-| search past decisions / vault memory | `/vault-recall` |
-
-| daily task summary / end-of-day triage + promote | `/vault-daily` (optional — routine work logs via [`vault-autolog.mdc`](./vault-autolog.mdc)) |
-
-| one commit, multiple unrelated fixes | PR description or **one fix-record per root cause** — ask scope |
-
-| unsure bug vs copy | One clarifying question, then row above |
-
-
-
-If multiple apply, use the row for the **active mode**:
-
-
-
-| Active mode | Sequence (skip steps that do not apply) |
-
-|-------------|----------------------------------------|
-
-| **Patch / fix** (default) | diagnose → patch → verify → **vault autolog** (mandatory — [`change-control-manifest.mdc`](../change-control-manifest.mdc) step 9) → optional `/fix-record` or `/vault-capture` → git-push |
-
-| **Plan-only** (`/builder-feature`) | plan phases → handoff — **no app patch** |
-
-| **Read-only** (`/scrutinize` review-only) | review → report — **no patch** unless user approves fixes |
-
-| **Meta upgrade** (`/upgrade-ai` on skills/rules) | diagnose → minimal skill/rule edit → verify — app patch sequence N/A |
-
-
-
-When a skill with an **iron law** is active (e.g. plan-only, no app edits), that skill **overrides** patch steps 7–8 and conflicting routing for the turn.
-
+Skill **iron law** overrides conflicting steps (plan-only, review-only, upgrade-ai on pack).

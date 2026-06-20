@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.3.2"
+  version: "1.3.3"
 description: >-
   Use when skills or rules need diagnosis, doc drift audit, external parity review,
   or minimal upgrades — 8 phases, validate-skills preflight, version governance.
@@ -38,9 +38,7 @@ Canonical invoke is **`/upgrade-ai`** in docs/routing tables. Use **`/upgrade`**
 
 ## Scope Guardrails
 
-- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
-- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
-- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails.
 
 ## Handoffs (other skills in this pack)
 

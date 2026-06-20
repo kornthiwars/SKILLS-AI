@@ -1,7 +1,7 @@
 ---
 name: vault-daily
 metadata:
-  version: "2.2.6"
+  version: "2.2.7"
 description: >-
   Use for end-of-day triage, Issues review, promote to durable tiers, and สรุปส่งรายงาน.
   Routine bullets autolog after patches (vault-autolog rule). Invoke /vault-daily when
@@ -39,6 +39,8 @@ disable-model-invocation: true
 **Do not promote** to `vault/decisions/`, `sessions/`, or `projects/` until user confirms triage preview (`ok`, `yes`, `go`).
 
 ## Scope Guardrails
+
+Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails. Skill-specific:
 
 - ALWAYS one daily file per calendar day — merge on re-run (increment `runs`, `updated_at`)
 - NEVER store secrets in vault notes

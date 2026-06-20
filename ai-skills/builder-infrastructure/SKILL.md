@@ -1,7 +1,7 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.2.8"
+  version: "1.2.9"
 description: >-
   Use when designing CI/CD, deploy, observability, networking, security, or DR —
   reliable infrastructure slices. Accepts slice briefs from /builder-feature.
@@ -42,10 +42,7 @@ Do NOT:
 
 ## Scope Guardrails
 
-- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
-- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
-- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
-- Application patches: follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) (patch budget, observe→verify, Active skill precedence).
+Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails · app code: [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc).
 
 ## Handoffs (other skills in this pack)
 

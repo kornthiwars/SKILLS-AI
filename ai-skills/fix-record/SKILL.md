@@ -1,7 +1,7 @@
 ---
 name: fix-record
 metadata:
-  version: "1.2.8"
+  version: "1.2.10"
 description: >-
   Use after a validated production fix to write canonical RCA — mechanism, fix,
   validation, slip-through analysis. Not before the fix lands. Use when closing bugs
@@ -30,9 +30,7 @@ Executive summaries reframe the same facts in plain language — this skill owns
 
 ## Scope Guardrails
 
-- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
-- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
-- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails.
 
 ## Handoffs (other skills in this pack)
 
@@ -87,7 +85,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | HANDOFF | `/debug` if inputs incomplete · `/vault-recall` before draft when prior decisions matter · `/vault-capture` optional after publish · `none` when published |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Verification protocol before READY |
 
-Before inputs satisfied: STATUS=BLOCKED, list missing items in DISCOVERIES. After satisfied: close-out with full ARTIFACTS draft.
+Mid-session: STATUS=BLOCKED or IN_PROGRESS per rules above. Close-out: all sections + draft ARTIFACTS.
 
 ## Structure
 

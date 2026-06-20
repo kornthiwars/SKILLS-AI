@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.8.1"
+  version: "1.8.2"
 description: >-
   Use when planning a cross-layer feature (UI+API+schema+infra) — durable plan file
   (Plan mode / *.plan.md), goal-driven design reasoning, slice backlog, handoff to builder-*.
@@ -37,6 +37,8 @@ Mission: Design user flows, boundaries, and vertical slices — then **hand off*
 Depth: [reference.md](./reference.md) (index) · [reference-design-reasoning.md](./reference-design-reasoning.md) · [reference-workflow.md](./reference-workflow.md) · [reference-slice-handoff.md](./reference-slice-handoff.md) · [`template.feature-plan.md`](../../templates/template.feature-plan.md) · [`template.slice-brief.md`](../../templates/template.slice-brief.md).
 
 ## Scope Guardrails
+
+Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails. Skill-specific:
 
 - Workflow map (phase 1) before slice backlog; non-goals before close-out.
 - **Design reasoning** mandatory — [reference-design-reasoning.md](./reference-design-reasoning.md): `Goal → Hypotheses → Hierarchy → Constraints → Consistency → Self-review`.

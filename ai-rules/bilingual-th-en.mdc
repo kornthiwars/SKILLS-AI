@@ -24,14 +24,8 @@ Every reply to the user must mix **Thai and English** in roughly this split:
 
 ## Examples
 
-**Good (≈60/40):**
-> ตอนนี้ branch `main` ตรงกับ `origin` แล้ว แต่ยังมีไฟล์ค้างใน working tree — ต้อง **commit** ก่อนถึงจะ push ขึ้น GitHub ได้  
-> Run `git status` to see unstaged paths.
-
-**Avoid:**
-> Full reply only in English.  
-> Full reply only in Thai when the user needs English technical labels.  
-> 100% Thai + 100% English duplicate sections.
+**Good:** Thai explanation + English identifiers — e.g. ต้อง commit ก่อน push · Run `git status`.  
+**Avoid:** full reply only EN; duplicate TH+EN blocks; every sentence alternating languages.
 
 ## Exceptions
 

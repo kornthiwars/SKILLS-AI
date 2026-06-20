@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "2.4.5"
+  version: "2.4.6"
 description: >-
   Use when the user asks what was decided, fixed, or captured in vault memory — search
   via manifest + grep-vault or per-file Read, cite paths and line ranges. Use before
@@ -35,6 +35,8 @@ Retrieve context from local vault using agent tools — **`grep-vault`** shell s
 | Bug found while recalling | [`/debug`](../debug/SKILL.md) |
 
 ## Scope Guardrails
+
+Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails. Skill-specific:
 
 - ALWAYS resolve paths per [reference.md](./reference.md) § Path resolution (`SKILLS-AI/vault/` or `.cursor/vault/` in parent workspace `web/`)
 - ALWAYS `Read` manifest before hybrid search (skip for pure daily-date reads)

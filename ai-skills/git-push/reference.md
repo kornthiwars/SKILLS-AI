@@ -105,7 +105,7 @@ git status
 git log origin/<branch> -1 --oneline
 ```
 
-### Verification gate (before "push succeeded")
+### Close-out verification gate (before "push succeeded")
 
 | Step | Action |
 |------|--------|

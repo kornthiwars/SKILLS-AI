@@ -1,7 +1,7 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.2.11"
+  version: "1.2.13"
 description: >-
   Use before merging or shipping a change — outsider review of intent, simpler alternatives,
   end-to-end trace, five-axis and browser UI checks. Use on PRs, plans, or skill diffs.
@@ -30,9 +30,7 @@ PR checklist + five-axis + verification: [reference.md](./reference.md).
 
 ## Scope Guardrails
 
-- ALWAYS confirm exact target scope/files and constraints before proposing or applying changes.
-- ALWAYS state explicit non-goals (what this skill will **not** change in this run).
-- NEVER perform speculative rewrites when a minimal evidence-based change can solve the problem.
+Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails.
 
 ## Handoffs (other skills in this pack)
 

@@ -42,4 +42,4 @@ Process gates (sequence, budget, risk): [`change-control-manifest.mdc`](./change
 
 - confirm lint/type/test commands relevant to changed files (when available)
 - report what was verified vs what could not be run
-- after a **verified patch** in this turn: run [`vault-autolog`](workflow/vault-autolog.mdc) — create today's daily from `templates/vault/notes/template.vault-daily.md` if missing, then `append-daily` (or manual bullet Write); include `Vault daily:` in the reply
+- after a **verified patch**: [`vault-autolog.mdc`](workflow/vault-autolog.mdc) (manifest step 9) — do not duplicate autolog steps here

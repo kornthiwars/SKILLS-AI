@@ -111,9 +111,9 @@ Scrutinize owns **should this change exist** and **trace vs claim** — not full
 
 ---
 
-## Verification gate (before ship verdict)
+## Close-out verification gate (before ship verdict)
 
-Same discipline as [debug/reference.md](../debug/reference.md) § Verification gate:
+Same discipline as [debug/reference.md](../debug/reference.md) § Close-out verification gate:
 
 | Step | Review proof |
 |------|----------------|
