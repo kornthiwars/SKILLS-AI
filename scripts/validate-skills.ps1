@@ -1,5 +1,5 @@
 #Requires -Version 5.1
-# Static validation for ai-skills/* — frontmatter, version, paths, line budget, doc sync.
+# Static validation for ai-skills/* - frontmatter, version, paths, line budget, doc sync.
 param(
     [string]$RepoRoot = ''
 )
@@ -96,7 +96,7 @@ Get-ChildItem -LiteralPath $SkillsRoot -Directory | ForEach-Object {
         Test-AbsolutePaths "ai-skills/$dirName/reference.md" $refContent
     }
     if ($lines -gt 200 -and $refLines -lt 50) {
-        $warnings.Add("${relSkill}: $lines lines but reference.md has $refLines lines (progressive disclosure — expand reference.md)")
+        $warnings.Add("${relSkill}: $lines lines but reference.md has $refLines lines (progressive disclosure - expand reference.md)")
     }
 
     Test-AbsolutePaths $relSkill $content
@@ -146,11 +146,13 @@ Get-ChildItem -LiteralPath $SkillsRoot -Directory | ForEach-Object {
 if (Test-Path -LiteralPath $AppendixTh) {
     $appendix = Get-Content -LiteralPath $AppendixTh
     foreach ($line in $appendix) {
-        if ($line -notmatch '^\| ([a-z][a-z0-9-]+) \|') { continue }
+        if ($line -cnotmatch '^\| ([a-z][a-z0-9-]+) \|') { continue }
         $skill = $Matches[1]
         if ($skill -eq 'Skill') { continue }
         $cols = $line.Split('|') | ForEach-Object { $_.Trim() }
         if ($cols.Count -lt 5) { continue }
+        # §1 version table only — Invoke column is `/skill`; skip vault tier / usage tables
+        if ($cols[2] -cnotmatch '^/') { continue }
         $appendixVer = $cols[3]
         if (-not $skillVersions.ContainsKey($skill)) {
             $errors.Add("docs/th/APPENDIX-TH.md: skill '$skill' in version table but no ai-skills/$skill/SKILL.md")
@@ -161,7 +163,7 @@ if (Test-Path -LiteralPath $AppendixTh) {
         }
     }
 } else {
-    $warnings.Add('docs/th/APPENDIX-TH.md missing — skip version sync check')
+    $warnings.Add('docs/th/APPENDIX-TH.md missing - skip version sync check')
 }
 
 foreach ($w in $warnings) { Write-Warning $w }

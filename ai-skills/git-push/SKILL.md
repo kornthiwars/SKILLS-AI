@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.2.5"
+  version: "1.2.6"
 description: >-
   Use when the user asks to push, publish, sync to GitHub, or confirms commit+push
   (ยืนยัน). Safely inspect repo state, commit only on explicit consent, push once,

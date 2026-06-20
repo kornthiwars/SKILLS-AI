@@ -1,7 +1,7 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.2.9"
+  version: "1.2.11"
 description: >-
   Use before merging or shipping a change — outsider review of intent, simpler alternatives,
   end-to-end trace, five-axis and browser UI checks. Use on PRs, plans, or skill diffs.
@@ -71,6 +71,8 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | NEXT ACTIONS | Single biggest fix or next trace target |
 | HANDOFF | `/vault-recall` before architecture verdict · `/debug` if bug found · `/fix-record` for RCA · `/vault-capture` for memory · `/git-push` to ship · `none` |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Verification protocol before READY |
+
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE. Close-out: all sections + one-line verdict.
 
 When review complete (step 4), close-out SKILL REPORT — not three bullets only. **agent-skills PRs:** run reference § agent-skills skill / rule PR checklist.
 

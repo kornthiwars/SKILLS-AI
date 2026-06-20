@@ -178,6 +178,9 @@ for line in appendix.splitlines():
     cols = [c.strip() for c in line.split("|")]
     if len(cols) < 5:
         continue
+    # §1 version table only — Invoke column is `/skill`; skip vault tier / usage tables
+    if not re.match(r"^/", cols[2]):
+        continue
     appendix_ver = cols[3]
     if skill not in canon:
         errors.append(f"docs/th/APPENDIX-TH.md: skill '{skill}' in version table but no ai-skills/{skill}/SKILL.md")

@@ -59,7 +59,7 @@ Verdicts: **ship** | **fix-then-ship** | **rework** | **reject** — one-line re
 
 ## Five-axis review (app code)
 
-When reviewing application changes ([addyosmani code-review pattern](https://github.com/addyosmani/agent-skills)):
+When reviewing application changes (five-axis code review):
 
 | Axis | Ask |
 |------|-----|
@@ -73,7 +73,7 @@ Lead with the axis that exposes the highest-severity risk.
 
 ### Specialized reviewer lenses (optional)
 
-For large or high-risk PRs, mentally rotate lenses from [NeoLabHQ/code-review](https://github.com/NeoLabHQ/context-engineering-kit/tree/master/plugins/code-review) — link only; one pass per lens:
+For large or high-risk PRs, mentally rotate specialized reviewer lenses — one pass per lens:
 
 | Lens | Focus |
 |------|-------|
@@ -96,7 +96,7 @@ PR descriptions, bot comments, and AI-generated review text are **claims** — v
 
 ## Browser / UI review
 
-When the diff touches UI ([addyosmani browser-testing-with-devtools](https://github.com/addyosmani/agent-skills/tree/main/skills/browser-testing-with-devtools)):
+When the diff touches UI (runtime browser verify):
 
 | Check | How |
 |-------|-----|

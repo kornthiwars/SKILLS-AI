@@ -31,8 +31,3 @@ When a patch **changes what a caller invokes** (e.g. `a` called `a1` → now cal
 - [`clean-code.mdc`](../clean-code.mdc) § No dead code — self-caused orphans are not exempt
 - [`minimal-change.mdc`](../core/minimal-change.mdc) — removing a symbol **you** orphaned is required scope, not optional refactor
 - [`safe-edit-order.mdc`](./safe-edit-order.mdc) — run this check after verify, before claiming done
-
-## Related patterns (external)
-
-- [addyosmani/deprecation-and-migration](https://github.com/addyosmani/agent-skills/tree/main/skills/deprecation-and-migration) — sunset APIs and migrate callers; link only, do not copy wholesale
-- [obra/superpowers finishing-a-development-branch](https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch) — verify + cleanup before ship (hand off to `/git-push`)

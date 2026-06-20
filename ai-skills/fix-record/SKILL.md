@@ -1,7 +1,7 @@
 ---
 name: fix-record
 metadata:
-  version: "1.2.7"
+  version: "1.2.8"
 description: >-
   Use after a validated production fix to write canonical RCA — mechanism, fix,
   validation, slip-through analysis. Not before the fix lands. Use when closing bugs

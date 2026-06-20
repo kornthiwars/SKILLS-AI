@@ -1,7 +1,7 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.2.10"
+  version: "1.2.11"
 description: >-
   Use when building or refining UI from mocks, screenshots, or design references —
   layout, components, responsive behavior, a11y, browser verify. Accepts slice briefs

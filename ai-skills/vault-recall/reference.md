@@ -88,3 +88,16 @@ Daily files: `Read` by date path; listed in manifest as `tier: ephemeral` for bo
 Open `SKILLS-AI/vault` as vault root. Wikilinks in notes use `[[tier/slug]]` without `notes/` prefix.
 
 **Graph vs agent metadata:** `related:` in frontmatter does **not** create Obsidian graph edges (core). For graph/backlink answers, cite wikilinks in the note body. Use `related:` only for agent recall expansion (manifest `id` refs).
+
+---
+
+## Close-out verification gate
+
+Before STATUS=READY:
+
+| Step | Action |
+|------|--------|
+| 1 IDENTIFY | Query type (daily vs hybrid); resolved vault root |
+| 2 RUN | Manifest read (unless pure daily date); grep-vault or per-file search; ≤5 full reads |
+| 3 READ | Answer cites resolved path + line range; no "empty vault" when notes exist on disk |
+| 4 AUTOLOG | **Skip** — read-only skill |

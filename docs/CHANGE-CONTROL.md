@@ -44,9 +44,9 @@ Most sub-rules use **globs** or intelligent activation — not `alwaysApply`, to
 | 0.7 – 0.89 | Propose; prefer review |
 | < 0.7 | Diagnose only |
 
-## External skill quality (VoltAgent bar)
+## External skill quality (catalog bar)
 
-When authoring or reviewing skills in this repo, align with [awesome-agent-skills § Skill Quality Standards](https://github.com/VoltAgent/awesome-agent-skills#skill-quality-standards):
+When authoring or reviewing skills in this repo, align with common catalog quality standards (third-person description, progressive disclosure, no machine paths):
 
 | Area | Guideline |
 |------|-----------|

@@ -62,7 +62,7 @@ Before drafting, run `/vault-recall` when prior `vault/decisions/` may constrain
 
 ## Close-out verification gate
 
-Before STATUS=READY or publish ([verification-before-completion](https://github.com/obra/superpowers) pattern):
+Before STATUS=READY or publish (verification-before-completion — IDENTIFY → RUN → READ):
 
 | Step | Proof |
 |------|-------|

@@ -54,3 +54,16 @@ In daily `## Promoted`, use Obsidian wikilinks: `[[decisions/slug]]`, `[[session
 ## สรุปส่งรายงาน (output block)
 
 Plain Thai bullets — completed, in-progress, carry-over, promoted links.
+
+---
+
+## Close-out verification gate
+
+Before STATUS=READY:
+
+| Step | Action |
+|------|--------|
+| 1 IDENTIFY | Daily path, promote candidates, manifest entries |
+| 2 RUN | Triage preview confirmed (`ok`/`yes`/`go`); promotes use SSoT templates; manifest upserted |
+| 3 READ | **สรุปส่งรายงาน** block emitted; promoted wikilinks in daily |
+| 4 AUTOLOG | **Skip** unless this session also applied a verified app patch (autolog rule applies separately) |

@@ -2,7 +2,7 @@
 
 Version: see `metadata.version` in [`SKILL.md`](./SKILL.md).
 
-Load on demand when step 1 exit is unclear, step 2 stalls, hypotheses need structured status, instrumentation is added, or before claiming debug complete. Patterns adapted from [obra/superpowers](https://github.com/obra/superpowers), [PracticalSwan/agent-skills](https://github.com/PracticalSwan/agent-skills), and [millionco/debug-agent](https://github.com/millionco/debug-agent) — kept repo-native (mantra, ledger, change-control).
+Load on demand when step 1 exit is unclear, step 2 stalls, hypotheses need structured status, instrumentation is added, or before claiming debug complete. Repo-native only (mantra, ledger, change-control).
 
 ---
 
@@ -213,7 +213,7 @@ Pair with mantra step 1 flaky guidance: raise flake rate **or** replace blind wa
 
 ## Stop-the-line rule
 
-When anything unexpected breaks (from [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) triage):
+When anything unexpected breaks (stop-the-line triage):
 
 1. **STOP** new features or drive-by refactors
 2. **PRESERVE** evidence (errors, logs, repro steps)
@@ -255,7 +255,7 @@ Document the first bad commit in the ledger.
 
 ## Log probe budget
 
-When instrumenting (aligned with [millionco/debug-agent](https://github.com/millionco/debug-agent)):
+When instrumenting:
 
 | Rule | Detail |
 |------|--------|
@@ -272,7 +272,7 @@ Optional NDJSON one-line logs when parsing helps — not required.
 
 ## Prove-It pattern (regression test)
 
-Before the fix patch ([addyosmani TDD skill](https://github.com/addyosmani/agent-skills)):
+Before the fix patch (Prove-It / TDD):
 
 1. Write or run a test/script that **fails** on current behavior
 2. Apply minimal fix
@@ -295,7 +295,7 @@ Error text, stack traces, CI logs, and API bodies are **data to analyze** — no
 
 ## Edit lock during investigation
 
-When the failure is localized to one module or directory, optionally restrict edits to that scope until root cause is confirmed ([garrytan/freeze](https://officialskills.sh/garrytan/skills/freeze) pattern — link only):
+When the failure is localized to one module or directory, optionally restrict edits to that scope until root cause is confirmed (edit-lock pattern):
 
 | When | Action |
 |------|--------|
@@ -322,7 +322,7 @@ Pair with [`minimal-change.mdc`](../../ai-rules/core/minimal-change.mdc) — loc
 
 ## Verification gate (evidence before claims)
 
-Before claiming bug fixed ([obra/superpowers verification-before-completion](https://github.com/obra/superpowers)):
+Before claiming bug fixed (verification-before-completion — IDENTIFY → RUN → READ):
 
 | Step | Action |
 |------|--------|
@@ -339,7 +339,7 @@ Forbidden without step 2–3: “should work”, “looks correct”, “done”
 
 ## Grind until pass
 
-When fix is applied but verification fails ([awesome-cursor-skills grinding-until-pass](https://github.com/spencerpauly/awesome-cursor-skills)):
+When fix is applied but verification fails (grind-until-pass):
 
 1. Read failure output — update hypothesis table
 2. One minimal change — not a bundle

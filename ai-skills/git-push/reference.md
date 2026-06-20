@@ -113,7 +113,7 @@ git log origin/<branch> -1 --oneline
 | 2 | `git log origin/<branch> -1` — HEAD matches pushed commit |
 | 3 | If user expected files on remote — confirm they were **committed** before push |
 
-No "push succeeded" claim without fresh command output in this session ([superpowers verification-before-completion](https://github.com/obra/superpowers) pattern).
+No "push succeeded" claim without fresh command output in this session (verification-before-completion pattern).
 
 ---
 

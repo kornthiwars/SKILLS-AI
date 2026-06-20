@@ -1,7 +1,7 @@
 ---
 name: vault-capture
 metadata:
-  version: "2.3.7"
+  version: "2.3.9"
 description: >-
   Use after meaningful work to save session notes or ADRs to local vault — infer project
   hub, manifest dedupe, wikilinks, agent Write only. Use whenever durable context should
@@ -87,8 +87,14 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 |---------|------------------|
 | STATUS | READY when primary + hub (if applicable) written + manifest updated; BLOCKED when project inference tie / missing manifest |
 | OBJECTIVE | Persist session/ADR/project note with dedupe, hub link, manifest upsert |
-| ARTIFACTS | `Inferred project: <slug> (<reason>)`, note path(s), hub path (`created` \| `updated`), manifest ids |
+| DISCOVERIES | Manifest state, dedupe hits, project inference signals, template tier chosen |
+| ANALYSIS | Merge vs create, hub action (`created` \| `updated`), tags/manifest consistency |
+| RISKS | Secrets in notes, duplicate slug, manifest drift, wrong inferred project |
+| ARTIFACTS | `Inferred project: <slug> (<reason>)`, note path(s), hub path, manifest ids |
+| NEXT ACTIONS | `/vault-recall` before breaking change · `/vault-daily` triage · `none` |
 | HANDOFF | `/vault-recall` · `/vault-daily` · `/fix-record` · `/debug` · `none` |
-| CONFIDENCE | 0–100; lower if dedupe ambiguous or hub path conflict |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out verification gate before READY |
+
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE. Close-out: all sections.
 
 Detail: [reference.md](./reference.md)

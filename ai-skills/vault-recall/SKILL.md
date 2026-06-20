@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "2.4.4"
+  version: "2.4.5"
 description: >-
   Use when the user asks what was decided, fixed, or captured in vault memory — search
   via manifest + grep-vault or per-file Read, cite paths and line ranges. Use before
@@ -76,8 +76,14 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 |---------|-----------------|
 | STATUS | READY when results cited or daily loaded; BLOCKED when vault path unresolved |
 | OBJECTIVE | Answer from vault with cited paths + line ranges |
+| DISCOVERIES | Manifest shortlist, grep-vault hits, daily path resolved |
+| ANALYSIS | Answer synthesis with citations; superseded chain resolution |
+| RISKS | Empty directory Grep on gitignored vault, citing superseded docs, read budget exceeded |
 | ARTIFACTS | manifest shortlist, cited paths + line ranges |
+| NEXT ACTIONS | `/vault-capture` to persist · `/scrutinize` with context · `none` |
 | HANDOFF | `/vault-capture` · `/vault-daily` · `/scrutinize` · `/debug` · `none` |
-| CONFIDENCE | 0–100; lower if manifest empty but notes likely exist on disk |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out verification gate before READY |
+
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE. Close-out: all sections.
 
 Detail: [reference.md](./reference.md) · Pack integration: [vault-capture/reference.md](../vault-capture/reference.md) § Integration with pack skills

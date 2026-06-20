@@ -1,8 +1,8 @@
-# Catalog submission — awesome-agent-skills
+# Catalog submission (optional)
 
-Prepare to list [kornthiwars/agent-skills](https://github.com/kornthiwars/agent-skills) in [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills).
+Prepare to list **kornthiwars/agent-skills** in a public agent-skills catalog (e.g. VoltAgent awesome-agent-skills).
 
-**Bar ([CONTRIBUTING](https://github.com/VoltAgent/awesome-agent-skills/blob/main/CONTRIBUTING.md)):** public repo, working skills, docs, **real community usage** — brand-new skills are declined. Submit after external references, stars, or sustained personal/team use.
+**Bar:** public repo, working skills, docs, **real community usage** — brand-new skills are often declined. Submit after external references, stars, or sustained personal/team use.
 
 ---
 
@@ -13,6 +13,7 @@ Prepare to list [kornthiwars/agent-skills](https://github.com/kornthiwars/agent-
 - [ ] README + AGENTS.md link to repo; clone URL works
 - [ ] No secrets in repo; `vault/**` gitignored
 - [ ] Evidence of adoption (pick ≥1): GitHub stars, fork/clone by others, blog/issue link, team usage note
+- [ ] No third-party repo URLs in `ai-skills/*/reference.md` (pack-native only)
 
 ---
 
@@ -21,14 +22,14 @@ Prepare to list [kornthiwars/agent-skills](https://github.com/kornthiwars/agent-
 **Category:** Community Skills → **Context Engineering** (or **Development and Testing**)
 
 ```markdown
-- **[kornthiwars/agent-skills](https://github.com/kornthiwars/agent-skills)** - Change-control Cursor skill pack with vault memory
+- **kornthiwars/agent-skills** - Change-control Cursor skill pack with vault memory
 ```
 
-Description must stay **≤10 words** per CONTRIBUTING. Adjust only if maintainer asks.
+Description must stay **≤10 words** per typical CONTRIBUTING rules. Adjust only if maintainer asks.
 
 ---
 
-## PR template (fork awesome-agent-skills)
+## PR template (fork target catalog repo)
 
 **Title:** `Add skill: kornthiwars/agent-skills`
 
@@ -49,7 +50,7 @@ Context Engineering → end of section
 
 **Steps:**
 
-1. Fork `VoltAgent/awesome-agent-skills`
+1. Fork the target catalog repository
 2. Add draft line to `README.md` under **Context Engineering**
 3. Open PR; link this pack's README
 
@@ -57,10 +58,10 @@ Context Engineering → end of section
 
 ## After listing
 
-- Add badge or “Listed in awesome-agent-skills” line to root README (optional)
-- Keep [EXTERNAL-PARITY.md](./EXTERNAL-PARITY.md) crosswalk updated when adding external skills
+- Add badge or “Listed in …” line to root README (optional)
+- Keep [EXTERNAL-PARITY.md](./EXTERNAL-PARITY.md) crosswalk updated when pack scope changes
 
 ## Related
 
-- [EXTERNAL-PARITY.md](./EXTERNAL-PARITY.md) § Using this pack with external skills
-- [upgrade-ai/reference.md](../ai-skills/upgrade-ai/reference.md) § External discovery
+- [EXTERNAL-PARITY.md](./EXTERNAL-PARITY.md) § Using this pack with other skills
+- [upgrade-ai/reference.md](../ai-skills/upgrade-ai/reference.md) § Pack-internal discovery

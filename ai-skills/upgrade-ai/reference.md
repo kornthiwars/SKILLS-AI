@@ -203,25 +203,24 @@ When upgrading **any** skill in this repo, verify peer skills stay aligned:
 | Dynamic smoke | [DYNAMIC-AGENT-SMOKE.md](../../docs/DYNAMIC-AGENT-SMOKE.md) scenarios still valid after changes |
 | Thai docs | `docs/th/APPENDIX-TH.md` §1 version row updated when shipping |
 
-Patterns to import from external repos (link, do not copy wholesale): [superpowers verification-before-completion](https://github.com/obra/superpowers), [addyosmani incremental-implementation](https://github.com/addyosmani/agent-skills), [millionco debug-agent](https://github.com/millionco/debug-agent) runtime log discipline.
+Patterns used in this pack (repo-native only): verification-before-completion, incremental vertical slices, runtime log probe budget.
 
 ---
 
-## External discovery
+## Pack-internal discovery
 
 | Resource | Role |
 |----------|------|
-| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | Curated catalog — discovery index, not a competing pack |
-| [`docs/EXTERNAL-PARITY.md`](../../docs/EXTERNAL-PARITY.md) | Crosswalk: catalog category → pack skill → non-goals |
-| [Snyk Agent Scan](https://github.com/snyk/agent-scan) · [Agent Trust Hub](https://ai.gendigital.com/agent-trust-hub) | Security review before installing external skills |
+| [`docs/EXTERNAL-PARITY.md`](../../docs/EXTERNAL-PARITY.md) | Category crosswalk — pack skill vs non-goals (no external URLs) |
+| [`docs/SKILL-EVAL-PROMPTS.md`](../../docs/SKILL-EVAL-PROMPTS.md) | Behavioral smoke after skill edits |
 
-**Rule:** catalog entries inform **link-only** `reference.md` rows and docs — not bulk imports into `ai-skills/`.
+**Rule:** do **not** add third-party repo URLs to `reference.md` or skills — keep patterns and gates in-pack only.
 
 ---
 
 ## Context engineering (long-session meta)
 
-When prompts grow unstable or context noise rises ([muratcankoylan/Agent-Skills-for-Context-Engineering](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering) — link only):
+When prompts grow unstable or context noise rises:
 
 | Signal | Upgrade bias |
 |--------|--------------|
@@ -230,7 +229,7 @@ When prompts grow unstable or context noise rises ([muratcankoylan/Agent-Skills-
 | Multi-agent overlap | Handoffs table; one skill per responsibility |
 | Skill > 300 lines or > 5 duties | Phase 7 decomposition per § Complexity governance |
 
-Do not import the full context-engineering pack — use as diagnosis vocabulary during `/upgrade-ai` meta audits.
+Do not import external context-engineering packs — use diagnosis vocabulary in this file during `/upgrade-ai` meta audits.
 
 ---
 
@@ -248,7 +247,7 @@ After upgrading one or more skills, score in **SKILL REPORT** `ARTIFACTS` (inlin
 | Verification gate | IDENTIFY→RUN→READ before success claims? |
 | Handoffs | Related skills linked? |
 | reference depth | Detail on demand; SKILL < ~300 lines? |
-| External parity | stop-the-line, Prove-It, slices where relevant? |
+| Pack parity | stop-the-line, Prove-It, slices where relevant? |
 
 **Target:** each skill ≥ **9.0** before closing pack upgrade session.
 
@@ -256,7 +255,7 @@ After upgrading one or more skills, score in **SKILL REPORT** `ARTIFACTS` (inlin
 
 ## Close-out verification gate (Phase 8)
 
-Before claiming pack or skill upgrade **complete** ([verification-before-completion](https://github.com/obra/superpowers) pattern):
+Before claiming pack or skill upgrade **complete** (verification-before-completion — IDENTIFY → RUN → READ):
 
 | Step | Action |
 |------|--------|

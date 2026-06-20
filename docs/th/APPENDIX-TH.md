@@ -8,19 +8,19 @@
 
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
-| debug | `/debug` | 1.3.8 | ใช่ |
-| scrutinize | `/scrutinize` | 1.2.9 | ใช่ |
-| builder-ui | `/builder-ui` | 1.2.10 | ใช่ |
+| debug | `/debug` | 1.3.9 | ใช่ |
+| scrutinize | `/scrutinize` | 1.2.11 | ใช่ |
+| builder-ui | `/builder-ui` | 1.2.11 | ใช่ |
 | builder-api | `/builder-api` | 1.2.7 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.6 | ใช่ |
-| builder-infrastructure | `/builder-infrastructure` | 1.2.7 | ใช่ |
-| builder-feature | `/builder-feature` | 1.8.0 | ใช่ |
-| fix-record | `/fix-record` | 1.2.7 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.3.1 | ใช่ |
-| git-push | `/git-push` | 1.2.5 | ใช่ |
-| vault-daily | `/vault-daily` | 2.2.5 | ใช่ |
-| vault-capture | `/vault-capture` | 2.3.7 | ใช่ |
-| vault-recall | `/vault-recall` | 2.4.4 | ใช่ |
+| builder-infrastructure | `/builder-infrastructure` | 1.2.8 | ใช่ |
+| builder-feature | `/builder-feature` | 1.8.1 | ใช่ |
+| fix-record | `/fix-record` | 1.2.8 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.3.2 | ใช่ |
+| git-push | `/git-push` | 1.2.6 | ใช่ |
+| vault-daily | `/vault-daily` | 2.2.6 | ใช่ |
+| vault-capture | `/vault-capture` | 2.3.9 | ใช่ |
+| vault-recall | `/vault-recall` | 2.4.5 | ใช่ |
 
 เวอร์ชันจริงอยู่ใน frontmatter ของแต่ละ `SKILL.md` — ถ้าแก้ skill ต้อง bump ตาม `upgrade-ai/reference.md`
 

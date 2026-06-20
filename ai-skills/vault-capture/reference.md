@@ -226,3 +226,16 @@ Report hubAction + inferred project
 One shared vault; separate hubs per inferred project (`projects/api.md`, `projects/web.md`, `projects/app.md`). First capture for a project creates its hub automatically.
 
 **Do not** run `append-daily` in capture — daily bullets stay with autolog / `/vault-daily`.
+
+---
+
+## Close-out verification gate
+
+Before STATUS=READY (verification-before-completion — IDENTIFY → RUN → READ):
+
+| Step | Action |
+|------|--------|
+| 1 IDENTIFY | Primary path, hub path (`created`/`updated`), manifest ids touched |
+| 2 RUN | Dedupe passed; frontmatter includes `tags`; hub ensure completed; manifest upsert |
+| 3 READ | SKILL REPORT lists `Inferred project: <slug> (<reason>)` + all paths touched |
+| 4 AUTOLOG | **Skip** — capture does not own daily bullets; autolog / `/vault-daily` only |

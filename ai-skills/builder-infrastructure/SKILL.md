@@ -1,7 +1,7 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.2.7"
+  version: "1.2.8"
 description: >-
   Use when designing CI/CD, deploy, observability, networking, security, or DR —
   reliable infrastructure slices. Accepts slice briefs from /builder-feature.

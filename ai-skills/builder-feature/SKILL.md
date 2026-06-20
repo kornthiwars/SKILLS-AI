@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.8.0"
+  version: "1.8.1"
 description: >-
   Use when planning a cross-layer feature (UI+API+schema+infra) — durable plan file
   (Plan mode / *.plan.md), goal-driven design reasoning, slice backlog, handoff to builder-*.

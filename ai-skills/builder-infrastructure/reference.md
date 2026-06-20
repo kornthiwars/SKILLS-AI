@@ -161,7 +161,7 @@ Reject if: rollback impossible, ownership unclear, observability incomplete, wea
 
 ## CI failure triage (PR checks)
 
-When a PR check fails ([openai/gh-fix-ci](https://officialskills.sh/openai/skills/gh-fix-ci) pattern — link only):
+When a PR check fails (CI failure triage):
 
 | Step | Action |
 |------|--------|

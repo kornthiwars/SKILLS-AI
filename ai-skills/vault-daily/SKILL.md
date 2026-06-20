@@ -1,7 +1,7 @@
 ---
 name: vault-daily
 metadata:
-  version: "2.2.5"
+  version: "2.2.6"
 description: >-
   Use for end-of-day triage, Issues review, promote to durable tiers, and สรุปส่งรายงาน.
   Routine bullets autolog after patches (vault-autolog rule). Invoke /vault-daily when
@@ -74,9 +74,15 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 |---------|----------------|
 | STATUS | BLOCKED = awaiting triage confirm; READY = daily saved + manifest updated |
 | OBJECTIVE | One daily file + optional promotes + **สรุปส่งรายงาน** |
+| DISCOVERIES | Daily sections loaded, Issues rows, optional `git log --since=midnight` |
+| ANALYSIS | Triage preview summary, promote candidates, dedupe status |
+| RISKS | Promote without user confirm, secrets in notes, manifest drift |
 | ARTIFACTS | daily path, promoted paths, manifest entries, triage preview summary |
+| NEXT ACTIONS | Await user `ok`/`yes`/`go` · run promote step · `none` |
 | HANDOFF | `/vault-capture` · `/vault-recall` · `/fix-record` · `none` |
-| CONFIDENCE | 0–100; BLOCKED until user confirms promote |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out verification gate before READY |
+
+Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE. Close-out: all sections + **สรุปส่งรายงาน**.
 
 Pack integration: [vault-capture/reference.md](../vault-capture/reference.md) § Integration with pack skills
 

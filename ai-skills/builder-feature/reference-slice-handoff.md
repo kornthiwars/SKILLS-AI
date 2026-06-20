@@ -4,7 +4,7 @@
 
 Canonical anchor for owner skills (`/builder-ui`, `/builder-api`, …) — vertical slice rules.
 
-From [addyosmani/incremental-implementation](https://github.com/addyosmani/agent-skills) — thin vertical slices, one at a time:
+Thin vertical slices, one at a time:
 
 | Slice | User-visible outcome | Owner skill | Depends | Verify (command / walkthrough) |
 |-------|----------------------|-------------|---------|------------------------------|
