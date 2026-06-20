@@ -1,10 +1,10 @@
 ---
 name: builder-api
 metadata:
-  version: "1.2.9"
+  version: "1.2.10"
 description: >-
   Use when designing or implementing API endpoints, contracts, auth boundaries, or
-  error shapes โ€” validation, versioning, observability. Accepts slice briefs from
+  error shapes — validation, versioning, observability. Accepts slice briefs from
   /builder-feature. Invoke /builder-api or "slice N go" for API slices.
 paths: "**/{api,routes,controllers,handlers,services}/**/*.{ts,js,py,go,rs}"
 compatibility: >-
@@ -46,25 +46,25 @@ Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails
 | Situation | Skill |
 |-----------|--------|
 | Full-stack feature (plan) | [`/builder-feature`](../builder-feature/SKILL.md) |
-| Slice brief from feature plan | [reference.md](./reference.md) ยง Slice brief intake **before** phase 1 |
+| Slice brief from feature plan | [reference.md](./reference.md) § Slice brief intake **before** phase 1 |
 | Data model / migrations | [`/builder-schema`](../builder-schema/SKILL.md) |
 | Execute migration plan / schema evolution | [`/builder-schema`](../builder-schema/SKILL.md) + project DB toolchain |
 | Pre-merge review | [`/scrutinize`](../scrutinize/SKILL.md) |
 | API runtime bug | [`/debug`](../debug/SKILL.md) |
-| Contract change | [`/vault-recall`](../vault-recall/SKILL.md) before breaking change ยท ADR after slice verify โ’ [`/vault-capture`](../vault-capture/SKILL.md) |
+| Contract change | [`/vault-recall`](../vault-recall/SKILL.md) before breaking change · ADR after slice verify → [`/vault-capture`](../vault-capture/SKILL.md) |
 
-Vertical slices: [builder-feature/reference-slice-handoff.md](../builder-feature/reference-slice-handoff.md) ยง Slice backlog.
+Vertical slices: [builder-feature/reference-slice-handoff.md](../builder-feature/reference-slice-handoff.md) § Slice backlog.
 
 ## Quick cheat sheet
 
 | # | Phase | Gate |
 |---|--------|------|
 | 0 | Slice brief intake | brief loaded or N/A (standalone API) |
-| 1โ€“2 | Domain + resources | ownership map |
-| 3โ€“4 | Contracts + validation | OpenAPI/schema draft |
-| 5โ€“6 | Auth + errors | auth matrix + error taxonomy |
-| 7โ€“8 | Scale + observability | SLO + metrics plan |
-| 9โ€“10 | Structure + verify | [reference.md](./reference.md) ยง Close-out gate |
+| 1–2 | Domain + resources | ownership map |
+| 3–4 | Contracts + validation | OpenAPI/schema draft |
+| 5–6 | Auth + errors | auth matrix + error taxonomy |
+| 7–8 | Scale + observability | SLO + metrics plan |
+| 9–10 | Structure + verify | [reference.md](./reference.md) § Close-out gate |
 
 ---
 
@@ -99,7 +99,7 @@ Treat APIs as contracts and boundaries, not route collections.
 
 # Workflow
 
-Execute phases **in order**. Detail: [reference.md](./reference.md) ยง Workflow (detail).
+Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow (detail).
 
 | # | Phase | Deliver |
 |---|--------|---------|
@@ -128,10 +128,10 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | DISCOVERIES | Resources, ownership, security/scalability signals |
 | ANALYSIS | Service boundaries, contract choices, reliability plan |
 | RISKS | Auth gaps, breaking contracts, missing validation layers |
-| ARTIFACTS | Close-out: API Analysis, Resource Architecture, API Contracts, Security Architecture, Backend Structure, Reliability Plan, Verification Plan |
+| ARTIFACTS | Close-out deliverables: [reference.md](./reference.md) § Close-out deliverables |
 | NEXT ACTIONS | Next workflow phase or open question |
-| HANDOFF | `/builder-feature` ยท `/builder-schema` ยท `/scrutinize` ยท `/vault-recall` ยท `/vault-capture` ยท `none` |
-| CONFIDENCE | 0โ€“100; pass [reference.md](./reference.md) ยง Close-out gate before READY |
+| HANDOFF | `/builder-feature` · `/builder-schema` · `/scrutinize` · `/vault-recall` · `/vault-capture` · `none` |
+| CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |
 
 Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE.
 

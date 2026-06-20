@@ -1,7 +1,7 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.2.9"
+  version: "1.2.10"
 description: >-
   Use when designing CI/CD, deploy, observability, networking, security, or DR —
   reliable infrastructure slices. Accepts slice briefs from /builder-feature.
@@ -130,7 +130,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | DISCOVERIES | Workload profile, reliability/security constraints, topology signals |
 | ANALYSIS | Architecture choices, IAM/secrets strategy, observability plan |
 | RISKS | Single points of failure, cost blowout, weak recovery/backup |
-| ARTIFACTS | Close-out: Infrastructure Analysis, Infrastructure Architecture, Security & Reliability, Observability Plan, Scalability & Cost Plan, Infrastructure as Code, Verification Plan |
+| ARTIFACTS | Close-out deliverables: [reference.md](./reference.md) § Close-out deliverables |
 | NEXT ACTIONS | Next workflow phase or open question |
 | HANDOFF | `/builder-feature` · `/scrutinize` · `/vault-capture` · `none` |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |

@@ -31,6 +31,13 @@ Default for every skill unless **skill-specific** bullets below override:
 
 Application-code skills also follow [`change-control-manifest.mdc`](../ai-rules/change-control-manifest.mdc) (patch budget, observe→verify, Active skill precedence).
 
+## Builder close-out deliverables (SSoT)
+
+`builder-ui`, `builder-api`, `builder-schema`, `builder-infrastructure`:
+
+- **`SKILL.md` `ARTIFACTS` row:** `Close-out deliverables: [reference.md](./reference.md) § Close-out deliverables` — do not duplicate the list in SKILL.
+- **`reference.md`:** § Close-out deliverables (canonical table) + § Close-out verification gate (proof checklist).
+
 ## Voice
 
 Follow [`bilingual-th-en.mdc`](../ai-rules/bilingual-th-en.mdc) in chat; SKILL bodies usually English for grep stability.

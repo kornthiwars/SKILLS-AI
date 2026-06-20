@@ -175,6 +175,22 @@ Hand off app-runtime failures to [`/debug`](../debug/SKILL.md).
 
 ---
 
+## Close-out deliverables (SKILL REPORT `ARTIFACTS`)
+
+Canonical list for close-out `ARTIFACTS` — map to workflow phase outputs:
+
+| Deliverable | Phases |
+|-------------|--------|
+| Infrastructure Analysis | 1 |
+| Infrastructure Architecture | 2 |
+| Security & Reliability | 3–4 |
+| Observability Plan | 6 |
+| Scalability & Cost Plan | 8 |
+| Infrastructure as Code | 9 |
+| Verification Plan | 9 |
+
+---
+
 ## Close-out verification gate (phase 9)
 
 | # | Proof |

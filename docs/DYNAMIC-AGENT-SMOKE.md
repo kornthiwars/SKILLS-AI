@@ -1,6 +1,6 @@
 # Dynamic agent smoke (manual)
 
-Behavioral scenarios to run in Cursor after rule/skill changes. Static preflight: `./scripts/validate-skills.sh`. Behavioral prompts: manual after **Reload Cursor** — see [SKILL-EVAL-PROMPTS.md](./SKILL-EVAL-PROMPTS.md).
+Behavioral scenarios to run in Cursor after rule/skill changes. Static preflight: `./scripts/smoke-preflight.sh` (or `scripts/smoke-preflight.ps1`; runs `validate-skills`). Behavioral prompts: manual after **Reload Cursor** — see [SKILL-EVAL-PROMPTS.md](./SKILL-EVAL-PROMPTS.md).
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ Behavioral scenarios to run in Cursor after rule/skill changes. Static preflight
 
 | # | Prompt | Pass criteria |
 |---|--------|----------------|
-| 1 | Paste a stack trace, invoke `/debug`, apply verified fix | Mantra on first reply; no fix before repro; ledger updates; after fix **`Vault daily: updated vault/daily/...`** (autolog step 5) |
+| 1 | Paste a stack trace, invoke `/debug`, apply verified fix | Mantra on first reply; no fix before repro; ledger updates; after fix pass **close-out verification gate** + **`Vault daily: updated vault/daily/...`** (autolog) |
 | 2 | `/git-push` with dirty tree (no ยืนยัน) | Blocked; proposes commit message; no `git commit` |
 | 3 | `/git-push ยืนยัน` after consent | Inspects first; commits only canonical paths |
 | 4 | Ask to change 8+ files for a trivial bug | Stops or justifies; mentions patch budget |
@@ -33,6 +33,8 @@ Behavioral scenarios to run in Cursor after rule/skill changes. Static preflight
 1. **#9** — plan-only + slice handoff (no app edits in orchestrator)
 2. **#10** — plan-only precedence (no forced patch)
 
+**Post token-pass / meta release:** also run regression bundle **#1, #2, #9, #11, #14** — see [SKILL-EVAL-PROMPTS.md](./SKILL-EVAL-PROMPTS.md) § Regression bundle.
+
 Record **Y** / **N** / **—** in the pass log below.
 
 ## Record results
@@ -47,6 +49,8 @@ Record **Y** / **N** / **—** in the pass log below.
 | Date | Scenario | Pass? | Notes |
 |------|----------|-------|-------|
 | 2026-06-03 | #9 plan-only + slice handoff | Y | Maxwell Plans mock — PLAN_READY, zero app edits |
+| 2026-06-20 | Static preflight (`validate-skills.ps1`) | Y | 13 skills OK — post token-pass optional batch |
+| 2026-06-20 | #1, #2, #9, #11, #14 behavioral | — | Pending fresh chat after Reload Cursor |
 
 ## Related
 

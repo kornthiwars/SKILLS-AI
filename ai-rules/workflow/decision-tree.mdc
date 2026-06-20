@@ -13,7 +13,7 @@ Agent routes from user intent **without requiring** a slash command unless the u
 
 | User intent | First action |
 |-------------|--------------|
-| API / backend / REST | [`/builder-backend`](../ai-skills/builder-backend/SKILL.md) |
+| API / backend / REST | [`/builder-api`](../ai-skills/builder-api/SKILL.md) |
 | deploy, CI/CD, IaC, observability | [`/builder-infrastructure`](../ai-skills/builder-infrastructure/SKILL.md) |
 | mobile / native client bug | Debug discipline in **client repo** — not `/builder-feature` |
 | durable vault memory | [`/vault-capture`](../ai-skills/vault-capture/SKILL.md) · recall [`/vault-recall`](../ai-skills/vault-recall/SKILL.md) |

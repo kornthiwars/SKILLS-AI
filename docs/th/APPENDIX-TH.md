@@ -10,10 +10,10 @@
 |-------|--------|---------|-------------------|
 | debug | `/debug` | 1.3.11 | ใช่ |
 | scrutinize | `/scrutinize` | 1.2.13 | ใช่ |
-| builder-ui | `/builder-ui` | 1.2.12 | ใช่ |
-| builder-api | `/builder-api` | 1.2.9 | ใช่ |
-| builder-schema | `/builder-schema` | 1.2.8 | ใช่ |
-| builder-infrastructure | `/builder-infrastructure` | 1.2.9 | ใช่ |
+| builder-ui | `/builder-ui` | 1.2.13 | ใช่ |
+| builder-api | `/builder-api` | 1.2.10 | ใช่ |
+| builder-schema | `/builder-schema` | 1.2.9 | ใช่ |
+| builder-infrastructure | `/builder-infrastructure` | 1.2.10 | ใช่ |
 | builder-feature | `/builder-feature` | 1.8.2 | ใช่ |
 | fix-record | `/fix-record` | 1.2.10 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.3.3 | ใช่ |
@@ -30,21 +30,21 @@
 
 | ไฟล์ | เนื้อหาลึก |
 |------|------------|
-| `debug/reference.md` | phase 1 exit criteria, edit lock, hypothesis table, verification + callee cleanup + § Vault boundary |
+| `debug/reference.md` | phase 1–4 prose (on demand), exit criteria, hypothesis ledger, close-out verification gate + callee cleanup + § Vault boundary |
 | `git-push/reference.md` | push matrix, commit gate, SSH multi-account, ตาราง error |
-| `scrutinize/reference.md` | agent-skills PR checklist, NeoLabHQ lenses, browser MCP, verification gate |
+| `scrutinize/reference.md` | agent-skills PR checklist, review lenses, browser MCP, close-out verification gate |
 | `fix-record/reference.md` | section guide, worked example, publish + close-out verification |
-| `upgrade-ai/reference.md` | external discovery, context engineering, version governance, anti-patterns |
+| `upgrade-ai/reference.md` | pack-internal discovery, context engineering, version governance, anti-patterns |
 | `docs/EXTERNAL-PARITY.md` | catalog crosswalk, security, non-goals |
-| `builder-api/reference.md` | slice brief intake, API phases, close-out |
-| `builder-schema/reference.md` | slice brief intake, schema phases |
-| `builder-infrastructure/reference.md` | slice brief intake, CI/gh-fix-ci, close-out |
+| `builder-api/reference.md` | slice brief intake, API phases, § Close-out deliverables + gate |
+| `builder-schema/reference.md` | slice brief intake, schema phases, § Close-out deliverables + gate |
+| `builder-infrastructure/reference.md` | slice brief intake, CI/gh-fix-ci, § Close-out deliverables + gate |
 | `builder-feature/reference.md` | index — plan-only gate, Plan mode path resolution |
 | `builder-feature/reference-design-reasoning.md` | goal, hypotheses, hierarchy, constraints, recursive review |
 | `builder-feature/reference-workflow.md` | workflow map, express lane, phases 0–8 |
 | `builder-feature/reference-slice-handoff.md` | slice backlog, slice brief, close-out, anti-rationalization |
 | `templates/template.feature-plan.md` | durable plan — `.cursor/plans/` skeleton, phases 0–7, close-out gate, slice backlog |
-| `builder-ui/reference.md` | slice brief intake, [`template.slice-brief.md`](../../templates/template.slice-brief.md) |
+| `builder-ui/reference.md` | slice brief intake, [`template.slice-brief.md`](../../templates/template.slice-brief.md), § Close-out deliverables + gate |
 | `templates/template.slice-brief.md` | slice handoff contract (feature → builder-*) |
 
 **หลัก:** `SKILL.md` = workflow + guardrails · `reference.md` = ตาราง/ตัวอย่างยาว (อย่า copy ซ้ำใน rule อื่น)
@@ -53,13 +53,17 @@
 
 ## 3. ส่วนร่วมทุก skill — Scope Guardrails
 
-เกือบทุก skill มีหัวข้อ **`## Scope Guardrails`**:
+**SSoT:** [`SKILL-AUTHORING.md`](../../ai-skills/SKILL-AUTHORING.md) § Scope Guardrails
 
 | ข้อ | ความหมาย |
 |-----|----------|
 | ALWAYS confirm scope | ยืนยันไฟล์/ขอบเขตก่อนแก้ |
 | ALWAYS state non-goals | บอกชัดว่างานนี้ **ไม่** ทำอะไร |
 | NEVER speculative rewrite | ห้าม rewrite ใหญ่เมื่อ patch เล็กพอ |
+
+แต่ละ skill ใน `SKILL.md` ใช้ one-liner `Pack defaults: … § Scope Guardrails` (+ skill-specific เมื่อจำเป็น) — **ไม่** copy bullet 4 ข้อซ้ำใน SKILL
+
+**Builder close-out:** `ARTIFACTS` ชี้ `reference.md` § Close-out deliverables — ดู SKILL-AUTHORING § Builder close-out deliverables
 
 ---
 
@@ -78,6 +82,8 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 - **เนื้อหา:** ไทย ~60% / English ~40% — ห้ามซ้ำสองภาษาทั้งบล็อก
 - **Mid-session:** STATUS, OBJECTIVE, DISCOVERIES หรือ ANALYSIS, NEXT ACTIONS, CONFIDENCE
 - **Close-out:** ครบทุก section
+
+`/debug`: **Mantra + cheat sheet** อยู่ใน `SKILL.md` · phase 1–4 prose เต็มอยู่ใน `debug/reference.md` (โหลดเมื่อติดขั้นตอน)
 
 `/debug` ครั้งแรก: ยังต้อง **ท่อง Mantra ตามต้นฉบับ** ก่อน แล้วค่อยใช้ SKILL REPORT
 
@@ -157,6 +163,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 |--------|----------|
 | `setup-macos-linux.sh` | ครั้งแรกหลัง clone / หลัง pull บน Mac หรือ Linux |
 | `validate-skills.sh` / `.ps1` | ก่อน push — ตรวจ frontmatter, version, path |
+| `smoke-preflight.sh` / `.ps1` | ก่อน DYNAMIC behavioral — รัน validate-skills + ข้อความ checklist |
 | `setup-windows.ps1` / `.bat` | เหมือนกันบน Windows |
 
 สร้าง junction: `.cursor/skills`, `.cursor/rules`, `.cursor/vault` → โฟลเดอร์ใน pack
@@ -227,6 +234,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | 14 skills มีหัวข้อใน SKILLS-TH (รวม vault 3 ตัว) | ครบ |
 | 35/35 rules มีหัวข้อใน RULES-TH | ครบ |
 | reference.md อธิบาย | ครบ (ไฟล์นี้ §2) |
+| Scope Guardrails SSoT + builder ARTIFACTS | ครบ (§3 + SKILL-AUTHORING) |
 | Mantra / flaky / skip mantra | ครบ (§4) |
 | โฟลเดอร์ `vault/` + RAG skills | ครบ (§7) |
 | setup scripts / patch budget | ครบ (§8) |

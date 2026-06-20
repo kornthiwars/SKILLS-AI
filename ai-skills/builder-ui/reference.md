@@ -145,6 +145,21 @@ This pack owns **component architecture + tokens + a11y checklist** in phases 1�
 
 ---
 
+## Close-out deliverables (SKILL REPORT `ARTIFACTS`)
+
+Canonical list for close-out `ARTIFACTS` — map to workflow phase outputs:
+
+| Deliverable | Phases |
+|-------------|--------|
+| UI Analysis | 1 |
+| Component Architecture | 2 |
+| Design System | 3 |
+| Responsive Plan | 4 |
+| Frontend Structure | 5–6 |
+| Verification Plan | 7 |
+
+---
+
 ## Close-out verification gate (phase 7)
 
 | # | Proof |

@@ -1,7 +1,7 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.2.12"
+  version: "1.2.13"
 description: >-
   Use when building or refining UI from mocks, screenshots, or design references —
   layout, components, responsive behavior, a11y, browser verify. Accepts slice briefs
@@ -125,7 +125,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | DISCOVERIES | Reference patterns, hierarchy, reuse opportunities, a11y/responsive concerns |
 | ANALYSIS | Architecture choices, state boundaries, duplication risks |
 | RISKS | Inconsistent design system, missing a11y, responsive gaps |
-| ARTIFACTS | Close-out: UI Analysis, Component Architecture, Design System, Responsive Plan, Frontend Structure, Verification Plan |
+| ARTIFACTS | Close-out deliverables: [reference.md](./reference.md) § Close-out deliverables |
 | NEXT ACTIONS | Next workflow phase or open question |
 | HANDOFF | `/builder-feature` · `/scrutinize` · `none` |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |

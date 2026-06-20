@@ -1,7 +1,7 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.2.8"
+  version: "1.2.9"
 description: >-
   Use when modeling data, migrations, indexes, or schema evolution — integrity-safe
   plans with rollback. Use before destructive prod changes. Accepts slice briefs from
@@ -126,7 +126,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | DISCOVERIES | Entities, lifecycles, query patterns, evolution constraints |
 | ANALYSIS | Relationship map, indexing strategy, migration approach |
 | RISKS | Integrity gaps, unsafe migrations, scalability bottlenecks |
-| ARTIFACTS | Close-out: Domain Analysis, Entity Architecture, Relationship Architecture, Query & Indexing Plan, Integrity & Evolution Plan, Verification Plan |
+| ARTIFACTS | Close-out deliverables: [reference.md](./reference.md) § Close-out deliverables |
 | NEXT ACTIONS | Next workflow phase or open question |
 | HANDOFF | `/builder-api` · `/builder-feature` · `/scrutinize` · `/vault-recall` · `/vault-capture` · `none` |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out gate before READY |

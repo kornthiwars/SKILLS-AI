@@ -181,6 +181,22 @@ Reject if:
 
 ---
 
+## Close-out deliverables (SKILL REPORT `ARTIFACTS`)
+
+Canonical list for close-out `ARTIFACTS` — map to workflow phase outputs:
+
+| Deliverable | Phases |
+|-------------|--------|
+| API Analysis | 1 |
+| Resource Architecture | 2 |
+| API Contracts | 3 |
+| Security Architecture | 5 |
+| Backend Structure | 9 |
+| Reliability Plan | 7–8 |
+| Verification Plan | 10 |
+
+---
+
 ## Close-out verification gate (phase 10)
 
 | # | Proof |

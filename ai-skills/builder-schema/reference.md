@@ -181,6 +181,21 @@ Reject if:
 
 ---
 
+## Close-out deliverables (SKILL REPORT `ARTIFACTS`)
+
+Canonical list for close-out `ARTIFACTS` — map to workflow phase outputs:
+
+| Deliverable | Phases |
+|-------------|--------|
+| Domain Analysis | 1 |
+| Entity Architecture | 2 |
+| Relationship Architecture | 3 |
+| Query & Indexing Plan | 5 |
+| Integrity & Evolution Plan | 6–7 |
+| Verification Plan | 10 |
+
+---
+
 ## Close-out verification gate (phase 10)
 
 | # | Proof |
