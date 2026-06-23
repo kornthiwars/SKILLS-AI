@@ -16,7 +16,7 @@
 | builder-infrastructure | `/builder-infrastructure` | 1.2.10 | ใช่ |
 | builder-feature | `/builder-feature` | 1.8.3 | ใช่ |
 | fix-record | `/fix-record` | 1.2.10 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.3.3 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.3.4 | ใช่ |
 | git-push | `/git-push` | 1.2.8 | ใช่ |
 | vault-daily | `/vault-daily` | 2.3.0 | ใช่ |
 | vault-capture | `/vault-capture` | 2.4.0 | ใช่ |
@@ -253,3 +253,16 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | [SKILL-PATTERN.md](../SKILL-PATTERN.md) | โครง SKILL.md + template index |
 | [SKILL-SMOKE-CHECKLIST.md](../SKILL-SMOKE-CHECKLIST.md) | ทดสอบมือหลังแก้ rule |
 | [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | 3 layers EN |
+| [EXTERNAL-PARITY.md](../EXTERNAL-PARITY.md) | เทียบ Claude Code / Cursor / agentskills.io — non-goals |
+| [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) | Meta release regression bundle #1–#16 |
+
+---
+
+## 14. Meta release (หลัง push pack meta)
+
+1. `./scripts/smoke-preflight.sh` — validate-skills + README/APPENDIX version sync  
+2. **Reload Cursor**  
+3. Fresh chat — DYNAMIC **#1, #2, #9, #11, #12, #14, #16** (บันทึก Y/N ใน pass log)  
+4. หลังแก้ `append-daily` — รัน script ทด duplicate SKIP + bullet ใต้ `## สรุปงานวันนี้`
+
+รายละเอียด EN: [SKILL-SMOKE-CHECKLIST.md](../SKILL-SMOKE-CHECKLIST.md) § Meta release

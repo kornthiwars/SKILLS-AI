@@ -148,6 +148,16 @@ printf 'Repo:    %s\n\n' "$REPO_ROOT"
 
 cleanup_in_repo_cursor
 
+chmod_pack_scripts() {
+  local f
+  for f in "$REPO_ROOT"/scripts/*.sh; do
+    [ -f "$f" ] || continue
+    chmod +x "$f"
+  done
+}
+
+chmod_pack_scripts
+
 bootstrap_vault() {
   local bootstrap="$REPO_ROOT/scripts/vault/bootstrap-vault.sh"
   local f

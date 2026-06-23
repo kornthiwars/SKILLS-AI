@@ -56,6 +56,19 @@ How this pack relates to **Claude Code** product capabilities — map patterns, 
 | **Dynamic workflows / parallel subagents** | `/builder-feature` sequential slices · Cursor native subagents for parallel work | See [builder-feature/reference-slice-handoff.md](../ai-skills/builder-feature/reference-slice-handoff.md) § Parallel slices |
 | **Multi-surface** (terminal, IDE, Slack) | Cursor junction setup (`.cursor/skills`, `.agents/skills`) | Slack / web agent surfaces not in pack |
 
+### Install surfaces (Cursor + open spec)
+
+| Path | Scope | This pack |
+|------|-------|-----------|
+| `.cursor/skills/` | Project (junction after setup) | **Default** — `setup-macos-linux.sh` links here |
+| `.agents/skills/` | Project ([Agent Skills](https://agentskills.io) standard) | Same `SKILL.md` layout; optional mirror if tooling expects `.agents/` |
+| `~/.cursor/skills/` · `~/.agents/skills/` | User global | Install copy separately — do not replace project junction |
+| `.claude/skills/` · `.codex/skills/` | Compatibility paths (Cursor docs) | Not used by this pack's setup script |
+
+**Migrate legacy rules:** Cursor 2.4+ built-in `/migrate-to-skills` converts dynamic rules and slash commands — use on consumer repos; this pack is already skill-native.
+
+**Entry file parity:** [`AGENTS.md`](../AGENTS.md) in this repo = `CLAUDE.md` role in Claude Code repos (onboarding index before deep edits).
+
 ---
 
 ## Pack strengths

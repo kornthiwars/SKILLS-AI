@@ -4,4 +4,5 @@
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 & (Join-Path $PSScriptRoot 'validate-skills.ps1')
-Write-Host 'OK smoke-preflight: validate-skills passed. Run behavioral scenarios in fresh chat after Reload Cursor — docs/DYNAMIC-AGENT-SMOKE.md'
+Write-Host 'OK smoke-preflight: validate-skills passed.'
+Write-Host 'Next: Reload Cursor -> fresh chat -> DYNAMIC #1,#2,#9,#11,#12,#14,#16 — docs/DYNAMIC-AGENT-SMOKE.md'

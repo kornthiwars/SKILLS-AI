@@ -16,6 +16,7 @@ Record **Y** / **N** in PR or local notes. Target: ≥1 prompt per core skill pe
 | Prompt | Pass criteria |
 |--------|---------------|
 | Paste a stack trace + attach `/debug` | Mantra on first reply; no fix before repro; hypothesis table or ledger; after verified fix → `Vault daily: updated ...` |
+| "Explain this codebase" + `/debug` on unfamiliar repo | Reads `AGENTS.md` first; optional `/vault-recall`; then phase 1 exit criteria before fix |
 
 ---
 
@@ -109,6 +110,7 @@ Record **Y** / **N** in PR or local notes. Target: ≥1 prompt per core skill pe
 | Prompt | Pass criteria |
 |--------|---------------|
 | `/upgrade-ai` meta audit | SKILL REPORT all sections; version bump plan; confidence capped ≤85 for audit-only |
+| Post meta release | `./scripts/smoke-preflight.sh` green; regression bundle #1,#2,#9,#11,#12,#14,#16 documented in pass log |
 
 ---
 
@@ -122,7 +124,12 @@ Record **Y** / **N** in PR or local notes. Target: ≥1 prompt per core skill pe
 
 ## Regression bundle (post-release)
 
-Run DYNAMIC scenarios **#1, #2, #9, #11, #14** plus `./scripts/validate-skills.sh` green.
+1. `./scripts/smoke-preflight.sh` (runs `validate-skills`)
+2. **Reload Cursor**
+3. Fresh chat — DYNAMIC scenarios **#1, #2, #9, #11, #12, #14, #16**
+4. Log **Y/N** in [DYNAMIC-AGENT-SMOKE.md](./DYNAMIC-AGENT-SMOKE.md) pass log
+
+After `append-daily` or vault script changes: run `./scripts/vault/append-daily.sh --bullet "smoke test"` — expect OK or SKIP duplicate; bullet under `## สรุปงานวันนี้`.
 
 ## Related
 

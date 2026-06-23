@@ -3,4 +3,5 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 "$ROOT/scripts/validate-skills.sh"
-echo "OK smoke-preflight: validate-skills passed. Run behavioral scenarios in fresh chat after Reload Cursor — docs/DYNAMIC-AGENT-SMOKE.md"
+echo "OK smoke-preflight: validate-skills passed."
+echo "Next: Reload Cursor → fresh chat → DYNAMIC #1,#2,#9,#11,#12,#14,#16 — docs/DYNAMIC-AGENT-SMOKE.md"

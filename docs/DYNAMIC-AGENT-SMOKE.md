@@ -27,13 +27,29 @@ Behavioral scenarios to run in Cursor after rule/skill changes. Static preflight
 | 13 | Run `grep-vault.ps1 -Pattern "autolog"` from `agent-skills` (or `SKILLS-AI`) repo root | Returns JSON hits from gitignored `vault/{decisions,sessions,projects}/` (not empty `[]` when notes exist) |
 | 14 | `/vault-capture` promote session note | Infer project; `template.vault-session.md`; auto hub `projects/<slug>.md` + backlink; manifest `sess-*` + `proj-*` |
 | 15 | Open Obsidian → `agent-skills/vault` or `.cursor/vault` junction | Sidebar: `daily/`, `sessions/`, `decisions/`, `projects/`; Daily notes → `daily/YYYY-MM-DD.md`; `_agent/` excluded from graph |
+| 16 | `/vault-daily` + triage with `keep_learning` → user confirms `yes` | Triage preview before promote; infer project + hub `projects/<slug>.md`; manifest upsert; **สรุปส่งรายงาน** |
+| 17 | `/debug` on unfamiliar repo — "explain codebase" | Reads `AGENTS.md` (+ optional `/vault-recall`) before deep repro; no fix before phase 1 exit |
+
+## Meta release regression bundle
+
+After any release touching `ai-skills/`, `ai-rules/`, or `scripts/validate-skills*`:
+
+| Step | Command / action | Required |
+|------|------------------|----------|
+| 1 Static | `./scripts/smoke-preflight.sh` | Yes |
+| 2 Reload | Reload Cursor | Yes |
+| 3 Behavioral | Fresh chat — scenarios **#1, #2, #9, #11, #12, #14, #16** | Yes before claiming meta READY |
+| 4 Vault script | `./scripts/vault/append-daily.sh --bullet "test"` (duplicate → SKIP) | Yes after append-daily changes |
+| 5 Doc drift | `./scripts/validate-skills.sh` catches README + APPENDIX version rows | Automatic in step 1 |
+
+Record **Y** / **N** / **—** in the pass log below.
 
 ## Post-L4 behavioral checklist (run after Reload)
 
 1. **#9** — plan-only + slice handoff (no app edits in orchestrator)
 2. **#10** — plan-only precedence (no forced patch)
 
-**Post token-pass / meta release:** also run regression bundle **#1, #2, #9, #11, #14** — see [SKILL-EVAL-PROMPTS.md](./SKILL-EVAL-PROMPTS.md) § Regression bundle.
+**Post token-pass / meta release:** run **Meta release regression bundle** above — minimum scenarios **#1, #2, #9, #11, #12, #14, #16** + `validate-skills` green. See [SKILL-EVAL-PROMPTS.md](./SKILL-EVAL-PROMPTS.md) § Regression bundle.
 
 Record **Y** / **N** / **—** in the pass log below.
 
@@ -50,7 +66,9 @@ Record **Y** / **N** / **—** in the pass log below.
 |------|----------|-------|-------|
 | 2026-06-03 | #9 plan-only + slice handoff | Y | Maxwell Plans mock — PLAN_READY, zero app edits |
 | 2026-06-20 | Static preflight (`validate-skills.ps1`) | Y | 13 skills OK — post token-pass optional batch |
-| 2026-06-20 | #1, #2, #9, #11, #14 behavioral | — | Pending fresh chat after Reload Cursor |
+| 2026-06-20 | #1, #2, #9, #11, #14 behavioral | — | Superseded by 2026-06-23 bundle below |
+| 2026-06-23 | Static preflight + validate-skills | Y | Post vault path + validator + Claude parity push `9e83968` |
+| 2026-06-23 | Meta bundle #1,#2,#9,#11,#12,#14,#16 | — | Run in fresh chat after Reload Cursor |
 
 ## Related
 

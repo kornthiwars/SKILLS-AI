@@ -168,7 +168,7 @@ Copy / label ชัด → agent patch ตรงๆ ได้โดยไม่�
 | builder-schema | `/builder-schema` | 1.2.9 | Schema evolution · migration + rollback plan |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.10 | CI/CD · IaC · DR |
 | fix-record | `/fix-record` | 1.2.10 | Canonical RCA หลัง validated fix |
-| upgrade-ai | `/upgrade-ai` | 1.3.3 | Diagnose skill layer · doc drift · external parity |
+| upgrade-ai | `/upgrade-ai` | 1.3.4 | Diagnose skill layer · doc drift · external parity |
 | git-push | `/git-push` | 1.2.8 | Inspect · commit เมื่อ user ยืนยัน · push · verify |
 | vault-capture | `/vault-capture` | 2.4.0 | Session/ADR · infer project · auto hub |
 | vault-recall | `/vault-recall` | 2.4.7 | grep-vault / Read · cite line range |

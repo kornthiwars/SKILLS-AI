@@ -201,7 +201,9 @@ When upgrading **any** skill in this repo, verify peer skills stay aligned:
 | Handoffs | No orphan workflows — link peer skills |
 | Version | `metadata.version` bumped on every content edit |
 | Dynamic smoke | [DYNAMIC-AGENT-SMOKE.md](../../docs/DYNAMIC-AGENT-SMOKE.md) scenarios still valid after changes |
-| Thai docs | `docs/th/APPENDIX-TH.md` §1 version row updated when shipping |
+| Thai docs | `docs/th/APPENDIX-TH.md` §1 **and** `README.md` § Skills — version rows synced by `validate-skills` |
+| External parity | [EXTERNAL-PARITY.md](../../docs/EXTERNAL-PARITY.md) § Claude Code + install surfaces after install/frontmatter changes |
+| Meta release smoke | `./scripts/smoke-preflight.sh` + regression bundle #1,#2,#9,#11,#12,#14,#16 logged in DYNAMIC pass log |
 
 Patterns used in this pack (repo-native only): verification-before-completion, incremental vertical slices, runtime log probe budget.
 

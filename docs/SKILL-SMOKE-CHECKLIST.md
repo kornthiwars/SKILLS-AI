@@ -2,6 +2,13 @@
 
 Reload Cursor after rule changes.
 
+## Meta release (ship gate)
+
+- [ ] `./scripts/smoke-preflight.sh` green (`validate-skills` + README/APPENDIX version sync)
+- [ ] [EXTERNAL-PARITY.md](./EXTERNAL-PARITY.md) § Claude Code parity reviewed when changing install or skill frontmatter
+- [ ] Regression bundle logged: DYNAMIC **#1, #2, #9, #11, #12, #14, #16** ([pass log](./DYNAMIC-AGENT-SMOKE.md))
+- [ ] `./scripts/vault/append-daily.sh --bullet "smoke"` — OK; duplicate run → SKIP; bullet under `## สรุปงานวันนี้`
+
 ## Setup
 
 - [ ] `./scripts/setup-macos-linux.sh .` (Windows: `setup-windows.ps1`)
@@ -27,7 +34,7 @@ Reload Cursor after rule changes.
 | builder-schema | Migration + rollback plan |
 | vault-recall | `grep-vault` or per-file Read; cites line range; no “empty vault” when notes exist |
 | vault-capture | Infer project; session/decision → auto hub `projects/<slug>.md`, backlink, Promoted wikilinks; manifest upsert |
-| vault-daily / autolog | New day: bootstrap or `append-daily` creates daily; reply has `Vault daily:` |
+| vault-daily / autolog | New day: bootstrap or `append-daily` creates daily; reply has `Vault daily:`; promote → hub ensure (#16) |
 
 ## Obsidian (manual)
 
