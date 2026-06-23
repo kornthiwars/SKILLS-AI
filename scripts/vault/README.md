@@ -46,7 +46,7 @@ Agent `Read` → replace placeholders → `Write`.
 
 ## Obsidian
 
-1. Open folder → `SKILLS-AI/vault` (or `.cursor/vault` junction)
+1. Open folder → `agent-skills/vault` (legacy `SKILLS-AI/vault`) or `.cursor/vault` junction
 2. Daily notes → `daily/`, format `YYYY-MM-DD` (blank file; agent adds schema)
 3. Wikilinks: `[[sessions/slug]]` (flat tier folders)
 4. `_agent/` excluded from graph (agent catalog only)

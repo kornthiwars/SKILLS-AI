@@ -16,7 +16,7 @@ Agent routes from user intent **without requiring** a slash command unless the u
 | API / backend / REST | [`/builder-api`](../ai-skills/builder-api/SKILL.md) |
 | deploy, CI/CD, IaC, observability | [`/builder-infrastructure`](../ai-skills/builder-infrastructure/SKILL.md) |
 | mobile / native client bug | Debug discipline in **client repo** — not `/builder-feature` |
-| durable vault memory | [`/vault-capture`](../ai-skills/vault-capture/SKILL.md) · recall [`/vault-recall`](../ai-skills/vault-recall/SKILL.md) |
+| durable vault memory | [`/vault-capture`](../ai-skills/vault-capture/SKILL.md) · recall [`/vault-recall`](../ai-skills/vault-recall/SKILL.md) — gitignored `vault/` → `grep-vault.sh` / per-file Read, not directory `Grep` |
 | end-of-day triage / promote | [`/vault-daily`](../ai-skills/vault-daily/SKILL.md) — routine bullets via [`vault-autolog.mdc`](./vault-autolog.mdc) |
 | one commit, multiple unrelated fixes | One fix-record per root cause — ask scope |
 | unsure bug vs copy | One clarifying question, then manifest row |

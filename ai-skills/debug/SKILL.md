@@ -1,7 +1,7 @@
 ---
 name: debug
 metadata:
-  version: "1.3.11"
+  version: "1.3.12"
 description: >-
   Use when encountering bugs, test failures, flaky behavior, stack traces, or wrong
   data before proposing fixes — even under time pressure. Systematic four-step discipline:

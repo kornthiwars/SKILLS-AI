@@ -18,6 +18,20 @@ Rules:
 - `/scrutinize` before merge per slice; no unrelated layers in one slice
 - Implementation: **owner skill only** — not builder-feature
 
+## Parallel slices (Cursor subagents)
+
+When the backlog has **independent** slices (no shared files or ordering dependency), the user may run **parallel Cursor subagents** — one brief per slice, one owner skill per agent.
+
+| Rule | Requirement |
+|------|-------------|
+| Plan SSoT | Same `.cursor/plans/<slug>.plan.md`; each agent gets its own slice brief |
+| Scope | One slice brief per subagent — do not merge unrelated slices in one run |
+| Verify | Each slice verified before marking done; `/scrutinize` per PR |
+| Conflicts | If slices touch the same files, **serialize** — default sequential handoff |
+| builder-feature | Stays **plan-only** — subagents invoke `/builder-ui`, `/builder-api`, etc.; orchestrator does not patch app code |
+
+Do not treat parallel subagents as a bypass for change-control, patch budget, or `/git-push` consent.
+
 ## Slice brief (handoff payload)
 
 When user approves slice N, emit the block from [`templates/template.slice-brief.md`](../../templates/template.slice-brief.md) — required fields: **Outcome**, **Non-goals**, **Verify**, **Owner**. Set **Plan ref:** to the plan file path.

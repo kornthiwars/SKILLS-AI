@@ -15,6 +15,7 @@ if (-not $RepoRoot) {
 
 $SkillsRoot = Join-Path $RepoRoot 'ai-skills'
 $AppendixTh = Join-Path $RepoRoot 'docs/th/APPENDIX-TH.md'
+$ReadmeMd = Join-Path $RepoRoot 'README.md'
 if (-not (Test-Path -LiteralPath $SkillsRoot)) {
     Write-Error "Missing ai-skills at $SkillsRoot"
 }
@@ -143,27 +144,32 @@ Get-ChildItem -LiteralPath $SkillsRoot -Directory | ForEach-Object {
     }
 }
 
-if (Test-Path -LiteralPath $AppendixTh) {
-    $appendix = Get-Content -LiteralPath $AppendixTh
-    foreach ($line in $appendix) {
+function Test-VersionTable {
+    param([string]$Path, [string]$Label)
+    if (-not (Test-Path -LiteralPath $Path)) { return }
+    foreach ($line in Get-Content -LiteralPath $Path) {
         if ($line -cnotmatch '^\| ([a-z][a-z0-9-]+) \|') { continue }
         $skill = $Matches[1]
         if ($skill -eq 'Skill') { continue }
         $cols = $line.Split('|') | ForEach-Object { $_.Trim() }
         if ($cols.Count -lt 5) { continue }
-        # §1 version table only — Invoke column is `/skill`; skip vault tier / usage tables
-        if ($cols[2] -cnotmatch '^/') { continue }
-        $appendixVer = $cols[3]
+        $invoke = $cols[2].Trim('`')
+        if ($invoke -cnotmatch '^/[a-z]') { continue }
+        $docVer = $cols[3]
         if (-not $skillVersions.ContainsKey($skill)) {
-            $errors.Add("docs/th/APPENDIX-TH.md: skill '$skill' in version table but no ai-skills/$skill/SKILL.md")
+            $errors.Add("${Label}: skill '$skill' in version table but no ai-skills/$skill/SKILL.md")
             continue
         }
-        if ($skillVersions[$skill] -ne $appendixVer) {
-            $errors.Add("docs/th/APPENDIX-TH.md: $skill version '$appendixVer' != SKILL.md metadata.version '$($skillVersions[$skill])'")
+        if ($skillVersions[$skill] -ne $docVer) {
+            $errors.Add("${Label}: $skill version '$docVer' != SKILL.md metadata.version '$($skillVersions[$skill])'")
         }
     }
-} else {
-    $warnings.Add('docs/th/APPENDIX-TH.md missing - skip version sync check')
+}
+
+Test-VersionTable -Path $AppendixTh -Label 'docs/th/APPENDIX-TH.md'
+Test-VersionTable -Path $ReadmeMd -Label 'README.md'
+if (-not (Test-Path -LiteralPath $AppendixTh) -and -not (Test-Path -LiteralPath $ReadmeMd)) {
+    $warnings.Add('docs/th/APPENDIX-TH.md and README.md missing - skip version sync check')
 }
 
 foreach ($w in $warnings) { Write-Warning $w }

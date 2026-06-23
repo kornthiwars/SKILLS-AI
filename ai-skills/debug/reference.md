@@ -21,6 +21,19 @@ If any row is empty → still in step 1.
 
 ---
 
+## Unfamiliar repo (codebase onboarding)
+
+Before deep repro on a **new or unfamiliar** codebase (Claude Code–style "explain this repo"):
+
+1. **`Read` `AGENTS.md`** at workspace or app root — setup, skill index, conventions
+2. Optional **`/vault-recall`** — prior `decisions/` or `sessions/` for this project
+3. **`git log -5 --oneline`** + touched paths from the user report — recent drift
+4. Then continue step 1 exit criteria — do not skip to fixes
+
+Skip when the user already scoped the exact file/symbol and failure is localized.
+
+---
+
 ## Reproduction routing
 
 | Situation | Who runs |

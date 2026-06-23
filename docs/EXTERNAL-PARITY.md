@@ -42,6 +42,22 @@ How **agent-skills** (this pack) maps to common agent-skill categories — **wit
 
 ---
 
+## Claude Code parity (2026)
+
+How this pack relates to **Claude Code** product capabilities — map patterns, do not duplicate vendor prompts. Consumer entry: [`AGENTS.md`](../AGENTS.md) (same role as `CLAUDE.md` in Claude-native repos).
+
+| Claude Code area | Pack equivalent | Gap / external |
+|----------------|-----------------|----------------|
+| **Skills** (`SKILL.md`, progressive load) | 13 pack skills + [Agent Skills open spec](https://agentskills.io) via Cursor | Pack uses `reference.md` per skill; all slash-invoked (`disable-model-invocation: true`) |
+| **Permission before edits/commands** | `/git-push` consent · `/scrutinize` review-only · change-control manifest | Stronger than default — by design |
+| **Codebase onboarding** ("explain this repo") | `/debug` reference § Unfamiliar repo · optional `/vault-recall` | No standalone onboarding skill |
+| **Issue → PR workflow** | `/debug` → patch · `/git-push` · `/fix-record` | No GitHub issue orchestration skill — use `gh` in consumer repo |
+| **Routines** (scheduled / API / event runs) | **Non-goal** | Use Cursor Automations or Claude Routines separately — see [APPENDIX-TH §11](./th/APPENDIX-TH.md) |
+| **Dynamic workflows / parallel subagents** | `/builder-feature` sequential slices · Cursor native subagents for parallel work | See [builder-feature/reference-slice-handoff.md](../ai-skills/builder-feature/reference-slice-handoff.md) § Parallel slices |
+| **Multi-surface** (terminal, IDE, Slack) | Cursor junction setup (`.cursor/skills`, `.agents/skills`) | Slack / web agent surfaces not in pack |
+
+---
+
 ## Pack strengths
 
 1. **3-layer change-control** — `change-control-manifest.mdc` + scoped `ai-rules/` + verification checklists
@@ -96,7 +112,7 @@ Use **agent-skills as the base orchestration layer**; add domain skills only whe
 
 | Layer | Canonical (git) | Cursor sees |
 |-------|-----------------|-------------|
-| **This pack** | `ai-skills/`, `ai-rules/` | `.cursor/skills`, `.cursor/rules` (junction) |
+| **This pack** | `ai-skills/`, `ai-rules/` | `.cursor/skills`, `.cursor/rules` (junction) · also `.agents/skills` when present ([Cursor Agent Skills](https://cursor.com/docs/skills)) |
 | **Other skill** | User path | Sibling install — do not replace pack junction |
 | **Vault notes** | `vault/` (gitignored) | `.cursor/vault` |
 

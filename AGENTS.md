@@ -21,6 +21,10 @@ Creates under `<workspace>/.cursor/`:
 - `rules` → `ai-rules/`
 - `vault` → `vault/` (Obsidian vault root; schemas in `templates/vault/` — see [templates/vault/README.md](templates/vault/README.md))
 
+Cursor also discovers **`.agents/skills/`** (Agent Skills open standard) — same layout as `.cursor/skills/`. This pack installs via junction to `.cursor/skills`; optional mirror or symlink to `.agents/skills/` if your tooling expects that path.
+
+**Entry file:** this repo uses **`AGENTS.md`** (same role as `CLAUDE.md` in Claude Code repos) — read before deep work on an unfamiliar codebase; see [`/debug` reference § Unfamiliar repo](ai-skills/debug/reference.md).
+
 Edit **`ai-skills/`** and **`ai-rules/`** in the clone — not inside `.cursor/` junctions.
 
 ---

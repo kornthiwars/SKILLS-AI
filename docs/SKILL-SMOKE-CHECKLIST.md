@@ -31,7 +31,7 @@ Reload Cursor after rule changes.
 
 ## Obsidian (manual)
 
-- [ ] Open `SKILLS-AI/vault` (or `.cursor/vault`) in Obsidian — sidebar shows `daily/`, `sessions/`, `decisions/`, `projects/`
+- [ ] Open `agent-skills/vault` or `.cursor/vault` junction in Obsidian — sidebar shows `daily/`, `sessions/`, `decisions/`, `projects/`
 - [ ] Daily notes hotkey creates/opens `daily/YYYY-MM-DD.md`
 - [ ] `_agent/` excluded from graph (Settings or seed `app.json`)
 

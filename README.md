@@ -160,19 +160,19 @@ Copy / label ชัด → agent patch ตรงๆ ได้โดยไม่�
 
 | Skill | Invoke | Ver. | ใช้เมื่อ |
 |-------|--------|------|----------|
-| debug | `/debug` | 1.3.8 | Four-step diagnosis · mantra · hypothesis ledger |
-| scrutinize | `/scrutinize` | 1.2.9 | Outsider review · browser UI · review-only จนกว่า user อนุมัติ |
-| builder-feature | `/builder-feature` | 1.8.0 | Plan-only · plan file · design reasoning · slice handoff · **ห้าม** patch app |
-| builder-ui | `/builder-ui` | 1.2.10 | UI architecture · a11y · browser verify |
-| builder-api | `/builder-api` | 1.2.7 | Contract-first API · auth boundaries |
-| builder-schema | `/builder-schema` | 1.2.6 | Schema evolution · migration + rollback plan |
-| builder-infrastructure | `/builder-infrastructure` | 1.2.7 | CI/CD · IaC · DR |
-| fix-record | `/fix-record` | 1.2.7 | Canonical RCA หลัง validated fix |
-| upgrade-ai | `/upgrade-ai` | 1.3.1 | Diagnose skill layer · doc drift · external parity |
-| git-push | `/git-push` | 1.2.5 | Inspect · commit เมื่อ user ยืนยัน · push · verify |
-| vault-capture | `/vault-capture` | 2.3.7 | Session/ADR · infer project · auto hub |
-| vault-recall | `/vault-recall` | 2.4.4 | grep-vault / Read · cite line range |
-| vault-daily | `/vault-daily` | 2.2.5 | End-of-day triage · Issues · promote |
+| debug | `/debug` | 1.3.12 | Four-step diagnosis · mantra · hypothesis ledger |
+| scrutinize | `/scrutinize` | 1.2.13 | Outsider review · browser UI · review-only จนกว่า user อนุมัติ |
+| builder-feature | `/builder-feature` | 1.8.3 | Plan-only · plan file · design reasoning · slice handoff · **ห้าม** patch app |
+| builder-ui | `/builder-ui` | 1.2.13 | UI architecture · a11y · browser verify |
+| builder-api | `/builder-api` | 1.2.10 | Contract-first API · auth boundaries |
+| builder-schema | `/builder-schema` | 1.2.9 | Schema evolution · migration + rollback plan |
+| builder-infrastructure | `/builder-infrastructure` | 1.2.10 | CI/CD · IaC · DR |
+| fix-record | `/fix-record` | 1.2.10 | Canonical RCA หลัง validated fix |
+| upgrade-ai | `/upgrade-ai` | 1.3.3 | Diagnose skill layer · doc drift · external parity |
+| git-push | `/git-push` | 1.2.8 | Inspect · commit เมื่อ user ยืนยัน · push · verify |
+| vault-capture | `/vault-capture` | 2.4.0 | Session/ADR · infer project · auto hub |
+| vault-recall | `/vault-recall` | 2.4.7 | grep-vault / Read · cite line range |
+| vault-daily | `/vault-daily` | 2.3.0 | End-of-day triage · Issues · promote · hub ensure |
 
 Index → [ai-skills/README.md](ai-skills/README.md) · รายละเอียดไทย → [docs/th/SKILLS-TH.md](docs/th/SKILLS-TH.md)
 

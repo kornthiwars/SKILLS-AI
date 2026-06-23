@@ -5,6 +5,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SKILLS_ROOT="$REPO_ROOT/ai-skills"
 APPENDIX_TH="$REPO_ROOT/docs/th/APPENDIX-TH.md"
+README_MD="$REPO_ROOT/README.md"
 errors=0
 warnings=0
 checked=0
@@ -149,12 +150,13 @@ for skill_dir in "$SKILLS_ROOT"/*/; do
   fi
 done
 
-if [ -f "$APPENDIX_TH" ]; then
-  python3 - "$SKILLS_ROOT" "$APPENDIX_TH" <<'PY' || errors=$((errors + 1))
+if [ -f "$APPENDIX_TH" ] || [ -f "$README_MD" ]; then
+  python3 - "$SKILLS_ROOT" "$APPENDIX_TH" "$README_MD" <<'PY' || errors=$((errors + 1))
 import pathlib, re, sys
 
 skills_root = pathlib.Path(sys.argv[1])
-appendix = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
+appendix_path = pathlib.Path(sys.argv[2]) if sys.argv[2] else None
+readme_path = pathlib.Path(sys.argv[3]) if sys.argv[3] else None
 errors = []
 
 def skill_version(skill_md: pathlib.Path):
@@ -162,40 +164,51 @@ def skill_version(skill_md: pathlib.Path):
     m = re.search(r"^metadata:\s*\n(?:[ \t].*\n)*?[ \t]+version:\s*\"([^\"]+)\"", text, re.M)
     return m.group(1) if m else None
 
+def normalize_invoke(col: str) -> str:
+    return col.strip().strip("`")
+
+def check_version_table(path: pathlib.Path, label: str, canon: dict):
+    if not path.is_file():
+        return
+    for line in path.read_text(encoding="utf-8").splitlines():
+        m = re.match(r"^\| ([a-z][a-z0-9-]+) \|", line)
+        if not m:
+            continue
+        skill = m.group(1)
+        if skill == "Skill":
+            continue
+        cols = [c.strip() for c in line.split("|")]
+        if len(cols) < 5:
+            continue
+        invoke = normalize_invoke(cols[2])
+        if not re.match(r"^/[a-z]", invoke):
+            continue
+        doc_ver = cols[3]
+        if skill not in canon:
+            errors.append(f"{label}: skill '{skill}' in version table but no ai-skills/{skill}/SKILL.md")
+            continue
+        if canon[skill] != doc_ver:
+            errors.append(
+                f"{label}: {skill} version '{doc_ver}' != SKILL.md metadata.version '{canon[skill]}'"
+            )
+
 canon = {}
 for skill_md in sorted(skills_root.glob("*/SKILL.md")):
     ver = skill_version(skill_md)
     if ver:
         canon[skill_md.parent.name] = ver
 
-for line in appendix.splitlines():
-    m = re.match(r"^\| ([a-z][a-z0-9-]+) \|", line)
-    if not m:
-        continue
-    skill = m.group(1)
-    if skill == "Skill":
-        continue
-    cols = [c.strip() for c in line.split("|")]
-    if len(cols) < 5:
-        continue
-    # §1 version table only — Invoke column is `/skill`; skip vault tier / usage tables
-    if not re.match(r"^/", cols[2]):
-        continue
-    appendix_ver = cols[3]
-    if skill not in canon:
-        errors.append(f"docs/th/APPENDIX-TH.md: skill '{skill}' in version table but no ai-skills/{skill}/SKILL.md")
-        continue
-    if canon[skill] != appendix_ver:
-        errors.append(
-            f"docs/th/APPENDIX-TH.md: {skill} version '{appendix_ver}' != SKILL.md metadata.version '{canon[skill]}'"
-        )
+if appendix_path:
+    check_version_table(appendix_path, "docs/th/APPENDIX-TH.md", canon)
+if readme_path:
+    check_version_table(readme_path, "README.md", canon)
 
 for e in errors:
     print(f"ERROR: {e}", file=sys.stderr)
 sys.exit(1 if errors else 0)
 PY
 else
-  warn "docs/th/APPENDIX-TH.md missing — skip version sync check"
+  warn "docs/th/APPENDIX-TH.md and README.md missing — skip version sync check"
 fi
 
 if [ "$errors" -gt 0 ]; then

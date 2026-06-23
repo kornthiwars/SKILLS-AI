@@ -73,7 +73,7 @@ Daily manifest entry is optional. Durable tiers: **always upsert** after `Write`
 
 ## Obsidian quick start
 
-1. Obsidian → Open folder → `SKILLS-AI/vault` (or `.cursor/vault` junction)
+1. Obsidian → Open folder → `agent-skills/vault` (legacy `SKILLS-AI/vault`) or `.cursor/vault` junction
 2. Run `scripts/vault/bootstrap-vault.ps1 -Verify` once
 3. Daily notes hotkey → creates/opens blank `daily/YYYY-MM-DD.md`
 4. Schemas → `templates/vault/notes/` in repo (not inside vault)
