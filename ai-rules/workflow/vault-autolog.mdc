@@ -29,7 +29,7 @@ Canonical daily file — use **first path that exists** on disk:
 
 | Workspace layout | Daily path | Manifest path |
 |------------------|------------|---------------|
-| Parent `web/` (junction) | `agent-skills/vault/daily/<today>.md` **or** `.cursor/vault/daily/<today>.md` | `agent-skills/vault/_agent/manifest.json` |
+| Parent `web/` (junction) | `agent-skills/vault/daily/<today>.md` · `SKILLS-AI/vault/daily/<today>.md` (legacy) **or** `.cursor/vault/daily/<today>.md` | `agent-skills/vault/_agent/manifest.json` (or legacy `SKILLS-AI/vault/_agent/manifest.json`) |
 | Pack repo root (`agent-skills/`) | `vault/daily/<today>.md` | `vault/_agent/manifest.json` |
 
 **Do not** assume `vault/` at the parent workspace root — it may not exist. Both junction paths above resolve to the same file.

@@ -38,7 +38,7 @@ if [ ! -f "$daily_file" ]; then
   echo "INIT daily created"
 fi
 
-runs="$(grep -E '^runs:' "$daily_file" | sed 's/runs:[[:space:]]*//')"
+runs="$(grep -E '^runs:' "$daily_file" | head -1 | sed 's/runs:[[:space:]]*//' | tr -d '"')"
 runs=$((runs + 1))
 
 bullet_line=""
@@ -47,7 +47,7 @@ if [ -n "$BULLET" ]; then
     -*) bullet_line="$BULLET" ;;
     *) bullet_line="- $BULLET" ;;
   esac
-  if grep -qF "$bullet_line" "$daily_file"; then
+  if grep -qF -- "$bullet_line" "$daily_file"; then
     echo "SKIP duplicate bullet"
     bullet_line=""
   fi
@@ -56,7 +56,7 @@ fi
 issue_row=""
 if [ -n "$ISSUE" ]; then
   issue_row="| iss-${date}-${runs} | ${ISSUE} | open | daily_only | |"
-  if grep -qF "$issue_row" "$daily_file"; then
+  if grep -qF -- "$issue_row" "$daily_file"; then
     echo "SKIP duplicate issue row"
     issue_row=""
   fi
@@ -66,11 +66,15 @@ tmp="$(mktemp)"
 awk -v bullet="$bullet_line" -v issue_row="$issue_row" -v iso="$iso" -v runs="$runs" '
   /^updated_at:/ { print "updated_at: \"" iso "\""; next }
   /^runs:/ { print "runs: " runs; next }
-  /^## Issues/ {
+  /^## สรุปงานวันนี้/ {
+    print
     if (bullet != "") {
       print bullet
-      print ""
+      bullet = ""
     }
+    next
+  }
+  /^## Issues/ {
     print
     next
   }

@@ -24,9 +24,9 @@ Behavioral scenarios to run in Cursor after rule/skill changes. Static preflight
 | 10 | `/builder-feature` + cross-layer feature request | Plan: Goal, constraints, hypothesis table, recursive review; `.cursor/plans/`; **zero** app file edits; decision-tree does not force patch in same turn |
 | 11 | `/vault-recall` + "autolog ทำงานยังไง" | Cites `sessions/` or `decisions/` with line range; uses `grep-vault` or per-file Read; does **not** claim empty vault |
 | 12 | Clear vault + `bootstrap-vault.ps1 -Verify` on **new calendar day**, then small verified patch | Bootstrap seeds `daily/YYYY-MM-DD.md`; `append-daily` adds bullet; reply **`Vault daily: updated ...`**; `runs` bump |
-| 13 | Run `grep-vault.ps1 -Pattern "autolog"` from `SKILLS-AI` | Returns JSON hits from gitignored `vault/{decisions,sessions,projects}/` (not empty `[]` when notes exist) |
+| 13 | Run `grep-vault.ps1 -Pattern "autolog"` from `agent-skills` (or `SKILLS-AI`) repo root | Returns JSON hits from gitignored `vault/{decisions,sessions,projects}/` (not empty `[]` when notes exist) |
 | 14 | `/vault-capture` promote session note | Infer project; `template.vault-session.md`; auto hub `projects/<slug>.md` + backlink; manifest `sess-*` + `proj-*` |
-| 15 | Open Obsidian → `SKILLS-AI/vault` | Sidebar: `daily/`, `sessions/`, `decisions/`, `projects/`; Daily notes → `daily/YYYY-MM-DD.md`; `_agent/` excluded from graph |
+| 15 | Open Obsidian → `agent-skills/vault` or `.cursor/vault` junction | Sidebar: `daily/`, `sessions/`, `decisions/`, `projects/`; Daily notes → `daily/YYYY-MM-DD.md`; `_agent/` excluded from graph |
 
 ## Post-L4 behavioral checklist (run after Reload)
 

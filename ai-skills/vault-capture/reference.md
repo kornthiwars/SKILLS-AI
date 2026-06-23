@@ -83,7 +83,7 @@ Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`project
 | `/upgrade-ai` | **none** | — | Meta skill — no app memory |
 | `/vault-capture` | — | — | Destination; infer project + hub ensure + manifest upsert |
 | `/vault-recall` | — | — | Read path; cite sources |
-| `/vault-daily` | — | — | Ephemeral tier; triage before promote |
+| `/vault-daily` | — | — | Ephemeral tier; triage before promote; session/decision promote runs infer project + hub ensure |
 
 **Anti-duplication:** `/fix-record` owns full RCA. `/vault-capture` owns episodic or decision notes — link, do not copy.
 

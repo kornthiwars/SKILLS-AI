@@ -4,12 +4,14 @@
 
 `vault/**` is **gitignored** — directory `Grep` / `Glob` on vault note folders often returns **empty** even when files exist.
 
-Resolve disk path — use **first that exists**:
+Resolve disk path — use **first root that exists** on disk, then `{path}` from manifest:
 
-| Workspace | Manifest | Note file (`manifest.path`) |
-|-----------|----------|----------------------------|
-| Parent `web/` | `SKILLS-AI/vault/_agent/manifest.json` | `SKILLS-AI/vault/{path}` or `.cursor/vault/{path}` |
-| Pack root `SKILLS-AI/` | `vault/_agent/manifest.json` | `vault/{path}` |
+| Workspace layout | Vault root (try in order) | Manifest |
+|------------------|---------------------------|----------|
+| Parent (junction) | `agent-skills/vault/` · `SKILLS-AI/vault/` (legacy) · `.cursor/vault/` | `<root>/_agent/manifest.json` |
+| Pack repo root (`agent-skills/`) | `vault/` | `vault/_agent/manifest.json` |
+
+Note file: `<resolved-root>/{manifest.path}` — e.g. `agent-skills/vault/decisions/slug.md`.
 
 SSoT: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) § Path resolution.
 
@@ -47,11 +49,11 @@ Creating or interpreting note shape: [templates/vault/README.md](../../templates
    Returns JSON `[{path,line,excerpt},...]` via `rg --no-ignore`. Roots from `_agent/tiers.json`. Fallback: per-file `Grep` / `Read` on manifest paths only.
 
 4. `Read` winners (≤5); expand `related:` per cap below
-5. Cite `SKILLS-AI/vault/{path}` or `.cursor/vault/{path}` with line range
+5. Cite the **resolved root** used on disk + `{path}` with line range
 
 ## Citation format
 
-`SKILLS-AI/vault/decisions/auth-refresh-policy.md` lines 12–28
+`agent-skills/vault/decisions/auth-refresh-policy.md` lines 12–28 (or `.cursor/vault/...` when that root was resolved)
 
 ## Manifest shortlist
 
@@ -85,7 +87,7 @@ Daily files: `Read` by date path; listed in manifest as `tier: ephemeral` for bo
 
 ## Obsidian
 
-Open `SKILLS-AI/vault` as vault root. Wikilinks in notes use `[[tier/slug]]` without `notes/` prefix.
+Open resolved vault root (`agent-skills/vault`, `SKILLS-AI/vault`, or `.cursor/vault` junction). Wikilinks in notes use `[[tier/slug]]` without `notes/` prefix.
 
 **Graph vs agent metadata:** `related:` in frontmatter does **not** create Obsidian graph edges (core). For graph/backlink answers, cite wikilinks in the note body. Use `related:` only for agent recall expansion (manifest `id` refs).
 

@@ -64,10 +64,12 @@ $content = $content -replace 'updated_at:\s*"[^"]*"', "updated_at: `"$iso`""
 if ($Bullet.Trim()) {
     $bulletLine = if ($Bullet.TrimStart().StartsWith('-')) { $Bullet.Trim() } else { "- $Bullet" }
     if ($content -notmatch [regex]::Escape($bulletLine)) {
-        $anchor = "`n## Issues"
-        $pos = $content.IndexOf($anchor)
-        if ($pos -lt 0) { throw "Missing ## Issues section in daily file" }
-        $content = $content.Insert($pos + 1, "$bulletLine`n`n")
+        $marker = '## สรุปงานวันนี้'
+        $pos = $content.IndexOf($marker)
+        if ($pos -lt 0) { throw "Missing ## สรุปงานวันนี้ section in daily file" }
+        $insertAt = $pos + $marker.Length
+        if ($insertAt -lt $content.Length -and $content[$insertAt] -eq "`n") { $insertAt++ }
+        $content = $content.Insert($insertAt, "`n$bulletLine`n")
     } else {
         Write-Output "SKIP duplicate bullet"
     }

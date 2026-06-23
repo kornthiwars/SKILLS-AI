@@ -1,7 +1,7 @@
 ---
 name: vault-daily
 metadata:
-  version: "2.2.7"
+  version: "2.3.0"
 description: >-
   Use for end-of-day triage, Issues review, promote to durable tiers, and สรุปส่งรายงาน.
   Routine bullets autolog after patches (vault-autolog rule). Invoke /vault-daily when
@@ -45,6 +45,7 @@ Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails
 - ALWAYS one daily file per calendar day — merge on re-run (increment `runs`, `updated_at`)
 - NEVER store secrets in vault notes
 - ALWAYS upsert manifest after each promote
+- ALWAYS **infer `project`** and run **project hub ensure** after promoting `keep_decision` or `keep_learning` — same rules as [`/vault-capture`](../vault-capture/SKILL.md) step 8 ([reference](../vault-capture/reference.md) § Infer project · § Project hub auto-ensure)
 
 ## Workflow
 
@@ -59,10 +60,12 @@ Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails
    - `keep_decision` → `template.vault-decision.md` → `vault/decisions/<topic-slug>.md`
    - `keep_learning` → `template.vault-session.md` → `vault/sessions/<topic-slug>.md`
    - `keep_project` → `template.vault-project.md` → `vault/projects/<name>.md`
+   - For `keep_decision` / `keep_learning`: **infer `project`** per [vault-capture/reference.md](../vault-capture/reference.md) § Infer project — set in frontmatter before write
    - New decisions default `status: draft` unless user says active
-8. Upsert manifest for each promoted/updated durable file
-9. Link from daily `## Promoted` using wikilinks — e.g. `[[decisions/slug]]` — no duplicate full decision body
-10. Output **สรุปส่งรายงาน** block (Thai bullets, copy-paste ready)
+8. Upsert manifest for each promoted/updated durable file (`tags` required)
+9. For each promoted **session or decision**: **project hub ensure** per [vault-capture/reference.md](../vault-capture/reference.md) § Project hub auto-ensure (hub create/update, primary backlink, `proj-*` manifest upsert)
+10. Link from daily `## Promoted` using wikilinks — e.g. `[[decisions/slug]]`, `[[projects/<project>]]` — dedupe lines hub ensure already added; no duplicate full decision body
+11. Output **สรุปส่งรายงาน** block (Thai bullets, copy-paste ready) — include inferred project + hub path when step 9 ran
 
 ## Obsidian (human)
 
@@ -79,7 +82,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | DISCOVERIES | Daily sections loaded, Issues rows, optional `git log --since=midnight` |
 | ANALYSIS | Triage preview summary, promote candidates, dedupe status |
 | RISKS | Promote without user confirm, secrets in notes, manifest drift |
-| ARTIFACTS | daily path, promoted paths, manifest entries, triage preview summary |
+| ARTIFACTS | daily path, promoted paths, hub path (`created` \| `updated`) when applicable, manifest entries, triage preview summary |
 | NEXT ACTIONS | Await user `ok`/`yes`/`go` · run promote step · `none` |
 | HANDOFF | `/vault-capture` · `/vault-recall` · `/fix-record` · `none` |
 | CONFIDENCE | 0–100; pass [reference.md](./reference.md) § Close-out verification gate before READY |

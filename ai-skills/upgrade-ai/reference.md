@@ -77,7 +77,7 @@ When diagnosing or upgrading **this** repository:
 |-------------------------|---------------------------|
 | `ai-skills/<name>/` | `.cursor/skills/<name>/` (symlink/junction) |
 | `ai-rules/*.mdc` | `.cursor/rules/` |
-| `vault/` | `.cursor/vault/` → `SKILLS-AI/vault/` (junction; local notes gitignored) |
+| `vault/` | `.cursor/vault/` → `agent-skills/vault/` (junction; `SKILLS-AI/vault/` legacy alias; local notes gitignored) |
 
 - **Do not** treat `.cursor/skills` as source of truth in the clone — it points at `ai-skills/`.
 - **Do not** commit user content under `vault/` (gitignored except `.gitkeep`).

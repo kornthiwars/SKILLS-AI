@@ -48,7 +48,7 @@ Record **Y** / **N** in PR or local notes. Target: ≥1 prompt per core skill pe
 
 | Prompt | Pass criteria |
 |--------|---------------|
-| `/vault-daily` at end of day | Triage preview; no promote without confirm; SKILL REPORT |
+| `/vault-daily` at end of day | Triage preview; no promote without confirm; session/decision promote → infer project + hub `projects/<slug>.md`; SKILL REPORT |
 
 ---
 

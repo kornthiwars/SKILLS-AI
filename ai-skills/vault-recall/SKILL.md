@@ -1,7 +1,7 @@
 ---
 name: vault-recall
 metadata:
-  version: "2.4.6"
+  version: "2.4.7"
 description: >-
   Use when the user asks what was decided, fixed, or captured in vault memory — search
   via manifest + grep-vault or per-file Read, cite paths and line ranges. Use before
@@ -38,7 +38,7 @@ Retrieve context from local vault using agent tools — **`grep-vault`** shell s
 
 Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails. Skill-specific:
 
-- ALWAYS resolve paths per [reference.md](./reference.md) § Path resolution (`SKILLS-AI/vault/` or `.cursor/vault/` in parent workspace `web/`)
+- ALWAYS resolve paths per [reference.md](./reference.md) § Path resolution — first exists: `agent-skills/vault/`, `SKILLS-AI/vault/` (legacy), or `.cursor/vault/` in parent workspace; `vault/` at pack root
 - ALWAYS `Read` manifest before hybrid search (skip for pure daily-date reads)
 - ALWAYS cite resolved vault path with line range
 - For **tier-wide keyword search** → run `scripts/vault/grep-vault.sh --pattern "..."` (macOS/Linux) or `grep-vault.ps1 -Pattern "..."` (Windows) — searches gitignored notes via `rg --no-ignore`

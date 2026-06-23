@@ -150,10 +150,15 @@ cleanup_in_repo_cursor
 
 bootstrap_vault() {
   local bootstrap="$REPO_ROOT/scripts/vault/bootstrap-vault.sh"
+  local f
+
+  for f in "$REPO_ROOT"/scripts/vault/*.sh; do
+    [ -f "$f" ] || continue
+    chmod +x "$f"
+  done
 
   [ -f "$bootstrap" ] || { printf '..  skip vault (bootstrap-vault.sh missing)\n'; return 0; }
 
-  chmod +x "$bootstrap"
   "$bootstrap" --repo="$REPO_ROOT" --verify || return 1
   printf 'OK  vault (agent-only — no Python required)\n'
 }

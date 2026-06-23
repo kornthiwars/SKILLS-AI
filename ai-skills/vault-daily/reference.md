@@ -21,13 +21,24 @@ Path: `vault/daily/YYYY-MM-DD.md`
 
 | triage | Action |
 |--------|--------|
-| keep_decision | `template.vault-decision.md` → `decisions/<slug>.md` + manifest |
-| keep_learning | `template.vault-session.md` → `sessions/<slug>.md` + manifest |
+| keep_decision | `template.vault-decision.md` → `decisions/<slug>.md` + manifest + **hub ensure** |
+| keep_learning | `template.vault-session.md` → `sessions/<slug>.md` + manifest + **hub ensure** |
 | keep_project | `template.vault-project.md` → `projects/<slug>.md` + manifest |
 | daily_only | Stay in daily only |
 | carry_over | Add to frontmatter `carry_over` |
 
 Dedupe before promote: `Read` `vault/_agent/manifest.json` + match slug in `path`.
+
+## Infer project + hub ensure (sessions/decisions promote)
+
+After promote + manifest upsert for `keep_decision` or `keep_learning`:
+
+1. **Infer `project`** — [vault-capture/reference.md](../vault-capture/reference.md) § Infer project (signals from daily Issues, patched paths, manifest `proj-*`; ask once on tie)
+2. **Hub ensure** — same algorithm as [vault-capture/reference.md](../vault-capture/reference.md) § Project hub auto-ensure
+
+Skip hub ensure for `keep_project` (note is the hub) and `daily_only`.
+
+Report in **สรุปส่งรายงาน**: `Inferred project: <slug> (<reason>)`, hub `created` | `updated`.
 
 ## Promoted wikilinks
 
@@ -64,6 +75,6 @@ Before STATUS=READY:
 | Step | Action |
 |------|--------|
 | 1 IDENTIFY | Daily path, promote candidates, manifest entries |
-| 2 RUN | Triage preview confirmed (`ok`/`yes`/`go`); promotes use SSoT templates; manifest upserted |
-| 3 READ | **สรุปส่งรายงาน** block emitted; promoted wikilinks in daily |
+| 2 RUN | Triage preview confirmed (`ok`/`yes`/`go`); promotes use SSoT templates; manifest upserted; hub ensure for session/decision promotes |
+| 3 READ | **สรุปส่งรายงาน** block emitted; promoted + hub wikilinks in daily |
 | 4 AUTOLOG | **Skip** unless this session also applied a verified app patch (autolog rule applies separately) |
