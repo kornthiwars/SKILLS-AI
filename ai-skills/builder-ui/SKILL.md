@@ -1,11 +1,11 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.2.13"
+  version: "1.3.0"
 description: >-
-  Use when building or refining UI from mocks, screenshots, or design references —
-  layout, components, responsive behavior, a11y, browser verify. Accepts slice briefs
-  from /builder-feature. Invoke /builder-ui or "slice N go" for implementation.
+  Use when building UI from Figma (Copy as SVG), screenshots, or mocks — pixel-fidelity
+  or component-system paths. Layout, tokens, responsive, a11y, browser verify. Slice
+  briefs from /builder-feature. Invoke /builder-ui or "slice N go".
 paths: "**/*.{tsx,jsx,vue,svelte,css,scss,html,rs}"
 compatibility: >-
   Cursor with junction setup (scripts/setup-macos-linux.sh or setup-windows.ps1).
@@ -31,10 +31,12 @@ Build production-oriented UI that is:
 - visually consistent
 
 Do NOT:
-- blindly clone screenshots
+- dump Figma SVG as one monolithic component (unless user asks embed-only)
 - mix business logic inside presentation
 - overengineer simple interfaces
-- sacrifice accessibility/responsiveness for speed
+- sacrifice accessibility for speed (minimum semantic + labels even in Pixel mode)
+
+**Build mode** (phase 0): **Pixel** = visual fidelity from SVG values · **System** = reusable components + tokens (default for slice backlog). Detail: [reference.md](./reference.md) § Build modes.
 
 ## Scope Guardrails
 
@@ -54,9 +56,14 @@ Deliver in **vertical slices** — [builder-feature/reference-slice-handoff.md](
 
 ## Quick cheat sheet
 
+| Step | Action |
+|------|--------|
+| 0 | **Mode:** Pixel (Figma SVG + ตรงเป๊ะ) or System (default) · stack if not stated |
+| 1–7 | Phases per mode — [reference.md](./reference.md) § Workflow (detail) |
+
 | # | Phase | Gate |
 |---|--------|------|
-| 0 | Slice brief intake | brief loaded or N/A (standalone UI) |
+| 0 | Intake | brief or SVG + screenshot + mode |
 | 1 | Visual analysis | hierarchy map |
 | 2 | Layout | responsive plan |
 | 3 | Components | reuse tree |
@@ -69,16 +76,11 @@ Deliver in **vertical slices** — [builder-feature/reference-slice-handoff.md](
 
 # Core philosophy
 
-Do NOT generate UI directly from pixels.
+**System mode (default):** analyze hierarchy → layout system → reusable components → design tokens → verify responsive + a11y.
 
-First:
-1. analyze visual hierarchy
-2. reconstruct layout system
-3. extract reusable components
-4. infer design-system rules
-5. verify responsive + accessibility behavior
+**Pixel mode:** extract **real values** from Figma SVG (colors, spacing, type, radius) → rebuild UI to match the frame → validate shadows/gradients against screenshot. Trade maintainability for fidelity — state explicitly in SKILL REPORT.
 
-Treat UI as systems and interaction flows, not static images.
+Do not generate unanalyzed UI from pixels or SVG paths alone.
 
 ---
 
@@ -103,7 +105,7 @@ Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow 
 
 | # | Phase | Deliver |
 |---|--------|---------|
-| 0 | Slice brief intake | confirm Outcome, Non-goals, Verify from plan |
+| 0 | Intake | mode, brief or SVG+screenshot, stack |
 | 1 | Visual analysis | observations, hierarchy, patterns |
 | 2 | Layout reconstruction | layout architecture, responsive plan |
 | 3 | Component extraction | component tree, shared candidates |
@@ -121,7 +123,7 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | Section | `/builder-ui` |
 |---------|---------------|
 | STATUS | IN_PROGRESS = phase N; READY = close-out gate **and** vault autolog passed; BLOCKED = missing reference/input |
-| OBJECTIVE | UI architecture from references — components, design system, responsive plan |
+| OBJECTIVE | Mode + UI from references — fidelity (Pixel) or architecture (System) |
 | DISCOVERIES | Reference patterns, hierarchy, reuse opportunities, a11y/responsive concerns |
 | ANALYSIS | Architecture choices, state boundaries, duplication risks |
 | RISKS | Inconsistent design system, missing a11y, responsive gaps |

@@ -29,6 +29,86 @@ If **standalone** `/builder-ui` (no feature plan): phase 0 = confirm scope + non
 
 ---
 
+## Build modes (phase 0 — pick one)
+
+| Mode | User signals | Goal | Trade-off |
+|------|--------------|------|-----------|
+| **Pixel** | Figma **Copy as SVG**, "ตรงเป๊ะ", pixel-perfect, landing/demo | Visual match to frame using **extracted SVG values** | Less reusable; document in SKILL REPORT |
+| **System** | slice brief, production app, `/builder-feature` handoff | Reusable components + tokens + responsive system | ~85–95% visual match acceptable |
+
+**Default:** System. Switch to Pixel when user provides SVG and asks for fidelity over component extraction.
+
+---
+
+## Figma / SVG intake (Pixel mode)
+
+### Required inputs
+
+| Input | Required | Use |
+|-------|----------|-----|
+| SVG (Figma Copy as SVG) | **Yes** | Colors, positions, sizes, fonts, radius, paths |
+| Screenshot (same frame) | Strongly recommended | Shadows, gradients, blur — SVG often incomplete |
+| Stack | Ask if missing | e.g. React+TypeScript+Tailwind, HTML/CSS only |
+| Functional requirements | Optional | Scope; do not invent interactions |
+
+### Extraction protocol
+
+1. Read `viewBox` / root `width`×`height` → frame size.
+2. Parse groups: layout regions (header, sidebar, main, cards).
+3. Extract **literal** values — `fill`, `stroke`, `font-family`, `font-size`, `font-weight`, `x`/`y`/`width`/`height`, `rx`/`ry`, `opacity`, `filter`.
+4. Compare screenshot → note gaps (gradient angle, box-shadow, backdrop-blur).
+5. Rebuild with **flex/grid** from structure — avoid absolute-position soup unless export is flat-only.
+6. **Do not** paste the whole SVG as the page component unless user requests embed-only.
+
+### Stack appendix (when user specifies)
+
+| Stack | Defaults |
+|-------|----------|
+| React + TS + Tailwind | Functional components, no inline styles, shared primitives |
+| HTML/CSS | Semantic markup, CSS variables from extracted tokens |
+| Vue / Svelte | Match project conventions if repo context exists |
+
+### Pixel workflow (phases 1–7)
+
+| Phase | Deliver |
+|-------|---------|
+| 1 | SVG parse + screenshot diff notes |
+| 2 | Frame layout (grid/flex), spacing from SVG |
+| 3 | UI blocks (split for readability — not one file if >300 lines) |
+| 4 | Token table from extracted values |
+| 5 | **Assumptions** only for missing interaction — see below |
+| 6 | Minimum a11y: semantic tags, `aria-label` on icon-only controls |
+| 7 | Visual verify (browser snapshot/screenshot) + close-out gate § Pixel |
+
+### Confidence report (required in Pixel; use in System when inferring)
+
+For each inferred item:
+
+| Item | Confidence | Why |
+|------|------------|-----|
+| e.g. primary `#2563EB` | High | `fill` in SVG path `...` |
+| e.g. hover state | Low | not in SVG — listed under Assumptions |
+
+**High** = literal in SVG or confirmed by screenshot · **Medium** = derived from spacing rhythm · **Low** = guessed — must appear in Assumptions, not implemented as fact.
+
+### Assumptions block
+
+When SVG/screenshot lack interaction (hover, click, validation):
+
+```markdown
+## Assumptions
+- [ ] Button hover: not in export — skipped
+- [ ] Modal open: user did not specify — static only
+```
+
+Never hallucinate interactions the design does not show.
+
+### Component checklist (System mode; optional in Pixel)
+
+Header, Sidebar, Navigation, Card, Table, Modal, Button, Input, Select, Tabs, Badge, Avatar, Pagination, Empty State, Loading State — extract only what appears in the design.
+
+---
+
 ## Workflow (detail)
 
 Load this section when executing a phase. Run phases **in order**.
@@ -79,8 +159,9 @@ Reject if: excessive duplication, unstable layout across breakpoints, unclear ow
 
 ## Extended anti-patterns
 
-- screenshot-only cloning
-- pixel-perfect obsession over maintainability
+- monolithic inline SVG as entire page (Pixel mode — unless embed-only requested)
+- screenshot-only cloning **without** parsing SVG values (Pixel mode)
+- pixel-perfect obsession **in System mode** when reuse matters
 - giant monolithic components
 - duplicated layouts
 - inconsistent spacing systems
@@ -158,9 +239,24 @@ Canonical list for close-out `ARTIFACTS` — map to workflow phase outputs:
 | Frontend Structure | 5–6 |
 | Verification Plan | 7 |
 
+**Pixel mode ARTIFACTS:** Extracted tokens, layout notes, Confidence table, Assumptions, implementation paths (component tree optional).
+
 ---
 
-## Close-out verification gate (phase 7)
+## Close-out verification gate — Pixel mode
+
+| # | Proof |
+|---|--------|
+| 1 | Values cited from SVG (colors, spacing, type) — not guessed |
+| 2 | Screenshot compared for shadow/gradient gaps — noted in DISCOVERIES |
+| 3 | Assumptions block for anything not in export |
+| 4 | Confidence table in SKILL REPORT or close-out |
+| 5 | Browser/visual check when runtime available |
+| 6 | Vault autolog if verified patch — [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) |
+
+---
+
+## Close-out verification gate — System mode (phase 7)
 
 | # | Proof |
 |---|--------|
