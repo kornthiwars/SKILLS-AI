@@ -1,10 +1,10 @@
 ---
 name: builder-ui-cost
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 description: >-
   Low-token Figma-to-UI targeting pixel match (SVG literals + verify). Attach PNG
-  and/or SVG once; intake manifest then build; never echo exports. Invoke
+  and/or SVG once; in-chat intake manifest then build; never echo exports. Invoke
   /builder-ui-cost. Hand off to /builder-ui for production hardening.
 paths: "**/*.{tsx,jsx,vue,svelte,css,scss,html}"
 compatibility: >-
@@ -21,7 +21,7 @@ Mission: Reconstruct UI **pixel match** (SVG literals + verify) from PNG and/or 
 
 ## Purpose
 
-**Pixel match** = literal SVG values where exported · PNG/micro-PNG for effects · `verify` catches deltas; unknowns → Assumptions only. **Lowest cost** = one attach · no echo · manifest file · split-chat for build. **Do NOT:** monolithic SVG dump · long essays · re-attach same frame.
+**Pixel match** = literal SVG values where exported · PNG/micro-PNG for effects · `verify` catches deltas; unknowns → Assumptions only. **Lowest cost** = one attach · no echo · **in-chat manifest** · same-thread `build`. **Do NOT:** monolithic SVG dump · long essays · re-attach same frame · **write `ui-intake.manifest.md` or any intake `.md` to the repo**.
 
 Detail: [reference.md](./reference.md) only — do not load `builder-ui/reference.md` unless handoff.
 
@@ -43,7 +43,7 @@ Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails
 | Step | Action |
 |------|--------|
 | 0 | Stack if missing · pick attach path — [reference.md](./reference.md) § Attach strategy |
-| 1 | **Intake** — attach once · write `ui-intake.manifest.md` · chat **≤12 lines** (pointer + gaps only) |
+| 1 | **Intake** — attach once · emit `## Intake manifest` **in chat** (tables) · no repo `.md` |
 | 2 | User: `build` — code files · REPORT ≤15 lines |
 | 3 | User: `verify` — one browser compare · then READY |
 
@@ -51,6 +51,7 @@ Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails
 |----------|--|
 | Attach | Once per thread — re-attach only if design changed |
 | Echo | **Never** raw SVG, paths, base64 |
+| Intake file | **Never** create `ui-intake.manifest.md` or other intake markdown in app/pack repo |
 | Fidelity | Values from manifest — Low confidence → Assumptions, not code |
 | Cost | Load **this** reference only; skip `builder-ui` workflow tables |
 

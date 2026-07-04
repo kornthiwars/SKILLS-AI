@@ -45,16 +45,16 @@ READY claims **Tier S or A** after `verify` with no unresolved deltas · Tier B 
 ### Turn 1 — Intake (attach here)
 
 1. Parse attachment · pick tier S/A/B.
-2. **Write** `ui-intake.manifest.md` in repo (canonical — full tables allowed).
-3. Chat reply **≤12 lines**: path, tier, frame size, `manifest: ui-intake.manifest.md`, top gaps, assumptions ≤3.
+2. **Emit** `## Intake manifest` **in the chat reply** (canonical — full tables allowed). **Do not** `Write` any `.md` file to the repo.
+3. After the manifest block: one-line summary — path, tier, frame size, top gaps, assumptions ≤3.
 
-**Manifest file must include** § Typography & borders rows for every text style and bordered control in frame.
+**Manifest block must include** § Typography & borders rows for every text style and bordered control in frame.
 
-**Forbidden Turn 1:** component code · browser MCP · echoing SVG XML in chat.
+**Forbidden Turn 1:** component code · browser MCP · echoing SVG XML in chat · creating `ui-intake.manifest.md` or other intake markdown on disk.
 
 ### Turn 2 — Build
 
-User: `build` (no re-attach). Read manifest from disk only.
+User: `build` (no re-attach). Read manifest from **this thread's Turn 1 chat** only.
 
 **Agent:** code files · Tailwind **arbitrary** when default scale wrong (`text-[13px]`, `border-[1.5px]`) · REPORT ≤15 lines.
 
@@ -64,12 +64,13 @@ User: `verify` · one `browser_snapshot` · list deltas (size/weight/border/colo
 
 `waive verify` → RISKS · CONFIDENCE cap 85.
 
-### Split-chat (recommended for lowest cost)
+### Same-thread build (default — lowest friction)
 
 | Chat | Action |
 |------|--------|
-| A | Attach → write `ui-intake.manifest.md` → ≤12 line pointer |
-| B | `build from ui-intake.manifest.md` — **no attach** | saves **30–50%** on build context |
+| Single thread | Attach → `## Intake manifest` in chat → user `build` → user `verify` |
+
+**Optional split-chat:** new thread with **paste of the `## Intake manifest` block** (user copy) or re-attach — never require a repo file.
 
 ---
 
@@ -89,14 +90,14 @@ User: `verify` · one `browser_snapshot` · list deltas (size/weight/border/colo
 
 ---
 
-## Cost levers (additional vs v1.0.0)
+## Cost levers
 
 | Lever | Δ tokens | Fidelity |
 |-------|----------|----------|
-| Manifest in **file** not chat | **−15–25%** output/history | Same or better (full table allowed) |
+| Manifest **in chat** (no repo file) | Avoids repo noise · history carries manifest | Same if tables complete |
 | Prefer **Path B** over A when no effects | **−10–30%** vs dual attach | Tier S when SVG suffices |
-| Split-chat build | **−30–50%** session cumulative | Same if manifest complete |
-| Chat ≤12 lines Turn 1 | **−5–10%** | Requires manifest file |
+| Same-thread `build` after intake | No re-attach · no file I/O | Same if manifest complete |
+| Compact manifest tables (no prose) | **−5–10%** vs essay | Requires complete rows |
 | PNG **960px** (user opt-in `ultra`) | **−15–25%** vision | Tier B only |
 
 Turn 1 attachment still host-billed.
@@ -124,7 +125,7 @@ Missing export data → Assumptions only · not in code as fact.
 
 | Deliverable | Turn |
 |-------------|------|
-| `ui-intake.manifest.md` | 1 |
+| `## Intake manifest` block in chat | 1 |
 | Implementation paths | 2 |
 | Verify deltas (or waive) | 3 |
 
@@ -134,8 +135,8 @@ Missing export data → Assumptions only · not in code as fact.
 
 | # | Proof |
 |---|--------|
-| 1 | `ui-intake.manifest.md` exists with typography/border rows |
-| 2 | Chat Turn 1 ≤12 lines · no SVG echo |
+| 1 | Turn 1 chat contains `## Intake manifest` with typography/border rows — **no** intake `.md` written to repo |
+| 2 | No SVG echo in chat |
 | 3 | Literals cite SVG/PNG — guesses in Assumptions |
 | 4 | `verify` or `waive verify` |
 | 5 | Vault autolog if verified patch — [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) |
@@ -144,8 +145,8 @@ Missing export data → Assumptions only · not in code as fact.
 
 ## Anti-patterns
 
-- Full manifest only in chat (use file)
-- Re-attach same frame
+- Writing `ui-intake.manifest.md` (or any intake markdown) into app/pack repo
+- Re-attach same frame without design change
 - `text-sm` when manifest says 13px
 - Claim Tier S when only PNG Path C
 - Production design system → `/builder-ui` System
