@@ -10,7 +10,7 @@
 |-------|--------|---------|-------------------|
 | debug | `/debug` | 1.3.12 | ใช่ |
 | scrutinize | `/scrutinize` | 1.2.13 | ใช่ |
-| builder-ui | `/builder-ui` | 1.3.1 | ใช่ |
+| builder-ui | `/builder-ui` | 1.3.2 | ใช่ |
 | builder-api | `/builder-api` | 1.2.11 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.10 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.11 | ใช่ |

@@ -42,6 +42,55 @@ If **standalone** `/builder-ui` (no feature plan): phase 0 = confirm scope + non
 
 ---
 
+## Cost-efficient intake (PNG / SVG — attachment unchanged)
+
+User **may still attach PNG and/or SVG** every session. This section reduces **amplification** and **repeat** cost — not banning attachments.
+
+### Where tokens go (typical Pixel session)
+
+| Layer | Share | Pack can fix? |
+|-------|-------|---------------|
+| PNG vision / SVG text in user message | **~85–99%** | No — host bills attachment |
+| Chat history (re-attach, long replies) | **~5–15%** | **Yes** — protocol below |
+| Always-on rules + `SKILL.md` | **<0.1%** | Already trimmed (token pass) |
+
+### Agent protocol (mandatory in Pixel)
+
+1. **Attach once per thread** — same frame: do **not** ask user to re-attach PNG/SVG in follow-ups; work from intake table + code.
+2. **Never echo** raw SVG, `d="..."` paths, base64, or screenshot descriptions longer than one line — cite values in a **compact token table** only.
+3. **Intake cap** — phase 1 chat output ≤**60 lines**: frame size, regions, token table, Confidence, Assumptions. Implementation goes to files, not prose.
+4. **Code-first** — prefer writing components over restating the design essay.
+5. **DISCOVERIES** — note gaps (shadow, gradient); do not paste export XML to prove a color.
+
+### User attachment hygiene (still PNG / SVG)
+
+| Input | User still attaches | Hygiene (smaller bill, same workflow) |
+|-------|---------------------|--------------------------------------|
+| **PNG** screenshot | Yes | Frame width **1280–1920px**; crop to artboard; avoid 4K full-desktop unless needed |
+| **SVG** (Figma Copy as SVG) | Yes | Hide unused layers/groups; one frame per attach; flatten decorative masks when safe |
+| **Both** | Yes | Same frame only when shadows/blur need PNG; skip duplicate full-frame PNG if SVG + small crop PNG for effects |
+
+### Optional two-session (design frozen)
+
+| Session | User | Agent |
+|---------|------|-------|
+| **A — Intake** | Attach PNG and/or SVG | Output **Intake table** only (≤60 lines) — user may copy to notes |
+| **B — Build** | Paste intake table; attach again **only if** design changed | Implement from table; no full re-parse unless new attach |
+
+### Estimated savings (order of magnitude)
+
+| Lever | Est. session savings | Attach preserved? |
+|-------|---------------------|-------------------|
+| No SVG/path echo in replies | 5–15% | Yes |
+| Attach once, no re-attach in thread | 30–50% when user was re-attaching | Yes (once per thread) |
+| PNG ≤1920px crop | 10–40% on vision-heavy frames | Yes (smaller file) |
+| Figma layer trim before SVG copy | 20–60% on SVG text | Yes (smaller export) |
+| Intake ≤60 lines + code-first | 5–10% output/history | Yes |
+
+**Not fixable in skill pack:** first-message attachment token cost on complex SVG (user observed **1–5M**) — hygiene + protocol only **shape** that bill, not eliminate it.
+
+---
+
 ## Figma / SVG intake (Pixel mode)
 
 ### Required inputs

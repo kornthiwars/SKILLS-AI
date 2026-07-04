@@ -1,7 +1,7 @@
 ---
 name: builder-ui
 metadata:
-  version: "1.3.1"
+  version: "1.3.2"
 description: >-
   Use when building UI from Figma (Copy as SVG), screenshots, or mocks — pixel-fidelity
   or component-system paths. Layout, tokens, responsive, a11y, browser verify. Slice
@@ -47,6 +47,7 @@ Deliver in **vertical slices** — [builder-feature/reference-slice-handoff.md](
 | Step | Action |
 |------|--------|
 | 0 | **Mode:** Pixel (Figma SVG + ตรงเป๊ะ) or System (default) · stack if not stated |
+| 0b | **Cost:** attach once · compact intake · never echo SVG — [reference.md](./reference.md) § Cost-efficient intake |
 | 1–7 | Phases per mode — [reference.md](./reference.md) § Workflow (detail) |
 
 | # | Phase | Gate |
