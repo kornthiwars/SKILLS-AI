@@ -36,6 +36,7 @@ Edit **`ai-skills/`** and **`ai-rules/`** in the clone — not inside `.cursor/`
 | [debug](ai-skills/debug/SKILL.md) | Bugs, stack traces, systematic diagnosis |
 | [scrutinize](ai-skills/scrutinize/SKILL.md) | Review plan, PR, or diff end-to-end |
 | [builder-ui](ai-skills/builder-ui/SKILL.md) | UI architecture from references |
+| [builder-ui-cost](ai-skills/builder-ui-cost/SKILL.md) | 100% pixel UI · PNG/SVG · lowest session tokens |
 | [builder-api](ai-skills/builder-api/SKILL.md) | API contracts and backend boundaries |
 | [builder-schema](ai-skills/builder-schema/SKILL.md) | Data modeling and migrations |
 | [builder-infrastructure](ai-skills/builder-infrastructure/SKILL.md) | IaC, CI/CD, observability |

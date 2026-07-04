@@ -34,6 +34,7 @@ Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails
 
 | Situation | Skill |
 |-----------|--------|
+| Low-token 100% pixel (PNG/SVG) | [`/builder-ui-cost`](../builder-ui-cost/SKILL.md) |
 | Full-stack feature (plan) | [`/builder-feature`](../builder-feature/SKILL.md) |
 | Slice brief from feature plan | Load [reference.md](./reference.md) § Slice brief intake **before** phase 1 |
 | API contract for UI | [`/builder-api`](../builder-api/SKILL.md) |

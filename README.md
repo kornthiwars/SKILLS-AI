@@ -164,6 +164,7 @@ Copy / label ชัด → agent patch ตรงๆ ได้โดยไม่�
 | scrutinize | `/scrutinize` | 1.2.13 | Outsider review · browser UI · review-only จนกว่า user อนุมัติ |
 | builder-feature | `/builder-feature` | 1.8.3 | Plan-only · plan file · design reasoning · slice handoff · **ห้าม** patch app |
 | builder-ui | `/builder-ui` | 1.3.2 | UI architecture · Figma SVG Pixel mode · cost-efficient intake · a11y · browser verify |
+| builder-ui-cost | `/builder-ui-cost` | 1.0.1 | Pixel match · manifest file · PNG/SVG · lowest tokens |
 | builder-api | `/builder-api` | 1.2.11 | Contract-first API · auth boundaries |
 | builder-schema | `/builder-schema` | 1.2.10 | Schema evolution · migration + rollback plan |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.11 | CI/CD · IaC · DR |

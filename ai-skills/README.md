@@ -9,6 +9,7 @@ Authoring: [SKILL-AUTHORING.md](SKILL-AUTHORING.md) · Agents: [AGENTS.md](../AG
 | debug | `/debug` |
 | scrutinize | `/scrutinize` |
 | builder-ui | `/builder-ui` |
+| builder-ui-cost | `/builder-ui-cost` |
 | builder-api | `/builder-api` |
 | builder-schema | `/builder-schema` |
 | builder-infrastructure | `/builder-infrastructure` |
