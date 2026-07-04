@@ -163,13 +163,13 @@ Copy / label ชัด → agent patch ตรงๆ ได้โดยไม่�
 | debug | `/debug` | 1.3.12 | Four-step diagnosis · mantra · hypothesis ledger |
 | scrutinize | `/scrutinize` | 1.2.13 | Outsider review · browser UI · review-only จนกว่า user อนุมัติ |
 | builder-feature | `/builder-feature` | 1.8.3 | Plan-only · plan file · design reasoning · slice handoff · **ห้าม** patch app |
-| builder-ui | `/builder-ui` | 1.3.0 | UI architecture · Figma SVG Pixel mode · a11y · browser verify |
-| builder-api | `/builder-api` | 1.2.10 | Contract-first API · auth boundaries |
-| builder-schema | `/builder-schema` | 1.2.9 | Schema evolution · migration + rollback plan |
-| builder-infrastructure | `/builder-infrastructure` | 1.2.10 | CI/CD · IaC · DR |
+| builder-ui | `/builder-ui` | 1.3.1 | UI architecture · Figma SVG Pixel mode · a11y · browser verify |
+| builder-api | `/builder-api` | 1.2.11 | Contract-first API · auth boundaries |
+| builder-schema | `/builder-schema` | 1.2.10 | Schema evolution · migration + rollback plan |
+| builder-infrastructure | `/builder-infrastructure` | 1.2.11 | CI/CD · IaC · DR |
 | fix-record | `/fix-record` | 1.2.10 | Canonical RCA หลัง validated fix |
-| upgrade-ai | `/upgrade-ai` | 1.3.4 | Diagnose skill layer · doc drift · external parity |
-| git-push | `/git-push` | 1.2.8 | Inspect · commit เมื่อ user ยืนยัน · push · verify |
+| upgrade-ai | `/upgrade-ai` | 1.3.5 | Diagnose skill layer · doc drift · external parity |
+| git-push | `/git-push` | 1.2.10 | Inspect · commit เมื่อ user ยืนยัน · push · verify |
 | vault-capture | `/vault-capture` | 2.4.0 | Session/ADR · infer project · auto hub |
 | vault-recall | `/vault-recall` | 2.4.7 | grep-vault / Read · cite line range |
 | vault-daily | `/vault-daily` | 2.3.0 | End-of-day triage · Issues · promote · hub ensure |

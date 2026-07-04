@@ -1,7 +1,7 @@
 ---
 name: builder-schema
 metadata:
-  version: "1.2.9"
+  version: "1.2.10"
 description: >-
   Use when modeling data, migrations, indexes, or schema evolution — integrity-safe
   plans with rollback. Use before destructive prod changes. Accepts slice briefs from
@@ -64,54 +64,7 @@ Vertical slices: [builder-feature/reference-slice-handoff.md](../builder-feature
 | 7–8 | Integrity + scale | constraints + rollout |
 | 9–10 | Evolution + verify | migration plan · [reference.md](./reference.md) § Close-out gate |
 
----
-
-# Core philosophy
-
-Do NOT start from tables.
-
-Start with:
-1. domain and ownership
-2. entities and lifecycle
-3. relationships and constraints
-4. access/query patterns
-5. evolution and migration safety
-
-Treat schema as long-lived system contracts, not storage containers.
-
----
-
-# Core principles
-
-- Domain before tables
-- Integrity before convenience
-- Explicit ownership boundaries
-- Intentional relationships
-- Predictability before flexibility
-- Single source of truth
-- Safe schema evolution
-- Query-driven indexing
-- Complexity must justify value
-
----
-
-# Workflow
-
-Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow (detail).
-
-| # | Phase | Deliver |
-|---|--------|---------|
-| 0 | Slice brief intake | Outcome, Contracts, Verify from plan |
-| 1 | Domain analysis | domain map, ownership boundaries |
-| 2 | Entity modeling | entity definitions, lifecycle rules |
-| 3 | Relationship architecture | relationship map, dependencies |
-| 4 | Normalization strategy | normalization plan, duplication risks |
-| 5 | Query pattern analysis | access pattern map, scaling risks |
-| 6 | Indexing strategy | indexing plan, read/write trade-offs |
-| 7 | Integrity enforcement | integrity rules, consistency boundaries |
-| 8 | Scalability planning | scalability plan, operational concerns |
-| 9 | Evolution strategy | migration strategy, compatibility risks |
-| 10 | Verification | pass/reject per checklist |
+Philosophy & phase detail: [reference.md](./reference.md) § Philosophy · § Workflow (detail).
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: builder-infrastructure
 metadata:
-  version: "1.2.10"
+  version: "1.2.11"
 description: >-
   Use when designing CI/CD, deploy, observability, networking, security, or DR —
   reliable infrastructure slices. Accepts slice briefs from /builder-feature.
@@ -68,54 +68,7 @@ Vertical slices: [builder-feature/reference-slice-handoff.md](../builder-feature
 | 7–8 | Reliability + cost | DR + budget |
 | 9 | IaC + verify | [reference.md](./reference.md) § Close-out gate |
 
----
-
-# Core philosophy
-
-Do NOT start from servers.
-
-Start from:
-1. workload + SLO needs
-2. ownership + trust boundaries
-3. deployment + rollback strategy
-4. observability + incident response
-5. recovery + DR readiness
-
-Treat infrastructure as reliability architecture, not a server list.
-
----
-
-# Core principles
-
-- Reliability before optimization
-- Automation before manual ops
-- Observability by default
-- Security by default
-- Reproducible and declarative infra
-- Failure expected; recovery planned
-- Explicit ownership boundaries
-- Intentional scalability
-- Reversible changes
-- Cost visibility required
-
----
-
-# Workflow
-
-Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow (detail).
-
-| # | Phase | Deliver |
-|---|--------|---------|
-| 0 | Slice brief intake | Outcome, Verify, infra scope from plan |
-| 1 | Workload & SLO | workload profile, reliability requirements |
-| 2 | Boundaries & environments | boundary map, environment strategy |
-| 3 | Deployment architecture | deploy and rollback plan |
-| 4 | Compute + networking | compute placement, network topology |
-| 5 | Security + secrets | security model, secrets strategy |
-| 6 | Observability | observability and alerting plan |
-| 7 | Reliability + recovery | resilience and recovery plan |
-| 8 | Scale + cost | scalability and cost plan |
-| 9 | IaC + verification | pass/reject per checklist |
+Philosophy & phase detail: [reference.md](./reference.md) § Philosophy · § Workflow (detail).
 
 ---
 

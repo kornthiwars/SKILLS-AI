@@ -6,15 +6,8 @@ alwaysApply: false
 
 # Verification required
 
-Before claiming success:
+Before claiming success: IDENTIFY → RUN → READ → VERIFY ([debug/reference.md](../../ai-skills/debug/reference.md) § Close-out verification gate).
 
-- **Gate:** IDENTIFY proof command → RUN fresh → READ full output → VERIFY → then claim ([debug/reference.md](../../ai-skills/debug/reference.md) § Close-out verification gate)
-- state expected outcome after the patch
-- run or describe verification (test, repro, lint) for the affected flow
-- note what was **not** run and why
-- list regression risks for adjacent behavior
-- if call targets changed this turn: grep old symbols per [`patching/callee-redirect-cleanup.mdc`](../patching/callee-redirect-cleanup.mdc) before claiming done
+State expected outcome · run/describe verification · note what was **not** run · regression risks · callee grep if call targets changed ([`callee-redirect-cleanup`](../patching/callee-redirect-cleanup.mdc)).
 
-Forbidden without fresh run: "should work", "looks correct", "done", "perfect".
-
-If verification cannot run, say so explicitly — do not imply the fix is proven.
+Forbidden without fresh run: "should work", "looks correct", "done". If cannot verify, say so explicitly.

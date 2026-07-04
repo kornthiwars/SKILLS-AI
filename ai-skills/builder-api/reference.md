@@ -10,6 +10,16 @@ Contract: [`templates/template.slice-brief.md`](../../templates/template.slice-b
 
 ---
 
+## Philosophy
+
+Do NOT start from endpoints. Domain → ownership → contracts → auth/errors → scale/observability → verify.
+
+**Principles:** contract before implementation · validation before processing · security by default · structured errors · backward compatibility · complexity must justify value.
+
+Phase deliverables: cheat sheet in `SKILL.md`; step detail in § Workflow (detail) below.
+
+---
+
 ## Workflow (detail)
 
 Load this section when executing a phase. Run phases **in order**.

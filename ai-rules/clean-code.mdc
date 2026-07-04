@@ -5,41 +5,21 @@ alwaysApply: true
 
 # Clean Code baseline
 
-Apply these rules when creating or editing application/source code.
-
-Process gates (sequence, budget, risk): [`change-control-manifest.mdc`](./change-control-manifest.mdc) and scoped rules under `ai-rules/*/`.
-
-## Goals
-
-- keep code readable and maintainable
-- minimize regressions from AI-generated changes
-- prefer small, verifiable changes over wide rewrites
+App/source edits only. Gates: [`change-control-manifest.mdc`](./change-control-manifest.mdc) · scoped `ai-rules/*/`.
 
 ## Core rules
 
-1. **Small scope first** — change only what is needed for the request.
-2. **Name clearly** — functions/variables should describe intent, not implementation trivia.
-3. **Single responsibility** — avoid large mixed-purpose functions when a small extraction improves clarity.
-4. **No duplicate logic** — refactor obvious copy/paste into shared helpers when practical.
-5. **Fail safely** — handle errors explicitly; do not silently swallow failures.
-6. **Keep behavior stable** — avoid unrelated refactors in the same patch.
-7. **Add/adjust tests when behavior changes** — at least one verification path for new logic.
-8. **No dead code** — do not leave commented-out blocks or unused scaffolding. **Exception:** when this turn redirected a caller, grep the old symbol and remove it in the same patch if zero references remain ([`patching/callee-redirect-cleanup.mdc`](./patching/callee-redirect-cleanup.mdc)).
+1. **Small scope** — only what the request needs.
+2. **Clear names** — intent over trivia.
+3. **Single responsibility** — extract when it clarifies.
+4. **No duplicate logic** — shared helpers when practical.
+5. **Fail safely** — explicit errors; no silent swallow.
+6. **Stable behavior** — no unrelated refactors in the same patch.
+7. **Tests when behavior changes** — at least one verify path.
+8. **No dead code** — after caller redirect, grep old symbol and remove if zero refs ([`callee-redirect-cleanup`](./patching/callee-redirect-cleanup.mdc)).
 
-## Implementation guidance
+Style: early returns · named constants over magic values · rare meaningful comments · match project formatter.
 
-- Prefer early returns over deep nested conditionals.
-- Avoid magic numbers/strings when a named constant improves readability.
-- Keep comments rare and meaningful (explain *why*, not obvious *what*).
-- Follow existing project conventions and formatter output.
+## Verify before reply
 
-## Non-goals
-
-- This rule is not a mandate to rewrite legacy modules wholesale.
-- Do not force abstraction when direct code is clearer.
-
-## Minimum verification before final reply
-
-- confirm lint/type/test commands relevant to changed files (when available)
-- report what was verified vs what could not be run
-- after a **verified patch**: [`vault-autolog.mdc`](workflow/vault-autolog.mdc) (manifest step 9) — do not duplicate autolog steps here
+Lint/type/test when available · report verified vs not run · after verified patch: [`vault-autolog`](workflow/vault-autolog.mdc) (manifest step 9).

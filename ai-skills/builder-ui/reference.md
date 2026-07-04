@@ -38,6 +38,8 @@ If **standalone** `/builder-ui` (no feature plan): phase 0 = confirm scope + non
 
 **Default:** System. Switch to Pixel when user provides SVG and asks for fidelity over component extraction.
 
+**Philosophy:** System — hierarchy → layout → components → tokens → a11y. Pixel — extract SVG values → match frame → validate vs screenshot; state trade-off in SKILL REPORT. **Principles:** structure before styling · a11y mandatory · composition over monoliths · complexity must justify value.
+
 ---
 
 ## Figma / SVG intake (Pixel mode)

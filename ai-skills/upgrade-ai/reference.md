@@ -6,6 +6,29 @@ This file keeps detailed checklists, governance, and patterns so `SKILL.md` stay
 
 ---
 
+## Core principles
+
+- Identify the **failure layer** before editing prompts (§ Layer catalog).
+- **Prefer decomposition** (`SKILL.md` + `reference.md`) over prompt inflation (§ Decomposition rules).
+- **Complexity must justify value** — no redesign without evidence and user scope.
+- **Every upgrade must be verifiable** (§ Verification standards).
+- **Disprove alternatives** before closing root cause (phases 4–5).
+
+---
+
+## Workflow phases (detail)
+
+| Phase | Actions |
+|-------|---------|
+| 1 Reproduce | Confirm scope; grep prior art; failure = reproduce ≥2×; meta audit = static only, cap 85 |
+| 2–3 | Layer catalog · isolation methods (below) |
+| 4–5 | ≥2 hypotheses, reject with evidence; root cause + confidence |
+| 6 | Blast radius (§ Blast radius considerations) |
+| 7 | Minimal fix → redesign; Improvement catalog; version bump plan |
+| 8 | Original + edge + regression; pack checklist; vault autolog |
+
+---
+
 ## Layer catalog (Phase 2 — Localize)
 
 Possible failure layers:

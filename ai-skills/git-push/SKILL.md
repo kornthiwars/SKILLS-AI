@@ -1,7 +1,7 @@
 ---
 name: git-push
 metadata:
-  version: "1.2.8"
+  version: "1.2.10"
 description: >-
   Use when the user asks to push, publish, sync to GitHub, or confirms commit+push
   (ยืนยัน). Safely inspect repo state, commit only on explicit consent, push once,
@@ -28,22 +28,9 @@ Mission: Inspect repo state, use the correct remote identity, push once, verify.
 | Wrong SSH / remote | Fix identity per reference § Remote & identity |
 | After push | Verify remote HEAD + upstream |
 
-Matrix detail: [`reference.md`](./reference.md).
+Matrix detail: [`reference.md`](./reference.md). **Iron law:** commit only on explicit user request (`ยืนยัน` / confirm) — `/git-push` alone is not consent.
 
-> Matrix, commit gate detail, SSH, and failure table: [`reference.md`](./reference.md).
-
-## Purpose
-
-Push local git work to a remote (typically GitHub) **safely and predictably**.
-
-This skill does NOT:
-- commit without explicit user request
-- change `git config`
-- force-push to `main`/`master` without explicit user request
-- skip hooks (`--no-verify`) unless the user explicitly asks
-- amend commits unless all amend safety conditions are met
-
-## agent-skills repo (this library)
+## agent-skills repo
 
 When pushing **this** repository:
 
@@ -64,55 +51,19 @@ Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails
 
 ## Change-control
 
-Before commit: respect patch budget and [`approval-gates`](../../ai-rules/risk/approval-gates.mdc) in [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc).
-
----
-
-# Core Principles
-
-- **Commit only on request** — `/git-push` alone is not permission to commit
-- **Read before write** — inspect status, diff, branch, remote first
-- **Decision before action** — use the push decision matrix in `reference.md`
-- **Correct identity** — SSH must match the account that owns the remote repo
-- **Verify after push** — confirm tracking and remote HEAD
-
----
-
-# Activate When
-
-- User asks to push, publish, or sync to GitHub
-- User runs init → add → commit → push sequences
-- Push failed (auth, permission denied, wrong account, no upstream)
-- User confirms after a blocked push (e.g. ยืนยัน, confirm, yes commit and push)
-
-Do NOT activate for: general coding tasks unrelated to git remote sync.
+Before commit: [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) · [`approval-gates`](../../ai-rules/risk/approval-gates.mdc).
 
 ---
 
 # Workflow
 
-## Phase 1 — Inspect
-
-Run in parallel when possible:
+Phase 1 — parallel inspect:
 
 ```bash
-git status
-git diff
-git diff --staged
-git branch -vv
-git remote -v
-git log -3 --oneline
+git status && git diff && git diff --staged && git branch -vv && git remote -v && git log -3 --oneline
 ```
 
-Also: commits ahead (`git rev-list --count @{u}..HEAD 2>/dev/null` or status), remote URL scheme.
-
-**Secrets / local config:** If `git diff --name-only` or `git diff --staged --name-only` matches `.env`, `.env.*`, or other local-only config — **warn** in Pre-push State; **exclude from commit** unless the user explicitly asks to include them (see [`reference.md`](./reference.md) Phase 2).
-
-## Phase 2–5
-
-Follow [`reference.md`](./reference.md): **Commit gate** → **Remote & identity** → **Push** → **Verify** (verification gate before success claim).
-
-Apply the **push decision matrix** after Phase 1.
+Warn if `.env` / `.env.*` in diff — exclude unless user asks. Phases 2–5: [reference.md](./reference.md) (commit gate → identity → push → verify).
 
 ---
 
@@ -133,12 +84,3 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 | CONFIDENCE | 0–100; no READY without fresh push/status output |
 
 Mid-session: STATUS, OBJECTIVE, DISCOVERIES, NEXT ACTIONS, CONFIDENCE. Close-out: all sections.
-
----
-
-# Success Criteria
-
-- Correct branch on intended remote
-- Upstream set when needed
-- No unintended commits or force pushes
-- User gets repo link and clear final status

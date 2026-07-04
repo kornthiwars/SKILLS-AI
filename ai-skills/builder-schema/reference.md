@@ -10,6 +10,16 @@ Contract: [`templates/template.slice-brief.md`](../../templates/template.slice-b
 
 ---
 
+## Philosophy
+
+Do NOT start from tables. Domain → entities → relationships → query patterns → safe evolution.
+
+**Principles:** domain before tables · integrity before convenience · explicit ownership · safe evolution · query-driven indexing · complexity must justify value.
+
+Phase deliverables: cheat sheet in `SKILL.md`; step detail in § Workflow (detail) below.
+
+---
+
 ## Workflow (detail)
 
 Load this section when executing a phase. Run phases **in order**.

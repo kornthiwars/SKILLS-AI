@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.3.4"
+  version: "1.3.5"
 description: >-
   Use when skills or rules need diagnosis, doc drift audit, external parity review,
   or minimal upgrades — 8 phases, validate-skills preflight, version governance.
@@ -51,77 +51,22 @@ Use this skill only for **skills and rules** in agent-skills (or the user's skil
 | Long RCA after a validated production fix | [`/fix-record`](../fix-record/SKILL.md) |
 | Ship skill changes | [`/git-push`](../git-push/SKILL.md) |
 
-Application-code patches: follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) — do not duplicate its full gate list here.
-
----
-
-# Core Principles
-
-Skill-upgrade specifics (general observe→verify gates live in the manifest above):
-
-- Identify the **failure layer** before editing prompts (see layer catalog in `reference.md`).
-- **Prefer decomposition** (`SKILL.md` + `reference.md`) over prompt inflation; split files only when core + reference is insufficient (`reference.md` § Decomposition Rules).
-- **Complexity must justify value** — no redesign without evidence and user scope.
-- **Every upgrade must be verifiable** (Phase 8; standards in `reference.md` § Verification Standards).
-- **Disprove alternatives** before closing root cause (Phase 4–5).
-
----
-
-# Activate When
-
-- Same failure appears ≥ 2 times
-- Outputs become inconsistent or hallucinations rise
-- User repeatedly rejects outputs
-- Prompts grow excessively (> 300 lines, > 5 responsibilities) — see `reference.md` § Complexity governance
-- Debugging or maintenance becomes difficult
-- Regression introduced after updates
-- Responsibilities overlap; instruction conflicts appear
-
-Do **not** activate for cosmetic issues, speculative optimization, or unjustified redesigns.
+Application-code patches: follow [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) — link only.
 
 ---
 
 # Workflow (8 phases)
 
-Run sequentially. Stop early only if Phase 1 **failure diagnosis** cannot reproduce — then collect more evidence before continuing.
+Run sequentially — detail per phase: [reference.md](./reference.md). Cap **85** for structural audit-only.
 
-| Phase | Goal | Output |
-|-------|------|--------|
-| 1 Reproduce | Confirm scope; reproduce or audit | paths, steps, confidence |
-| 2 Localize | Find failure layer | layer, affected systems |
-| 3 Isolate | Minimal failing component | source, dependency impact |
-| 4 Hypotheses | ≥ 2 alternatives, reject with evidence | ranked hypotheses |
-| 5 Root cause | Causal chain, evidence only | root cause, confidence |
-| 6 Blast radius | Regression risk | components, safety concerns |
-| 7 Upgrade proposal | Minimal → redesign priority | change, trade-offs, version plan |
-| 8 Verification | Original + edge + regression | results, final confidence |
+| Phase | Goal |
+|-------|------|
+| 1–5 | Reproduce → localize → isolate → hypotheses → root cause |
+| 6 | Blast radius |
+| 7 | Minimal upgrade proposal + version bump plan |
+| 8 | Verify + vault autolog |
 
-### Phase 1 — Reproduce
-
-- Confirm target skill/rules files and constraints from the user request.
-- When diagnosing **this** repo (agent-skills): grep `ai-skills/` and `ai-rules/` for prior art; read relevant `SKILL.md` / `reference.md` files.
-- **Failure diagnosis:** reproduce ≥ 2 times under controlled conditions; capture actual vs expected behavior.
-- **Structural / meta audit** (no repeat failure — e.g. “wrong structure?”, token review): scope + static file analysis only; use SKILL REPORT; cap CONFIDENCE 85; do **not** force artificial repro.
-
-### Phases 2–6
-
-- Phase 2: layer catalog in `reference.md` § Layer catalog.
-- Phase 3: isolation methods in `reference.md` § Isolation methods.
-- Phase 6: blast radius in `reference.md` § Blast radius considerations.
-
-### Phase 7 — Upgrade Proposal
-
-- Priority: **minimal fix → structural cleanup → decomposition → redesign**
-- Pick from `reference.md` § Improvement catalog
-- Output: proposed change, complexity impact, trade-offs, non-goals, safer alternatives
-- **Version bumps:** follow [`reference.md`](./reference.md) § Version governance only; include a **Version bump plan** in the upgrade output (old → new per affected file)
-
-### Phase 8 — Verification
-
-- Test original failing case + edge cases + historical behavior + regressions
-- Standards: `reference.md` § Verification Standards and success criteria there
-- **Pack-wide audit:** static checklist + inline scores in SKILL REPORT `ARTIFACTS`
-- **Vault autolog:** after verified meta patch → [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) (close-out step 4 in `reference.md`)
+**Activate when:** repeat failures, inconsistent outputs, prompt bloat (>300 lines), skill overlap — not cosmetic-only requests.
 
 ---
 
@@ -143,8 +88,4 @@ Contract: [`templates/template.skill-report.md`](../../templates/template.skill-
 
 Mid-session: STATUS, OBJECTIVE, DISCOVERIES or ANALYSIS, NEXT ACTIONS, CONFIDENCE. Close-out: all sections + version bump plan in ARTIFACTS.
 
----
-
-# Success Criteria
-
-Over time, upgrades should improve safety, speed, and maintainability without increasing regressions — measurable criteria and Phase 8 tests: [`reference.md`](./reference.md) § Verification Standards.
+Principles & phase detail: [reference.md](./reference.md).

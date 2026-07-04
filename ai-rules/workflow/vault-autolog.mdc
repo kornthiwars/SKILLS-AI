@@ -7,54 +7,32 @@ alwaysApply: true
 
 User does **not** need `/vault-daily` after every task. `/vault-daily` is for **triage, Issues table, promote, end-of-day report** — not routine logging.
 
-## Iron law (non-negotiable)
+## Iron law
 
-1. After **any verified patch** in the turn → run **Steps 1–2** below **before** the final user reply.
-2. Do **not** claim work is **done**, **READY**, or **verified** until autolog ran or an explicit **skip reason** is documented in chat.
-3. Final reply **must** include one line: **`Vault daily:`** `updated vault/daily/YYYY-MM-DD.md` **or** `skipped — <reason>`.
-4. Applies to **every** skill and direct patch — including `/builder-ui`, `/debug`, `/upgrade-ai` on pack meta, not only vault skills.
+1. After **verified patch** → Steps below **before** final reply.
+2. No **done** / **READY** / **verified** without autolog or documented skip.
+3. Final reply: **`Vault daily:`** `updated vault/daily/YYYY-MM-DD.md` or `skipped — <reason>`.
+4. Applies to every skill and pack meta patch.
 
-## When to run (agent — no user slash)
+## When / skip
 
-After **verified** substantive work in the turn:
+**Run:** verified patch or successful commit (`/git-push`). **Skip:** read-only; user says skip; plan-only `/builder-feature` or review-only `/scrutinize` (no patch).
 
-- User-requested **patch** (app or pack meta) applied and verified
-- Successful commit in this session (including `/git-push`)
+## Path resolution (P0)
 
-**Skip** when: explain-only / read-only with no edits; user says skip vault; trivial one-line copy with no durable value; active **`/builder-feature` plan-only** or **`/scrutinize` review-only** iron law (no patch applied).
+First existing: `agent-skills/vault/daily/<today>.md` · `SKILLS-AI/vault/daily/<today>.md` · `.cursor/vault/daily/<today>.md`. Manifest: `vault/_agent/manifest.json`. Detail: [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Daily file.
 
-## Path resolution (P0 — read before Write)
+## Steps
 
-Canonical daily file — use **first path that exists** on disk:
-
-| Workspace layout | Daily path | Manifest path |
-|------------------|------------|---------------|
-| Parent `web/` (junction) | `agent-skills/vault/daily/<today>.md` · `SKILLS-AI/vault/daily/<today>.md` (legacy) **or** `.cursor/vault/daily/<today>.md` | `agent-skills/vault/_agent/manifest.json` (or legacy `SKILLS-AI/vault/_agent/manifest.json`) |
-| Pack repo root (`agent-skills/`) | `vault/daily/<today>.md` | `vault/_agent/manifest.json` |
-
-**Do not** assume `vault/` at the parent workspace root — it may not exist. Both junction paths above resolve to the same file.
-
-## Steps (lightweight)
-
-1. **Append (preferred — run via Shell)** — from `agent-skills` repo root. Script **auto-creates** today's daily from template if missing:
-
-   ```powershell
-   powershell -NoProfile -File scripts/vault/append-daily.ps1 -Bullet "<what changed> (<scope or path>)"
-   powershell -NoProfile -File scripts/vault/append-daily.ps1 -Issue "<bug or blocker summary>"
-   ```
-
-   macOS/Linux: `./scripts/vault/append-daily.sh --bullet "..."` · `--issue "..."`
-
-   Dedupes, bumps `runs` + `updated_at`. Manual `Write` fallback: [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Daily file — use `__VAULT_DATE__` / `__VAULT_ISO__` placeholders only.
-
-2. **Issues row** — bugs, blockers, or user asks to track: use `-Issue` / `--issue` above (adds row under `## Issues วันนี้`). Routine work uses `-Bullet` only.
+1. **Append** — from pack root: `scripts/vault/append-daily.ps1 -Bullet "..."` (or `.sh --bullet`). `-Issue` for bugs. Manual fallback: vault-capture/reference § Daily file (`__VAULT_DATE__` placeholders).
+2. **Issues row** — `-Issue` only for blockers; routine uses `-Bullet`.
 
 ## vs vault skills
 
 | Mechanism | Role |
 |-----------|------|
-| **autolog** (this rule) | Automatic shell + one-line summary after verify |
-| `/vault-capture` | Durable session / ADR + auto project hub (`projects/<slug>.md`) |
-| `/vault-daily` | Triage preview, Issues review, promote, สรุปส่งรายงาน |
+| **autolog** | Bullet after verify |
+| `/vault-capture` | Session / ADR + hub |
+| `/vault-daily` | Triage + promote |
 
-If vault write fails (missing junction, permissions), **do not block** the user task — mention once in chat with skip reason.
+Vault write fail → mention once; do not block user task.

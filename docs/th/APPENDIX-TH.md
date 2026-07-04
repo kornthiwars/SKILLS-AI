@@ -10,14 +10,14 @@
 |-------|--------|---------|-------------------|
 | debug | `/debug` | 1.3.12 | ใช่ |
 | scrutinize | `/scrutinize` | 1.2.13 | ใช่ |
-| builder-ui | `/builder-ui` | 1.3.0 | ใช่ |
-| builder-api | `/builder-api` | 1.2.10 | ใช่ |
-| builder-schema | `/builder-schema` | 1.2.9 | ใช่ |
-| builder-infrastructure | `/builder-infrastructure` | 1.2.10 | ใช่ |
+| builder-ui | `/builder-ui` | 1.3.1 | ใช่ |
+| builder-api | `/builder-api` | 1.2.11 | ใช่ |
+| builder-schema | `/builder-schema` | 1.2.10 | ใช่ |
+| builder-infrastructure | `/builder-infrastructure` | 1.2.11 | ใช่ |
 | builder-feature | `/builder-feature` | 1.8.3 | ใช่ |
 | fix-record | `/fix-record` | 1.2.10 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.3.4 | ใช่ |
-| git-push | `/git-push` | 1.2.8 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.3.5 | ใช่ |
+| git-push | `/git-push` | 1.2.10 | ใช่ |
 | vault-daily | `/vault-daily` | 2.3.0 | ใช่ |
 | vault-capture | `/vault-capture` | 2.4.0 | ใช่ |
 | vault-recall | `/vault-recall` | 2.4.7 | ใช่ |

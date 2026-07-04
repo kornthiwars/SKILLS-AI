@@ -31,6 +31,18 @@ Default for every skill unless **skill-specific** bullets below override:
 
 Application-code skills also follow [`change-control-manifest.mdc`](../ai-rules/change-control-manifest.mdc) (patch budget, observe→verify, Active skill precedence).
 
+## Token efficiency (pack SSoT)
+
+| Layer | Keep in always-on `.mdc` | Move to scoped rule or skill `reference.md` |
+|-------|--------------------------|---------------------------------------------|
+| Always-on (5 files) | Iron law, sequence, routing links | Long examples, script blocks, duplicate tables |
+| Scoped `ai-rules/` | One-screen rule per file | Cross-link manifest — no duplicate sequence |
+| Skills | Cheat sheet + REPORT | Phase prose (see § Token efficiency) |
+
+**Do not cut:** execution sequence steps 1–10, vault-autolog iron law, debug mantra, production prohibitions substance.
+
+**Always-on budget:** target ≤25 lines per file except manifest (≤65). Remove PowerShell code fences from always-on — cite script path only.
+
 ## Builder close-out deliverables (SSoT)
 
 `builder-ui`, `builder-api`, `builder-schema`, `builder-infrastructure`:

@@ -17,16 +17,16 @@ agent-skills treats the agent as a **change-control system**, not only a coding 
 6. Assess impact and risk
 7. Propose minimal patch
 8. Verify
-9. **Vault autolog** — [`workflow/vault-autolog.mdc`](workflow/vault-autolog.mdc): run `scripts/vault/append-daily.ps1 -Bullet "..."` (auto-creates `daily/YYYY-MM-DD.md` if missing). Reply must include `Vault daily: updated ...`. **Mandatory** after any verified patch. Skip only: read-only; plan-only/review-only iron law; user says skip vault.
+9. **Vault autolog** — mandatory after verified patch: [`vault-autolog.mdc`](workflow/vault-autolog.mdc) · reply `Vault daily: updated ...` or skip reason
 10. Regression check — if the patch **redirected callers**, grep old symbols and remove zero-ref orphans per [`patching/callee-redirect-cleanup.mdc`](patching/callee-redirect-cleanup.mdc) before claiming done
 
-**Never patch before diagnosis for unknown behavior.** Follow debug steps 1–4 (reproduce → trace → falsify → ledger). Use full **`/debug`** (mantra + ledger) when the user attaches it or the failure is non-trivial. For **known changes** (copy, labels, styling, remove `*`, small UX) — patch directly after observe; do not recite the debug mantra.
+**Never patch before diagnosis for unknown behavior.** Debug steps 1–4 or `/debug` when attached · known copy/UI → observe → patch · no mantra.
 
-| Work type | Agent route |
-|-----------|-------------|
-| Known text/UI change (outcome specified) | Observe → minimal patch → verify → **vault autolog** — no `/debug` |
-| Wrong data, flaky, submit/API fail, unknown why | Debug discipline; `/debug` optional accelerator |
-| Unsure | One question: behavior bug vs known copy/UX change? |
+| Work type | Route |
+|-----------|-------|
+| Known copy/UI (outcome clear) | patch → verify → autolog — no `/debug` |
+| Unknown bug / flaky / API fail | debug discipline; `/debug` optional |
+| Unsure | One question: bug vs copy? |
 
 ## Patch budget (default)
 
@@ -35,34 +35,32 @@ agent-skills treats the agent as a **change-control system**, not only a coding 
 | Max files | 5 |
 | Max lines changed (add+del) | 120 |
 
-If exceeded: justify each file/region in chat, or stop and split work.  
-Commit may include `[BUDGET-OVERRIDE]` only with explicit user approval.
+If exceeded: justify or split · `[BUDGET-OVERRIDE]` only with user approval.
 
-## Confidence-weighted permissions
+## Confidence
 
-| Confidence | Risk | Action |
-|------------|------|--------|
-| ≥ 0.9 | LOW | May apply localized patch |
-| 0.7 – 0.89 | any | Propose patch; prefer user review |
-| < 0.7 | any | Diagnose only — no patch |
+| Confidence | Action |
+|------------|--------|
+| ≥ 0.9 + LOW risk | May patch |
+| 0.7–0.89 | Propose; prefer review |
+| < 0.7 | Diagnose only |
 
-Stop and ask if runtime behavior is unknown, multiple root causes remain plausible, or impact cannot be estimated.
+Stop if behavior unknown or multiple root causes plausible.
 
-## Skill orchestration (Layer 2)
+## Skill routing
 
-See also [`workflow/decision-tree.mdc`](workflow/decision-tree.mdc) (always-on routing). Skills are **read and followed** when the row applies — user does not have to type `/skill` unless they want the full ritual (e.g. debug mantra).
+Primary: [`decision-tree.mdc`](workflow/decision-tree.mdc). Skills apply when row matches — slash optional except full rituals (`/debug` mantra).
 
 | Situation | Skill |
 |-----------|--------|
-| Unknown behavior / stack trace | Debug discipline; `/debug` for full mantra |
-| Known copy / label / small UI | Direct edit — no `/debug` |
-| New UI from mock / component system | `/builder-ui` |
-| Cross-layer feature (plan + slice backlog) | `/builder-feature` — **no app code** in orchestrator; implement per slice via builder-* |
-| Review plan or PR | `/scrutinize` |
-| Database | `/builder-schema` |
+| Unknown / stack trace | `/debug` |
+| UI / mock / Figma SVG | `/builder-ui` |
+| Cross-layer feature | `/builder-feature` (plan-only) |
+| Review PR/plan | `/scrutinize` |
+| Schema | `/builder-schema` |
 | Git publish | `/git-push` |
-| Skill/rule upgrades | `/upgrade-ai` |
-| Long RCA after validated fix (one root cause) | `/fix-record` |
+| Pack meta | `/upgrade-ai` |
+| RCA | `/fix-record` |
 
 ## Active skill precedence
 
@@ -72,28 +70,14 @@ When the user attaches or clearly invokes a skill whose **iron law** conflicts w
 |------------|-----------|
 | `/builder-feature` (plan-only) | Steps 7–8 — **no application source patches**; hand off to builder-* per slice |
 | `/scrutinize` (review-only) | **No patch** until review complete; recommend only until user approves changes |
-| `/upgrade-ai` on this pack | App patch budget N/A; skill/rule edits follow upgrade-ai + patch budget for meta files |
+| `/upgrade-ai` on pack | Meta edits only; app sequence N/A |
 
-**Always-on rules** (this manifest, [`decision-tree.mdc`](workflow/decision-tree.mdc)) apply for routing unless an active skill's iron law overrides steps 7–8.
+Iron law overrides steps 7–8 when active (`plan-only`, `review-only`).
 
 ## Production prohibitions
 
-- speculative fixes without evidence
-- broad refactors mixed with bugfixes
-- hidden behavior or silent fallback changes
-- implicit API/contract changes
-- destructive schema changes without plan + approval
-- rewriting unrelated modules
+Speculative fixes · broad refactors in bugfixes · silent behavior changes · implicit API/schema breaks · unrelated rewrites.
 
 ## Rule layers
 
-- **This file** — always-on gates
-- **`ai-rules/{core,patching,architecture,testing,risk,workflow}/`** — scoped rules (application-source globs / intelligent)
-- **Skills** — deep workflows on invoke
-- **Scripts** — `setup-macos-linux.sh`, `setup-windows.ps1` (junction install)
-
-### Scoped rules vs meta edits
-
-Patching, testing, and debugging rules under `ai-rules/` use **application-source globs** (same extensions as [`core/execution-model.mdc`](core/execution-model.mdc)) — they activate when editing app/runtime code, **not** when editing pack meta alone (`ai-skills/`, `ai-rules/`, `docs/`, `scripts/`, `templates/`).
-
-Meta edits in this repo: follow active skill workflow + patch budget in this manifest; use [`/upgrade-ai`](../ai-skills/upgrade-ai/SKILL.md) checklist when changing skills/rules.
+Always-on: this manifest + [`decision-tree`](workflow/decision-tree.mdc) + [`vault-autolog`](workflow/vault-autolog.mdc). Scoped: `ai-rules/{core,patching,architecture,testing,risk,workflow}/` (app source globs). Deep workflow: `ai-skills/*/reference.md`. Meta edits: [`/upgrade-ai`](../ai-skills/upgrade-ai/SKILL.md).

@@ -1,7 +1,7 @@
 ---
 name: builder-api
 metadata:
-  version: "1.2.10"
+  version: "1.2.11"
 description: >-
   Use when designing or implementing API endpoints, contracts, auth boundaries, or
   error shapes — validation, versioning, observability. Accepts slice briefs from
@@ -66,54 +66,7 @@ Vertical slices: [builder-feature/reference-slice-handoff.md](../builder-feature
 | 7–8 | Scale + observability | SLO + metrics plan |
 | 9–10 | Structure + verify | [reference.md](./reference.md) § Close-out gate |
 
----
-
-# Core philosophy
-
-Do NOT start from endpoints.
-
-Start with:
-1. domain and resources
-2. ownership boundaries
-3. contracts and validation
-4. auth and error model
-5. scalability and observability
-6. verification and compatibility
-
-Treat APIs as contracts and boundaries, not route collections.
-
----
-
-# Core principles
-
-- Contract before implementation
-- Validation before processing
-- Security by default
-- Explicit ownership boundaries
-- Structured errors mandatory
-- Backward compatibility awareness
-- Reliability + observability required
-- Complexity must justify value
-
----
-
-# Workflow
-
-Execute phases **in order**. Detail: [reference.md](./reference.md) § Workflow (detail).
-
-| # | Phase | Deliver |
-|---|--------|---------|
-| 0 | Slice brief intake | Outcome, Contracts, Verify from plan |
-| 1 | Domain analysis | domain map, ownership map |
-| 2 | Resource modeling | resource model, lifecycle rules |
-| 3 | Contract design | endpoint contracts, schemas |
-| 4 | Validation architecture | validation plan, error standard |
-| 5 | AuthN/AuthZ | auth flow, authorization matrix |
-| 6 | Error system | error taxonomy, retry guidance |
-| 7 | Scalability architecture | scaling strategy, bottlenecks |
-| 8 | Observability + reliability | observability plan |
-| 9 | Backend architecture | structure, dependency boundaries |
-| 10 | Verification | pass/reject per checklist |
+Philosophy & phase detail: [reference.md](./reference.md) § Philosophy · § Workflow (detail).
 
 ---
 

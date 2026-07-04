@@ -7,27 +7,20 @@ alwaysApply: true
 
 Agent routes from user intent **without requiring** a slash command unless the user wants the full skill ritual.
 
-**Core routing:** [`change-control-manifest.mdc`](../change-control-manifest.mdc) § Skill orchestration (debug, builder-*, scrutinize, git-push, upgrade-ai, fix-record).
+**Core routing:** [`change-control-manifest.mdc`](../change-control-manifest.mdc) § Skill routing.
 
-**Additional intents** (not repeated in manifest):
+**Additional intents:**
 
-| User intent | First action |
-|-------------|--------------|
-| API / backend / REST | [`/builder-api`](../ai-skills/builder-api/SKILL.md) |
-| deploy, CI/CD, IaC, observability | [`/builder-infrastructure`](../ai-skills/builder-infrastructure/SKILL.md) |
-| mobile / native client bug | Debug discipline in **client repo** — not `/builder-feature` |
-| durable vault memory | [`/vault-capture`](../ai-skills/vault-capture/SKILL.md) · recall [`/vault-recall`](../ai-skills/vault-recall/SKILL.md) — gitignored `vault/` → `grep-vault.sh` / per-file Read, not directory `Grep` |
-| end-of-day triage / promote | [`/vault-daily`](../ai-skills/vault-daily/SKILL.md) — routine bullets via [`vault-autolog.mdc`](./vault-autolog.mdc) |
-| one commit, multiple unrelated fixes | One fix-record per root cause — ask scope |
-| unsure bug vs copy | One clarifying question, then manifest row |
+| Intent | Action |
+|--------|--------|
+| API / backend | `/builder-api` |
+| CI/CD · IaC | `/builder-infrastructure` |
+| Mobile client bug | Debug in **client repo** |
+| Vault memory | `/vault-capture` · `/vault-recall` (grep-vault / Read — not directory Grep on gitignored `vault/`) |
+| End-of-day | `/vault-daily` — bullets via [`vault-autolog`](./vault-autolog.mdc) |
+| Multi-fix commit | One `/fix-record` per root cause |
+| Unsure bug vs copy | Clarify → manifest row |
 
-**Active mode** (when multiple apply):
+**Active mode:** patch → verify → autolog ([manifest](../change-control-manifest.mdc) step 9) · plan-only → handoff · scrutinize → no patch until approved · meta → `/upgrade-ai`.
 
-| Mode | Sequence |
-|------|----------|
-| Patch / fix (default) | diagnose → patch → verify → **vault autolog** ([manifest](../change-control-manifest.mdc) step 9) → optional capture/fix-record → git-push |
-| Plan-only (`/builder-feature`) | plan → handoff — **no app patch** |
-| Read-only (`/scrutinize`) | review → report — **no patch** until user approves |
-| Meta upgrade (`/upgrade-ai`) | diagnose → minimal meta edit → verify — app sequence N/A |
-
-Skill **iron law** overrides conflicting steps (plan-only, review-only, upgrade-ai on pack).
+Skill **iron law** overrides conflicting steps.

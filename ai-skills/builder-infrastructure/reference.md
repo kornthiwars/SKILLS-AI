@@ -10,6 +10,16 @@ Contract: [`templates/template.slice-brief.md`](../../templates/template.slice-b
 
 ---
 
+## Philosophy
+
+Do NOT start from servers. Workload/SLO → boundaries → deploy/rollback → observability → DR.
+
+**Principles:** reliability before optimization · automation · observability/security by default · reversible changes · cost visibility.
+
+Phase deliverables: cheat sheet in `SKILL.md`; step detail in § Workflow (detail) below.
+
+---
+
 ## Workflow (detail)
 
 Load this section when executing a phase. Run phases **in order**.
