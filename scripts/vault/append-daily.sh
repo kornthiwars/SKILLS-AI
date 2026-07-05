@@ -64,18 +64,21 @@ fi
 
 tmp="$(mktemp)"
 awk -v bullet="$bullet_line" -v issue_row="$issue_row" -v iso="$iso" -v runs="$runs" '
+  BEGIN { fm = 0; fm_closed = 0; summary_done = 0 }
+  /^---$/ {
+    if (fm) { fm_closed = 1; fm = 0 } else { fm = 1 }
+    print
+    next
+  }
   /^updated_at:/ { print "updated_at: \"" iso "\""; next }
   /^runs:/ { print "runs: " runs; next }
-  /^## สรุปงานวันนี้/ {
+  fm_closed && !summary_done && /^## / {
     print
     if (bullet != "") {
       print bullet
       bullet = ""
     }
-    next
-  }
-  /^## Issues/ {
-    print
+    summary_done = 1
     next
   }
   /^\|----\|/ {

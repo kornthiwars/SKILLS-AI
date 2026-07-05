@@ -71,6 +71,30 @@ Daily manifest entry is optional. Durable tiers: **always upsert** after `Write`
 
 `daily/` is not indexed for broad recall (`index_exclude` in `tiers.json`). Promote durable items via `/vault-daily` triage.
 
+### Daily archive (optional)
+
+After triage, move stale dailies off the hot folder:
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/vault/archive-daily.ps1` | Move `daily/*.md` older than N days → `daily/archive/YYYY/` |
+| `scripts/vault/archive-daily.sh` | Same on macOS/Linux |
+
+```powershell
+# Default: older than 14 days (excludes recent dailies)
+.\scripts\vault\archive-daily.ps1
+
+# Archive everything before a date (after promote)
+.\scripts\vault\archive-daily.ps1 -BeforeDate 2026-07-01
+
+# Preview only
+.\scripts\vault\archive-daily.ps1 -DryRun
+```
+
+Archived paths stay under `daily/**` — still excluded from default recall. Use `grep-vault` with path if needed.
+
+Frontmatter dates: prefer `YYYY-MM-DD` for `created`/`updated`; ISO8601 acceptable for `updated_at` on daily files only.
+
 ## Obsidian quick start
 
 1. Obsidian → Open folder → `agent-skills/vault` (legacy `SKILLS-AI/vault`) or `.cursor/vault` junction

@@ -8,13 +8,14 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | **`globs`** | เมื่อแตะไฟล์ที่ path ตรง pattern |
 | **intelligent** | Cursor เลือกเมื่อคำอธิบาย rule ตรงงาน (ไม่มี glob) |
 
-**รวม 35 ไฟล์** — **5** ตัว always-on, **30** ตัว scoped
+**รวม 36 ไฟล์** — **5** always-on, **1** activation map (`_index.mdc`), **30** scoped
 
 ---
 
 ## สารบัญ
 
 - [Always-on (5)](#always-on-โหลดทุก-turn)
+- [Activation map](#activation-map-_indexmdc)
 - [core/](#โฟลเดอร์-core)
 - [debugging/](#โฟลเดอร์-debugging)
 - [patching/](#โฟลเดอร์-patching)
@@ -143,6 +144,24 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 **ก่อนจบ turn:** บอกว่ารัน lint/test อะไรแล้ว / อะไรยังไม่ได้รัน
 
 **ต่างจาก `minimal-change`:** clean-code = สไตล์และคุณภาพโค้ด; minimal-change = **ขอบเขต** patch
+
+---
+
+## Activation map (`_index.mdc`)
+
+| | |
+|--|--|
+| **ไฟล์** | `ai-rules/_index.mdc` |
+| **โหลด** | intelligent (on request) — **ไม่** always-on |
+
+**จุดประสงค์:** แผนที่ tier 0–3 — always-on vs scoped vs on-request vs skill invoke
+
+- Tier 0: manifest, bilingual, clean-code, vault-autolog, decision-tree  
+- Tier 1: `core/`, `debugging/`, `patching/`, … (globs)  
+- Tier 2: risk, stop-conditions, response-format  
+- Tier 3: depth ใน skill `reference.md`
+
+Spine: [ARCHITECTURE.md](../../ARCHITECTURE.md) · EN: [_index.mdc](../../ai-rules/_index.mdc)
 
 ---
 
@@ -421,18 +440,21 @@ skill **iron law** ชนะ patch steps 7–8 ของ manifest — ดู `ch
 
 | ประเภท | จำนวน | Token | เมื่อไหร่มีผล |
 |--------|------:|-------|----------------|
-| Always-on | **5** | ทุก turn | ทุกคำถาม — `change-control-manifest`, `decision-tree`, `clean-code`, `bilingual-th-en`, `vault-autolog` |
-| Scoped | **30** | เมื่อ glob/intelligent ติด | แก้ **application source** / review / risk สูง — **ไม่** trigger จาก meta อย่างเดียว (`ai-skills/`, `ai-rules/`, `docs/`) |
+| Always-on | **5** | ทุก turn | manifest, decision-tree, clean-code, bilingual-th-en, vault-autolog |
+| Activation map | **1** | on request | `_index.mdc` |
+| Scoped | **30** | glob / intelligent | application source, risk, workflow helpers |
 
 ---
 
-## ความสัมพันธ์ 3 ชั้น
+## ความสัมพันธ์ 4 ชั้น
 
 ```
-Rules (สั้น, บังคับ)  →  Skills (ลึก, invoke)  →  Setup scripts (junction)
-     ↑                        ↑                           ↑
-  ai-rules/              ai-skills/              setup-macos-linux / setup-windows
+Spine (ARCHITECTURE.md)  →  Rules  →  Skills  →  Setup scripts
+        ↑                      ↑           ↑              ↑
+   SSoT map              ai-rules/   ai-skills/    setup-*
 ```
+
+รายละเอียด EN: [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) · [ARCHITECTURE.md](../../ARCHITECTURE.md)
 
 ---
 
@@ -441,4 +463,4 @@ Rules (สั้น, บังคับ)  →  Skills (ลึก, invoke)  →  
 - ตาราง **globs ครบ 30 scoped rules** → [APPENDIX-TH.md](./APPENDIX-TH.md) §9  
 - setup scripts / patch budget → APPENDIX §8  
 
-*อัปเดตตาม tree 35 ไฟล์ `.mdc` — ถ้าเพิ่ม rule ให้อัปเดต RULES-TH + APPENDIX §9*
+*อัปเดตตาม tree 36 ไฟล์ `.mdc` — ถ้าเพิ่ม rule ให้อัปเดต RULES-TH + APPENDIX §9*

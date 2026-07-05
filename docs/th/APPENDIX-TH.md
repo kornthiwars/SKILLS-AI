@@ -19,7 +19,7 @@
 | fix-record | `/fix-record` | 1.2.10 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.3.6 | ใช่ |
 | git-push | `/git-push` | 1.2.10 | ใช่ |
-| vault-daily | `/vault-daily` | 2.3.0 | ใช่ |
+| vault-daily | `/vault-daily` | 2.3.1 | ใช่ |
 | vault-capture | `/vault-capture` | 2.4.0 | ใช่ |
 | vault-recall | `/vault-recall` | 2.4.7 | ใช่ |
 
@@ -46,6 +46,7 @@
 | `builder-feature/reference-slice-handoff.md` | slice backlog, slice brief, close-out, anti-rationalization |
 | `templates/template.feature-plan.md` | durable plan — `.cursor/plans/` skeleton, phases 0–7, close-out gate, slice backlog |
 | `builder-ui/reference.md` | slice brief, Figma SVG / Pixel mode, Confidence + Assumptions, § Close-out deliverables + gate |
+| `builder-ui-cost/reference.md` | attach strategy, in-chat intake manifest, verify gate |
 | `templates/template.slice-brief.md` | slice handoff contract (feature → builder-*) |
 
 **หลัก:** `SKILL.md` = workflow + guardrails · `reference.md` = ตาราง/ตัวอย่างยาว (อย่า copy ซ้ำใน rule อื่น)
@@ -128,11 +129,12 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 ## 7. โฟลเดอร์ `vault/` (Obsidian + agent dual-use)
 
 - เนื้อหา `vault/**` gitignore (ยกเว้น `vault/.gitkeep`) — โน้ตส่วนตัวบนเครื่อง
-- **Obsidian:** เปิด folder → `agent-skills/vault` (legacy `SKILLS-AI/vault`) หรือ `.cursor/vault` junction
+- **Obsidian:** เปิด folder → `agent-skills/vault` หรือ `.cursor/vault` junction (clone เก่าอาจชื่อ `SKILLS-AI/` — ดู [LEGACY-PATH.md](../../LEGACY-PATH.md))
 - setup: junction `.cursor/vault` → `vault/` + `bootstrap-vault` — สร้างโฟลเดอร์ + `_agent/` + `.obsidian/` seed + `daily/YYYY-MM-DD.md` วันนี้ถ้ายังไม่มี
-- โครงสร้าง: `vault/{daily,decisions,sessions,projects}/` · catalog ที่ `vault/_agent/manifest.json`
+- โครงสร้าง: `vault/{daily,decisions,sessions,projects}/` · archive เก่า → `daily/archive/YYYY/` · catalog ที่ `vault/_agent/manifest.json`
 - templates (git): `templates/vault/notes/template.vault-*.md` — agent `Read` → replace placeholders → `Write`
-- โหมดค้น: `grep-vault.ps1` (gitignore-safe, อ่าน `_agent/tiers.json`) หรือ manifest + per-file `Read`
+- Spine: [ARCHITECTURE.md](../../ARCHITECTURE.md) § Vault memory · [templates/vault/README.md](../../templates/vault/README.md)
+- โหมดค้น: `grep-vault.ps1` (gitignore-safe) หรือ manifest + per-file `Read`
 
 **Memory tiers**
 
@@ -144,7 +146,18 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 **Wikilinks:** `[[sessions/slug]]` — ไม่ใส่ `notes/` prefix
 
-**Autolog (หลัง patch+verify):** `bootstrap-vault` seed daily วันนี้แล้วถ้ารัน bootstrap; ไม่มี → `append-daily.ps1` (auto-creates จาก template); reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`**
+**Autolog (หลัง patch+verify):** `append-daily.ps1` / `.sh` — UTF-8 safe, แทรก bullet หลัง H2 แรกใน daily; reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`**
+
+**Archive (หลัง triage):** `archive-daily.ps1` — ย้าย daily เก่า → `daily/archive/YYYY/` (default: เก่ากว่า 14 วัน)
+
+**Scripts vault**
+
+| Script | ใช้เมื่อ |
+|--------|----------|
+| `bootstrap-vault.ps1` / `.sh` | layout + Obsidian seed + daily วันนี้ |
+| `append-daily.ps1` / `.sh` | autolog bullet / Issues row |
+| `archive-daily.ps1` / `.sh` | ย้าย daily เก่า off hot folder |
+| `grep-vault.ps1` / `.sh` | recall ค้น gitignored notes |
 
 **Skills (เรียกเอง — `disable-model-invocation: true`)**
 
@@ -163,9 +176,10 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | Script | ใช้เมื่อ |
 |--------|----------|
 | `setup-macos-linux.sh` | ครั้งแรกหลัง clone / หลัง pull บน Mac หรือ Linux |
-| `validate-skills.sh` / `.ps1` | ก่อน push — ตรวจ frontmatter, version, path |
-| `smoke-preflight.sh` / `.ps1` | ก่อน DYNAMIC behavioral — รัน validate-skills + ข้อความ checklist |
+| `validate-skills.sh` / `.ps1` | ก่อน push — ตรวจ frontmatter, version, path (sync กับ §1 ไฟล์นี้) |
+| `smoke-preflight.sh` / `.ps1` | ก่อน DYNAMIC behavioral — validate-skills + checklist |
 | `setup-windows.ps1` / `.bat` | เหมือนกันบน Windows |
+| `vault/archive-daily.ps1` | หลัง `/vault-daily` — ย้าย daily เก่า (ดู §7) |
 
 สร้าง junction: `.cursor/skills`, `.cursor/rules`, `.cursor/vault` → โฟลเดอร์ใน pack
 
@@ -200,7 +214,8 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | `risk/risk-classification` | intelligent |
 | `risk/approval-gates` | intelligent |
 | `risk/rollback-awareness` | intelligent |
-| `workflow/*` (3) | intelligent |
+| `workflow/*` (2 intelligent) | intelligent — `stop-conditions`, `response-format` (+ `decision-tree`, `vault-autolog` = always-on) |
+| `ai-rules/_index.mdc` | intelligent — activation map tier 0–3 |
 
 ---
 
@@ -232,12 +247,13 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 | รายการ | สถานะ |
 |--------|--------|
-| 14 skills มีหัวข้อใน SKILLS-TH (รวม vault 3 ตัว) | ครบ |
-| 35/35 rules มีหัวข้อใน RULES-TH | ครบ |
-| reference.md อธิบาย | ครบ (ไฟล์นี้ §2) |
+| 14 skills มีหัวข้อใน SKILLS-TH (รวม builder-ui-cost + vault 3 ตัว) | ครบ |
+| 36/36 rules มีหัวข้อใน RULES-TH (+ `_index.mdc`) | ครบ |
+| ARCHITECTURE spine + `_catalog` | ครบ — ลิงก์ใน README ไทย |
+| reference.md อธิบาย | ครบ (ไฟล์นี้ §2 + REFERENCE-INDEX-TH) |
 | Scope Guardrails SSoT + builder ARTIFACTS | ครบ (§3 + SKILL-AUTHORING) |
 | Mantra / flaky / skip mantra | ครบ (§4) |
-| โฟลเดอร์ `vault/` + RAG skills | ครบ (§7) |
+| โฟลเดอร์ `vault/` + archive-daily + autolog UTF-8 | ครบ (§7) |
 | setup scripts / patch budget | ครบ (§8) |
 | globs ทุก rule | ครบ (§9) |
 | SKILL-AUTHORING / SKILL-PATTERN (EN) | ลิงก์ใน README — ยังไม่แปลทั้งไฟล์ |
@@ -250,10 +266,11 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 | ไฟล์ | ทำไม |
 |------|------|
+| [ARCHITECTURE.md](../../ARCHITECTURE.md) | spine — pack, vault, apps, catalog |
 | [SKILL-AUTHORING.md](../../ai-skills/SKILL-AUTHORING.md) | เขียน skill ใหม่ |
 | [SKILL-PATTERN.md](../SKILL-PATTERN.md) | โครง SKILL.md + template index |
 | [SKILL-SMOKE-CHECKLIST.md](../SKILL-SMOKE-CHECKLIST.md) | ทดสอบมือหลังแก้ rule |
-| [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | 3 layers EN |
+| [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | 4 layers EN (spine + rules + skills + setup) |
 | [EXTERNAL-PARITY.md](../EXTERNAL-PARITY.md) | เทียบ Claude Code / Cursor / agentskills.io — non-goals |
 | [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) | Meta release regression bundle #1–#16 |
 
@@ -261,9 +278,9 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 ## 14. Meta release (หลัง push pack meta)
 
-1. `./scripts/smoke-preflight.sh` — validate-skills + README/APPENDIX version sync  
+1. `./scripts/smoke-preflight.sh` — validate-skills + APPENDIX §1 version sync  
 2. **Reload Cursor**  
 3. Fresh chat — DYNAMIC **#1, #2, #9, #11, #12, #14, #16** (บันทึก Y/N ใน pass log)  
-4. หลังแก้ `append-daily` — รัน script ทด duplicate SKIP + bullet ใต้ `## สรุปงานวันนี้`
+4. ทด `append-daily.ps1 -Bullet "test"` — ต้องได้ OK + bullet ใต้ summary H2 (ไม่ error UTF-8)
 
 รายละเอียด EN: [SKILL-SMOKE-CHECKLIST.md](../SKILL-SMOKE-CHECKLIST.md) § Meta release

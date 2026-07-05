@@ -62,6 +62,18 @@ In daily `## Promoted`, use Obsidian wikilinks: `[[decisions/slug]]`, `[[session
 - `runs: <previous + 1>`
 - `updated_at: now`
 
+## Archive stale dailies
+
+After triage + promote, optionally move old `daily/*.md` to `daily/archive/YYYY/`:
+
+```powershell
+.\scripts\vault\archive-daily.ps1              # default: older than 14 days
+.\scripts\vault\archive-daily.ps1 -BeforeDate 2026-07-01
+.\scripts\vault\archive-daily.ps1 -DryRun
+```
+
+Does not delete notes — only relocates within `daily/`. Today’s file is never moved when using `-OlderThanDays`.
+
 ## สรุปส่งรายงาน (output block)
 
 Plain Thai bullets — completed, in-progress, carry-over, promoted links.

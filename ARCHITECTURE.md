@@ -88,7 +88,7 @@ Catalog files: [ai-skills/_catalog/](ai-skills/_catalog/)
 | Author new skill | [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) |
 | Rule activation | [ai-rules/_index.mdc](ai-rules/_index.mdc) |
 | Output contract | [templates/template.skill-report.md](templates/template.skill-report.md) |
-| Vault schemas | [templates/vault/README.md](templates/vault/README.md) |
+| Vault layout + tiers | § Vault memory below · [templates/vault/README.md](templates/vault/README.md) |
 | Change-control gates | [ai-rules/change-control-manifest.mdc](ai-rules/change-control-manifest.mdc) |
 | Thai docs index | [docs/th/README.md](docs/th/README.md) |
 
@@ -133,3 +133,43 @@ Each app `index.html` imports shared CSS before local `styles.css`.
 After rename or path change: re-run setup, then Reload Cursor.
 
 Verify: `scripts/validate-skills.ps1` · smoke: [docs/SKILL-SMOKE-CHECKLIST.md](docs/SKILL-SMOKE-CHECKLIST.md)
+
+---
+
+## Vault memory (Obsidian)
+
+Runtime root: `vault/` (gitignored) · Schemas in git: [templates/vault/README.md](templates/vault/README.md)
+
+```mermaid
+flowchart LR
+  subgraph tiers["Note tiers"]
+    D[daily/ ephemeral]
+    S[sessions/ episodic]
+    DEC[decisions/ semantic ADR]
+    P[projects/ semantic hub]
+  end
+  subgraph agent["_agent/"]
+    M[manifest.json]
+    T[tiers.json]
+  end
+  D -->|promote| S
+  D -->|promote| DEC
+  S --> P
+  DEC --> P
+  S --> M
+  DEC --> M
+  P --> M
+```
+
+| Tier | Path | Template | Skill |
+|------|------|----------|-------|
+| Ephemeral | `daily/YYYY-MM-DD.md` | `template.vault-daily.md` | autolog rule · `/vault-daily` |
+| Episodic | `sessions/SLUG.md` | `template.vault-session.md` | `/vault-capture` |
+| Semantic ADR | `decisions/SLUG.md` | `template.vault-decision.md` | `/vault-capture` |
+| Semantic hub | `projects/SLUG.md` | `template.vault-project.md` | `/vault-capture` |
+
+**Flow:** patch+verify → `append-daily` bullet · งานสำคัญ → `/vault-capture` · สิ้นวัน → `/vault-daily` triage + promote wikilinks
+
+**Retention:** `daily/` excluded from broad recall (`tiers.json` `index_exclude`). After triage, run `scripts/vault/archive-daily.ps1` to move old dailies → `daily/archive/YYYY/`.
+
+**Do not** commit `vault/**` content (except `.gitkeep`) · **Do not** directory-`Grep` gitignored vault — use `grep-vault` or `Read`.

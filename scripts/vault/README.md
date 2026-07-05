@@ -28,7 +28,8 @@ Schemas live in `templates/vault/notes/` (git). `bootstrap-vault` seeds today's 
 | Script | Purpose |
 |--------|---------|
 | `bootstrap-vault.ps1` / `.sh` | Layout + Obsidian seed + today's daily if missing |
-| `append-daily.ps1` / `.sh` | **Autolog** — append daily bullet |
+| `append-daily.ps1` / `.sh` | **Autolog** — append daily bullet (UTF-8 safe; first `##` after frontmatter) |
+| `archive-daily.ps1` / `.sh` | Move stale `daily/*.md` → `daily/archive/YYYY/` |
 | `grep-vault.ps1` / `.sh` | **Recall** — search gitignored notes (`rg --no-ignore`) |
 
 ## Schema (git)
@@ -75,5 +76,7 @@ powershell -File scripts/vault/bootstrap-vault.ps1 -Verify
 |-------|-----|
 | `Missing: vault` | Re-run setup or `bootstrap-vault.ps1 -Verify` |
 | `append-daily` path error | Re-run bootstrap; `append-daily` auto-creates daily from template |
+| `append-daily` missing summary section | Ensure daily has YAML frontmatter + `##` summary heading; re-seed from template if corrupt |
+| Archive daily | `archive-daily.ps1 -DryRun` first; files move to `daily/archive/YYYY/` |
 | Recall empty | Use `grep-vault.ps1 -Pattern "..."` (not directory Grep) |
 | Duplicate decisions | Check `vault/_agent/manifest.json` — merge by `id` |

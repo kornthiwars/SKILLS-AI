@@ -1,26 +1,33 @@
 # คู่มือ Skills (ภาษาไทย)
 
-แต่ละ skill อยู่ใน `ai-skills/<ชื่อ>/SKILL.md` — เรียกในแชทด้วย **`/ชื่อ`** (เช่น `/debug`)
+แต่ละ skill อยู่ใน `ai-skills/<ชื่อ>/SKILL.md` — เรียกในแชทด้วย **`/ชื่อ`**
 
-ทุก skill ใน repo นี้ตั้ง **`disable-model-invocation: true`** หมายความว่า agent **ไม่ควร** เปิด skill เองโดยไม่จำเป็น — คุณหรือบริบทงานควรชี้ชัด
+**Domain catalog:** [ai-skills/_catalog/](../../ai-skills/_catalog/) · **เวอร์ชัน SSoT:** [APPENDIX-TH.md](./APPENDIX-TH.md) §1
+
+ทุก skill ตั้ง **`disable-model-invocation: true`** — agent ไม่ auto-invoke; คุณพิมพ์ `/slash` เอง
 
 ---
 
-## สารบัญ
+## สารบัญ (14 skills)
 
-1. [debug](#1-debug)
-2. [scrutinize](#2-scrutinize)
-4. [builder-ui](#4-builder-ui)
-5. [builder-api](#5-builder-api)
-6. [builder-schema](#6-builder-schema)
-7. [builder-infrastructure](#7-builder-infrastructure)
-8. [builder-feature](#8-builder-feature)
-9. [fix-record](#9-fix-record)
-10. [upgrade-ai](#10-upgrade-ai)
-11. [git-push](#11-git-push)
-12. [vault-daily](#12-vault-daily)
-13. [vault-capture](#13-vault-capture)
-14. [vault-recall](#14-vault-recall)
+| # | Skill | Domain |
+|---|-------|--------|
+| 1 | [debug](#1-debug) | Diagnose |
+| 2 | [scrutinize](#2-scrutinize) | Diagnose |
+| 3 | [builder-ui-cost](#3-builder-ui-cost) | Build |
+| 4 | [builder-ui](#4-builder-ui) | Build |
+| 5 | [builder-api](#5-builder-api) | Build |
+| 6 | [builder-schema](#6-builder-schema) | Build |
+| 7 | [builder-infrastructure](#7-builder-infrastructure) | Build |
+| 8 | [builder-feature](#8-builder-feature) | Build |
+| 9 | [fix-record](#9-fix-record) | Diagnose |
+| 10 | [upgrade-ai](#10-upgrade-ai) | Meta |
+| 11 | [git-push](#11-git-push) | Meta |
+| 12 | [vault-daily](#12-vault-daily) | Memory |
+| 13 | [vault-capture](#13-vault-capture) | Memory |
+| 14 | [vault-recall](#14-vault-recall) | Memory |
+
+> **หมายเหตุ:** `/sql` ถูกถอดออกจาก pack — ใช้ `/builder-schema` แทนงาน schema/migration
 
 ---
 
@@ -29,7 +36,7 @@
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/debug` |
-| **เวอร์ชัน** | 1.3.8 (ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §1) |
+| **เวอร์ชัน** | ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §1 |
 | **บทบาท** | วิศวกร debug แบบมีวินัย — repro → trace → หักล้างสมมติฐาน → breadcrumb |
 
 ### ใช้เมื่อไหร่
@@ -140,13 +147,30 @@
 
 ---
 
-## 3. sql (removed)
+## 3. builder-ui-cost
 
-`/sql` ถูกถอดออกจาก repo นี้แล้ว เนื่องจากใช้งานได้ไม่ดีตาม feedback.
+| รายการ | ค่า |
+|--------|-----|
+| **Invoke** | `/builder-ui-cost` |
+| **บทบาท** | UI **pixel match** จาก PNG/SVG — **token ต่ำสุด** (manifest ในแชท ไม่เขียน intake `.md` ลง repo) |
 
-สำหรับงานฐานข้อมูล/สคีมา ให้ใช้:
-- `/builder-schema` สำหรับออกแบบ schema, migration strategy, rollback plan
-- rules `schema-change-protection` + `production-safety` สำหรับ prod confirmation gates
+### ใช้เมื่อไหร่
+
+- ต้องการ clone UI จาก mock **เร็ว + ถูก token**
+- มี PNG และ/หรือ SVG แนบครั้งเดียว → `build` → `verify` ใน browser
+
+### ไม่ใช้เมื่อไหร่
+
+- production component tree, design system, a11y เต็ม → `/builder-ui`
+- feature ข้าม layer → `/builder-feature` ก่อน
+
+### ขั้นตอนสั้น
+
+1. **Intake** — `## Intake manifest` ในแชท (ไม่ commit `.md`)
+2. User: `build` — สร้างไฟล์ UI
+3. User: `verify` — browser compare ครั้งเดียว
+
+Handoff production → [`/builder-ui`](#4-builder-ui)
 
 ---
 
@@ -288,7 +312,7 @@
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/builder-feature` |
-| **Version** | 1.8.0 (ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §1) |
+| **Version** | ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §1 |
 | **บทบาท** | **Plan-only orchestrator** — design reasoning + flow + slice backlog **ไม่เขียนโค้ด** |
 | **Activation** | Manual `/builder-feature` — **ไม่มี** `paths` frontmatter (ไม่ auto-invoke ตอนแก้ app code) |
 
@@ -527,7 +551,7 @@ dedupe ผ่าน `manifest.json` ก่อนเขียน · hub ensure �
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-recall` + คำถาม |
-| **เวอร์ชัน** | 2.4.4 (ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §1) |
+| **เวอร์ชัน** | ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §1 |
 | **บทบาท** | ค้น memory — manifest + `grep-vault` / per-file Read (ห้าม directory Grep บน gitignored vault) |
 
 **Cheat sheet:** วันที่ → `Read` daily · คำถามเทคนิค → manifest shortlist → `grep-vault.sh --pattern` (macOS) หรือ `grep-vault.ps1` (Windows)
@@ -548,7 +572,8 @@ flowchart TD
   C -->|ไม่| E{เกี่ยว DB?}
   E -->|ใช่| M[/builder-schema]
   E -->|ไม่| F{ออกแบบระบบ?}
-  F -->|UI| U[/builder-ui]
+  F -->|UI pixel ถูก token| UC[/builder-ui-cost]
+  F -->|UI production| U[/builder-ui]
   F -->|API| P[/builder-api]
   F -->|schema| M[/builder-schema]
   F -->|infra| I[/builder-infrastructure]
@@ -569,4 +594,4 @@ flowchart TD
 - ตารางเวอร์ชัน + `reference.md` ทุกตัว → [APPENDIX-TH.md](./APPENDIX-TH.md)
 - Scope Guardrails / SKILL REPORT ร่วม → APPENDIX §3–4
 
-*อัปเดตตาม repo หลัง change-control rollout — เวอร์ชันล่าสุดดูใน APPENDIX §1 หรือแต่ละ `SKILL.md`*
+*อัปเดตตาม repo — เวอร์ชัน SSoT ที่ [APPENDIX-TH.md](./APPENDIX-TH.md) §1 เท่านั้น*

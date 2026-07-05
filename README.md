@@ -16,7 +16,7 @@
 |:--|:--|
 | [เกี่ยวกับแพ็ก](#เกี่ยวกับแพ็ก) | ทำอะไร · ใครควรใช้ |
 | [ติดตั้ง](#ติดตั้ง) | Clone · setup · reload |
-| [โครงสร้าง 3 ชั้น](#โครงสร้าง-3-ชั้น) | Rules · Skills · Scripts |
+| [โครงสร้าง 4 ชั้น](#โครงสร้าง-4-ชั้น) | Spine · Rules · Skills · Setup |
 | [เลือก skill](#เลือก-skill-เมื่อไหร่) | Decision table |
 | [Skills ทั้งหมด](#skills-ทั้งหมด) | 13 workflows + version |
 | [Rules](#rules) | Always-on + scoped |
@@ -101,12 +101,15 @@ flowchart LR
 
 ---
 
-## โครงสร้าง 3 ชั้น
+## โครงสร้าง 4 ชั้น
 
-อธิบายเต็ม → [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md)
+อธิบายเต็ม → [ARCHITECTURE.md](ARCHITECTURE.md) · [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md)
 
 ```mermaid
 flowchart TB
+  subgraph L0["Layer 0 — Spine"]
+    A[ARCHITECTURE.md]
+  end
   subgraph L1["Layer 1 — Rules (ai-rules/)"]
     M[change-control-manifest]
     G[globs: patching · debug · risk · …]
@@ -117,6 +120,7 @@ flowchart TB
   subgraph L3["Layer 3 — Setup (scripts/)"]
     SET[setup · validate-skills · vault bootstrap]
   end
+  L0 --> L1
   L1 --> L2
   L3 --> L1
   L3 --> L2

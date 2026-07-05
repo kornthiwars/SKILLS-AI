@@ -21,20 +21,39 @@ if (-not $RepoRoot) {
 
 $NotesPack = Join-Path $RepoRoot 'templates\vault\notes'
 $TemplateFile = Join-Path $NotesPack 'template.vault-daily.md'
+$Utf8NoBom = New-Object System.Text.UTF8Encoding $false
+
+function Read-VaultText([string]$Path) {
+    # UTF-8 with or without BOM (Obsidian / bootstrap / manual edits)
+    return [System.IO.File]::ReadAllText($Path, [System.Text.Encoding]::UTF8)
+}
+
+function Write-VaultText([string]$Path, [string]$Content) {
+    [System.IO.File]::WriteAllText($Path, $Content, $Utf8NoBom)
+}
 
 function New-DailyFromTemplate {
     param([string]$Target, [string]$Template, [string]$Date, [string]$Iso)
     if (-not (Test-Path -LiteralPath $Template)) {
         throw "Missing template: $Template"
     }
-    $utf8 = New-Object System.Text.UTF8Encoding $false
-    $content = [System.IO.File]::ReadAllText($Template, $utf8)
+    $content = Read-VaultText $Template
     $content = $content.Replace('__VAULT_DATE__', $Date).Replace('__VAULT_ISO__', $Iso)
     $parent = Split-Path -Parent $Target
     if ($parent -and -not (Test-Path -LiteralPath $parent)) {
         New-Item -ItemType Directory -Path $parent -Force | Out-Null
     }
-    [System.IO.File]::WriteAllText($Target, $content, $utf8)
+    Write-VaultText $Target $content
+}
+
+function Get-DailySummaryInsertIndex([string]$Content) {
+    # First ## section after YAML frontmatter — avoids Thai literal encoding in script source
+    $fm = [regex]::Match($Content, '(?s)\A---\r?\n.*?\r?\n---\r?\n')
+    if (-not $fm.Success) { throw 'Missing YAML frontmatter in daily file' }
+    $rest = $Content.Substring($fm.Length)
+    $h2 = [regex]::Match($rest, '(?m)^## [^\r\n]+\r?\n')
+    if (-not $h2.Success) { throw 'Missing first ## section (summary) in daily file' }
+    return $fm.Length + $h2.Index + $h2.Length
 }
 
 $date = Get-Date -Format 'yyyy-MM-dd'
@@ -50,8 +69,7 @@ if (-not (Test-Path -LiteralPath $dailyFile)) {
     Write-Output "INIT daily created"
 }
 
-$utf8 = New-Object System.Text.UTF8Encoding $false
-$content = [System.IO.File]::ReadAllText($dailyFile, $utf8)
+$content = Read-VaultText $dailyFile
 $content = $content -replace "`r`n", "`n"
 
 $runs = 1
@@ -64,11 +82,7 @@ $content = $content -replace 'updated_at:\s*"[^"]*"', "updated_at: `"$iso`""
 if ($Bullet.Trim()) {
     $bulletLine = if ($Bullet.TrimStart().StartsWith('-')) { $Bullet.Trim() } else { "- $Bullet" }
     if ($content -notmatch [regex]::Escape($bulletLine)) {
-        $marker = '## สรุปงานวันนี้'
-        $pos = $content.IndexOf($marker)
-        if ($pos -lt 0) { throw "Missing ## สรุปงานวันนี้ section in daily file" }
-        $insertAt = $pos + $marker.Length
-        if ($insertAt -lt $content.Length -and $content[$insertAt] -eq "`n") { $insertAt++ }
+        $insertAt = Get-DailySummaryInsertIndex $content
         $content = $content.Insert($insertAt, "`n$bulletLine`n")
     } else {
         Write-Output "SKIP duplicate bullet"
@@ -79,16 +93,15 @@ if ($Issue.Trim()) {
     $issueId = "iss-$date-$runs"
     $issueRow = "| $issueId | $($Issue.Trim()) | open | daily_only | |"
     if ($content -notmatch [regex]::Escape($issueRow)) {
-        $tableSep = '|----|-------|-------|--------|--------|'
-        $sepIndex = $content.IndexOf($tableSep)
-        if ($sepIndex -lt 0) { throw "Missing Issues table separator in daily file" }
-        $insertAt = $sepIndex + $tableSep.Length
+        $sepMatch = [regex]::Match($content, '(?m)^\|----\|[-| ]+\|\s*$')
+        if (-not $sepMatch.Success) { throw 'Missing Issues table separator in daily file' }
+        $insertAt = $sepMatch.Index + $sepMatch.Length
         $content = $content.Insert($insertAt, "`n$issueRow")
     } else {
         Write-Output "SKIP duplicate issue row"
     }
 }
 
-[System.IO.File]::WriteAllText($dailyFile, $content, $utf8)
+Write-VaultText $dailyFile $content
 Write-Output "OK runs=$runs"
 Write-Output $dailyFile

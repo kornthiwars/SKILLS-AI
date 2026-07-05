@@ -1,7 +1,7 @@
 ---
 name: vault-daily
 metadata:
-  version: "2.3.0"
+  version: "2.3.1"
 description: >-
   Use for end-of-day triage, Issues review, promote to durable tiers, and สรุปส่งรายงาน.
   Routine bullets autolog after patches (vault-autolog rule). Invoke /vault-daily when
