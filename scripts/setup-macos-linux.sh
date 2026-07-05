@@ -124,6 +124,8 @@ collect_subproject_roots() {
 
   for sibling in "$INSTALL_ROOT"/*; do
     [ -d "$sibling" ] || continue
+    base="$(basename "$sibling")"
+    case "$base" in .cursor|agent-skills|SKILLS-AI|apps) continue ;; esac
     [ "$sibling" = "$agent_skills_in_install" ] && continue
     printf '%s\n' "$(cd "$sibling" && pwd)"
   done

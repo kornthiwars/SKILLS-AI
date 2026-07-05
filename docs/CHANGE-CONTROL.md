@@ -6,6 +6,7 @@ agent-skills uses **change-control**, not “fast coding only.”
 
 | Layer | Location | Role |
 |-------|----------|------|
+| **0 — Spine** | `ARCHITECTURE.md` | SSoT map — where everything lives |
 | **1 — Rules** | `ai-rules/` | Gates, budgets, risk, stop conditions |
 | **2 — Skills** | `ai-skills/` | Deep workflows on invoke (`/debug`, …) |
 | **3 — Setup** | `scripts/setup-*` | Junction install once per clone; manual checklist in [SKILL-SMOKE-CHECKLIST.md](./SKILL-SMOKE-CHECKLIST.md) and [DYNAMIC-AGENT-SMOKE.md](./DYNAMIC-AGENT-SMOKE.md) after major pack edits |

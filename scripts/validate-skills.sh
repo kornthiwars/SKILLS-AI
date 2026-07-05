@@ -71,6 +71,7 @@ fi
 for skill_dir in "$SKILLS_ROOT"/*/; do
   [ -d "$skill_dir" ] || continue
   dir_name="$(basename "$skill_dir")"
+  case "$dir_name" in _*) continue ;; esac
   skill_md="$skill_dir/SKILL.md"
   rel="ai-skills/$dir_name/SKILL.md"
   checked=$((checked + 1))
@@ -150,13 +151,12 @@ for skill_dir in "$SKILLS_ROOT"/*/; do
   fi
 done
 
-if [ -f "$APPENDIX_TH" ] || [ -f "$README_MD" ]; then
-  python3 - "$SKILLS_ROOT" "$APPENDIX_TH" "$README_MD" <<'PY' || errors=$((errors + 1))
+if [ -f "$APPENDIX_TH" ]; then
+  python3 - "$SKILLS_ROOT" "$APPENDIX_TH" <<'PY' || errors=$((errors + 1))
 import pathlib, re, sys
 
 skills_root = pathlib.Path(sys.argv[1])
 appendix_path = pathlib.Path(sys.argv[2]) if sys.argv[2] else None
-readme_path = pathlib.Path(sys.argv[3]) if sys.argv[3] else None
 errors = []
 
 def skill_version(skill_md: pathlib.Path):
@@ -194,21 +194,21 @@ def check_version_table(path: pathlib.Path, label: str, canon: dict):
 
 canon = {}
 for skill_md in sorted(skills_root.glob("*/SKILL.md")):
+    if skill_md.parent.name.startswith("_"):
+        continue
     ver = skill_version(skill_md)
     if ver:
         canon[skill_md.parent.name] = ver
 
 if appendix_path:
     check_version_table(appendix_path, "docs/th/APPENDIX-TH.md", canon)
-if readme_path:
-    check_version_table(readme_path, "README.md", canon)
 
 for e in errors:
     print(f"ERROR: {e}", file=sys.stderr)
 sys.exit(1 if errors else 0)
 PY
 else
-  warn "docs/th/APPENDIX-TH.md and README.md missing — skip version sync check"
+  warn "docs/th/APPENDIX-TH.md missing — skip version sync check"
 fi
 
 if [ "$errors" -gt 0 ]; then

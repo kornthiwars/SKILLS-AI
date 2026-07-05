@@ -94,6 +94,7 @@ function Get-SubprojectRoots {
 
     Get-ChildItem -LiteralPath $InstallRoot -Directory | ForEach-Object {
         if ($_.FullName -eq $agentAbs) { return }
+        if ($_.Name -in @('.cursor', 'agent-skills', 'SKILLS-AI', 'apps')) { return }
         $_.FullName
     }
 }

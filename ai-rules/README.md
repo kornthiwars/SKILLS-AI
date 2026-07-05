@@ -1,5 +1,7 @@
 # ai-rules
 
+Activation map: [_index.mdc](_index.mdc) · Architecture: [ARCHITECTURE.md](../ARCHITECTURE.md)
+
 | Rule | Role |
 |------|------|
 | `change-control-manifest.mdc` | Observe→verify, patch budget, skill orchestration |

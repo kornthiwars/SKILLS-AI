@@ -4,12 +4,16 @@
 
 ```
 agent-skills/
+├── ARCHITECTURE.md     # spine — SSoT map
 ├── ai-skills/<name>/   # SKILL.md + optional reference.md
-├── ai-rules/           # .mdc rules
+├── ai-skills/_catalog/ # domain indexes (not skills)
+├── ai-rules/           # .mdc rules + _index.mdc
 ├── vault/              # local notes (gitignored); templates in scripts/vault/
 ├── templates/
 └── scripts/
 ```
+
+Folders under `ai-skills/` starting with `_` are catalog indexes — excluded from `validate-skills`.
 
 ## New skill checklist
 

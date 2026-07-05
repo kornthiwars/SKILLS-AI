@@ -17,7 +17,7 @@
 | builder-infrastructure | `/builder-infrastructure` | 1.2.11 | ใช่ |
 | builder-feature | `/builder-feature` | 1.8.3 | ใช่ |
 | fix-record | `/fix-record` | 1.2.10 | ใช่ |
-| upgrade-ai | `/upgrade-ai` | 1.3.5 | ใช่ |
+| upgrade-ai | `/upgrade-ai` | 1.3.6 | ใช่ |
 | git-push | `/git-push` | 1.2.10 | ใช่ |
 | vault-daily | `/vault-daily` | 2.3.0 | ใช่ |
 | vault-capture | `/vault-capture` | 2.4.0 | ใช่ |

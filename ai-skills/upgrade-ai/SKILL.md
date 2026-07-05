@@ -1,7 +1,7 @@
 ---
 name: upgrade-ai
 metadata:
-  version: "1.3.5"
+  version: "1.3.6"
 description: >-
   Use when skills or rules need diagnosis, doc drift audit, external parity review,
   or minimal upgrades — 8 phases, validate-skills preflight, version governance.

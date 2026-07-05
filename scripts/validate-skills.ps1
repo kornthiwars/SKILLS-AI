@@ -70,6 +70,7 @@ function Get-DescriptionLength([string]$Content) {
 
 Get-ChildItem -LiteralPath $SkillsRoot -Directory | ForEach-Object {
     $dirName = $_.Name
+    if ($dirName.StartsWith('_')) { return }
     $skillMd = Join-Path $_.FullName 'SKILL.md'
     $relSkill = "ai-skills/$dirName/SKILL.md"
     $checked++
@@ -167,9 +168,8 @@ function Test-VersionTable {
 }
 
 Test-VersionTable -Path $AppendixTh -Label 'docs/th/APPENDIX-TH.md'
-Test-VersionTable -Path $ReadmeMd -Label 'README.md'
-if (-not (Test-Path -LiteralPath $AppendixTh) -and -not (Test-Path -LiteralPath $ReadmeMd)) {
-    $warnings.Add('docs/th/APPENDIX-TH.md and README.md missing - skip version sync check')
+if (-not (Test-Path -LiteralPath $AppendixTh)) {
+    $warnings.Add('docs/th/APPENDIX-TH.md missing - skip version sync check')
 }
 
 foreach ($w in $warnings) { Write-Warning $w }

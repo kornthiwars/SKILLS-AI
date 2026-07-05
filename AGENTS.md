@@ -2,7 +2,7 @@
 
 Universal agent entry point for **agent-skills**
 
-Canonical: [`ai-skills/`](ai-skills/README.md) · [`ai-rules/`](ai-rules/README.md)
+**Architecture spine:** [ARCHITECTURE.md](ARCHITECTURE.md) · Skills: [ai-skills/_catalog/](ai-skills/_catalog/) · Rules: [ai-rules/_index.mdc](ai-rules/_index.mdc)
 
 ---
 
@@ -31,22 +31,14 @@ Edit **`ai-skills/`** and **`ai-rules/`** in the clone — not inside `.cursor/`
 
 ## Skills (`ai-skills/`)
 
-| Skill | Use when |
-|-------|----------|
-| [debug](ai-skills/debug/SKILL.md) | Bugs, stack traces, systematic diagnosis |
-| [scrutinize](ai-skills/scrutinize/SKILL.md) | Review plan, PR, or diff end-to-end |
-| [builder-ui](ai-skills/builder-ui/SKILL.md) | UI architecture from references |
-| [builder-ui-cost](ai-skills/builder-ui-cost/SKILL.md) | 100% pixel UI · PNG/SVG · lowest session tokens |
-| [builder-api](ai-skills/builder-api/SKILL.md) | API contracts and backend boundaries |
-| [builder-schema](ai-skills/builder-schema/SKILL.md) | Data modeling and migrations |
-| [builder-infrastructure](ai-skills/builder-infrastructure/SKILL.md) | IaC, CI/CD, observability |
-| [builder-feature](ai-skills/builder-feature/SKILL.md) | Plan-only cross-layer design — slice backlog; **no app code** |
-| [fix-record](ai-skills/fix-record/SKILL.md) | RCA after validated fix |
-| [upgrade-ai](ai-skills/upgrade-ai/SKILL.md) | Improve skills in this repo |
-| [git-push](ai-skills/git-push/SKILL.md) | Safe commit + push (sole git skill) |
-| [vault-daily](ai-skills/vault-daily/SKILL.md) | Daily task summary + triage (local vault) |
-| [vault-capture](ai-skills/vault-capture/SKILL.md) | Capture session to vault |
-| [vault-recall](ai-skills/vault-recall/SKILL.md) | Search vault memory + cite |
+| Domain | Catalog | Invoke examples |
+|--------|---------|-----------------|
+| Diagnose | [_catalog/diagnose.md](ai-skills/_catalog/diagnose.md) | `/debug` · `/scrutinize` · `/fix-record` |
+| Build | [_catalog/build.md](ai-skills/_catalog/build.md) | `/builder-feature` · `/builder-ui` · `/builder-api` |
+| Memory | [_catalog/memory.md](ai-skills/_catalog/memory.md) | `/vault-capture` · `/vault-recall` · `/vault-daily` |
+| Meta | [_catalog/meta.md](ai-skills/_catalog/meta.md) | `/upgrade-ai` · `/git-push` |
+
+Versions: [docs/th/APPENDIX-TH.md](docs/th/APPENDIX-TH.md) §1
 
 Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Change-control: [docs/CHANGE-CONTROL.md](docs/CHANGE-CONTROL.md) · **Thai:** [docs/th/README.md](docs/th/README.md) · External: [EXTERNAL-PARITY.md](docs/EXTERNAL-PARITY.md) · Catalog listing: [CATALOG-SUBMISSION.md](docs/CATALOG-SUBMISSION.md)
 
@@ -54,12 +46,20 @@ Authoring: [ai-skills/SKILL-AUTHORING.md](ai-skills/SKILL-AUTHORING.md) · Chang
 
 ## Rules (`ai-rules/`)
 
+Activation map: [ai-rules/_index.mdc](ai-rules/_index.mdc)
+
 | Rule | Role |
 |------|------|
 | [change-control-manifest.mdc](ai-rules/change-control-manifest.mdc) | **Production AI** — observe→verify, patch budget, confidence gates |
 | [bilingual-th-en.mdc](ai-rules/bilingual-th-en.mdc) | Thai ~60% / English ~40% replies |
 | [clean-code.mdc](ai-rules/clean-code.mdc) | Code style for generated application code |
 | `ai-rules/{core,debugging,patching,architecture,testing,risk,workflow}/` | Scoped production rules |
+
+---
+
+## Application code (`apps/`)
+
+When workspace includes sibling `apps/` folder — static prototypes and UI intake manifests live there. Shared design tokens: `apps/_shared/tokens.css`. See [ARCHITECTURE.md](ARCHITECTURE.md) § Design tokens.
 
 ---
 

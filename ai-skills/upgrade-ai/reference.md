@@ -98,9 +98,13 @@ When diagnosing or upgrading **this** repository:
 
 | Canonical (edit in git) | Cursor sees (after setup) |
 |-------------------------|---------------------------|
+| `ARCHITECTURE.md` | Pack spine — SSoT map (read first for structure audits) |
 | `ai-skills/<name>/` | `.cursor/skills/<name>/` (symlink/junction) |
+| `ai-skills/_catalog/` | Domain indexes — not skills; validate-skills skips `_` folders |
 | `ai-rules/*.mdc` | `.cursor/rules/` |
-| `vault/` | `.cursor/vault/` → `agent-skills/vault/` (junction; `SKILLS-AI/vault/` legacy alias; local notes gitignored) |
+| `ai-rules/_index.mdc` | Rule activation map |
+| `vault/` | `.cursor/vault/` → `agent-skills/vault/` (junction; local notes gitignored) |
+| `<workspace>/apps/` | Application prototypes sibling to pack clone |
 
 - **Do not** treat `.cursor/skills` as source of truth in the clone — it points at `ai-skills/`.
 - **Do not** commit user content under `vault/` (gitignored except `.gitkeep`).

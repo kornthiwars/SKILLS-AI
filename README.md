@@ -6,7 +6,7 @@
 
 รองรับ [Agent Skills open spec](https://agentskills.io/) · ออกแบบให้ invoke ด้วย **`/slash`** · memory ผ่าน **Obsidian vault** บนเครื่อง (gitignore)
 
-**Agent entry:** [AGENTS.md](AGENTS.md) · **คู่มือไทย:** [docs/th/README.md](docs/th/README.md)
+**Agent entry:** [AGENTS.md](AGENTS.md) · **Architecture spine:** [ARCHITECTURE.md](ARCHITECTURE.md) · **คู่มือไทย:** [docs/th/README.md](docs/th/README.md)
 
 ---
 
@@ -158,24 +158,14 @@ Copy / label ชัด → agent patch ตรงๆ ได้โดยไม่�
 
 ทุก skill มี `SKILL.md` + `reference.md` · bump `metadata.version` เมื่อแก้เนื้อหา
 
-| Skill | Invoke | Ver. | ใช้เมื่อ |
-|-------|--------|------|----------|
-| debug | `/debug` | 1.3.12 | Four-step diagnosis · mantra · hypothesis ledger |
-| scrutinize | `/scrutinize` | 1.2.13 | Outsider review · browser UI · review-only จนกว่า user อนุมัติ |
-| builder-feature | `/builder-feature` | 1.8.3 | Plan-only · plan file · design reasoning · slice handoff · **ห้าม** patch app |
-| builder-ui | `/builder-ui` | 1.3.2 | UI architecture · Figma SVG Pixel mode · cost-efficient intake · a11y · browser verify |
-| builder-ui-cost | `/builder-ui-cost` | 1.0.2 | Pixel match · in-chat manifest · PNG/SVG · lowest tokens |
-| builder-api | `/builder-api` | 1.2.11 | Contract-first API · auth boundaries |
-| builder-schema | `/builder-schema` | 1.2.10 | Schema evolution · migration + rollback plan |
-| builder-infrastructure | `/builder-infrastructure` | 1.2.11 | CI/CD · IaC · DR |
-| fix-record | `/fix-record` | 1.2.10 | Canonical RCA หลัง validated fix |
-| upgrade-ai | `/upgrade-ai` | 1.3.5 | Diagnose skill layer · doc drift · external parity |
-| git-push | `/git-push` | 1.2.10 | Inspect · commit เมื่อ user ยืนยัน · push · verify |
-| vault-capture | `/vault-capture` | 2.4.0 | Session/ADR · infer project · auto hub |
-| vault-recall | `/vault-recall` | 2.4.7 | grep-vault / Read · cite line range |
-| vault-daily | `/vault-daily` | 2.3.0 | End-of-day triage · Issues · promote · hub ensure |
+| Domain | Catalog |
+|--------|---------|
+| Diagnose | [ai-skills/_catalog/diagnose.md](ai-skills/_catalog/diagnose.md) |
+| Build | [ai-skills/_catalog/build.md](ai-skills/_catalog/build.md) |
+| Memory | [ai-skills/_catalog/memory.md](ai-skills/_catalog/memory.md) |
+| Meta | [ai-skills/_catalog/meta.md](ai-skills/_catalog/meta.md) |
 
-Index → [ai-skills/README.md](ai-skills/README.md) · รายละเอียดไทย → [docs/th/SKILLS-TH.md](docs/th/SKILLS-TH.md)
+**Version table (SSoT):** [docs/th/APPENDIX-TH.md](docs/th/APPENDIX-TH.md) §1 · Index → [ai-skills/README.md](ai-skills/README.md) · ไทย → [docs/th/SKILLS-TH.md](docs/th/SKILLS-TH.md)
 
 ---
 
@@ -237,14 +227,20 @@ Schemas → [templates/vault/README.md](templates/vault/README.md) · Scripts �
 ## โครงสร้าง repository
 
 ```
-agent-skills/
-├── ai-skills/           ← SKILL.md + reference.md (แก้ที่นี่)
-├── ai-rules/            ← .mdc rules
-├── scripts/             ← setup · validate-skills · vault
-├── templates/vault/     ← note schemas (git)
-├── docs/                ← EN + docs/th/
-├── .github/workflows/   ← validate-skills CI
-└── vault/               ← โน้ตของคุณ (gitignore)
+agent-skills/              ← git repo (canonical clone name)
+├── ARCHITECTURE.md        ← spine — SSoT map
+├── ai-skills/             ← SKILL.md + reference.md + _catalog/
+├── ai-rules/              ← .mdc rules + _index.mdc
+├── scripts/               ← setup · validate-skills · vault
+├── templates/vault/       ← note schemas (git)
+├── docs/                  ← EN + docs/th/
+├── .github/workflows/     ← validate-skills CI
+└── vault/                 ← โน้ตของคุณ (gitignore)
+
+<workspace>/apps/          ← application prototypes (sibling to pack)
+├── _shared/               ← tokens.css · reset.css
+├── go-manga/
+└── arena/
 ```
 
 ---

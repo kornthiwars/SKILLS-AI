@@ -1,0 +1,45 @@
+---
+description: Rule activation map — always-on vs scoped vs on-request. Link manifest; do not duplicate execution sequence.
+alwaysApply: false
+---
+
+# Rule activation map
+
+Parent: [change-control-manifest.mdc](./change-control-manifest.mdc) · Architecture: [ARCHITECTURE.md](../ARCHITECTURE.md)
+
+## Tier 0 — Always-on (every turn)
+
+| File | Role |
+|------|------|
+| `change-control-manifest.mdc` | Sequence 1–10, patch budget, skill routing |
+| `bilingual-th-en.mdc` | Thai ~60% / English ~40% replies |
+| `clean-code.mdc` | Generated application code baseline |
+| `workflow/vault-autolog.mdc` | Daily bullet after verified patch |
+| `workflow/decision-tree.mdc` | Route intent to skills |
+
+## Tier 1 — Scoped (auto when editing matching globs)
+
+| Folder | Triggers on |
+|--------|-------------|
+| `core/` | App source `**/*.{ts,tsx,js,jsx,html,css,py,go,…}` |
+| `debugging/` | Same app globs |
+| `patching/` | Same app globs |
+| `architecture/` | API routes, schema, shared modules |
+| `testing/` | App source + `*.{test,spec}.*` |
+
+## Tier 2 — On request (agent-requestable)
+
+| File | Role |
+|------|------|
+| `risk/rollback-awareness.mdc` | Reversible changes |
+| `risk/risk-classification.mdc` | LOW / MEDIUM / HIGH |
+| `risk/approval-gates.mdc` | Human approval for HIGH |
+| `workflow/stop-conditions.mdc` | Escalate instead of guessing |
+| `workflow/response-format.mdc` | Pre-patch report structure |
+| `core/uncertainty-control.mdc` | Stop when confidence low |
+
+## Tier 3 — On skill invoke
+
+Deep workflow lives in skill `reference.md` (debug mantra, builder close-out, vault schemas).
+
+**Do not** duplicate manifest sequence in scoped rules — link only.
