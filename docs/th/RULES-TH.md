@@ -46,13 +46,18 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 5. Disprove alternatives — หักล้างทางเลือก  
 6. Assess impact & risk  
 7. Propose minimal patch  
-8. Verify  
+8. **Verify** — IDENTIFY → RUN → READ ก่อน claim เสร็จ  
 9. **Vault autolog** — หลัง verified patch ต้อง append daily (`vault-autolog.mdc`)  
 10. Regression check — ถ้า patch redirect caller ให้ grep symbol เก่า (`callee-redirect-cleanup.mdc`)
 
+**Verify gate:** ระบุคำสั่งพิสูจน์ → รัน → อ่านผลจริง · ห้าม “should work” / READY โดยไม่มีหลักฐาน
+
 **Work type (ย่อ):** Ask/explain → ตอบตรง (ข้าม 1–10) · copy/UI ชัด → patch→verify→autolog · บั๊กไม่ชัด → debug · **ยังพัง/retry → Attempt ledger** (ด้านล่าง) · ไม่แน่ใจ → ถาม bug vs copy?
 
-**Attempt ledger (ตอน retry เท่านั้น):** ก่อน patch รอบถัดไป ต้องมีตาราง ≤5 แถว (`# | Change tried | Outcome | Why ruled out`) · `Read` ไฟล์บนดิสก์ · ห้ามเสนอ patch/โค้ดเดิมที่ fail แล้ว · optional: `append-daily.ps1 -Issue "retry: …"`
+**Attempt ledger (ตอน retry เท่านั้น):**  
+1. `Read`/`Write` `vault/sessions/attempt-<slug>.md` จาก [`template.attempt-ledger.md`](../../templates/vault/notes/template.attempt-ledger.md)  
+2. ตาราง ≤5 แถวในไฟล์ + ในแชท · `Read` ซอร์สจริง · ห้าม patch/โค้ดเดิมที่ fail แล้ว  
+3. optional: `append-daily.ps1 -Issue "retry: …"`
 
 **งบ patch ค่าเริ่มต้น:**
 

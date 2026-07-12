@@ -16,6 +16,7 @@ Pack schema for Obsidian-native + agent dual-use vault. Runtime notes live in `v
 |------|--------|---------|-----------------|
 | Ephemeral | `template.vault-daily.md` | `daily/DATE.md` | `ephemeral` |
 | Episodic | `template.vault-session.md` | `sessions/SLUG.md` | `episodic` |
+| Attempt ledger | `template.attempt-ledger.md` | `sessions/attempt-SLUG.md` | *(retry only — see manifest)* |
 | Semantic (ADR) | `template.vault-decision.md` | `decisions/SLUG.md` | `semantic` |
 | Semantic (project) | `template.vault-project.md` | `projects/SLUG.md` | `semantic` |
 

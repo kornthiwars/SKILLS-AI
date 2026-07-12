@@ -13,7 +13,7 @@ agent-skills uses **change-control**, not “fast coding only.”
 
 ## Always-on manifest
 
-[`ai-rules/change-control-manifest.mdc`](../ai-rules/change-control-manifest.mdc) — execution sequence (10 steps), **Attempt ledger** on retry, patch budget, confidence permissions, skill routing.
+[`ai-rules/change-control-manifest.mdc`](../ai-rules/change-control-manifest.mdc) — execution sequence (10 steps), **Verify gate** (IDENTIFY→RUN→READ), **Attempt ledger on disk** (`vault/sessions/attempt-*.md`), patch budget, confidence permissions, skill routing.
 
 **Tier 0 always-on (3):** manifest · `bilingual-th-en` · `vault-autolog`. `clean-code` = globs. Map: [`ai-rules/_index.mdc`](../ai-rules/_index.mdc).
 

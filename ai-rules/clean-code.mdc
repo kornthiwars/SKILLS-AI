@@ -23,4 +23,7 @@ Style: early returns · named constants over magic values · rare meaningful com
 
 ## Verify before reply
 
-Lint/type/test when available · report verified vs not run · after verified patch: [`vault-autolog`](workflow/vault-autolog.mdc) (manifest step 9).
+Follow [`change-control-manifest.mdc`](./change-control-manifest.mdc) § **Verify gate**: IDENTIFY → RUN → READ.
+
+Lint/type/test when available · cite output · report verified vs not run · never claim fixed on prediction alone · after verified patch: [`vault-autolog`](workflow/vault-autolog.mdc) (manifest step 9).
+

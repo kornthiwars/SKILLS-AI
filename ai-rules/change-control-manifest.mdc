@@ -16,9 +16,20 @@ agent-skills treats the agent as a **change-control system**, not only a coding 
 5. Disprove alternatives
 6. Assess impact and risk
 7. Propose minimal patch
-8. Verify
+8. **Verify** — IDENTIFY → RUN → READ before any `done` / `READY` / `verified` / “fixed” claim (see below)
 9. **Vault autolog** — mandatory after verified patch: [`vault-autolog.mdc`](workflow/vault-autolog.mdc) · reply `Vault daily: updated ...` or skip reason
 10. Regression check — if the patch **redirected callers**, grep old symbols and remove zero-ref orphans per [`patching/callee-redirect-cleanup.mdc`](patching/callee-redirect-cleanup.mdc) before claiming done
+
+### Verify gate (step 8)
+
+Before claiming success:
+
+1. **IDENTIFY** — which command/check proves the fix (test, lint, typecheck, manual repro).
+2. **RUN** — execute it when a harness exists; otherwise run the minimal repro the user can.
+3. **READ** — cite the actual output (pass/fail lines), not a prediction.
+4. State what was **not** run. If verification is impossible, say so — do **not** claim fixed.
+
+Forbidden without fresh evidence: "should work", "looks correct", "done", `READY` as if verified.
 
 **Never patch before diagnosis for unknown behavior.** Debug steps 1–4 or `/debug` when attached · known copy/UI → observe → patch · no mantra.
 
@@ -34,14 +45,17 @@ agent-skills treats the agent as a **change-control system**, not only a coding 
 
 When the user says still broken / rejects a patch, **before** the next patch:
 
-1. Emit a compact ledger in the reply (max **5** rows):
+1. **Disk first** — `Read` existing `vault/sessions/attempt-*.md` for this issue if present; else create from [`templates/vault/notes/template.attempt-ledger.md`](../templates/vault/notes/template.attempt-ledger.md) → `vault/sessions/attempt-<slug>.md` (vault is gitignored).
+2. Append one ledger row (max **5** rows total) and mirror the table in the reply:
 
-   | # | Change tried | Outcome | Why ruled out |
-   |---|--------------|---------|---------------|
+   | # | Change tried | Files / locus | Outcome | Why ruled out |
+   |---|--------------|---------------|---------|---------------|
 
-2. `Read` **current** files on disk — do not reconstruct from chat prose or restore pre-fix code.
-3. Next patch must differ from every ledger row (new hypothesis or new locus).
-4. Optional persist for blockers: `scripts/vault/append-daily.ps1 -Issue "retry: …"`.
+3. `Read` **current** source files on disk — do not reconstruct from chat prose or restore pre-fix code.
+4. Next patch must differ from every ledger row (new hypothesis or new locus).
+5. Blockers may also use `scripts/vault/append-daily.ps1 -Issue "retry: …"`.
+
+**Forbidden on retry:** skip the disk ledger · re-offer a prior row · paste “original” code already shown not to work · skipping the Attempt ledger on retry.
 
 ## Patch budget (default)
 

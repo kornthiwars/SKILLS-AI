@@ -1,13 +1,16 @@
 ---
-description: Never claim fixed without validation evidence
+description: Never claim fixed without validation evidence — IDENTIFY RUN READ before READY
 globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
 alwaysApply: false
 ---
 
 # Verification required
 
-Before claiming success: IDENTIFY → RUN → READ → VERIFY ([debug/reference.md](../../ai-skills/debug/reference.md) § Close-out verification gate).
+Before claiming success (`done` / `READY` / `verified` / “fixed”): **IDENTIFY → RUN → READ** ([`change-control-manifest.mdc`](../change-control-manifest.mdc) § Verify gate · [debug/reference.md](../../ai-skills/debug/reference.md) § Close-out verification gate).
 
-State expected outcome · run/describe verification · note what was **not** run · regression risks · callee grep if call targets changed ([`callee-redirect-cleanup`](../patching/callee-redirect-cleanup.mdc)).
+1. **IDENTIFY** — name the command or repro that proves the fix.
+2. **RUN** — execute when a harness exists; else the smallest user-visible repro.
+3. **READ** — quote pass/fail output (or explicit “no harness — user must confirm”).
+4. Note what was **not** run · regression risks · callee grep if call targets changed ([`callee-redirect-cleanup`](../patching/callee-redirect-cleanup.mdc)).
 
-Forbidden without fresh run: "should work", "looks correct", "done". If cannot verify, say so explicitly.
+Forbidden without fresh run/read: "should work", "looks correct", "done", unverified `READY`.
