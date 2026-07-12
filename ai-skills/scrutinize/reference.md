@@ -15,9 +15,9 @@ When the diff touches `ai-skills/*/SKILL.md`, `*/reference.md`, or `ai-rules/*.m
 - [ ] `SKILL.md` under ~300 lines; new phase prose → `reference.md`
 - [ ] Handoffs section links related skills (not orphan workflows)
 - [ ] Long RCA → `/fix-record` — not mixed into unrelated skills
-- [ ] Rule/skill hierarchy: [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) § **Active skill precedence** + [`decision-tree.mdc`](../../ai-rules/workflow/decision-tree.mdc) active modes stay aligned when touching routing
+- [ ] Rule/skill hierarchy: [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) § **Active skill precedence** stays aligned when touching routing
 
-When the diff touches **`decision-tree.mdc`**, **`change-control-manifest.mdc`**, or skill orchestration rows:
+When the diff touches **`change-control-manifest.mdc`** or skill orchestration rows:
 
 - [ ] Plan-only / read-only / meta modes not regressed to forced patch sequence
 

@@ -24,9 +24,24 @@ agent-skills treats the agent as a **change-control system**, not only a coding 
 
 | Work type | Route |
 |-----------|-------|
+| Ask / explain / brainstorm (no patch) | Answer directly — sequence 1–10 N/A until a patch is proposed |
 | Known copy/UI (outcome clear) | patch → verify → autolog — no `/debug` |
 | Unknown bug / flaky / API fail | debug discipline; `/debug` optional |
+| User says still broken / retry after a patch | Follow **Attempt ledger** below |
 | Unsure | One question: bug vs copy? |
+
+## Attempt ledger (retry only)
+
+When the user says still broken / rejects a patch, **before** the next patch:
+
+1. Emit a compact ledger in the reply (max **5** rows):
+
+   | # | Change tried | Outcome | Why ruled out |
+   |---|--------------|---------|---------------|
+
+2. `Read` **current** files on disk — do not reconstruct from chat prose or restore pre-fix code.
+3. Next patch must differ from every ledger row (new hypothesis or new locus).
+4. Optional persist for blockers: `scripts/vault/append-daily.ps1 -Issue "retry: …"`.
 
 ## Patch budget (default)
 
@@ -49,18 +64,24 @@ Stop if behavior unknown or multiple root causes plausible.
 
 ## Skill routing
 
-Primary: [`decision-tree.mdc`](workflow/decision-tree.mdc). Skills apply when row matches — slash optional except full rituals (`/debug` mantra).
+Slash optional except full rituals (`/debug` mantra).
 
 | Situation | Skill |
 |-----------|--------|
 | Unknown / stack trace | `/debug` |
 | UI / mock / Figma SVG | `/builder-ui` |
 | Cross-layer feature | `/builder-feature` (plan-only) |
-| Review PR/plan | `/scrutinize` |
+| API / backend | `/builder-api` |
 | Schema | `/builder-schema` |
+| CI/CD · IaC | `/builder-infrastructure` |
+| Review PR/plan | `/scrutinize` |
 | Git publish | `/git-push` |
 | Pack meta | `/upgrade-ai` |
 | RCA | `/fix-record` |
+| Multi-fix commit | One `/fix-record` per root cause |
+| Vault memory | `/vault-capture` · `/vault-recall` |
+| End-of-day | `/vault-daily` |
+| Mobile client bug | Debug in **client repo** |
 
 ## Active skill precedence
 
@@ -76,8 +97,8 @@ Iron law overrides steps 7–8 when active (`plan-only`, `review-only`).
 
 ## Production prohibitions
 
-Speculative fixes · broad refactors in bugfixes · silent behavior changes · implicit API/schema breaks · unrelated rewrites.
+Speculative fixes · broad refactors in bugfixes · silent behavior changes · implicit API/schema breaks · unrelated rewrites · re-proposing a patch the user already rejected or that failed in this thread · pasting “original” code that was already shown not to work · skipping the Attempt ledger on retry.
 
 ## Rule layers
 
-Always-on: this manifest + [`decision-tree`](workflow/decision-tree.mdc) + [`vault-autolog`](workflow/vault-autolog.mdc). Scoped: `ai-rules/{core,patching,architecture,testing,risk,workflow}/` (app source globs). Deep workflow: `ai-skills/*/reference.md`. Meta edits: [`/upgrade-ai`](../ai-skills/upgrade-ai/SKILL.md).
+Always-on (3): this manifest + [`bilingual-th-en`](bilingual-th-en.mdc) + [`vault-autolog`](workflow/vault-autolog.mdc). Scoped: [`clean-code`](clean-code.mdc) + `ai-rules/{core,patching,architecture,testing,risk,workflow}/` (app source globs). Deep workflow: `ai-skills/*/reference.md`. Meta edits: [`/upgrade-ai`](../ai-skills/upgrade-ai/SKILL.md).

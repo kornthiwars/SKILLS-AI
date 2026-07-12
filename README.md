@@ -177,12 +177,12 @@ Copy / label ชัด → agent patch ตรงๆ ได้โดยไม่�
 
 | Rule / โฟลเดอร์ | บทบาท |
 |-----------------|--------|
-| [change-control-manifest.mdc](ai-rules/change-control-manifest.mdc) | Always-on — sequence, budget, routing |
-| [bilingual-th-en.mdc](ai-rules/bilingual-th-en.mdc) | ตอบไทย ~60% / English ~40% |
-| [clean-code.mdc](ai-rules/clean-code.mdc) | มาตรฐานโค้ดที่ agent generate |
-| [vault-autolog.mdc](ai-rules/workflow/vault-autolog.mdc) | บังคับ daily bullet หลัง verified patch |
+| [change-control-manifest.mdc](ai-rules/change-control-manifest.mdc) | Always-on — sequence, attempt ledger, budget, routing |
+| [bilingual-th-en.mdc](ai-rules/bilingual-th-en.mdc) | Always-on — ตอบไทย ~60% / English ~40% |
+| [vault-autolog.mdc](ai-rules/workflow/vault-autolog.mdc) | Always-on — daily bullet หลัง verified patch |
+| [clean-code.mdc](ai-rules/clean-code.mdc) | Glob — มาตรฐานโค้ดแอป (ไม่โหลดทุก turn) |
 | `core/` · `debugging/` · `patching/` | Gates ตาม glob ของไฟล์ app |
-| `architecture/` · `testing/` · `risk/` | API · schema · approval · rollback |
+| `architecture/` · `testing/` · `risk/` · `workflow/` | API · schema · approval · rollback · stop-conditions |
 
 รายละเอียดไทย → [docs/th/RULES-TH.md](docs/th/RULES-TH.md)
 

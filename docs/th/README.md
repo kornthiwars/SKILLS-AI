@@ -1,6 +1,6 @@
 # คู่มือภาษาไทย — agent-skills
 
-เอกสารนี้อธิบาย **14 skills** และ **36 rules** ใน repo นี้เป็นภาษาไทย
+เอกสารนี้อธิบาย **14 skills** และ **33 rules** ใน repo นี้เป็นภาษาไทย
 
 **Spine (อ่านก่อน):** [ARCHITECTURE.md](../../ARCHITECTURE.md) · Skill domains: [ai-skills/_catalog/](../../ai-skills/_catalog/)
 
@@ -10,7 +10,7 @@
 |--------|---------|
 | [ARCHITECTURE.md](../../ARCHITECTURE.md) | แผนที่ SSoT — pack · vault · apps · catalog |
 | [SKILLS-TH.md](./SKILLS-TH.md) | **14 skills** — เรียกด้วย `/ชื่อ-skill` |
-| [RULES-TH.md](./RULES-TH.md) | **36 rules** — always-on + scoped + `_index.mdc` |
+| [RULES-TH.md](./RULES-TH.md) | **33 rules** — always-on (3) + glob + intelligent + `_index.mdc` |
 | [APPENDIX-TH.md](./APPENDIX-TH.md) | **SSoT ตารางเวอร์ชัน** · reference · globs · vault · scripts |
 | [REFERENCE-INDEX-TH.md](./REFERENCE-INDEX-TH.md) | ลิงก์ไป `reference.md` ภาษาอังกฤษทุก skill |
 | [CHANGE-CONTROL.md](../CHANGE-CONTROL.md) | EN — 4 layers (spine + rules + skills + setup) |
@@ -73,9 +73,10 @@ Clone ชื่อ canonical: **`agent-skills/`** (ถ้ายังเป็�
 
 | ประเภท | จำนวน | บทบาท |
 |--------|------:|--------|
-| Always-on | 5 | manifest, bilingual, clean-code, vault-autolog, decision-tree |
+| Always-on | 3 | manifest, bilingual, vault-autolog |
 | Activation map | 1 | `_index.mdc` — tier 0–3 (on request) |
-| Scoped | 30 | core, debugging, patching, architecture, testing, risk, workflow |
+| Glob-scoped | 24 | รวม `clean-code` + core/debugging/patching/… |
+| Intelligent | 5 | risk/* (3), stop-conditions, uncertainty-control |
 
 รายละเอียดเต็ม → [RULES-TH.md](./RULES-TH.md)
 

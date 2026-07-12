@@ -11,17 +11,16 @@ Parent: [change-control-manifest.mdc](./change-control-manifest.mdc) · Architec
 
 | File | Role |
 |------|------|
-| `change-control-manifest.mdc` | Sequence 1–10, patch budget, skill routing |
+| `change-control-manifest.mdc` | Sequence 1–10, attempt ledger, patch budget, skill routing |
 | `bilingual-th-en.mdc` | Thai ~60% / English ~40% replies |
-| `clean-code.mdc` | Generated application code baseline |
 | `workflow/vault-autolog.mdc` | Daily bullet after verified patch |
-| `workflow/decision-tree.mdc` | Route intent to skills |
 
 ## Tier 1 — Scoped (auto when editing matching globs)
 
-| Folder | Triggers on |
-|--------|-------------|
-| `core/` | App source `**/*.{ts,tsx,js,jsx,html,css,py,go,…}` |
+| File / folder | Triggers on |
+|---------------|-------------|
+| `clean-code.mdc` | App source `**/*.{ts,tsx,js,jsx,html,css,py,go,…}` |
+| `core/` | Same app globs |
 | `debugging/` | Same app globs |
 | `patching/` | Same app globs |
 | `architecture/` | API routes, schema, shared modules |
@@ -35,7 +34,6 @@ Parent: [change-control-manifest.mdc](./change-control-manifest.mdc) · Architec
 | `risk/risk-classification.mdc` | LOW / MEDIUM / HIGH |
 | `risk/approval-gates.mdc` | Human approval for HIGH |
 | `workflow/stop-conditions.mdc` | Escalate instead of guessing |
-| `workflow/response-format.mdc` | Pre-patch report structure |
 | `core/uncertainty-control.mdc` | Stop when confidence low |
 
 ## Tier 3 — On skill invoke

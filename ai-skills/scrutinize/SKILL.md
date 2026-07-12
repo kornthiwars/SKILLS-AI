@@ -1,7 +1,7 @@
 ---
 name: scrutinize
 metadata:
-  version: "1.2.13"
+  version: "1.2.14"
 description: >-
   Use before merging or shipping a change — outsider review of intent, simpler alternatives,
   end-to-end trace, five-axis and browser UI checks. Use on PRs, plans, or skill diffs.
@@ -46,7 +46,7 @@ Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails
 
 ## Change-control
 
-Apply [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) and [`workflow/response-format.mdc`](../../ai-rules/workflow/response-format.mdc) when recommending code changes. Classify risk per [`risk/risk-classification.mdc`](../../ai-rules/risk/risk-classification.mdc).
+Apply [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) when recommending code changes. Classify risk per [`risk/risk-classification.mdc`](../../ai-rules/risk/risk-classification.mdc).
 
 ## Operating stance
 

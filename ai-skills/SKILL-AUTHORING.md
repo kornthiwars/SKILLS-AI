@@ -39,7 +39,7 @@ Application-code skills also follow [`change-control-manifest.mdc`](../ai-rules/
 
 | Layer | Keep in always-on `.mdc` | Move to scoped rule or skill `reference.md` |
 |-------|--------------------------|---------------------------------------------|
-| Always-on (5 files) | Iron law, sequence, routing links | Long examples, script blocks, duplicate tables |
+| Always-on (3 files) | Iron law, sequence, attempt ledger, routing links | Long examples; `clean-code` is scoped |
 | Scoped `ai-rules/` | One-screen rule per file | Cross-link manifest — no duplicate sequence |
 | Skills | Cheat sheet + REPORT | Phase prose (see § Token efficiency) |
 

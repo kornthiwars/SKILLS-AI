@@ -1,6 +1,7 @@
 ---
 description: Clean code baseline for code generated or edited by AI
-alwaysApply: true
+globs: "**/*.{ts,tsx,js,jsx,html,css,py,go,rs,java,kt,cs,php,rb,sql,vue,svelte}"
+alwaysApply: false
 ---
 
 # Clean Code baseline

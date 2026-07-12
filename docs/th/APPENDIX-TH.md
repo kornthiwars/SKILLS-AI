@@ -9,13 +9,13 @@
 | Skill | Invoke | Version | มี `reference.md` |
 |-------|--------|---------|-------------------|
 | debug | `/debug` | 1.3.12 | ใช่ |
-| scrutinize | `/scrutinize` | 1.2.13 | ใช่ |
+| scrutinize | `/scrutinize` | 1.2.14 | ใช่ |
 | builder-ui | `/builder-ui` | 1.3.2 | ใช่ |
 | builder-ui-cost | `/builder-ui-cost` | 1.0.2 | ใช่ |
 | builder-api | `/builder-api` | 1.2.11 | ใช่ |
 | builder-schema | `/builder-schema` | 1.2.10 | ใช่ |
 | builder-infrastructure | `/builder-infrastructure` | 1.2.11 | ใช่ |
-| builder-feature | `/builder-feature` | 1.8.3 | ใช่ |
+| builder-feature | `/builder-feature` | 1.8.4 | ใช่ |
 | fix-record | `/fix-record` | 1.2.10 | ใช่ |
 | upgrade-ai | `/upgrade-ai` | 1.3.6 | ใช่ |
 | git-push | `/git-push` | 1.2.10 | ใช่ |
@@ -194,7 +194,6 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 | ไฟล์ | globs (สรุป) |
 |------|----------------|
-| `core/execution-model` | application-source bundle |
 | `core/diagnosis-first` | application-source bundle |
 | `core/minimal-change` | application-source bundle |
 | `core/verification-required` | application-source bundle |
@@ -214,8 +213,9 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | `risk/risk-classification` | intelligent |
 | `risk/approval-gates` | intelligent |
 | `risk/rollback-awareness` | intelligent |
-| `workflow/*` (2 intelligent) | intelligent — `stop-conditions`, `response-format` (+ `decision-tree`, `vault-autolog` = always-on) |
+| `workflow/*` | `vault-autolog` = always-on · `stop-conditions` = intelligent |
 | `ai-rules/_index.mdc` | intelligent — activation map tier 0–3 |
+| `clean-code.mdc` | application-source bundle (Tier 1 globs — **ไม่** always-on) |
 
 ---
 
@@ -248,7 +248,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | รายการ | สถานะ |
 |--------|--------|
 | 14 skills มีหัวข้อใน SKILLS-TH (รวม builder-ui-cost + vault 3 ตัว) | ครบ |
-| 36/36 rules มีหัวข้อใน RULES-TH (+ `_index.mdc`) | ครบ |
+| 33/33 rules มีหัวข้อใน RULES-TH (+ `_index.mdc`) | ครบ |
 | ARCHITECTURE spine + `_catalog` | ครบ — ลิงก์ใน README ไทย |
 | reference.md อธิบาย | ครบ (ไฟล์นี้ §2 + REFERENCE-INDEX-TH) |
 | Scope Guardrails SSoT + builder ARTIFACTS | ครบ (§3 + SKILL-AUTHORING) |

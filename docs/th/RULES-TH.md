@@ -8,13 +8,13 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | **`globs`** | เมื่อแตะไฟล์ที่ path ตรง pattern |
 | **intelligent** | Cursor เลือกเมื่อคำอธิบาย rule ตรงงาน (ไม่มี glob) |
 
-**รวม 36 ไฟล์** — **5** always-on, **1** activation map (`_index.mdc`), **30** scoped
+**รวม 33 ไฟล์** — **3** always-on, **1** activation map (`_index.mdc`), **24** glob-scoped, **5** intelligent (on-request)
 
 ---
 
 ## สารบัญ
 
-- [Always-on (5)](#always-on-โหลดทุก-turn)
+- [Always-on (3)](#always-on-โหลดทุก-turn)
 - [Activation map](#activation-map-_indexmdc)
 - [core/](#โฟลเดอร์-core)
 - [debugging/](#โฟลเดอร์-debugging)
@@ -37,7 +37,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 **จุดประสงค์:** กำหนดให้ agent เป็น **ระบบ change-control** ไม่ใช่แค่ “พิมพ์โค้ดเร็ว”
 
-**ลำดับ 9 ขั้น (ห้ามข้าม):**
+**ลำดับ 10 ขั้น (ห้ามข้าม เมื่อจะ patch):**
 
 1. Observe — สังเกตอาการ  
 2. Reproduce — ทำซ้ำได้หรือพิสูจน์ว่าทำไม่ได้  
@@ -47,7 +47,12 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 6. Assess impact & risk  
 7. Propose minimal patch  
 8. Verify  
-9. Regression check — ถ้า patch redirect caller ให้ grep symbol เก่า (`callee-redirect-cleanup.mdc`)
+9. **Vault autolog** — หลัง verified patch ต้อง append daily (`vault-autolog.mdc`)  
+10. Regression check — ถ้า patch redirect caller ให้ grep symbol เก่า (`callee-redirect-cleanup.mdc`)
+
+**Work type (ย่อ):** Ask/explain → ตอบตรง (ข้าม 1–10) · copy/UI ชัด → patch→verify→autolog · บั๊กไม่ชัด → debug · **ยังพัง/retry → Attempt ledger** (ด้านล่าง) · ไม่แน่ใจ → ถาม bug vs copy?
+
+**Attempt ledger (ตอน retry เท่านั้น):** ก่อน patch รอบถัดไป ต้องมีตาราง ≤5 แถว (`# | Change tried | Outcome | Why ruled out`) · `Read` ไฟล์บนดิสก์ · ห้ามเสนอ patch/โค้ดเดิมที่ fail แล้ว · optional: `append-daily.ps1 -Issue "retry: …"`
 
 **งบ patch ค่าเริ่มต้น:**
 
@@ -79,12 +84,13 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | git | `/git-push` |
 | ปรับ skill | `/upgrade-ai` |
 | RCA ยาว | `/fix-record` |
+| vault | `/vault-capture` · `/vault-recall` · `/vault-daily` |
 
-**Active skill precedence:** เมื่อ skill มี iron law (เช่น `/builder-feature` plan-only) — **override** ขั้น 7–8 ของลำดับ 9 ขั้น
+**Active skill precedence:** เมื่อ skill มี iron law (เช่น `/builder-feature` plan-only) — **override** ขั้น 7–8 ของลำดับ
 
-**Scoped vs meta:** patching/testing/debugging rules ใช้ application-source globs — ไม่ trigger จากแก้ `ai-skills/` / `ai-rules/` / `docs/` อย่างเดียว (ดู manifest § Scoped rules vs meta edits)
+**Scoped vs meta:** patching/testing/debugging rules ใช้ application-source globs — ไม่ trigger จากแก้ `ai-skills/` / `ai-rules/` / `docs/` อย่างเดียว
 
-**ห้ามใน production:** fix เดา, refactor ปน bugfix, เปลี่ยน API/schema แอบ, ทำลาย schema โดยไม่มีแผน
+**ห้ามใน production:** fix เดา, refactor ปน bugfix, เปลี่ยน API/schema แอบ, ทำลาย schema โดยไม่มีแผน, **ยัดโค้ด/patch เดิมที่ fail ในเทรดนี้**, ข้าม Attempt ledger ตอน retry
 
 ---
 
@@ -112,7 +118,7 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | **ไฟล์** | `ai-rules/workflow/vault-autolog.mdc` |
 | **โหลด** | alwaysApply |
 
-**จุดประสงค์:** หลัง patch ที่ verify แล้ว — append bullet ลง `vault/daily/YYYY-MM-DD.md` อัตโนมัติ (ผ่าน `scripts/vault/append-daily.sh`)
+**จุดประสงค์:** หลัง patch ที่ verify แล้ว — append bullet ลง `vault/daily/YYYY-MM-DD.md` อัตโนมัติ (ผ่าน `scripts/vault/append-daily.ps1` / `.sh`)
 
 **Iron law:** ตอบ user ต้องมีบรรทัด `Vault daily:` — `updated vault/daily/...` หรือ `skipped — <reason>`
 
@@ -122,13 +128,13 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 ---
 
-### `clean-code.mdc`
+### `clean-code.mdc` (ไม่ใช่ always-on)
 
 | | |
 |--|--|
-| **โหลด** | alwaysApply |
+| **โหลด** | **globs** — app source `**/*.{ts,tsx,js,jsx,html,css,py,go,…}` (Tier 1) |
 
-**จุดประสงค์:** baseline **โค้ดแอป** ที่ AI สร้าง/แก้ (ไม่ใช่กฎเขียน skill)
+**จุดประสงค์:** baseline **โค้ดแอป** ที่ AI สร้าง/แก้ — โหลดเมื่อแตะไฟล์แอป ไม่กิน token ทุก turn
 
 **หลัก 8 ข้อ (ย่อ):**
 
@@ -156,9 +162,9 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 
 **จุดประสงค์:** แผนที่ tier 0–3 — always-on vs scoped vs on-request vs skill invoke
 
-- Tier 0: manifest, bilingual, clean-code, vault-autolog, decision-tree  
-- Tier 1: `core/`, `debugging/`, `patching/`, … (globs)  
-- Tier 2: risk, stop-conditions, response-format  
+- Tier 0: manifest, bilingual, vault-autolog (**3**)  
+- Tier 1: `clean-code.mdc` + `core/`, `debugging/`, `patching/`, … (globs)  
+- Tier 2: risk, stop-conditions, uncertainty-control  
 - Tier 3: depth ใน skill `reference.md`
 
 Spine: [ARCHITECTURE.md](../../ARCHITECTURE.md) · EN: [_index.mdc](../../ai-rules/_index.mdc)
@@ -166,16 +172,6 @@ Spine: [ARCHITECTURE.md](../../ARCHITECTURE.md) · EN: [_index.mdc](../../ai-rul
 ---
 
 ## โฟลเดอร์ `core/`
-
-### `core/execution-model.mdc`
-
-| globs | application-source bundle (รวม `html,css` — ดู [APPENDIX-TH.md](./APPENDIX-TH.md) §9) |
-|-------|---------------------------------------------------------------------|
-
-**ทำอะไร:** บังคับลำดับ 9 ขั้นจาก manifest — **ห้าม** ข้ามไป patch ก่อนขั้น 1–6 พอ  
-**bug:** ใช้ `/debug` แทน invent กระบวนการสั้นเอง
-
----
 
 ### `core/diagnosis-first.mdc`
 
@@ -404,28 +400,9 @@ HIGH risk ต้องมี automated test **หรือ** manual steps ชั
 
 ## โฟลเดอร์ `workflow/`
 
-### `workflow/decision-tree.mdc`
+### `workflow/vault-autolog.mdc`
 
-| โหลด | alwaysApply |
-
-แผนที่ intent → skill (ดูตารางใน manifest)  
-หลายอย่างพร้อมกัน — ใช้ **โหมดที่ active** ไม่บังคับ patch ทุกครั้ง:
-
-| โหมด | ลำดับ |
-|------|--------|
-| patch/fix (default) | diagnose → patch → verify → git-push |
-| plan-only (`/builder-feature`) | plan → handoff — **ไม่ patch app** |
-| read-only (`/scrutinize` review-only) | review → report |
-| meta (`/upgrade-ai`) | diagnose skill/rule → checklist + [DYNAMIC-AGENT-SMOKE.md](../DYNAMIC-AGENT-SMOKE.md) เมื่อแก้ใหญ่ |
-
-skill **iron law** ชนะ patch steps 7–8 ของ manifest — ดู `change-control-manifest.mdc` § Active skill precedence
-
-### `workflow/response-format.mdc`
-
-| โหลด | intelligent |
-
-ก่อนเสนอ patch ควรมี 8 ส่วน: อาการ, สมมติฐาย/สาเหตุ, หลักฐาน, ทางเลือกอื่น, impact, patch, แผน validate, regression risk  
-ข้ามได้เฉพาะ one-liner LOW risk ที่ user ขอชัด
+| โหลด | alwaysApply — ดู [Always-on](#always-on-โหลดทุก-turn) |
 
 ### `workflow/stop-conditions.mdc`
 
@@ -440,9 +417,10 @@ skill **iron law** ชนะ patch steps 7–8 ของ manifest — ดู `ch
 
 | ประเภท | จำนวน | Token | เมื่อไหร่มีผล |
 |--------|------:|-------|----------------|
-| Always-on | **5** | ทุก turn | manifest, decision-tree, clean-code, bilingual-th-en, vault-autolog |
+| Always-on | **3** | ทุก turn | manifest, bilingual-th-en, vault-autolog |
 | Activation map | **1** | on request | `_index.mdc` |
-| Scoped | **30** | glob / intelligent | application source, risk, workflow helpers |
+| Glob-scoped | **24** | เมื่อแตะไฟล์ตรง glob | รวม `clean-code` + core/debugging/patching/… |
+| Intelligent | **5** | agent เลือกตาม description | risk/* (3), stop-conditions, uncertainty-control |
 
 ---
 
@@ -460,7 +438,7 @@ Spine (ARCHITECTURE.md)  →  Rules  →  Skills  →  Setup scripts
 
 ## ภาคผนวก
 
-- ตาราง **globs ครบ 30 scoped rules** → [APPENDIX-TH.md](./APPENDIX-TH.md) §9  
+- ตาราง **globs** → [APPENDIX-TH.md](./APPENDIX-TH.md) §9  
 - setup scripts / patch budget → APPENDIX §8  
 
-*อัปเดตตาม tree 36 ไฟล์ `.mdc` — ถ้าเพิ่ม rule ให้อัปเดต RULES-TH + APPENDIX §9*
+*อัปเดตตาม tree 33 ไฟล์ `.mdc` — ตัด `execution-model`, `decision-tree`, `response-format` (ซ้ำ/ritual) แล้ว · ถ้าเพิ่ม rule ให้อัปเดต RULES-TH + APPENDIX §9*

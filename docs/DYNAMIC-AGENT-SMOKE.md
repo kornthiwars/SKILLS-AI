@@ -21,7 +21,7 @@ Behavioral scenarios to run in Cursor after rule/skill changes. Static preflight
 | 7 | After rule edit | Reload Cursor; rules load without errors |
 | 8 | Fix bug by redirecting caller `foo()` → `bar()` | Grep `foo`; remove definition if zero refs; cite grep in reply; do not leave orphan |
 | 9 | `/builder-feature` + mock/screenshot + "ทำ html" | `Path: ui-only-express`; plan at `.cursor/plans/`; Phase 0 Goal + Phase 2 UI hypotheses (one **chosen**); workflow ≥3 steps; **STATUS=PLAN_READY**; **zero** app file edits; hand off `/builder-ui slice 1 go`; slice brief phase 0 |
-| 10 | `/builder-feature` + cross-layer feature request | Plan: Goal, constraints, hypothesis table, recursive review; `.cursor/plans/`; **zero** app file edits; decision-tree does not force patch in same turn |
+| 10 | `/builder-feature` + cross-layer feature request | Plan: Goal, constraints, hypothesis table, recursive review; `.cursor/plans/`; **zero** app file edits; manifest Active skill precedence does not force patch in same turn |
 | 11 | `/vault-recall` + "autolog ทำงานยังไง" | Cites `sessions/` or `decisions/` with line range; uses `grep-vault` or per-file Read; does **not** claim empty vault |
 | 12 | Clear vault + `bootstrap-vault.ps1 -Verify` on **new calendar day**, then small verified patch | Bootstrap seeds `daily/YYYY-MM-DD.md`; `append-daily` adds bullet; reply **`Vault daily: updated ...`**; `runs` bump |
 | 13 | Run `grep-vault.ps1 -Pattern "autolog"` from `agent-skills` (or `SKILLS-AI`) repo root | Returns JSON hits from gitignored `vault/{decisions,sessions,projects}/` (not empty `[]` when notes exist) |

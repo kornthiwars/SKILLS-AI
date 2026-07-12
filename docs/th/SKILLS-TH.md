@@ -92,7 +92,7 @@
 
 ### ความสัมพันธ์กับ rules
 
-- `change-control-manifest.mdc` — ลำดับ 9 ขั้น (observe → regression)
+- `change-control-manifest.mdc` — ลำดับ 10 ขั้น (observe → vault autolog → regression) · Attempt ledger ตอน retry
 - rules ใน `debugging/`, `patching/`, `testing/` — เปิดเมื่อแก้โค้ด
 
 ### ตัวอย่างประโยคที่ใช้

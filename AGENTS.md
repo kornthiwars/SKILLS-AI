@@ -50,9 +50,10 @@ Activation map: [ai-rules/_index.mdc](ai-rules/_index.mdc)
 
 | Rule | Role |
 |------|------|
-| [change-control-manifest.mdc](ai-rules/change-control-manifest.mdc) | **Production AI** — observe→verify, patch budget, confidence gates |
-| [bilingual-th-en.mdc](ai-rules/bilingual-th-en.mdc) | Thai ~60% / English ~40% replies |
-| [clean-code.mdc](ai-rules/clean-code.mdc) | Code style for generated application code |
+| [change-control-manifest.mdc](ai-rules/change-control-manifest.mdc) | **Always-on** — observe→verify, attempt ledger, patch budget, confidence gates |
+| [bilingual-th-en.mdc](ai-rules/bilingual-th-en.mdc) | **Always-on** — Thai ~60% / English ~40% replies |
+| [workflow/vault-autolog.mdc](ai-rules/workflow/vault-autolog.mdc) | **Always-on** — daily bullet after verified patch |
+| [clean-code.mdc](ai-rules/clean-code.mdc) | **Glob** — code style for generated application code |
 | `ai-rules/{core,debugging,patching,architecture,testing,risk,workflow}/` | Scoped production rules |
 
 ---

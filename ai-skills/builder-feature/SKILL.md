@@ -1,7 +1,7 @@
 ---
 name: builder-feature
 metadata:
-  version: "1.8.3"
+  version: "1.8.4"
 description: >-
   Use when planning a cross-layer feature (UI+API+schema+infra) — durable plan file
   (Plan mode / *.plan.md), goal-driven design reasoning, slice backlog, handoff to builder-*.
@@ -60,7 +60,7 @@ Plan file = **SSoT** — emit per [`template.feature-plan.md`](../../templates/t
 ## When NOT to use
 
 - **Single bug** (login 400, one screen) → [`/debug`](../debug/SKILL.md)
-- **Copy / label / small UI** with clear outcome → direct minimal patch per [`decision-tree.mdc`](../../ai-rules/workflow/decision-tree.mdc)
+- **Copy / label / small UI** with clear outcome → direct minimal patch per [`change-control-manifest.mdc`](../../ai-rules/change-control-manifest.mdc) work-type row
 - **Git publish only** → [`/git-push`](../git-push/SKILL.md)
 - **One layer only** (modal, one endpoint) → matching specialist — not this orchestrator
 - User wants **code now** on one layer → specialist directly

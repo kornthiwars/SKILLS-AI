@@ -41,15 +41,15 @@ When the pack sits inside a parent workspace (e.g. `web/`):
 
 ```mermaid
 flowchart TB
-  subgraph L0["Tier 0 — Always-on rules (≤5)"]
+  subgraph L0["Tier 0 — Always-on rules (≤3)"]
     M[change-control-manifest]
-    B[bilingual · clean-code · vault-autolog · decision-tree]
+    B[bilingual · vault-autolog]
   end
   subgraph L1["Tier 1 — Scoped rules (globs)"]
-    C[core · debugging · patching · architecture · testing]
+    C[clean-code · core · debugging · patching · architecture · testing]
   end
   subgraph L2["Tier 2 — On request"]
-    R[risk · stop-conditions · response-format]
+    R[risk · stop-conditions · uncertainty-control]
   end
   subgraph L3["Tier 3 — On invoke"]
     S["/debug · /builder-* · /vault-*"]
