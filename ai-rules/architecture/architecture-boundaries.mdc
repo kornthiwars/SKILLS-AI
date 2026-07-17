@@ -12,3 +12,5 @@ alwaysApply: false
 - Infra: I/O, config, external systems
 
 New code must live in the correct layer. Cross-layer fixes need justification.
+
+Depth (Clean Architecture ↔ folders): `portfolio/docs/ARCHITECTURE_GUIDE.md` § Clean Architecture; cases: `portfolio/docs/CLEAN_ARCHITECTURE_CASES.md` — Entities / Use Cases / Interface Adapters / Frameworks; dependencies point inward. Do not conflate Frontend guide “Application” (hooks/client state) with Use Cases.
