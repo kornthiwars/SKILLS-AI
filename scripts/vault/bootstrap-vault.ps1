@@ -60,16 +60,26 @@ function Copy-IfMissing([string]$Source, [string]$Dest) {
 
 function Ensure-TodayDaily {
     param([string]$DailyDir, [string]$TemplateFile)
+    $project = [string]$env:VAULT_PROJECT
+    if (-not $project.Trim()) {
+        Write-Host "SKIP seed daily — set VAULT_PROJECT to create vault/daily/YYYY-MM-DD__{project}.md"
+        return $false
+    }
+    $project = $project.Trim().ToLowerInvariant()
+    if ($project -notmatch '^[a-z0-9_-]+$') {
+        throw "VAULT_PROJECT must be [a-z0-9_-]"
+    }
     $date = Get-Date -Format 'yyyy-MM-dd'
     $iso = Get-Date -Format 'yyyy-MM-ddTHH:mm:sszzz'
-    $dailyFile = Join-Path $DailyDir "$date.md"
+    $dailyId = "daily-${date}__${project}"
+    $dailyFile = Join-Path $DailyDir "${date}__${project}.md"
     if (Test-Path -LiteralPath $dailyFile) { return $false }
     if (-not (Test-Path -LiteralPath $TemplateFile)) {
         throw "Missing template: $TemplateFile"
     }
     $utf8 = New-Object System.Text.UTF8Encoding $false
     $content = [System.IO.File]::ReadAllText($TemplateFile, $utf8)
-    $content = $content.Replace('__VAULT_DATE__', $date).Replace('__VAULT_ISO__', $iso)
+    $content = $content.Replace('__VAULT_DAILY_ID__', $dailyId).Replace('__VAULT_DATE__', $date).Replace('__VAULT_ISO__', $iso).Replace('__VAULT_PROJECT__', $project)
     [System.IO.File]::WriteAllText($dailyFile, $content, $utf8)
     Write-Host "INIT daily created: $dailyFile"
     return $true

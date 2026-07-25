@@ -32,7 +32,6 @@ Sections: **Context**, **WhatChanged**, **Decisions**, **FollowUps**. Link ADRs 
 
 ```json
 {
-  "schema_version": 2,
   "updated_at": "ISO8601",
   "docs": []
 }

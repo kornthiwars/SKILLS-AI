@@ -1,8 +1,8 @@
 ---
-id: "daily-__VAULT_DATE__"
+id: "__VAULT_DAILY_ID__"
 type: daily
 date: "__VAULT_DATE__"
-project: ""
+project: "__VAULT_PROJECT__"
 updated_at: "__VAULT_ISO__"
 runs: 1
 carry_over: []

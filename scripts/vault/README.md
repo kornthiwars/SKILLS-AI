@@ -15,20 +15,20 @@ Creates:
 - `vault/_agent/{manifest.json,tiers.json}`
 - `vault/.obsidian/` (seed — copy-if-missing)
 
-Schemas live in `templates/vault/notes/` (git). `bootstrap-vault` seeds today's `daily/*.md` if missing; bullets via `append-daily` or autolog.
+Schemas live in `templates/vault/notes/` (git). `bootstrap-vault` seeds today's `daily/YYYY-MM-DD__{project}.md` when `VAULT_PROJECT` is set; bullets via `append-daily -Project` / `--project` or autolog.
 
 ## Skills
 
 | Skill | Purpose |
 |-------|---------|
-| `/vault-daily` | Daily task summary + triage (1 file per day) |
+| `/vault-daily` | Daily task summary + triage (**1 file per day per project**) |
 | `/vault-capture` | Session / ADR + infer project + auto hub ensure |
 | `/vault-recall` | Grep/Read vault + cite (uses `manifest.json`) |
 
 | Script | Purpose |
 |--------|---------|
-| `bootstrap-vault.ps1` / `.sh` | Layout + Obsidian seed + today's daily if missing |
-| `append-daily.ps1` / `.sh` | **Autolog** — append daily bullet (UTF-8 safe; first `##` after frontmatter) |
+| `bootstrap-vault.ps1` / `.sh` | Layout + Obsidian seed + today's daily if `VAULT_PROJECT` set |
+| `append-daily.ps1` / `.sh` | **Autolog** — require `-Project`/`VAULT_PROJECT`; write `daily/DATE__PROJECT.md`; optional remote dual-write |
 | `archive-daily.ps1` / `.sh` | Move stale `daily/*.md` → `daily/archive/YYYY/` |
 | `grep-vault.ps1` / `.sh` | **Recall** — search gitignored notes (`rg --no-ignore`) |
 

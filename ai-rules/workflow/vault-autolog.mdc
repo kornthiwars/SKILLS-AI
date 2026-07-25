@@ -11,8 +11,9 @@ User does **not** need `/vault-daily` after every task. `/vault-daily` is for **
 
 1. After **verified patch** → Steps below **before** final reply.
 2. No **done** / **READY** / **verified** without autolog or documented skip.
-3. Final reply: **`Vault daily:`** `updated vault/daily/YYYY-MM-DD.md` or `skipped — <reason>`.
+3. Final reply: **`Vault daily:`** `updated vault/daily/YYYY-MM-DD__{project}.md` or `skipped — <reason>`.
 4. Applies to every skill and pack meta patch.
+5. **`project` required** — pass `-Project` / `--project` or set `VAULT_PROJECT` (never empty).
 
 ## When / skip
 
@@ -20,18 +21,22 @@ User does **not** need `/vault-daily` after every task. `/vault-daily` is for **
 
 ## Path resolution (P0)
 
-First existing: `agent-skills/vault/daily/<today>.md` · `SKILLS-AI/vault/daily/<today>.md` · `.cursor/vault/daily/<today>.md`. Manifest: `vault/_agent/manifest.json`. Detail: [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Daily file.
+Daily file: `vault/daily/<today>__<project>.md` (slug = `VAULT_PROJECT`).
+
+First existing vault root: `agent-skills/vault/` · `SKILLS-AI/vault/` · `AI/vault/` · `.cursor/vault/`. Manifest: `vault/_agent/manifest.json`. Detail: [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Daily file.
+
+Legacy `vault/daily/<today>.md` (no project) → migrate to `…__unknown.md` or ask once for `VAULT_DEFAULT_PROJECT`.
 
 ## Steps
 
-1. **Append** — from pack root: `scripts/vault/append-daily.ps1 -Bullet "..."` (or `.sh --bullet`). `-Issue` for bugs. Manual fallback: vault-capture/reference § Daily file (`__VAULT_DATE__` placeholders).
+1. **Append** — from pack root: `scripts/vault/append-daily.ps1 -Project <slug> -Bullet "..."` (or `.sh --project … --bullet`). `-Issue` for bugs. Dual-write remote if `VAULT_REMOTE_URL` + `VAULT_AGENT_TOKEN` set (failure → local only + mention).
 2. **Issues row** — `-Issue` only for blockers; routine uses `-Bullet`.
 
 ## vs vault skills
 
 | Mechanism | Role |
 |-----------|------|
-| **autolog** | Bullet after verify |
+| **autolog** | Bullet after verify (per project daily) |
 | `/vault-capture` | Session / ADR + hub |
 | `/vault-daily` | Triage + promote |
 

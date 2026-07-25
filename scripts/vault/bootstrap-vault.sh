@@ -51,13 +51,20 @@ copy_if_missing() {
 ensure_today_daily() {
   local daily_dir="$1"
   local template_file="$2"
-  local date iso daily_file
+  local date iso daily_file daily_id project
+  project="${VAULT_PROJECT:-}"
+  if [ -z "$project" ]; then
+    echo "SKIP seed daily — set VAULT_PROJECT to create vault/daily/YYYY-MM-DD__{project}.md"
+    return 0
+  fi
+  project="$(printf '%s' "$project" | tr '[:upper:]' '[:lower:]')"
   date="$(date +%Y-%m-%d)"
   iso="$(date -Iseconds)"
-  daily_file="$daily_dir/$date.md"
+  daily_id="daily-${date}__${project}"
+  daily_file="$daily_dir/${date}__${project}.md"
   [ -f "$daily_file" ] && return 0
   [ -f "$template_file" ] || { echo "Missing template: $template_file" >&2; exit 1; }
-  sed "s/__VAULT_DATE__/$date/g; s/__VAULT_ISO__/$iso/g" "$template_file" > "$daily_file"
+  sed "s/__VAULT_DAILY_ID__/$daily_id/g; s/__VAULT_DATE__/$date/g; s/__VAULT_ISO__/$iso/g; s/__VAULT_PROJECT__/$project/g" "$template_file" > "$daily_file"
   echo "INIT daily created: $daily_file"
 }
 
