@@ -26,5 +26,5 @@ _(one paragraph — scope and why this project note exists)_
 
 ## Links
 
-- [[sessions/slug]] — example session wikilink
-- [[decisions/slug]] — example ADR wikilink
+- [[projects/PROJECT/sessions/slug]] — example session wikilink
+- [[projects/PROJECT/decisions/slug]] — example ADR wikilink

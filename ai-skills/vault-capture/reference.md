@@ -4,18 +4,18 @@
 
 | Tier | Template file | Path |
 |------|---------------|------|
-| Daily | `templates/vault/notes/template.vault-daily.md` | `daily/DATE.md` |
-| Session | `templates/vault/notes/template.vault-session.md` | `sessions/SLUG.md` |
-| Decision | `templates/vault/notes/template.vault-decision.md` | `decisions/SLUG.md` |
-| Project | `templates/vault/notes/template.vault-project.md` | `projects/SLUG.md` |
+| Daily | `templates/vault/notes/template.vault-daily.md` | `projects/{slug}/daily/DATE.md` |
+| Session | `templates/vault/notes/template.vault-session.md` | `projects/{slug}/sessions/SLUG.md` |
+| Decision | `templates/vault/notes/template.vault-decision.md` | `projects/{slug}/decisions/SLUG.md` |
+| Project hub | `templates/vault/notes/template.vault-project.md` | `projects/{slug}/hub.md` |
 
 Placeholders: [templates/vault/README.md](../../templates/vault/README.md).
 
 ## Session note
 
-Path: `vault/sessions/<slug>.md` — use **`template.vault-session.md`** (`SLUG`, `TITLE`, `PROJECT`, `CREATED`, `UPDATED`).
+Path: `vault/projects/<project>/sessions/<slug>.md` — use **`template.vault-session.md`** (`SLUG`, `TITLE`, `PROJECT`, `CREATED`, `UPDATED`).
 
-Sections: **Context**, **WhatChanged**, **Decisions**, **FollowUps**. Link ADRs with `[[decisions/slug]]`.
+Sections: **Context**, **WhatChanged**, **Decisions**, **FollowUps**. Link ADRs with `[[projects/<project>/decisions/slug]]`.
 
 ## Gitignore note
 
@@ -24,8 +24,8 @@ Sections: **Context**, **WhatChanged**, **Decisions**, **FollowUps**. Link ADRs 
 ## Dedupe (agent-only)
 
 1. `Read` resolved `.../vault/_agent/manifest.json`
-2. Match `id` or slug in `path` (`sessions/<slug>.md`)
-3. `Grep` `title:` in `vault/sessions/` if ambiguous
+2. Match `id` or slug in `path` (`projects/<project>/sessions/<slug>.md`)
+3. `Grep` `title:` in `vault/projects/<project>/sessions/` if ambiguous
 4. Merge into existing file — do not create duplicate slug
 
 ## Manifest v2 (file: `vault/_agent/manifest.json`)
@@ -42,7 +42,7 @@ Each doc entry (upsert by `id`):
 ```json
 {
   "id": "sess-<topic-slug>",
-  "path": "sessions/<topic-slug>.md",
+  "path": "projects/<project>/sessions/<topic-slug>.md",
   "title": "<title>",
   "tier": "episodic",
   "project": "<project>",
@@ -52,7 +52,7 @@ Each doc entry (upsert by `id`):
 }
 ```
 
-Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`projects/`, `episodic` for `sessions/`.
+Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`hub.md`, `episodic` for `sessions/`.
 
 **Required:** every upsert includes `"tags": []` or a string array — omitting `tags` breaks `/vault-recall` shortlist consistency.
 
@@ -62,7 +62,7 @@ Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`project
 
 **SSoT:** [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) (create + append bullets) · [`vault-daily/reference.md`](../vault-daily/reference.md) (triage, promote, สรุปส่งรายงาน).
 
-**`/vault-capture`** does not auto-create daily — optional `## Promoted` wikilink only when `vault/daily/<today>.md` exists.
+**`/vault-capture`** does not auto-create daily — optional `## Promoted` wikilink only when `vault/projects/<project>/daily/<today>.md` exists.
 
 ---
 
@@ -73,7 +73,7 @@ Set manifest `updated_at` to ISO8601. Tier: `semantic` for `decisions/`/`project
 | `/debug` | **full** | capture, daily | After verified fix — condensed memory or end-of-day triage |
 | `/fix-record` | **full** | recall, capture | RCA is canonical; vault stores short recall summary only |
 | `/scrutinize` | **full** | recall, capture | Recall before architecture/policy verdict |
-| `/builder-feature` | **full** | capture, daily | After `PLAN_READY` — ADR to `vault/decisions/` |
+| `/builder-feature` | **full** | capture, daily | After `PLAN_READY` — ADR to `vault/projects/*/decisions/` |
 | `/builder-schema` | **light** | recall, capture | Before destructive migration; durable schema decision |
 | `/builder-api` | **light** | recall, capture | Before contract break; ADR after slice verify |
 | `/builder-infrastructure` | **light** | capture | Runbook / infra decision after verify |
@@ -107,11 +107,11 @@ Sections (keep concise — full RCA stays in fix-record):
 
 Use **`template.vault-decision.md`** — add `intent: keep_decision` to frontmatter when promoting from `/vault-daily`.
 
-Path: `vault/decisions/<slug>.md` (one topic per file).
+Path: `vault/projects/<project>/decisions/<slug>.md` (one topic per file).
 
 ### Project note
 
-Path: `vault/projects/<slug>.md` — use **`template.vault-project.md`**.
+Path: `vault/projects/<slug>/hub.md` — use **`template.vault-project.md`**.
 
 Sections: **Overview**, **Goals**, **Status** (table), **Links**. Manifest: `id: proj-<slug>`, `tier: semantic`.
 
@@ -157,8 +157,8 @@ After primary note write + manifest upsert, **always** run hub ensure when tier 
 ### Algorithm
 
 ```
-hubPath = vault/projects/<project>.md
-primaryWikilink = [[sessions/<slug>]] or [[decisions/<slug>]]
+hubPath = vault/projects/<project>/hub.md
+primaryWikilink = [[projects/<project>/sessions/<slug>]] or [[projects/<project>/decisions/<slug>]]
 
 IF hub file missing:
   Read templates/vault/notes/template.vault-project.md
@@ -174,16 +174,16 @@ ELSE:
   hubAction = updated
 
 Read primary note
-IF Context lacks [[projects/<project>]]:
-  Append "Hub: [[projects/<project>]]" at end of ## Context section
+IF Context lacks [[projects/<project>/hub]]:
+  Append "Hub: [[projects/<project>/hub]]" at end of ## Context section
 
-IF vault/daily/<today>.md exists:
+IF vault/projects/<project>/daily/<today>.md exists:
   Read daily
-  IF ## Promoted lacks [[projects/<project>]] or primary wikilink:
+  IF ## Promoted lacks [[projects/<project>/hub]] or primary wikilink:
     Append missing wikilinks under ## Promoted
 
 Upsert manifest proj-<project>:
-  path: projects/<project>.md
+  path: projects/<project>/hub.md
   tier: semantic
   project: <project>
   tags: [] or [project]
@@ -204,7 +204,7 @@ Report hubAction + inferred project
 
 ### Multi-repo
 
-One shared vault; separate hubs per inferred project (`projects/api.md`, `projects/web.md`, `projects/app.md`). First capture for a project creates its hub automatically.
+One shared vault; separate hubs per inferred project (`projects/api/hub.md`, `projects/web/hub.md`, `projects/app/hub.md`). First capture for a project creates its hub automatically.
 
 **Do not** run `append-daily` in capture — daily bullets stay with autolog / `/vault-daily`.
 

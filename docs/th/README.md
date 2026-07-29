@@ -90,7 +90,7 @@ Clone ชื่อ canonical: **`agent-skills/`** (ถ้ายังเป็�
 | Episodic | `sessions/` |
 | Semantic | `decisions/`, `projects/` |
 
-Autolog หลัง patch+verify → `append-daily.ps1` · สิ้นวัน → `/vault-daily`
+Autolog หลัง patch+verify → `append-daily.ps1 -Project <slug>` · สิ้นวัน → `/vault-daily`
 
 ## เอกสารภาษาอังกฤษ (canonical)
 

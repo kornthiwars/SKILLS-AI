@@ -6,24 +6,24 @@ All templates: `templates/vault/notes/` — detail in [templates/vault/README.md
 
 | Tier | Template | Output |
 |------|----------|--------|
-| Daily | `template.vault-daily.md` | `daily/DATE.md` |
-| Session | `template.vault-session.md` | `sessions/SLUG.md` |
-| Decision | `template.vault-decision.md` | `decisions/SLUG.md` |
-| Project | `template.vault-project.md` | `projects/SLUG.md` |
+| Daily | `template.vault-daily.md` | `projects/{slug}/daily/DATE.md` |
+| Session | `template.vault-session.md` | `projects/{slug}/sessions/SLUG.md` |
+| Decision | `template.vault-decision.md` | `projects/{slug}/decisions/SLUG.md` |
+| Project hub | `template.vault-project.md` | `projects/{slug}/hub.md` |
 
 ## Daily file
 
-Path: `vault/daily/YYYY-MM-DD.md`
+Path: `vault/projects/{slug}/daily/YYYY-MM-DD.md` (`VAULT_PROJECT` / `-Project` required).
 
-**Template:** `templates/vault/notes/template.vault-daily.md` — replace `__VAULT_DATE__`, `__VAULT_ISO__` (literal); optional `project` in frontmatter. Prefer `append-daily` script (auto-creates file).
+**Template:** `templates/vault/notes/template.vault-daily.md` — replace `__VAULT_DATE__`, `__VAULT_ISO__`, `__VAULT_PROJECT__`. Prefer `append-daily` script (auto-creates file).
 
 ## Triage values
 
 | triage | Action |
 |--------|--------|
-| keep_decision | `template.vault-decision.md` → `decisions/<slug>.md` + manifest + **hub ensure** |
-| keep_learning | `template.vault-session.md` → `sessions/<slug>.md` + manifest + **hub ensure** |
-| keep_project | `template.vault-project.md` → `projects/<slug>.md` + manifest |
+| keep_decision | `template.vault-decision.md` → `projects/<slug>/decisions/<topic>.md` + manifest + **hub ensure** |
+| keep_learning | `template.vault-session.md` → `projects/<slug>/sessions/<topic>.md` + manifest + **hub ensure** |
+| keep_project | `template.vault-project.md` → `projects/<slug>/hub.md` + manifest |
 | daily_only | Stay in daily only |
 | carry_over | Add to frontmatter `carry_over` |
 
@@ -33,8 +33,8 @@ Dedupe before promote: `Read` `vault/_agent/manifest.json` + match slug in `path
 
 After promote + manifest upsert for `keep_decision` or `keep_learning`:
 
-1. **Infer `project`** — [vault-capture/reference.md](../vault-capture/reference.md) § Infer project (signals from daily Issues, patched paths, manifest `proj-*`; ask once on tie)
-2. **Hub ensure** — same algorithm as [vault-capture/reference.md](../vault-capture/reference.md) § Project hub auto-ensure
+1. **Infer `project`** — [vault-capture/reference.md](../vault-capture/reference.md) § Infer project
+2. **Hub ensure** — [vault-capture/reference.md](../vault-capture/reference.md) § Project hub auto-ensure
 
 Skip hub ensure for `keep_project` (note is the hub) and `daily_only`.
 
@@ -42,51 +42,22 @@ Report in **สรุปส่งรายงาน**: `Inferred project: <slug>
 
 ## Promoted wikilinks
 
-In daily `## Promoted`, use Obsidian wikilinks: `[[decisions/slug]]`, `[[sessions/slug]]`, `[[projects/slug]]`.
-
-## Decision file (promoted)
-
-**Template:** `template.vault-decision.md` — `SLUG`, `TITLE`, `PROJECT`, `CREATED`, `UPDATED`. Default `status: draft` unless user says active.
-
-## Session file (promoted)
-
-**Template:** `template.vault-session.md` — same placeholders.
-
-## Project file (promoted)
-
-**Template:** `template.vault-project.md` — same placeholders. Manifest: `tier: semantic`, `id: proj-<slug>`.
-
-## Merge same day
-
-- Append new tasks/issues; dedupe rows by `id`
-- `runs: <previous + 1>`
-- `updated_at: now`
+In daily `## Promoted`, use Obsidian wikilinks: `[[projects/slug/decisions/note]]`, `[[projects/slug/sessions/note]]`, `[[projects/slug/hub]]`.
 
 ## Archive stale dailies
 
-After triage + promote, optionally move old `daily/*.md` to `daily/archive/YYYY/`:
-
 ```powershell
-.\scripts\vault\archive-daily.ps1              # default: older than 14 days
-.\scripts\vault\archive-daily.ps1 -BeforeDate 2026-07-01
+.\scripts\vault\archive-daily.ps1
+.\scripts\vault\archive-daily.ps1 -Project platform -BeforeDate 2026-07-01
 .\scripts\vault\archive-daily.ps1 -DryRun
 ```
 
-Does not delete notes — only relocates within `daily/`. Today’s file is never moved when using `-OlderThanDays`.
+Moves `projects/*/daily/*.md` → `projects/*/daily/archive/YYYY/`.
 
 ## สรุปส่งรายงาน (output block)
 
 Plain Thai bullets — completed, in-progress, carry-over, promoted links.
 
----
-
 ## Close-out verification gate
 
-Before STATUS=READY:
-
-| Step | Action |
-|------|--------|
-| 1 IDENTIFY | Daily path, promote candidates, manifest entries |
-| 2 RUN | Triage preview confirmed (`ok`/`yes`/`go`); promotes use SSoT templates; manifest upserted; hub ensure for session/decision promotes |
-| 3 READ | **สรุปส่งรายงาน** block emitted; promoted + hub wikilinks in daily |
-| 4 AUTOLOG | **Skip** unless this session also applied a verified app patch (autolog rule applies separately) |
+Before STATUS=READY: triage confirm when promote; paths under `projects/{slug}/`; hub ensure when applicable; manifest `tags` present.

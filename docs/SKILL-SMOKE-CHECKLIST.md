@@ -33,7 +33,7 @@ Reload Cursor after rule changes.
 | builder-feature | Plan-only; no `paths` frontmatter; slice handoff |
 | builder-schema | Migration + rollback plan |
 | vault-recall | `grep-vault` or per-file Read; cites line range; no “empty vault” when notes exist |
-| vault-capture | Infer project; session/decision → auto hub `projects/<slug>.md`, backlink, Promoted wikilinks; manifest upsert |
+| vault-capture | Infer project; session/decision → auto hub `projects/<slug>/hub.md`, backlink, Promoted wikilinks; manifest upsert |
 | vault-daily / autolog | New day: bootstrap or `append-daily` creates daily; reply has `Vault daily:`; promote → hub ensure (#16) |
 
 ## Obsidian (manual)

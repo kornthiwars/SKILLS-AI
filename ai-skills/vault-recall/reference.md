@@ -11,7 +11,7 @@ Resolve disk path — use **first root that exists** on disk, then `{path}` from
 | Parent (junction) | `agent-skills/vault/` · `SKILLS-AI/vault/` (legacy) · `.cursor/vault/` | `<root>/_agent/manifest.json` |
 | Pack repo root (`agent-skills/`) | `vault/` | `vault/_agent/manifest.json` |
 
-Note file: `<resolved-root>/{manifest.path}` — e.g. `agent-skills/vault/decisions/slug.md`.
+Note file: `<resolved-root>/{manifest.path}` — e.g. `agent-skills/vault/projects/*/decisions/slug.md`.
 
 SSoT: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) § Path resolution.
 
@@ -53,7 +53,7 @@ Creating or interpreting note shape: [templates/vault/README.md](../../templates
 
 ## Citation format
 
-`agent-skills/vault/decisions/auth-refresh-policy.md` lines 12–28 (or `.cursor/vault/...` when that root was resolved)
+`agent-skills/vault/projects/*/decisions/auth-refresh-policy.md` lines 12–28 (or `.cursor/vault/...` when that root was resolved)
 
 ## Manifest shortlist
 

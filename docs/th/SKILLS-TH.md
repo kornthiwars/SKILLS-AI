@@ -523,7 +523,7 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-daily` |
-| **บทบาท** | สรุปงานประจำวัน — **1 วัน 1 ไฟล์** `vault/daily/YYYY-MM-DD.md` (จาก `template.vault-daily.md` ถ้ายังไม่มี) |
+| **บทบาท** | สรุปงานประจำวัน — **1 วัน 1 ไฟล์** `vault/projects/{slug}/daily/YYYY-MM-DD.md` (จาก `template.vault-daily.md` ถ้ายังไม่มี) |
 
 **Iron law:** ห้าม promote ไป `decisions/` / `sessions/` / `projects/` จนกว่า user confirm triage preview
 
@@ -538,7 +538,7 @@ commit เฉพาะ: `ai-skills/`, `ai-rules/`, `scripts/`, `templates/`, `do
 | รายการ | ค่า |
 |--------|-----|
 | **Invoke** | `/vault-capture` |
-| **บทบาท** | บันทึก episodic / ADR — infer `project` เอง; auto-ensure hub `projects/<slug>.md`; link + backlink + manifest |
+| **บทบาท** | บันทึก episodic / ADR — infer `project` เอง; auto-ensure hub `projects/<slug>/hub.md`; link + backlink + manifest |
 
 dedupe ผ่าน `manifest.json` ก่อนเขียน · hub ensure หลัง session/decision · **ห้าม** copy RCA เต็มจาก `/fix-record` · **ไม่ใช้ Python**
 

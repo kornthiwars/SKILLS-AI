@@ -140,13 +140,23 @@ Verify: `scripts/validate-skills.ps1` · smoke: [docs/SKILL-SMOKE-CHECKLIST.md](
 
 Runtime root: `vault/` (gitignored) · Schemas in git: [templates/vault/README.md](templates/vault/README.md)
 
+Everything is project-scoped (mirrors vault-service `/vault/projects/{slug}/…`):
+
+```text
+vault/projects/{slug}/
+  hub.md
+  daily/YYYY-MM-DD.md
+  sessions/
+  decisions/
+```
+
 ```mermaid
 flowchart LR
-  subgraph tiers["Note tiers"]
+  subgraph proj["projects/{slug}/"]
     D[daily/ ephemeral]
     S[sessions/ episodic]
     DEC[decisions/ semantic ADR]
-    P[projects/ semantic hub]
+    H[hub.md semantic]
   end
   subgraph agent["_agent/"]
     M[manifest.json]
@@ -154,22 +164,22 @@ flowchart LR
   end
   D -->|promote| S
   D -->|promote| DEC
-  S --> P
-  DEC --> P
+  S --> H
+  DEC --> H
   S --> M
   DEC --> M
-  P --> M
+  H --> M
 ```
 
 | Tier | Path | Template | Skill |
 |------|------|----------|-------|
-| Ephemeral | `daily/YYYY-MM-DD.md` | `template.vault-daily.md` | autolog rule · `/vault-daily` |
-| Episodic | `sessions/SLUG.md` | `template.vault-session.md` | `/vault-capture` |
-| Semantic ADR | `decisions/SLUG.md` | `template.vault-decision.md` | `/vault-capture` |
-| Semantic hub | `projects/SLUG.md` | `template.vault-project.md` | `/vault-capture` |
+| Ephemeral | `projects/{slug}/daily/YYYY-MM-DD.md` | `template.vault-daily.md` | autolog · `/vault-daily` |
+| Episodic | `projects/{slug}/sessions/SLUG.md` | `template.vault-session.md` | `/vault-capture` |
+| Semantic ADR | `projects/{slug}/decisions/SLUG.md` | `template.vault-decision.md` | `/vault-capture` |
+| Semantic hub | `projects/{slug}/hub.md` | `template.vault-project.md` | `/vault-capture` |
 
-**Flow:** patch+verify → `append-daily` bullet · งานสำคัญ → `/vault-capture` · สิ้นวัน → `/vault-daily` triage + promote wikilinks
+**Flow:** patch+verify → `append-daily -Project <slug>` · งานสำคัญ → `/vault-capture` · สิ้นวัน → `/vault-daily` triage + promote
 
-**Retention:** `daily/` excluded from broad recall (`tiers.json` `index_exclude`). After triage, run `scripts/vault/archive-daily.ps1` to move old dailies → `daily/archive/YYYY/`.
+**Retention:** `projects/*/daily/**` excluded from broad recall (`tiers.json`). Archive via `scripts/vault/archive-daily.ps1` → `projects/*/daily/archive/YYYY/`.
 
 **Do not** commit `vault/**` content (except `.gitkeep`) · **Do not** directory-`Grep` gitignored vault — use `grep-vault` or `Read`.

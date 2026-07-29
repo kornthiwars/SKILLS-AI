@@ -1,82 +1,53 @@
-# Vault (Obsidian-native + agent memory)
+# Vault greenfield (Obsidian-native + agent memory)
 
-Markdown notes under `vault/` — **no Python**, no embeddings, no indexer. Open as Obsidian vault root.
+Layout mirrors vault-service API: everything under `projects/{slug}/`.
 
-## User setup
+## Layout
 
-Run once after clone (from repo root):
+```text
+vault/
+  _agent/{manifest.json,tiers.json}
+  .obsidian/
+  projects/
+    {slug}/
+      hub.md
+      daily/YYYY-MM-DD.md
+      sessions/
+      decisions/
+```
 
-- Windows: `scripts\setup-windows.bat`
-- macOS/Linux: `./scripts/setup-macos-linux.sh`
+## Setup
 
-Creates:
+From pack root (`AI/`):
 
-- `vault/{daily,decisions,sessions,projects}/` (empty dirs OK)
-- `vault/_agent/{manifest.json,tiers.json}`
-- `vault/.obsidian/` (seed — copy-if-missing)
+```powershell
+$env:VAULT_PROJECT = 'platform'
+.\scripts\vault\bootstrap-vault.ps1 -Verify
+```
 
-Schemas live in `templates/vault/notes/` (git). `bootstrap-vault` seeds today's `daily/YYYY-MM-DD__{project}.md` when `VAULT_PROJECT` is set; bullets via `append-daily -Project` / `--project` or autolog.
+Or: `.\scripts\vault\bootstrap-vault.ps1 -Project platform -Verify`
 
-## Skills
+## Autolog (local primary)
 
-| Skill | Purpose |
-|-------|---------|
-| `/vault-daily` | Daily task summary + triage (**1 file per day per project**) |
-| `/vault-capture` | Session / ADR + infer project + auto hub ensure |
-| `/vault-recall` | Grep/Read vault + cite (uses `manifest.json`) |
+```powershell
+.\scripts\vault\append-daily.ps1 -Project platform -Bullet "smoke"
+```
+
+Optional dual-write when `VAULT_REMOTE_URL` + `VAULT_AGENT_TOKEN` set:
+
+`POST {VAULT_REMOTE_URL}/vault/projects/{slug}/daily/{date}/entries`
+
+Remote failure → `REMOTE skip` (local file still OK).
+
+## Scripts
 
 | Script | Purpose |
 |--------|---------|
-| `bootstrap-vault.ps1` / `.sh` | Layout + Obsidian seed + today's daily if `VAULT_PROJECT` set |
-| `append-daily.ps1` / `.sh` | **Autolog** — require `-Project`/`VAULT_PROJECT`; write `daily/DATE__PROJECT.md`; optional remote dual-write |
-| `archive-daily.ps1` / `.sh` | Move stale `daily/*.md` → `daily/archive/YYYY/` |
-| `grep-vault.ps1` / `.sh` | **Recall** — search gitignored notes (`rg --no-ignore`) |
+| `bootstrap-vault.ps1` / `.sh` | Greenfield tree + `_agent` + optional project seed |
+| `append-daily.ps1` / `.sh` | Require `-Project`; write `projects/{slug}/daily/DATE.md` |
+| `archive-daily.ps1` | Archive old dailies under each `projects/*/daily/archive/YYYY/` |
+| `grep-vault.ps1` / `.sh` | Search gitignored notes |
 
-## Schema (git)
+## Templates
 
-Templates: [`templates/vault/`](../../templates/vault/README.md) — not in `scripts/vault/`.
-
-| Template | Runtime path |
-|----------|--------------|
-| `template.vault-daily.md` | `daily/DATE.md` |
-| `template.vault-session.md` | `sessions/SLUG.md` |
-| `template.vault-decision.md` | `decisions/SLUG.md` |
-| `template.vault-project.md` | `projects/SLUG.md` |
-
-Agent `Read` → replace placeholders → `Write`.
-
-## Obsidian
-
-1. Open folder → `agent-skills/vault` (legacy `SKILLS-AI/vault`) or `.cursor/vault` junction
-2. Daily notes → `daily/`, format `YYYY-MM-DD` (blank file; agent adds schema)
-3. Wikilinks: `[[sessions/slug]]` (flat tier folders)
-4. `_agent/` excluded from graph (agent catalog only)
-5. Schemas: `templates/vault/notes/` in repo — core **Templates** plugin off
-
-### Seed policy
-
-| Target | Policy |
-|--------|--------|
-| `.obsidian/*` | Copy-if-missing (never overwrite user settings) |
-| Note schemas | Pack git only — never copied into `vault/` |
-
-## Manual bootstrap
-
-```powershell
-powershell -File scripts/vault/bootstrap-vault.ps1 -Verify
-```
-
-```bash
-./scripts/vault/bootstrap-vault.sh --verify
-```
-
-## Troubleshooting
-
-| Issue | Fix |
-|-------|-----|
-| `Missing: vault` | Re-run setup or `bootstrap-vault.ps1 -Verify` |
-| `append-daily` path error | Re-run bootstrap; `append-daily` auto-creates daily from template |
-| `append-daily` missing summary section | Ensure daily has YAML frontmatter + `##` summary heading; re-seed from template if corrupt |
-| Archive daily | `archive-daily.ps1 -DryRun` first; files move to `daily/archive/YYYY/` |
-| Recall empty | Use `grep-vault.ps1 -Pattern "..."` (not directory Grep) |
-| Duplicate decisions | Check `vault/_agent/manifest.json` — merge by `id` |
+Schemas in [`templates/vault/notes/`](../../templates/vault/notes/). Bootstrap seeds `hub.md` from `template.vault-project.md` and today daily from `template.vault-daily.md`.

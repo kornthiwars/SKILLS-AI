@@ -55,9 +55,9 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 **Work type (ย่อ):** Ask/explain → ตอบตรง (ข้าม 1–10) · copy/UI ชัด → patch→verify→autolog · บั๊กไม่ชัด → debug · **ยังพัง/retry → Attempt ledger** (ด้านล่าง) · ไม่แน่ใจ → ถาม bug vs copy?
 
 **Attempt ledger (ตอน retry เท่านั้น):**  
-1. `Read`/`Write` `vault/sessions/attempt-<slug>.md` จาก [`template.attempt-ledger.md`](../../templates/vault/notes/template.attempt-ledger.md)  
+1. `Read`/`Write` `vault/projects/<project>/sessions/attempt-<slug>.md` จาก [`template.attempt-ledger.md`](../../templates/vault/notes/template.attempt-ledger.md)  
 2. ตาราง ≤5 แถวในไฟล์ + ในแชท · `Read` ซอร์สจริง · ห้าม patch/โค้ดเดิมที่ fail แล้ว  
-3. optional: `append-daily.ps1 -Issue "retry: …"`
+3. optional: `append-daily.ps1 -Project <slug> -Issue "retry: …"`
 
 **งบ patch ค่าเริ่มต้น:**
 
@@ -123,9 +123,9 @@ Rules อยู่ใน `ai-rules/**/*.mdc` — Cursor โหลดเข้า
 | **ไฟล์** | `ai-rules/workflow/vault-autolog.mdc` |
 | **โหลด** | alwaysApply |
 
-**จุดประสงค์:** หลัง patch ที่ verify แล้ว — append bullet ลง `vault/daily/YYYY-MM-DD.md` อัตโนมัติ (ผ่าน `scripts/vault/append-daily.ps1` / `.sh`)
+**จุดประสงค์:** หลัง patch ที่ verify แล้ว — append bullet ลง `vault/projects/{slug}/daily/YYYY-MM-DD.md` อัตโนมัติ (ผ่าน `scripts/vault/append-daily.ps1` / `.sh`)
 
-**Iron law:** ตอบ user ต้องมีบรรทัด `Vault daily:` — `updated vault/daily/...` หรือ `skipped — <reason>`
+**Iron law:** ตอบ user ต้องมีบรรทัด `Vault daily:` — `updated vault/projects/{project}/daily/...` หรือ `skipped — <reason>`
 
 **ข้ามได้เมื่อ:** read-only, plan-only/review-only iron law, user บอก skip, copy บรรทัดเดียวไม่มีคุณค่า durable
 

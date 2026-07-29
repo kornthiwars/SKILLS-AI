@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Append bullet and/or Issues row to today's daily for one project (vault autolog).
+# Append bullet/issue to today's project daily (local primary + optional API dual-write).
 set -euo pipefail
 
 BULLET=""
@@ -22,9 +22,9 @@ done
 
 PROJECT="$(printf '%s' "$PROJECT" | tr '[:upper:]' '[:lower:]')"
 case "$PROJECT" in
-  ''|*[!a-z0-9_-]* ) echo "Project must be [a-z0-9_-] length 1–64" >&2; exit 1 ;;
+  ''|*[!a-z0-9_-]* ) echo "Project must be [a-z0-9_-] length 1-64" >&2; exit 1 ;;
 esac
-[ "${#PROJECT}" -le 64 ] || { echo "Project must be [a-z0-9_-] length 1–64" >&2; exit 1; }
+[ "${#PROJECT}" -le 64 ] || { echo "Project must be [a-z0-9_-] length 1-64" >&2; exit 1; }
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PACK_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -34,20 +34,23 @@ TEMPLATE_FILE="$PACK_ROOT/templates/vault/notes/template.vault-daily.md"
 
 date="$(date +%Y-%m-%d)"
 iso="$(date -Iseconds)"
-daily_file="$REPO_ROOT/vault/daily/${date}__${PROJECT}.md"
-daily_dir="$(dirname "$daily_file")"
+project_root="$REPO_ROOT/vault/projects/$PROJECT"
+daily_file="$project_root/daily/$date.md"
+vault_root="$REPO_ROOT/vault"
 
-[ -d "$daily_dir" ] || {
+[ -d "$vault_root" ] || {
   echo "Vault layout missing: run scripts/vault/bootstrap-vault.sh --verify first" >&2
   exit 1
 }
 
-remote_event() {
+mkdir -p "$project_root/daily" "$project_root/sessions" "$project_root/decisions"
+
+remote_entry() {
   local kind="$1" text="$2"
   local base="${VAULT_REMOTE_URL:-}" token="${VAULT_AGENT_TOKEN:-}"
   [ -n "$base" ] && [ -n "$token" ] || return 0
   base="${base%/}"
-  local uri="$base/vault/v2/daily/$date/projects/$PROJECT/events"
+  local uri="$base/vault/projects/$PROJECT/daily/$date/entries"
   if command -v curl >/dev/null 2>&1; then
     if curl -fsS -m 8 -X POST "$uri" \
       -H "Authorization: Bearer $token" \
@@ -72,6 +75,7 @@ runs="$(grep -E '^runs:' "$daily_file" | head -1 | sed 's/runs:[[:space:]]*//' |
 runs=$((runs + 1))
 
 bullet_line=""
+do_remote_bullet=0
 if [ -n "$BULLET" ]; then
   case "$BULLET" in
     -*) bullet_line="$BULLET" ;;
@@ -81,18 +85,19 @@ if [ -n "$BULLET" ]; then
     echo "SKIP duplicate bullet"
     bullet_line=""
   else
-    remote_event bullet "${BULLET#- }"
+    do_remote_bullet=1
   fi
 fi
 
 issue_row=""
+do_remote_issue=0
 if [ -n "$ISSUE" ]; then
   issue_row="| iss-${date}-${runs} | ${ISSUE} | open | daily_only | |"
   if grep -qF -- "$issue_row" "$daily_file"; then
     echo "SKIP duplicate issue row"
     issue_row=""
   else
-    remote_event issue "$ISSUE"
+    do_remote_issue=1
   fi
 fi
 
@@ -126,6 +131,9 @@ awk -v bullet="$bullet_line" -v issue_row="$issue_row" -v iso="$iso" -v runs="$r
   { print }
 ' "$daily_file" > "$tmp"
 mv "$tmp" "$daily_file"
+
+[ "$do_remote_bullet" -eq 1 ] && remote_entry bullet "${BULLET#- }"
+[ "$do_remote_issue" -eq 1 ] && remote_entry issue "$ISSUE"
 
 echo "OK runs=$runs project=$PROJECT"
 echo "$daily_file"

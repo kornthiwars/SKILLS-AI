@@ -11,7 +11,7 @@ User does **not** need `/vault-daily` after every task. `/vault-daily` is for **
 
 1. After **verified patch** → Steps below **before** final reply.
 2. No **done** / **READY** / **verified** without autolog or documented skip.
-3. Final reply: **`Vault daily:`** `updated vault/daily/YYYY-MM-DD__{project}.md` or `skipped — <reason>`.
+3. Final reply: **`Vault daily:`** `updated vault/projects/{project}/daily/YYYY-MM-DD.md` or `skipped — <reason>`.
 4. Applies to every skill and pack meta patch.
 5. **`project` required** — pass `-Project` / `--project` or set `VAULT_PROJECT` (never empty).
 
@@ -21,15 +21,23 @@ User does **not** need `/vault-daily` after every task. `/vault-daily` is for **
 
 ## Path resolution (P0)
 
-Daily file: `vault/daily/<today>__<project>.md` (slug = `VAULT_PROJECT`).
+Daily file: `vault/projects/<project>/daily/<today>.md` (slug = `VAULT_PROJECT` or `-Project`).
 
-First existing vault root: `agent-skills/vault/` · `SKILLS-AI/vault/` · `AI/vault/` · `.cursor/vault/`. Manifest: `vault/_agent/manifest.json`. Detail: [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Daily file.
+First existing vault root: `agent-skills/vault/` · `AI/vault/` · `.cursor/vault/`. Manifest: `vault/_agent/manifest.json`. Detail: [vault-capture/reference.md](../../ai-skills/vault-capture/reference.md) § Daily file.
 
-Legacy `vault/daily/<today>.md` (no project) → migrate to `…__unknown.md` or ask once for `VAULT_DEFAULT_PROJECT`.
+Canonical tree (no top-level `vault/daily/`):
+
+```text
+vault/projects/{slug}/
+  hub.md
+  daily/YYYY-MM-DD.md
+  sessions/
+  decisions/
+```
 
 ## Steps
 
-1. **Append** — from pack root: `scripts/vault/append-daily.ps1 -Project <slug> -Bullet "..."` (or `.sh --project … --bullet`). `-Issue` for bugs. Dual-write remote if `VAULT_REMOTE_URL` + `VAULT_AGENT_TOKEN` set (failure → local only + mention).
+1. **Append** — from pack root: `scripts/vault/append-daily.ps1 -Project <slug> -Bullet "..."` (or `.sh --project … --bullet`). `-Issue` for bugs. Local write first; dual-write `POST …/vault/projects/{slug}/daily/{date}/entries` when `VAULT_REMOTE_URL` + `VAULT_AGENT_TOKEN` set (failure → `REMOTE skip`, local still OK).
 2. **Issues row** — `-Issue` only for blockers; routine uses `-Bullet`.
 
 ## vs vault skills
@@ -37,7 +45,7 @@ Legacy `vault/daily/<today>.md` (no project) → migrate to `…__unknown.md` or
 | Mechanism | Role |
 |-----------|------|
 | **autolog** | Bullet after verify (per project daily) |
-| `/vault-capture` | Session / ADR + hub |
+| `/vault-capture` | Session / ADR under `projects/{slug}/…` + hub |
 | `/vault-daily` | Triage + promote |
 
 Vault write fail → mention once; do not block user task.

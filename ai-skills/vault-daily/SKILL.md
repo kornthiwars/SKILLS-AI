@@ -23,7 +23,7 @@ disable-model-invocation: true
 |------|--------|----------|
 | End of day / สรุปส่งรายงาน | Triage preview → confirm → daily update | Only after `ok` / `yes` |
 | Issues review | Merge into `## Issues วันนี้` | — |
-| `keep_decision` / `keep_learning` | Promote to `decisions/` or `sessions/` | After confirm |
+| `keep_decision` / `keep_learning` | Promote to `projects/{slug}/decisions/` or `…/sessions/` | After confirm |
 
 ## Handoffs (other skills in this pack)
 
@@ -36,40 +36,40 @@ disable-model-invocation: true
 
 ## Iron law
 
-**Do not promote** to `vault/decisions/`, `sessions/`, or `projects/` until user confirms triage preview (`ok`, `yes`, `go`).
+**Do not promote** to `vault/projects/*/decisions/`, `…/sessions/`, or hub until user confirms triage preview (`ok`, `yes`, `go`).
 
 ## Scope Guardrails
 
 Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails. Skill-specific:
 
-- ALWAYS one daily file per calendar day — merge on re-run (increment `runs`, `updated_at`)
+- ALWAYS one daily file per calendar day **per project** — `projects/{slug}/daily/YYYY-MM-DD.md` (merge on re-run: increment `runs`, `updated_at`)
 - NEVER store secrets in vault notes
 - ALWAYS upsert manifest after each promote
 - ALWAYS **infer `project`** and run **project hub ensure** after promoting `keep_decision` or `keep_learning` — same rules as [`/vault-capture`](../vault-capture/SKILL.md) step 8 ([reference](../vault-capture/reference.md) § Infer project · § Project hub auto-ensure)
 
 ## Workflow
 
-0. If today's daily **missing** → create from `template.vault-daily.md` per [vault-capture/reference.md](../vault-capture/reference.md) § Daily file
-1. Resolve today → daily path per [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) § Path resolution
+0. If today's project daily **missing** → create via `append-daily -Project <slug>` or from `template.vault-daily.md` per [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc)
+1. Resolve today → daily path per [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc) § Path resolution (`VAULT_PROJECT` / inferred slug)
 2. Load and **merge** if exists; else create from [reference.md](./reference.md)
 3. Gather tasks/issues from chat (+ optional `git log --since=midnight`)
 4. Update sections: สรุปงานวันนี้, Issues วันนี้, `carry_over` in frontmatter
 5. `Read` `vault/_agent/manifest.json` — for each `keep_*` triage, dedupe by `id`/slug/title
 6. Present **Triage preview** — **STOP for confirm**
 7. After confirm → promote (from `templates/vault/notes/template.vault-*.md`):
-   - `keep_decision` → `template.vault-decision.md` → `vault/decisions/<topic-slug>.md`
-   - `keep_learning` → `template.vault-session.md` → `vault/sessions/<topic-slug>.md`
-   - `keep_project` → `template.vault-project.md` → `vault/projects/<name>.md`
+   - `keep_decision` → `template.vault-decision.md` → `vault/projects/<project>/decisions/<topic-slug>.md`
+   - `keep_learning` → `template.vault-session.md` → `vault/projects/<project>/sessions/<topic-slug>.md`
+   - `keep_project` → `template.vault-project.md` → `vault/projects/<name>/hub.md`
    - For `keep_decision` / `keep_learning`: **infer `project`** per [vault-capture/reference.md](../vault-capture/reference.md) § Infer project — set in frontmatter before write
    - New decisions default `status: draft` unless user says active
 8. Upsert manifest for each promoted/updated durable file (`tags` required)
 9. For each promoted **session or decision**: **project hub ensure** per [vault-capture/reference.md](../vault-capture/reference.md) § Project hub auto-ensure (hub create/update, primary backlink, `proj-*` manifest upsert)
-10. Link from daily `## Promoted` using wikilinks — e.g. `[[decisions/slug]]`, `[[projects/<project>]]` — dedupe lines hub ensure already added; no duplicate full decision body
+10. Link from daily `## Promoted` using wikilinks — e.g. `[[projects/<project>/decisions/slug]]`, `[[projects/<project>/hub]]` — dedupe lines hub ensure already added; no duplicate full decision body
 11. Output **สรุปส่งรายงาน** block (Thai bullets, copy-paste ready) — include inferred project + hub path when step 9 ran
 
 ## Obsidian (human)
 
-Obsidian users may open today's daily via **Daily notes** hotkey (`daily/YYYY-MM-DD.md`). Agent path resolution unchanged — see [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc).
+Obsidian Daily Notes may need folder `projects/<slug>/daily` (core plugin has no `{slug}` expansion). Seeded config starts at `projects` — adjust per workspace. Agent path resolution: [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc).
 
 ## SKILL REPORT
 

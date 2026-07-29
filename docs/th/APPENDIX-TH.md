@@ -146,7 +146,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 
 **Wikilinks:** `[[sessions/slug]]` — ไม่ใส่ `notes/` prefix
 
-**Autolog (หลัง patch+verify):** `append-daily.ps1` / `.sh` — UTF-8 safe, แทรก bullet หลัง H2 แรกใน daily; reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`**
+**Autolog (หลัง patch+verify):** `append-daily.ps1` / `.sh` — UTF-8 safe, แทรก bullet หลัง H2 แรกใน daily; reply **`Vault daily: updated vault/projects/{slug}/daily/YYYY-MM-DD.md`**
 
 **Archive (หลัง triage):** `archive-daily.ps1` — ย้าย daily เก่า → `daily/archive/YYYY/` (default: เก่ากว่า 14 วัน)
 
@@ -164,7 +164,7 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 | Skill | ใช้เมื่อ |
 |-------|----------|
 | `/vault-daily` | สรุปงานวัน + triage + promote (confirm ก่อน) + อัป manifest |
-| `/vault-capture` | บันทึก session / ADR — infer project + auto hub `projects/<slug>.md`; dedupe manifest |
+| `/vault-capture` | บันทึก session / ADR — infer project + auto hub `projects/<slug>/hub.md`; dedupe manifest |
 | `/vault-recall` | อ่าน manifest → `grep-vault` / Read → cite |
 
 **เชื่อม skill เก่า:** ดู `ai-skills/vault-capture/reference.md` § Integration
@@ -281,6 +281,6 @@ ARTIFACTS | NEXT ACTIONS | HANDOFF | CONFIDENCE
 1. `./scripts/smoke-preflight.sh` — validate-skills + APPENDIX §1 version sync  
 2. **Reload Cursor**  
 3. Fresh chat — DYNAMIC **#1, #2, #9, #11, #12, #14, #16** (บันทึก Y/N ใน pass log)  
-4. ทด `append-daily.ps1 -Bullet "test"` — ต้องได้ OK + bullet ใต้ summary H2 (ไม่ error UTF-8)
+4. ทด `append-daily.ps1 -Project platform -Bullet "test"` — ต้องได้ OK + bullet ใต้ summary H2 (ไม่ error UTF-8)
 
 รายละเอียด EN: [SKILL-SMOKE-CHECKLIST.md](../SKILL-SMOKE-CHECKLIST.md) § Meta release

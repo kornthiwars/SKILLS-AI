@@ -21,7 +21,7 @@ Retrieve context from local vault using agent tools — **`grep-vault`** shell s
 
 | Query type | First action |
 |------------|--------------|
-| Date / "เมื่อวาน" / daily summary | `Read` resolved `vault/daily/<date>.md` |
+| Date / "เมื่อวาน" / daily summary | `Read` resolved `vault/projects/<project>/daily/<date>.md` |
 | Decision / technical keyword | Manifest shortlist → `grep-vault` or per-file Grep |
 | Architecture / policy before change | Manifest + `decisions/` tier first |
 

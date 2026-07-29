@@ -8,6 +8,6 @@ Domain index (not a Cursor skill). Vault is local Obsidian notes (gitignored).
 | [vault-recall](../vault-recall/SKILL.md) | `/vault-recall` | Search + cite vault notes |
 | [vault-daily](../vault-daily/SKILL.md) | `/vault-daily` | End-of-day triage · promote |
 
-**Autolog (rule):** after verified app patch → bullet in `vault/daily/<today>.md` via [vault-autolog](../../ai-rules/workflow/vault-autolog.mdc).
+**Autolog (rule):** after verified app patch → bullet in `vault/projects/{slug}/daily/<today>.md` via `-Project` via [vault-autolog](../../ai-rules/workflow/vault-autolog.mdc).
 
 Schemas: [templates/vault/README.md](../../templates/vault/README.md)

@@ -316,7 +316,7 @@ Canonical list for close-out `ARTIFACTS` — map to workflow phase outputs:
 | 3 | Responsive breakpoints defined — not one width only |
 | 4 | Browser/runtime check on critical path if UI behavior claimed — use Cursor browser MCP (`browser_snapshot`, `browser_take_screenshot`) per [scrutinize/reference.md](../scrutinize/reference.md) § Browser / UI review |
 | 5 | **Callee redirect cleanup** — if implementation changed call targets, grep old symbols per [`callee-redirect-cleanup.mdc`](../../ai-rules/patching/callee-redirect-cleanup.mdc) |
-| 6 | **Vault autolog** — [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): `Read` `templates/vault/notes/template.vault-daily.md` if missing → `Write` `vault/daily/<today>.md` → `append-daily`; reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`** |
+| 6 | **Vault autolog** — [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): `Read` `templates/vault/notes/template.vault-daily.md` if missing → `append-daily -Project <slug>`; reply **`Vault daily: updated vault/projects/{slug}/daily/YYYY-MM-DD.md`** |
 | 7 | `/scrutinize` before merge |
 
 IDENTIFY → RUN (snapshot/test/story) → READ output → autolog → then pass/reject.

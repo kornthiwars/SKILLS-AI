@@ -131,7 +131,7 @@ flowchart TB
 1. Observe → Reproduce → Diagnose  
 2. Propose minimal patch (respect budget)  
 3. Verify  
-4. **Vault autolog** — bullet ลง `vault/daily/<today>.md` หลัง patch+verify  
+4. **Vault autolog** — bullet ลง `vault/projects/<project>/daily/<today>.md` หลัง patch+verify  
 5. Regression / callee cleanup เมื่อ redirect symbol  
 
 ---

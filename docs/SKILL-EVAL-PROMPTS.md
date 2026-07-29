@@ -33,7 +33,7 @@ Record **Y** / **N** in PR or local notes. Target: ≥1 prompt per core skill pe
 
 | Prompt | Pass criteria |
 |--------|---------------|
-| `/vault-capture` after substantive session | Inferred project + reason; session/decision file; hub `projects/<slug>.md`; manifest upsert with `tags` |
+| `/vault-capture` after substantive session | Inferred project + reason; session/decision file; hub `projects/<slug>/hub.md`; manifest upsert with `tags` |
 
 ---
 
@@ -49,7 +49,7 @@ Record **Y** / **N** in PR or local notes. Target: ≥1 prompt per core skill pe
 
 | Prompt | Pass criteria |
 |--------|---------------|
-| `/vault-daily` at end of day | Triage preview; no promote without confirm; session/decision promote → infer project + hub `projects/<slug>.md`; SKILL REPORT |
+| `/vault-daily` at end of day | Triage preview; no promote without confirm; session/decision promote → infer project + hub `projects/<slug>/hub.md`; SKILL REPORT |
 
 ---
 

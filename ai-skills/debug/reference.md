@@ -324,10 +324,10 @@ Pair with [`minimal-change.mdc`](../../ai-rules/core/minimal-change.mdc) — loc
 
 | Artifact | When | Action |
 |----------|------|--------|
-| Daily bullet | **Mandatory** after verified fix patch | [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): `Read` [`templates/vault/notes/template.vault-daily.md`](../../templates/vault/notes/template.vault-daily.md) if missing → `Write` `vault/daily/<today>.md` → `append-daily`; reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`** |
+| Daily bullet | **Mandatory** after verified fix patch | [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): `Read` [`templates/vault/notes/template.vault-daily.md`](../../templates/vault/notes/template.vault-daily.md) if missing → `append-daily -Project <slug>`; reply **`Vault daily: updated vault/projects/{slug}/daily/YYYY-MM-DD.md`** |
 | Issues row | Bug/blocker user wants tracked | Add row under `## Issues วันนี้` in today's daily (see vault-autolog step 3) |
 | Session note | Optional after fix | [`/vault-capture`](../vault-capture/SKILL.md) — condensed Context/WhatChanged; link PR/commit; **not** full RCA |
-| Prior decisions | Optional before step 1 | [`/vault-recall`](../vault-recall/SKILL.md) when `vault/decisions/` may constrain the fix |
+| Prior decisions | Optional before step 1 | [`/vault-recall`](../vault-recall/SKILL.md) when `vault/projects/*/decisions/` may constrain the fix |
 
 **Autolog vs capture:** bullet in daily is **required** for verified patches; `/vault-capture` is **optional** durable memory.
 
@@ -343,7 +343,7 @@ Before claiming bug fixed (verification-before-completion — IDENTIFY → RUN �
 | 2 RUN | Execute fresh in this session |
 | 3 READ | Full output + exit code |
 | 4 VERIFY | Output matches claim? If no → state actual status |
-| 5 AUTOLOG | After verified fix patch → [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): `Read` `templates/vault/notes/template.vault-daily.md` if missing → `Write` `vault/daily/<today>.md` → `append-daily`; reply **`Vault daily: updated vault/daily/YYYY-MM-DD.md`**. Bug tracked → Issues row in daily |
+| 5 AUTOLOG | After verified fix patch → [`vault-autolog.mdc`](../../ai-rules/workflow/vault-autolog.mdc): `Read` `templates/vault/notes/template.vault-daily.md` if missing → `append-daily -Project <slug>`; reply **`Vault daily: updated vault/projects/{slug}/daily/YYYY-MM-DD.md`**. Bug tracked → Issues row in daily |
 | 6 CLAIM | Only then say fixed / passing |
 
 Forbidden without step 2–3: “should work”, “looks correct”, “done”, “perfect”. Forbidden without step 5 when a verified fix patch ran in the same turn (unless explicit skip reason in reply).

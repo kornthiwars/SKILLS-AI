@@ -2,6 +2,8 @@
 
 Pack schema for Obsidian-native + agent dual-use vault. Runtime notes live in `vault/` (gitignored); this folder is committed in git.
 
+Bootstrap: **PackRoot** = pack that owns `templates/vault/` (script location); **RepoRoot** = where `vault/` runtime is written (`-RepoRoot` / `--repo-root`).
+
 ## Layout
 
 | Path | Purpose |
@@ -12,34 +14,41 @@ Pack schema for Obsidian-native + agent dual-use vault. Runtime notes live in `v
 
 ## Runtime paths (Obsidian vault root = `vault/`)
 
+Canonical (no top-level `daily/` / `sessions/` / `decisions/`):
+
+```text
+vault/projects/{slug}/
+  hub.md
+  daily/YYYY-MM-DD.md
+  sessions/SLUG.md
+  decisions/SLUG.md
+```
+
 | Tier | Schema | Runtime | Manifest `tier` |
 |------|--------|---------|-----------------|
-| Ephemeral | `template.vault-daily.md` | `daily/DATE.md` | `ephemeral` |
-| Episodic | `template.vault-session.md` | `sessions/SLUG.md` | `episodic` |
-| Attempt ledger | `template.attempt-ledger.md` | `sessions/attempt-SLUG.md` | *(retry only — see manifest)* |
-| Semantic (ADR) | `template.vault-decision.md` | `decisions/SLUG.md` | `semantic` |
-| Semantic (project) | `template.vault-project.md` | `projects/SLUG.md` | `semantic` |
+| Ephemeral | `template.vault-daily.md` | `projects/{slug}/daily/DATE.md` | `ephemeral` |
+| Episodic | `template.vault-session.md` | `projects/{slug}/sessions/SLUG.md` | `episodic` |
+| Attempt ledger | `template.attempt-ledger.md` | `projects/{slug}/sessions/attempt-SLUG.md` | *(retry only)* |
+| Semantic (ADR) | `template.vault-decision.md` | `projects/{slug}/decisions/SLUG.md` | `semantic` |
+| Semantic (hub) | `template.vault-project.md` | `projects/{slug}/hub.md` | `semantic` |
 
-Manifest paths are relative to `vault/`, e.g. `sessions/auth-fix.md` (no `notes/` prefix).
+Manifest paths are relative to `vault/`, e.g. `projects/platform/sessions/auth-fix.md`.
 
 ## Placeholders
 
 | Token | Use in | Meaning |
 |-------|--------|---------|
-| `__VAULT_DATE__` | daily | `YYYY-MM-DD` — literal replace only (`.Replace` / `sed`) |
+| `__VAULT_DATE__` | daily | `YYYY-MM-DD` — literal replace only |
 | `__VAULT_ISO__` | daily | ISO8601 for `updated_at` |
-| `SLUG` | session, decision, project | kebab-case filename stem |
-| `TITLE` | session, decision, project | Note title |
-| `PROJECT` | session, decision, project | Workspace project id (e.g. `web`) |
-| `CREATED` | session, decision, project | `YYYY-MM-DD` |
-| `UPDATED` | session, decision, project | `YYYY-MM-DD` |
+| `__VAULT_PROJECT__` | daily | project slug |
+| `SLUG` / `TITLE` / `PROJECT` / `CREATED` / `UPDATED` | session, decision, hub | as named |
 
 ## Manifest entry (schema v2)
 
 ```json
 {
-  "id": "sess-SLUG | dec-SLUG | proj-SLUG | daily-DATE",
-  "path": "sessions/SLUG.md",
+  "id": "sess-SLUG | dec-SLUG | proj-SLUG | daily-DATE__SLUG",
+  "path": "projects/PROJECT/sessions/SLUG.md",
   "title": "TITLE",
   "tier": "ephemeral | episodic | semantic",
   "project": "PROJECT",
@@ -49,66 +58,36 @@ Manifest paths are relative to `vault/`, e.g. `sessions/auth-fix.md` (no `notes/
 }
 ```
 
-Daily manifest entry is optional. Durable tiers: **always upsert** after `Write`.
-
 ## Obsidian conventions
 
-- **Daily Notes:** folder `daily/`, format `YYYY-MM-DD.md` (blank file from hotkey; agent fills schema from pack)
-- **Wikilinks:** `[[sessions/slug]]` in body for graph edges (not `notes/` prefix)
-- **`related:` YAML** — agent metadata only; does not create Obsidian graph edges without Dataview
-- **Note schemas (SSoT):** `templates/vault/notes/template.vault-*.md` in git — agent `Read`/`Write`
-- **Excluded:** `_agent/**` from graph (seed in `obsidian/app.json`)
-
-## Tag taxonomy (optional)
-
-| Tag | Use |
-|-----|-----|
-| `#session` | Episodic capture |
-| `#decision` | ADR |
-| `#project` | Project MOC |
-| `project:web` | Workspace scope in frontmatter `project` field |
+- **Daily Notes:** seeded `daily-notes.json` sets `"folder": "projects"`. Core plugin does not expand `{slug}` — set folder to `projects/<slug>/daily` per vault/workspace, or open the file the agent creates.
+- **Wikilinks:** `[[projects/slug/sessions/note]]`, `[[projects/slug/decisions/note]]`, `[[projects/slug/hub]]`
+- **Excluded:** `_agent/**` from graph; `projects/*/daily/**` from default recall (`tiers.json`)
 
 ## Ephemeral retention
 
-`daily/` is not indexed for broad recall (`index_exclude` in `tiers.json`). Promote durable items via `/vault-daily` triage.
-
-### Daily archive (optional)
-
-After triage, move stale dailies off the hot folder:
-
-| Script | Purpose |
-|--------|---------|
-| `scripts/vault/archive-daily.ps1` | Move `daily/*.md` older than N days → `daily/archive/YYYY/` |
-| `scripts/vault/archive-daily.sh` | Same on macOS/Linux |
+After triage, archive stale dailies:
 
 ```powershell
-# Default: older than 14 days (excludes recent dailies)
 .\scripts\vault\archive-daily.ps1
-
-# Archive everything before a date (after promote)
-.\scripts\vault\archive-daily.ps1 -BeforeDate 2026-07-01
-
-# Preview only
+.\scripts\vault\archive-daily.ps1 -Project platform -BeforeDate 2026-07-01
 .\scripts\vault\archive-daily.ps1 -DryRun
 ```
 
-Archived paths stay under `daily/**` — still excluded from default recall. Use `grep-vault` with path if needed.
-
-Frontmatter dates: prefer `YYYY-MM-DD` for `created`/`updated`; ISO8601 acceptable for `updated_at` on daily files only.
-
-## Obsidian quick start
-
-1. Obsidian → Open folder → `agent-skills/vault` (legacy `SKILLS-AI/vault`) or `.cursor/vault` junction
-2. Run `scripts/vault/bootstrap-vault.ps1 -Verify` once
-3. Daily notes hotkey → creates/opens blank `daily/YYYY-MM-DD.md`
-4. Schemas → `templates/vault/notes/` in repo (not inside vault)
+Moves `projects/*/daily/*.md` → `projects/*/daily/archive/YYYY/`.
 
 ## Seed policy
 
 | Target | Policy |
 |--------|--------|
-| `vault/.obsidian/*` | Copy-if-missing only (never overwrite user settings) |
-| `vault/_agent/*` | Create from meta template if missing |
-| `vault/daily/YYYY-MM-DD.md` | Bootstrap seeds from template if missing (today only) |
+| `vault/.obsidian/*` | Copy-if-missing |
+| `vault/_agent/*` | From meta templates if missing |
+| `vault/projects/{slug}/…` | Bootstrap with `-Project` / `VAULT_PROJECT`; else empty `projects/` until first append/capture |
 
-Durable notes (sessions, decisions, projects) — agent or Obsidian creates them.
+## Setup
+
+```powershell
+$env:VAULT_PROJECT = 'platform'
+.\scripts\vault\bootstrap-vault.ps1 -Verify
+.\scripts\vault\append-daily.ps1 -Project platform -Bullet "smoke"
+```

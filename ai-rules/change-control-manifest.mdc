@@ -45,7 +45,7 @@ Forbidden without fresh evidence: "should work", "looks correct", "done", `READY
 
 When the user says still broken / rejects a patch, **before** the next patch:
 
-1. **Disk first** — `Read` existing `vault/sessions/attempt-*.md` for this issue if present; else create from [`templates/vault/notes/template.attempt-ledger.md`](../templates/vault/notes/template.attempt-ledger.md) → `vault/sessions/attempt-<slug>.md` (vault is gitignored).
+1. **Disk first** — `Read` existing `vault/projects/<project>/sessions/attempt-*.md` for this issue if present; else create from [`templates/vault/notes/template.attempt-ledger.md`](../templates/vault/notes/template.attempt-ledger.md) → `vault/projects/<project>/sessions/attempt-<slug>.md` (`VAULT_PROJECT` / infer project; vault is gitignored).
 2. Append one ledger row (max **5** rows total) and mirror the table in the reply:
 
    | # | Change tried | Files / locus | Outcome | Why ruled out |
@@ -53,7 +53,7 @@ When the user says still broken / rejects a patch, **before** the next patch:
 
 3. `Read` **current** source files on disk — do not reconstruct from chat prose or restore pre-fix code.
 4. Next patch must differ from every ledger row (new hypothesis or new locus).
-5. Blockers may also use `scripts/vault/append-daily.ps1 -Issue "retry: …"`.
+5. Blockers may also use `scripts/vault/append-daily.ps1 -Project <slug> -Issue "retry: …"`.
 
 **Forbidden on retry:** skip the disk ledger · re-offer a prior row · paste “original” code already shown not to work · skipping the Attempt ledger on retry.
 

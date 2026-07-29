@@ -1,5 +1,5 @@
 #Requires -Version 5.1
-# Append bullet and/or Issues row to today's daily for one project (vault autolog).
+# Append bullet and/or Issues row to today's project daily (local primary + optional API dual-write).
 param(
     [string]$Bullet = '',
     [string]$Issue = '',
@@ -18,12 +18,12 @@ if (-not $Project.Trim()) {
     $Project = [string]$env:VAULT_PROJECT
 }
 if (-not $Project.Trim()) {
-    throw 'Provide -Project or set VAULT_PROJECT (required for daily-per-project)'
+    throw 'Provide -Project or set VAULT_PROJECT (required)'
 }
 
 $Project = $Project.Trim().ToLowerInvariant()
 if ($Project.Length -gt 64 -or $Project -notmatch '^[a-z0-9_-]+$') {
-    throw 'Project must be [a-z0-9_-] length 1–64'
+    throw 'Project must be [a-z0-9_-] length 1-64'
 }
 
 if (-not $RepoRoot) {
@@ -32,7 +32,6 @@ if (-not $RepoRoot) {
     $RepoRoot = (Resolve-Path -LiteralPath $RepoRoot).Path
 }
 
-# Template always from pack (script location); daily file under RepoRoot vault.
 $PackRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $TemplateFile = Join-Path $PackRoot 'templates\vault\notes\template.vault-daily.md'
 if (-not (Test-Path -LiteralPath $TemplateFile)) {
@@ -72,13 +71,13 @@ function Get-DailySummaryInsertIndex([string]$Content) {
     return $fm.Length + $h2.Index + $h2.Length
 }
 
-function Send-VaultRemoteEvent {
+function Send-VaultRemoteEntry {
     param([string]$Date, [string]$Proj, [string]$Kind, [string]$Text)
     $base = [string]$env:VAULT_REMOTE_URL
     $token = [string]$env:VAULT_AGENT_TOKEN
     if (-not $base.Trim() -or -not $token.Trim()) { return }
     $base = $base.TrimEnd('/')
-    $uri = "$base/vault/v2/daily/$Date/projects/$Proj/events"
+    $uri = "$base/vault/projects/$Proj/daily/$Date/entries"
     try {
         $body = @{ kind = $Kind; text = $Text; source = 'append-daily' } | ConvertTo-Json -Compress
         Invoke-RestMethod -Method Post -Uri $uri -Headers @{ Authorization = "Bearer $token" } -ContentType 'application/json' -Body $body -TimeoutSec 8 | Out-Null
@@ -90,12 +89,21 @@ function Send-VaultRemoteEvent {
 
 $date = Get-Date -Format 'yyyy-MM-dd'
 $iso = Get-Date -Format 'yyyy-MM-ddTHH:mm:sszzz'
-$dailyFile = Join-Path $RepoRoot "vault\daily\${date}__${Project}.md"
-$dailyDir = Split-Path -Parent $dailyFile
+$projectRoot = Join-Path $RepoRoot "vault\projects\$Project"
+$dailyFile = Join-Path $projectRoot "daily\$date.md"
+$vaultRoot = Join-Path $RepoRoot 'vault'
 
-if (-not (Test-Path -LiteralPath $dailyDir)) {
+if (-not (Test-Path -LiteralPath $vaultRoot)) {
     throw "Vault layout missing: run scripts/vault/bootstrap-vault.ps1 -Verify first"
 }
+
+foreach ($sub in @('daily', 'sessions', 'decisions')) {
+    $d = Join-Path $projectRoot $sub
+    if (-not (Test-Path -LiteralPath $d)) {
+        New-Item -ItemType Directory -Path $d -Force | Out-Null
+    }
+}
+
 if (-not (Test-Path -LiteralPath $dailyFile)) {
     New-DailyFromTemplate -Target $dailyFile -Template $TemplateFile -Date $date -Iso $iso -Proj $Project
     Write-Output "INIT daily created"
@@ -104,7 +112,6 @@ if (-not (Test-Path -LiteralPath $dailyFile)) {
 $content = Read-VaultText $dailyFile
 $content = $content -replace "`r`n", "`n"
 
-# Ensure project frontmatter
 if ($content -match '(?m)^project:\s*') {
     $content = [regex]::Replace($content, '(?m)^project:\s*.*$', "project: `"$Project`"")
 } else {
@@ -118,12 +125,15 @@ if ($content -match 'runs:\s*(\d+)') {
 }
 $content = $content -replace 'updated_at:\s*"[^"]*"', "updated_at: `"$iso`""
 
+$remoteBullet = $null
+$remoteIssue = $null
+
 if ($Bullet.Trim()) {
     $bulletLine = if ($Bullet.TrimStart().StartsWith('-')) { $Bullet.Trim() } else { "- $Bullet" }
     if ($content -notmatch [regex]::Escape($bulletLine)) {
         $insertAt = Get-DailySummaryInsertIndex $content
         $content = $content.Insert($insertAt, "`n$bulletLine`n")
-        Send-VaultRemoteEvent -Date $date -Proj $Project -Kind 'bullet' -Text ($Bullet.Trim() -replace '^-+\s*', '')
+        $remoteBullet = ($Bullet.Trim() -replace '^-+\s*', '')
     } else {
         Write-Output "SKIP duplicate bullet"
     }
@@ -137,12 +147,19 @@ if ($Issue.Trim()) {
         if (-not $sepMatch.Success) { throw 'Missing Issues table separator in daily file' }
         $insertAt = $sepMatch.Index + $sepMatch.Length
         $content = $content.Insert($insertAt, "`n$issueRow")
-        Send-VaultRemoteEvent -Date $date -Proj $Project -Kind 'issue' -Text $Issue.Trim()
+        $remoteIssue = $Issue.Trim()
     } else {
         Write-Output "SKIP duplicate issue row"
     }
 }
 
 Write-VaultText $dailyFile $content
+if ($null -ne $remoteBullet) {
+    Send-VaultRemoteEntry -Date $date -Proj $Project -Kind 'bullet' -Text $remoteBullet
+}
+if ($null -ne $remoteIssue) {
+    Send-VaultRemoteEntry -Date $date -Proj $Project -Kind 'issue' -Text $remoteIssue
+}
+
 Write-Output "OK runs=$runs project=$Project"
 Write-Output $dailyFile

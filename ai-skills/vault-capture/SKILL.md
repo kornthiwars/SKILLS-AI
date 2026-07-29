@@ -49,7 +49,7 @@ Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails
 
 ## Workflow
 
-0. **Optional daily link** — if `vault/daily/<today>.md` exists, wikilink in step 8e; do not auto-create daily
+0. **Optional daily link** — if `vault/projects/<project>/daily/<today>.md` exists, wikilink in step 8e; do not auto-create daily
 1. Infer topic slug and tier (`sessions` episodic, `decisions` semantic ADR, `projects` semantic)
 2. **Infer project** (mandatory for `sessions/` and `decisions/`; skip when tier is `projects/`):
    - Collect signals: patched paths, git root / cwd, conversation topic, manifest `proj-*` entries, dedupe frontmatter `project`
@@ -62,24 +62,24 @@ Pack defaults: [`SKILL-AUTHORING.md`](../SKILL-AUTHORING.md) § Scope Guardrails
    - If match → update existing file at `path`; else create new
 5. Write frontmatter: `id`, `title`, `tags`, `project`, `related`, `status` (+ `intent` when from fix-record/builder)
 6. Sections — by tier (`templates/vault/notes/template.vault-*.md`):
-   - `sessions`: `template.vault-session.md`
-   - `decisions`: `template.vault-decision.md`
-   - `projects`: `template.vault-project.md`
+   - `sessions` → `vault/projects/<project>/sessions/<slug>.md` from `template.vault-session.md`
+   - `decisions` → `vault/projects/<project>/decisions/<slug>.md`
+   - `projects` → `vault/projects/<project>/hub.md`
 7. Upsert manifest entry for primary: `{id, path, title, tier, project, status, updated, tags}` — **`tags` required**; set `updated_at` on manifest
 8. **Project hub ensure** (mandatory when tier is `sessions/` or `decisions/`):
-   - `hubPath` = `projects/<project>.md` (slug equals inferred `project`)
+   - `hubPath` = `projects/<project>/hub.md` (slug equals inferred `project`)
    - If hub **missing** → `Read` `template.vault-project.md` → replace placeholders → `Write` hub (Overview: one line from capture context)
-   - If hub **exists** → `Read` hub → **append** in `## Links` only: `- [[sessions/slug]]` or `- [[decisions/slug]]` if that line absent
-   - **Backlink** primary: append `Hub: [[projects/<project>]]` at end of **Context** if absent
-   - If `vault/daily/<today>.md` **exists** → append in `## Promoted`: `[[projects/<project>]]` and primary wikilink if absent
-   - Upsert manifest `proj-<project>` (`tier: semantic`, `tags: []` or `[project]`)
+   - If hub **exists** → `Read` hub → **append** in `## Links` only: `- [[projects/<project>/sessions/slug]]` or `- [[projects/<project>/decisions/slug]]` if that line absent
+   - **Backlink** primary: append `Hub: [[projects/<project>/hub]]` at end of **Context** if absent
+   - If `vault/projects/<project>/daily/<today>.md` **exists** → append in `## Promoted`: `[[projects/<project>/hub]]` and primary wikilink if absent
+   - Upsert manifest `proj-<project>` (`path: projects/<project>/hub.md`, `tier: semantic`, `tags: []` or `[project]`)
 9. Report: **Inferred project** + one-line reason, primary path, hub path (`created` | `updated`), manifest ids touched
 
 **Do not** run `append-daily` bullet in capture — autolog / `/vault-daily` owns daily bullets.
 
 ## Manifest upsert
 
-Path in manifest is relative to `vault/`, e.g. `sessions/auth-fix.md`.
+Path in manifest is relative to `vault/`, e.g. `projects/platform/sessions/auth-fix.md`.
 
 ## SKILL REPORT
 

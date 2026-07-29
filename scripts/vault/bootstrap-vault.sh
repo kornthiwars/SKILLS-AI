@@ -1,28 +1,32 @@
 #!/usr/bin/env bash
-# Bootstrap Obsidian-native vault layout + _agent catalog (no Python).
-# Seeds vault/daily/YYYY-MM-DD.md from template when missing.
+# Bootstrap greenfield vault: projects/{slug}/{hub,daily,sessions,decisions} + _agent + .obsidian
+# PackRoot (templates) = script pack; Vault runtime = REPO_ROOT
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+PACK_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+REPO_ROOT="$PACK_ROOT"
 VERIFY=0
+PROJECT="${VAULT_PROJECT:-}"
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --verify) VERIFY=1; shift ;;
+    --project) PROJECT="$2"; shift 2 ;;
     --repo=*) REPO_ROOT="${1#--repo=}"; shift ;;
+    --repo-root) REPO_ROOT="$2"; shift 2 ;;
     *) echo "Unknown arg: $1" >&2; exit 1 ;;
   esac
 done
 
 VAULT="$REPO_ROOT/vault"
 AGENT="$VAULT/_agent"
-TEMPLATES_PACK="$REPO_ROOT/templates/vault"
+PROJECTS_ROOT="$VAULT/projects"
+TEMPLATES_PACK="$PACK_ROOT/templates/vault"
 META_PACK="$TEMPLATES_PACK/meta"
 NOTES_PACK="$TEMPLATES_PACK/notes"
 OBSIDIAN_PACK="$TEMPLATES_PACK/obsidian"
 OBSIDIAN_RUNTIME="$VAULT/.obsidian"
 
-NOTE_DIRS=(daily decisions sessions projects)
 PACK_TEMPLATES=(
   template.vault-daily.md
   template.vault-session.md
@@ -31,8 +35,7 @@ PACK_TEMPLATES=(
 )
 
 ensure_file_from_template() {
-  local target="$1"
-  local template="$2"
+  local target="$1" template="$2"
   [ -f "$target" ] && return 0
   [ -f "$template" ] || { echo "Missing template: $template" >&2; exit 1; }
   mkdir -p "$(dirname "$target")"
@@ -40,41 +43,45 @@ ensure_file_from_template() {
 }
 
 copy_if_missing() {
-  local source="$1"
-  local dest="$2"
+  local source="$1" dest="$2"
   [ -f "$dest" ] && return 0
   [ -f "$source" ] || { echo "Missing seed: $source" >&2; exit 1; }
   mkdir -p "$(dirname "$dest")"
   cp "$source" "$dest"
 }
 
-ensure_today_daily() {
-  local daily_dir="$1"
-  local template_file="$2"
-  local date iso daily_file daily_id project
-  project="${VAULT_PROJECT:-}"
-  if [ -z "$project" ]; then
-    echo "SKIP seed daily — set VAULT_PROJECT to create vault/daily/YYYY-MM-DD__{project}.md"
-    return 0
+ensure_project_tree() {
+  local slug="$1"
+  slug="$(printf '%s' "$slug" | tr '[:upper:]' '[:lower:]')"
+  case "$slug" in
+    ''|*[!a-z0-9_-]*) echo "Project slug must be [a-z0-9_-]" >&2; exit 1 ;;
+  esac
+  local root="$PROJECTS_ROOT/$slug"
+  mkdir -p "$root/daily" "$root/sessions" "$root/decisions"
+  local hub="$root/hub.md"
+  local hub_template="$NOTES_PACK/template.vault-project.md"
+  if [ ! -f "$hub" ]; then
+    [ -f "$hub_template" ] || { echo "Missing template: $hub_template" >&2; exit 1; }
+    local iso
+    iso="$(date +%Y-%m-%d)"
+    sed "s/proj-SLUG/proj-$slug/g; s/TITLE/$slug/g; s/\"PROJECT\"/\"$slug\"/g; s/CREATED/$iso/g; s/UPDATED/$iso/g" "$hub_template" > "$hub"
+    echo "INIT hub: $hub"
   fi
-  project="$(printf '%s' "$project" | tr '[:upper:]' '[:lower:]')"
+  local date iso daily_id daily_file daily_template
   date="$(date +%Y-%m-%d)"
   iso="$(date -Iseconds)"
-  daily_id="daily-${date}__${project}"
-  daily_file="$daily_dir/${date}__${project}.md"
-  [ -f "$daily_file" ] && return 0
-  [ -f "$template_file" ] || { echo "Missing template: $template_file" >&2; exit 1; }
-  sed "s/__VAULT_DAILY_ID__/$daily_id/g; s/__VAULT_DATE__/$date/g; s/__VAULT_ISO__/$iso/g; s/__VAULT_PROJECT__/$project/g" "$template_file" > "$daily_file"
-  echo "INIT daily created: $daily_file"
+  daily_id="daily-${date}__${slug}"
+  daily_file="$root/daily/$date.md"
+  daily_template="$NOTES_PACK/template.vault-daily.md"
+  if [ ! -f "$daily_file" ]; then
+    [ -f "$daily_template" ] || { echo "Missing template: $daily_template" >&2; exit 1; }
+    sed "s/__VAULT_DAILY_ID__/$daily_id/g; s/__VAULT_DATE__/$date/g; s/__VAULT_ISO__/$iso/g; s/__VAULT_PROJECT__/$slug/g" "$daily_template" > "$daily_file"
+    echo "INIT daily: $daily_file"
+  fi
 }
 
-mkdir -p "$VAULT"
+mkdir -p "$VAULT" "$PROJECTS_ROOT" "$AGENT"
 [ -f "$VAULT/.gitkeep" ] || touch "$VAULT/.gitkeep"
-
-for name in "${NOTE_DIRS[@]}"; do
-  mkdir -p "$VAULT/$name"
-done
-mkdir -p "$AGENT"
 
 ensure_file_from_template "$AGENT/tiers.json" "$META_PACK/tiers.template.json"
 ensure_file_from_template "$AGENT/manifest.json" "$META_PACK/manifest.template.json"
@@ -87,18 +94,28 @@ if [ -d "$OBSIDIAN_PACK" ]; then
   done
 fi
 
-ensure_today_daily "$VAULT/daily" "$NOTES_PACK/template.vault-daily.md"
+if [ -n "$PROJECT" ]; then
+  ensure_project_tree "$PROJECT"
+else
+  echo "SKIP project subtree - set VAULT_PROJECT or --project to seed projects/{slug}/"
+fi
 
 if [ "$VERIFY" -eq 1 ]; then
-  for name in "${NOTE_DIRS[@]}"; do
-    [ -d "$VAULT/$name" ] || { echo "Verify failed: missing $name" >&2; exit 1; }
-  done
+  [ -d "$PROJECTS_ROOT" ] || { echo "Verify failed: missing projects" >&2; exit 1; }
   for f in tiers.json manifest.json; do
     [ -f "$AGENT/$f" ] || { echo "Verify failed: missing _agent/$f" >&2; exit 1; }
   done
   for t in "${PACK_TEMPLATES[@]}"; do
     [ -f "$NOTES_PACK/$t" ] || { echo "Verify failed: missing templates/vault/notes/$t" >&2; exit 1; }
   done
+  if [ -n "$PROJECT" ]; then
+    slug="$(printf '%s' "$PROJECT" | tr '[:upper:]' '[:lower:]')"
+    root="$PROJECTS_ROOT/$slug"
+    for sub in daily sessions decisions; do
+      [ -d "$root/$sub" ] || { echo "Verify failed: missing projects/$slug/$sub" >&2; exit 1; }
+    done
+    [ -f "$root/hub.md" ] || { echo "Verify failed: missing projects/$slug/hub.md" >&2; exit 1; }
+  fi
 fi
 
 printf 'OK  vault bootstrap: %s\n' "$VAULT"

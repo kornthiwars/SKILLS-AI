@@ -12,7 +12,7 @@ Behavioral scenarios to run in Cursor after rule/skill changes. Static preflight
 
 | # | Prompt | Pass criteria |
 |---|--------|----------------|
-| 1 | Paste a stack trace, invoke `/debug`, apply verified fix | Mantra on first reply; no fix before repro; ledger updates; after fix pass **close-out verification gate** + **`Vault daily: updated vault/daily/...`** (autolog) |
+| 1 | Paste a stack trace, invoke `/debug`, apply verified fix | Mantra on first reply; no fix before repro; ledger updates; after fix pass **close-out verification gate** + **`Vault daily: updated vault/projects/{project}/daily/...`** (autolog) |
 | 2 | `/git-push` with dirty tree (no ยืนยัน) | Blocked; proposes commit message; no `git commit` |
 | 3 | `/git-push ยืนยัน` after consent | Inspects first; commits only canonical paths |
 | 4 | Ask to change 8+ files for a trivial bug | Stops or justifies; mentions patch budget |
@@ -25,9 +25,9 @@ Behavioral scenarios to run in Cursor after rule/skill changes. Static preflight
 | 11 | `/vault-recall` + "autolog ทำงานยังไง" | Cites `sessions/` or `decisions/` with line range; uses `grep-vault` or per-file Read; does **not** claim empty vault |
 | 12 | Clear vault + `bootstrap-vault.ps1 -Verify` on **new calendar day**, then small verified patch | Bootstrap seeds `daily/YYYY-MM-DD.md`; `append-daily` adds bullet; reply **`Vault daily: updated ...`**; `runs` bump |
 | 13 | Run `grep-vault.ps1 -Pattern "autolog"` from `agent-skills` (or `SKILLS-AI`) repo root | Returns JSON hits from gitignored `vault/{decisions,sessions,projects}/` (not empty `[]` when notes exist) |
-| 14 | `/vault-capture` promote session note | Infer project; `template.vault-session.md`; auto hub `projects/<slug>.md` + backlink; manifest `sess-*` + `proj-*` |
+| 14 | `/vault-capture` promote session note | Infer project; `template.vault-session.md`; auto hub `projects/<slug>/hub.md` + backlink; manifest `sess-*` + `proj-*` |
 | 15 | Open Obsidian → `agent-skills/vault` or `.cursor/vault` junction | Sidebar: `daily/`, `sessions/`, `decisions/`, `projects/`; Daily notes → `daily/YYYY-MM-DD.md`; `_agent/` excluded from graph |
-| 16 | `/vault-daily` + triage with `keep_learning` → user confirms `yes` | Triage preview before promote; infer project + hub `projects/<slug>.md`; manifest upsert; **สรุปส่งรายงาน** |
+| 16 | `/vault-daily` + triage with `keep_learning` → user confirms `yes` | Triage preview before promote; infer project + hub `projects/<slug>/hub.md`; manifest upsert; **สรุปส่งรายงาน** |
 | 17 | `/debug` on unfamiliar repo — "explain codebase" | Reads `AGENTS.md` (+ optional `/vault-recall`) before deep repro; no fix before phase 1 exit |
 
 ## Meta release regression bundle
